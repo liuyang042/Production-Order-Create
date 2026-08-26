@@ -187,13 +187,16 @@
             border-radius: 32px;
             padding: 1.2rem 2.2rem;
             margin-bottom: 3rem;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 1rem 2.5rem;
             border: 1px solid #e3ebf6;
             box-shadow: inset 0 2px 4px rgba(255,255,255,0.6);
             transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .toc-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
         }
 
         .toc-title {
@@ -215,26 +218,59 @@
             line-height: 1.9;
         }
 
-        .toc-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem 2rem;
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 6px 20px;
             list-style: none;
-            flex: 1;
+            padding: 0;
         }
 
-        .toc-list li {
+        .toc-grid li {
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.88rem;
             color: #1a3c57;
+            padding: 4px 0;
             transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .toc-list li::before {
-            content: "▹";
-            color: #3773a8;
-            margin-right: 6px;
+        .toc-grid li .step-num {
+            display: inline-block;
+            background: #dce6f2;
+            color: #1f4b6e;
+            font-size: 0.6rem;
             font-weight: 700;
+            padding: 0 8px;
+            border-radius: 20px;
+            line-height: 1.8;
+            min-width: 28px;
+            text-align: center;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .toc-grid li .step-icon {
+            font-size: 0.75rem;
+            width: 18px;
+            text-align: center;
+        }
+
+        .toc-grid li a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .toc-grid li a:hover {
+            color: #1f4b6e;
+        }
+
+        @media (max-width: 600px) {
+            .toc-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* ========== 章节 ========== */
@@ -269,6 +305,7 @@
         .subsection {
             margin-top: 2.5rem;
             padding-left: 0.5rem;
+            scroll-margin-top: 20px;
         }
 
         .subsection h3 {
@@ -294,6 +331,7 @@
             box-shadow: 0 2px 6px rgba(0,0,0,0.02);
             transition: all 0.3s ease;
             cursor: default;
+            scroll-margin-top: 80px;
         }
 
         .step-desc:hover {
@@ -344,6 +382,19 @@
 
         .step-desc .download-link:hover {
             background: #0b2b4a;
+        }
+
+        .step-desc .sub-operation {
+            margin-top: 8px;
+            font-weight: 400;
+            background: #eaf1fa;
+            padding: 6px 18px;
+            border-radius: 30px;
+            display: inline-block;
+        }
+
+        .step-desc .sub-operation i {
+            margin-right: 6px;
         }
 
         /* ========== 注意事项框 ========== */
@@ -614,6 +665,10 @@
                 background: #2a4058;
                 color: #8ab0d8;
             }
+            .step-desc .sub-operation {
+                background: #2a4058;
+                color: #b8d0e8;
+            }
             .img-card {
                 background: #1a2a3f;
                 border-color: #2a3f5a;
@@ -625,6 +680,13 @@
             .toc {
                 background: #1a2a3f;
                 border-color: #2a3f5a;
+            }
+            .toc-grid li {
+                color: #b8c8d8;
+            }
+            .toc-grid li .step-num {
+                background: #2a4058;
+                color: #8ab0d8;
             }
             .note-box {
                 background: #2a2518;
@@ -685,9 +747,6 @@
             .toc-title {
                 color: #b8c8d8;
             }
-            .toc-list li {
-                color: #b8c8d8;
-            }
             .step-desc .download-link {
                 background: #0b2b4a;
             }
@@ -716,9 +775,10 @@
                 font-size: 1.8rem;
             }
             .toc {
-                flex-direction: column;
-                align-items: flex-start;
                 padding: 1rem 1.5rem;
+            }
+            .toc-grid {
+                grid-template-columns: 1fr;
             }
             .img-grid {
                 flex-direction: column;
@@ -821,9 +881,45 @@
 
     <!-- ========== 目录 ========== -->
     <div class="toc">
-        <div class="toc-title"><i class="fas fa-list-ul"></i> 目录 <span>1 章节</span></div>
-        <ul class="toc-list">
-            <li>一、盖黑工单开单流程</li>
+        <div class="toc-header">
+            <div class="toc-title"><i class="fas fa-list-ul"></i> 目录 <span>7 步骤</span></div>
+        </div>
+        <ul class="toc-grid">
+            <li>
+                <span class="step-num">01</span>
+                <span class="step-icon">✅</span>
+                <a href="#step-1">启动前确认收货</a>
+            </li>
+            <li>
+                <span class="step-num">02</span>
+                <span class="step-icon">📋</span>
+                <a href="#step-2">提交盖黑需求申请</a>
+            </li>
+            <li>
+                <span class="step-num">03</span>
+                <span class="step-icon">🏷️</span>
+                <a href="#step-3">获取黑色销售订单</a>
+            </li>
+            <li>
+                <span class="step-num">04</span>
+                <span class="step-icon">🔄</span>
+                <a href="#step-4">储存地点转销售订单</a>
+            </li>
+            <li>
+                <span class="step-num">05</span>
+                <span class="step-icon">⚙️</span>
+                <a href="#step-5">APO 创建黑色工单</a>
+            </li>
+            <li>
+                <span class="step-num">06</span>
+                <span class="step-icon">🔒</span>
+                <a href="#step-6">锁胚 · 报工 · 发单</a>
+            </li>
+            <li>
+                <span class="step-num">07</span>
+                <span class="step-icon">📦</span>
+                <a href="#step-7">工单投料 & 结束</a>
+            </li>
         </ul>
     </div>
 
@@ -831,13 +927,13 @@
     <div class="section">
         <div class="section-title"><span class="num">一</span> 盖黑工单开单流程</div>
 
-        <!-- 第一步 -->
-        <div class="subsection">
-            <h3><i class="fas fa-check-circle" style="color:#2b5f8a;"></i> 启动前确认</h3>
+        <!-- ===== 第一步 ===== -->
+        <div class="subsection" id="step-1">
+            <h3><i class="fas fa-check-circle" style="color:#2b5f8a;"></i> 第一步：启动前确认收货</h3>
 
             <div class="step-desc" data-step="1">
                 <i class="fas fa-bolt" style="color:#3875ac;"></i> 
-                <strong>第一步：</strong>启动盖黑（或深色）流程前，须先确认该工单已完成收货。若尚未收货，需先行完成收货操作。
+                启动盖黑（或深色）流程前，须先确认该工单已完成收货。若尚未收货，需先行完成收货操作。
                 <span class="remark"><i class="far fa-comment-dots"></i> 收货操作功能代码：<span class="code-inline">ZSOHPP190</span></span>
             </div>
             <div class="img-grid">
@@ -848,13 +944,13 @@
             </div>
         </div>
 
-        <!-- 第二步 -->
-        <div class="subsection">
-            <h3><i class="fas fa-file-signature" style="color:#8a6e9b;"></i> 提交盖黑需求</h3>
+        <!-- ===== 第二步 ===== -->
+        <div class="subsection" id="step-2">
+            <h3><i class="fas fa-file-signature" style="color:#8a6e9b;"></i> 第二步：提交盖黑需求申请</h3>
 
             <div class="step-desc" data-step="2">
                 <i class="fas fa-bolt" style="color:#3875ac;"></i> 
-                <strong>第二步：</strong>确认收货后，由需求部门填写盖黑需求表，并向 PPC 正式提交盖黑申请。
+                确认收货后，由需求部门填写盖黑需求表，并向 PPC 正式提交盖黑申请。
                 <span class="remark">
                     <i class="far fa-comment-dots"></i> 
                     EXCEL 附件下载： 
@@ -871,23 +967,23 @@
             </div>
         </div>
 
-        <!-- 第三步 -->
-        <div class="subsection">
-            <h3><i class="fas fa-tag" style="color:#d99e4a;"></i> 获取销售订单</h3>
+        <!-- ===== 第三步 ===== -->
+        <div class="subsection" id="step-3">
+            <h3><i class="fas fa-tag" style="color:#d99e4a;"></i> 第三步：获取黑色销售订单</h3>
 
             <div class="step-desc" data-step="3">
                 <i class="fas fa-bolt" style="color:#3875ac;"></i> 
-                <strong>第三步：</strong>PPC 提供黑色的销售订单号码，且确认是否需要补开单。
+                PPC 提供黑色的销售订单号码，且确认是否需要补开单。
             </div>
         </div>
 
-        <!-- 第四步 -->
-        <div class="subsection">
-            <h3><i class="fas fa-arrow-right-arrow-left" style="color:#3a6b8f;"></i> 储存地点转销售订单</h3>
+        <!-- ===== 第四步 ===== -->
+        <div class="subsection" id="step-4">
+            <h3><i class="fas fa-arrow-right-arrow-left" style="color:#3a6b8f;"></i> 第四步：储存地点转销售订单</h3>
 
             <div class="step-desc" data-step="4">
                 <i class="fas fa-bolt" style="color:#3875ac;"></i> 
-                <strong>第四步：</strong>操作 TF 儲存地點至銷售訂單（413 E 移动类型）
+                操作 TF 儲存地點至銷售訂單（413 E 移动类型）
                 <span class="remark"><i class="far fa-comment-dots"></i> 操作功能代码：<span class="code-inline">ZSOHWM002</span></span>
             </div>
             <div class="img-grid">
@@ -898,9 +994,9 @@
             </div>
         </div>
 
-        <!-- 第五步 -->
-        <div class="subsection">
-            <h3><i class="fas fa-cogs" style="color:#2b5f8a;"></i> APO 系统创建黑色工单</h3>
+        <!-- ===== 第五步 ===== -->
+        <div class="subsection" id="step-5">
+            <h3><i class="fas fa-cogs" style="color:#2b5f8a;"></i> 第五步：APO 系统创建黑色工单</h3>
 
             <!-- 5-1 -->
             <div class="step-desc" data-step="5-1">
@@ -918,8 +1014,8 @@
             <div class="step-desc" data-step="5-2">
                 <i class="fas fa-bolt" style="color:#3875ac;"></i> 
                 <strong>5-2：</strong>操作功能代码：<span class="code-inline">ZSOH_SE17</span>
-                <div style="margin-top: 8px; font-weight: 400; background: #eaf1fa; padding: 6px 18px; border-radius: 30px; display: inline-block;">
-                    <i class="fas fa-edit"></i> 操作：① 删除 SF0251（補布原因）特性值；② 更改 PG0886（分紗ID）特性值为“F”开头；③ 更改 PF0621（是否已鎖胚）特性值为“Z”
+                <div class="sub-operation">
+                    <i class="fas fa-edit"></i> ① 删除 SF0251（補布原因）特性值；② 更改 PG0886（分紗ID）特性值为“F”开头；③ 更改 PF0621（是否已鎖胚）特性值为“Z”
                 </div>
             </div>
             <div class="img-grid">
@@ -962,8 +1058,8 @@
             <div class="step-desc" data-step="5-4">
                 <i class="fas fa-bolt" style="color:#3875ac;"></i> 
                 <strong>5-4：</strong>操作功能代码：<span class="code-inline">ZSOH_SE17</span>
-                <div style="margin-top: 8px; font-weight: 400; background: #eaf1fa; padding: 6px 18px; border-radius: 30px; display: inline-block;">
-                    <i class="fas fa-edit"></i> 操作：更改 PF0621（是否已鎖胚）特性值为“Y”
+                <div class="sub-operation">
+                    <i class="fas fa-edit"></i> 更改 PF0621（是否已鎖胚）特性值为“Y”
                 </div>
             </div>
             <div class="img-grid">
@@ -986,13 +1082,13 @@
             </div>
         </div>
 
-        <!-- 第六步 -->
-        <div class="subsection">
-            <h3><i class="fas fa-lock" style="color:#b8860b;"></i> 锁胚 · 报工 · 发单</h3>
+        <!-- ===== 第六步 ===== -->
+        <div class="subsection" id="step-6">
+            <h3><i class="fas fa-lock" style="color:#b8860b;"></i> 第六步：锁胚 · 报工 · 发单</h3>
 
             <div class="step-desc" data-step="6">
                 <i class="fas fa-bolt" style="color:#3875ac;"></i> 
-                <strong>第六步：</strong>黑色工单锁胚-报工-发单
+                黑色工单锁胚-报工-发单
                 <span class="remark"><i class="far fa-comment-dots"></i> 操作功能代码：<span class="code-inline">ZSOHPP159</span></span>
             </div>
 
@@ -1017,13 +1113,13 @@
             </div>
         </div>
 
-        <!-- 第七步 -->
-        <div class="subsection">
-            <h3><i class="fas fa-boxes" style="color:#3a6b8f;"></i> 工单投料</h3>
+        <!-- ===== 第七步 ===== -->
+        <div class="subsection" id="step-7">
+            <h3><i class="fas fa-boxes" style="color:#3a6b8f;"></i> 第七步：工单投料 & 结束</h3>
 
             <div class="step-desc" data-step="7">
                 <i class="fas fa-bolt" style="color:#3875ac;"></i> 
-                <strong>第七步：</strong>工单投料
+                工单投料
                 <span class="remark"><i class="far fa-comment-dots"></i> 操作功能代码：<span class="code-inline">MIGO</span>（收货批次在线边仓则直接投料，收货批次在成品仓则正常流程从成品仓提布）</span>
             </div>
             <div class="img-grid">
@@ -1032,12 +1128,12 @@
                     <div><span class="code-tag"><i class="fas fa-truck"></i> MIGO</span> <span class="img-caption">图 1-15 工单投料</span></div>
                 </div>
             </div>
-        </div>
 
-        <!-- 结束说明 -->
-        <div class="step-desc" style="border-left-color: #6b8fb0; background: #eef6fc;">
-            <i class="fas fa-flag-checkered" style="color:#1f4b6e;"></i> 
-            <strong>最后确认：</strong>新单补开或不需要补开后，盖黑流程结束。
+            <!-- 结束说明 -->
+            <div class="step-desc" style="border-left-color: #6b8fb0; background: #eef6fc; margin-top: 1.5rem;">
+                <i class="fas fa-flag-checkered" style="color:#1f4b6e;"></i> 
+                <strong>最后确认：</strong>新单补开或不需要补开后，盖黑流程结束。
+            </div>
         </div>
 
     </div>
@@ -1105,16 +1201,25 @@
     nav.className = 'step-nav';
     nav.id = 'stepNav';
 
+    // 为每个步骤创建导航点
+    const stepLabels = [
+        '确认收货',
+        '提交需求',
+        '销售订单',
+        '转销售订单',
+        'APO创建工单',
+        '锁胚报工',
+        '投料结束'
+    ];
+
     steps.forEach((step, index) => {
         const dot = document.createElement('div');
         dot.className = 'nav-dot';
         
         const tooltip = document.createElement('span');
         tooltip.className = 'tooltip';
-        // 尝试从 step 中提取有意义的描述
-        let label = step.textContent.trim().slice(0, 20);
-        if (label.length > 18) label = label.slice(0, 15) + '...';
-        tooltip.textContent = label || `步骤 ${index + 1}`;
+        const label = stepLabels[index] || `步骤 ${index + 1}`;
+        tooltip.textContent = label;
         dot.appendChild(tooltip);
 
         dot.addEventListener('click', () => {
@@ -1162,7 +1267,6 @@
         }
     });
 
-    // 初始激活
     setTimeout(updateActiveStep, 200);
 })();
 </script>
