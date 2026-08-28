@@ -4,13 +4,84 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TOPT · 盖黑工单开单流程 · 培训教材</title>
-    <!-- Inter 字体 & Font Awesome 6 (免费) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        /* ——— 全局重置 & 精致基调 ——— */
+        /* ===== CSS 变量定义 ===== */
+        :root {
+            --bg-body: #f0f5fc;
+            --bg-container: rgba(255, 255, 255, 0.85);
+            --bg-container-solid: #ffffff;
+            --text-primary: #14273e;
+            --text-secondary: #4a6a85;
+            --text-heading: #0b2b4a;
+            --text-link: #1f4b6e;
+            --border-subtle: rgba(210, 225, 240, 0.5);
+            --border-strong: rgba(200, 215, 235, 0.7);
+            --shadow-card: 0 40px 80px -20px rgba(0, 20, 40, 0.30), 0 0 0 1px rgba(255,255,255,0.6) inset;
+            --accent: #1f4b6e;
+            --accent-light: #3875ac;
+            --accent-gold: #d99e4a;
+            --bg-card: rgba(255, 255, 255, 0.6);
+            --bg-toc: rgba(240, 247, 255, 0.5);
+            --bg-step: rgba(248, 251, 255, 0.7);
+            --bg-step-hover: rgba(252, 254, 255, 0.8);
+            --bg-img-card: rgba(255, 255, 255, 0.6);
+            --bg-note: rgba(252, 244, 232, 0.6);
+            --bg-footer: rgba(235, 244, 252, 0.5);
+            --bg-highlight: rgba(252, 248, 240, 0.7);
+            --bg-code-inline: rgba(225, 238, 250, 0.6);
+            --bg-nav-dot: rgba(190, 210, 230, 0.5);
+            --color-text-on-accent: white;
+            --color-text-remark: #1a3a53;
+            --color-text-note: #4d3a20;
+            --color-border-img: rgba(210, 225, 240, 0.3);
+            --img-bg: #f5f9ff;
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --backdrop-blur: blur(16px) saturate(180%);
+            --transition-speed: 0.3s;
+            --header-gradient: linear-gradient(135deg, #d6eaf8 0%, #ebf5fb 100%);
+        }
+
+        /* 深色模式变量 */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-body: #0d1b2a;
+                --bg-container: rgba(20, 35, 55, 0.7);
+                --bg-container-solid: #162b40;
+                --text-primary: #e3eaf2;
+                --text-secondary: #8a9ab0;
+                --text-heading: #c0d0e0;
+                --text-link: #8ab0d8;
+                --border-subtle: rgba(255, 255, 255, 0.04);
+                --border-strong: rgba(255, 255, 255, 0.08);
+                --shadow-card: 0 40px 80px -20px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04) inset;
+                --accent: #2a5a7a;
+                --accent-light: #4a7aad;
+                --accent-gold: #d99e4a;
+                --bg-card: rgba(255, 255, 255, 0.03);
+                --bg-toc: rgba(25, 45, 65, 0.4);
+                --bg-step: rgba(30, 50, 70, 0.5);
+                --bg-step-hover: rgba(40, 65, 90, 0.5);
+                --bg-img-card: rgba(30, 50, 70, 0.4);
+                --bg-note: rgba(45, 40, 25, 0.5);
+                --bg-footer: rgba(25, 45, 65, 0.3);
+                --bg-highlight: rgba(252, 248, 240, 0.04);
+                --bg-code-inline: rgba(40, 65, 90, 0.4);
+                --bg-nav-dot: rgba(120, 150, 180, 0.3);
+                --color-text-on-accent: white;
+                --color-text-remark: #d0dce8;
+                --color-text-note: #e0d0b0;
+                --color-border-img: rgba(60, 85, 110, 0.2);
+                --img-bg: #0d1b2a;
+                --backdrop-blur: blur(20px) saturate(180%);
+                --header-gradient: linear-gradient(135deg, #1a3a5a 0%, #162b40 100%);
+            }
+        }
+
+        /* ===== 全局重置 ===== */
         * {
             margin: 0;
             padding: 0;
@@ -18,148 +89,165 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #f0f5fc;
-            color: #14273e;
+            font-family: var(--font-family);
+            background: var(--bg-body);
+            color: var(--text-primary);
             padding: 2rem 1.5rem;
             line-height: 1.6;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.2s;
+            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+            position: relative;
         }
 
+        /* ===== 主容器 ===== */
         .container {
-            max-width: 1360px;
+            max-width: 1400px;
             margin: 0 auto;
-            background: rgba(255,255,255,0.85);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-radius: 64px;
-            box-shadow: 0 40px 80px -20px rgba(0, 20, 40, 0.30), 0 0 0 1px rgba(255,255,255,0.6) inset;
+            background: var(--bg-container);
+            backdrop-filter: var(--backdrop-blur);
+            -webkit-backdrop-filter: var(--backdrop-blur);
+            border-radius: 56px;
+            box-shadow: var(--shadow-card);
             padding: 2.8rem 3.2rem;
-            transition: all 0.25s ease;
-            border: 1px solid rgba(255, 255, 255, 0.7);
+            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
-        /* ——— 头部 · 极简优雅 ——— */
+        /* ===== 头部 ===== */
         .header {
-            border-bottom: 2px solid rgba(210, 225, 240, 0.5);
-            padding-bottom: 1.6rem;
-            margin-bottom: 2.4rem;
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1.5rem 2rem;
+            margin-bottom: 2.6rem;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
             gap: 1.2rem;
+            position: relative;
+            background: var(--header-gradient);
+            border-radius: 32px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
         .header-brand {
             display: flex;
             align-items: center;
             gap: 1.2rem;
+            flex-wrap: wrap;
         }
 
         .logo-wrap {
-            background: #ffffffcc;
-            backdrop-filter: blur(4px);
-            border-radius: 80px;
-            padding: 0.3rem 0.8rem 0.3rem 0.3rem;
+            background: var(--bg-card);
+            border-radius: 60px;
+            padding: 0.4rem 0.8rem 0.4rem 0.4rem;
             display: flex;
             align-items: center;
-            gap: 0.7rem;
-            border: 1px solid rgba(200, 215, 235, 0.6);
-            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+            gap: 0.75rem;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
         .logo-wrap img {
             height: 44px;
             width: auto;
             display: block;
-            border-radius: 40px;
+            border-radius: 30px;
             background: white;
             padding: 2px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
 
         .logo-wrap .brand-text {
             font-weight: 700;
             font-size: 1.2rem;
             letter-spacing: -0.3px;
-            color: #0b2b4a;
-            padding-right: 0.4rem;
+            color: var(--text-heading);
+            padding-right: 0.5rem;
+            transition: color var(--transition-speed) ease;
         }
 
         .header-left h1 {
-            font-size: 2.3rem;
+            font-size: 2.2rem;
             font-weight: 700;
             letter-spacing: -0.02em;
-            background: linear-gradient(145deg, #0a253a, #1e4a6e);
+            background: linear-gradient(145deg, #0a1e33, #1a4b70);
             -webkit-background-clip: text;
-            background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 0.1rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
         }
 
         .header-left .subhead {
             font-size: 0.9rem;
             font-weight: 500;
-            color: #3f5f7c;
-            background: rgba(215, 230, 245, 0.6);
-            backdrop-filter: blur(4px);
+            color: var(--text-secondary);
+            background: rgba(230, 242, 255, 0.6);
             display: inline-block;
-            padding: 0.2rem 1.6rem;
+            padding: 0.2rem 1.4rem;
             border-radius: 40px;
             letter-spacing: 0.2px;
-            border: 1px solid rgba(255,255,255,0.5);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header-left .subhead::before {
+            content: "📘";
+            font-size: 1em;
         }
 
         .header-right {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 1.2rem 1.8rem;
+            gap: 1rem 1.6rem;
         }
 
         .author-block {
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            background: rgba(240, 247, 255, 0.7);
-            backdrop-filter: blur(4px);
-            padding: 0.3rem 1.6rem 0.3rem 2rem;
+            background: var(--bg-card);
+            backdrop-filter: blur(8px);
+            padding: 0.4rem 1.6rem 0.4rem 2rem;
             border-radius: 60px;
-            border: 1px solid rgba(200, 215, 235, 0.5);
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
         .author-name {
             font-weight: 700;
             font-size: 1rem;
-            color: #0b2b4a;
+            color: var(--text-heading);
             display: flex;
             align-items: center;
             gap: 6px;
+            transition: color var(--transition-speed) ease;
         }
 
         .author-name i {
-            color: #3773a8;
+            color: var(--accent-light);
             font-size: 0.9rem;
         }
 
         .author-email {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 500;
             color: #2a577b;
-            background: rgba(255,255,255,0.6);
-            backdrop-filter: blur(2px);
-            padding: 0 14px;
+            background: var(--bg-card);
+            padding: 0 12px;
             border-radius: 30px;
             letter-spacing: 0.2px;
-            border: 1px solid rgba(255,255,255,0.3);
+            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
         }
 
-        /* 去除「已审核」「图文并茂」标签，仅保留必要的装饰性徽章（此处用精致小标记替代） */
         .badge-soft {
             background: rgba(220, 235, 250, 0.5);
             backdrop-filter: blur(4px);
@@ -179,43 +267,43 @@
             opacity: 0.7;
         }
 
-        /* ——— 目录 · 毛玻璃质感 ——— */
+        /* ===== 目录 ===== */
         .toc {
-            background: rgba(240, 247, 255, 0.5);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-radius: 40px;
-            padding: 1.2rem 2.4rem;
-            margin-bottom: 3.2rem;
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            background: var(--bg-toc);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            padding: 1.2rem 2.2rem;
+            margin-bottom: 3rem;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
         .toc-header {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .toc-title {
             font-weight: 700;
-            font-size: 1.1rem;
-            color: #0f314a;
+            font-size: 1.05rem;
+            color: #12344a;
             display: flex;
             align-items: center;
             gap: 10px;
+            transition: color var(--transition-speed) ease;
         }
 
         .toc-title span {
-            background: #1f4b6e;
-            color: white;
+            background: var(--accent);
+            color: var(--color-text-on-accent);
             padding: 0 16px;
             border-radius: 40px;
             font-size: 0.7rem;
-            line-height: 2;
+            line-height: 1.9;
             font-weight: 600;
-            letter-spacing: 0.4px;
         }
 
         .toc-grid {
@@ -231,21 +319,16 @@
             font-size: 0.88rem;
             color: #1a3c57;
             padding: 4px 0;
+            transition: color var(--transition-speed) ease;
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.2s;
-        }
-
-        .toc-grid li:hover {
-            color: #0f2c44;
-            transform: translateX(2px);
         }
 
         .toc-grid li .step-num {
             display: inline-block;
-            background: rgba(200, 218, 238, 0.6);
-            color: #1f4b6e;
+            background: var(--bg-code-inline);
+            color: var(--text-link);
             font-size: 0.6rem;
             font-weight: 700;
             padding: 0 8px;
@@ -253,170 +336,197 @@
             line-height: 1.8;
             min-width: 28px;
             text-align: center;
+            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
         }
 
         .toc-grid li .step-icon {
-            font-size: 0.8rem;
-            width: 20px;
+            font-size: 0.75rem;
+            width: 18px;
             text-align: center;
         }
 
         .toc-grid li a {
             color: inherit;
             text-decoration: none;
-            transition: color 0.2s;
-            border-bottom: 1px solid transparent;
+            transition: color 0.2s ease;
+            position: relative;
+        }
+
+        .toc-grid li a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background: var(--text-link);
+            transition: width 0.25s ease;
         }
 
         .toc-grid li a:hover {
-            color: #1f4b6e;
-            border-bottom-color: rgba(31, 75, 110, 0.2);
+            color: var(--text-link);
+        }
+        .toc-grid li a:hover::after {
+            width: 100%;
         }
 
-        /* ——— 章节 ——— */
+        @media (max-width: 600px) {
+            .toc-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== 章节标题 ===== */
         .section {
-            margin-bottom: 2.5rem;
+            margin-bottom: 2.8rem;
         }
 
         .section-title {
             font-size: 2rem;
             font-weight: 700;
             letter-spacing: -0.01em;
-            color: #0b2b4a;
-            padding-bottom: 0.6rem;
-            border-bottom: 3px solid rgba(200, 218, 238, 0.5);
+            color: var(--text-heading);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-subtle);
             margin-bottom: 2.2rem;
             display: flex;
             align-items: center;
             gap: 14px;
+            transition: color var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
         .section-title .num {
-            background: #1f4b6e;
+            background: linear-gradient(145deg, var(--accent), #0b2b4a);
             color: white;
             font-size: 1.2rem;
             font-weight: 600;
-            padding: 0.1rem 1.4rem;
+            padding: 0.1rem 1.2rem;
             border-radius: 40px;
-            box-shadow: 0 4px 12px rgba(31,75,110,0.15);
+            box-shadow: 0 4px 12px rgba(31, 75, 110, 0.15);
         }
 
-        /* ——— 子章节 ——— */
+        /* ===== 子章节 ===== */
         .subsection {
-            margin-top: 2.8rem;
+            margin-top: 2.6rem;
             padding-left: 0.5rem;
             scroll-margin-top: 20px;
         }
 
         .subsection h3 {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 600;
-            color: #1a3d5c;
+            color: #1d3d5c;
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
-            gap: 14px;
-            letter-spacing: -0.3px;
+            gap: 12px;
+            transition: color var(--transition-speed) ease;
         }
 
-        .subsection h3 i {
-            font-size: 1.4rem;
-            opacity: 0.8;
-        }
-
-        /* ——— 步骤描述卡片 · 精致悬浮 ——— */
+        /* ===== 步骤卡片 ===== */
         .step-desc {
-            background: rgba(248, 251, 255, 0.7);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            padding: 1.2rem 2.2rem;
-            border-radius: 30px;
-            border-left: 6px solid #4a7aad;
+            background: var(--bg-step);
+            backdrop-filter: blur(8px);
+            padding: 1.2rem 2rem;
+            border-radius: 24px;
+            border-left: 4px solid var(--accent-light);
             margin: 0.8rem 0 1.5rem 0;
             font-weight: 500;
-            color: #1a3a53;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.02);
-            transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+            color: var(--color-text-remark);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: default;
             scroll-margin-top: 80px;
-            border: 1px solid rgba(255,255,255,0.5);
+            border: 1px solid var(--border-subtle);
         }
 
         .step-desc:hover {
             transform: translateX(6px) scale(1.002);
             box-shadow: 0 8px 24px rgba(0, 20, 40, 0.06);
-            background: rgba(252, 254, 255, 0.8);
+            border-color: var(--border-strong);
+            background: var(--bg-step-hover);
+        }
+
+        .step-desc.highlight {
+            border-left-color: var(--accent-gold) !important;
+            background: var(--bg-highlight) !important;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 0 2px rgba(217, 158, 74, 0.12);
         }
 
         .step-desc .remark {
             display: inline-block;
             margin-top: 6px;
             font-weight: 400;
-            background: rgba(225, 238, 250, 0.5);
+            background: var(--bg-code-inline);
             backdrop-filter: blur(4px);
-            padding: 4px 20px;
-            border-radius: 40px;
+            padding: 4px 18px;
+            border-radius: 30px;
             font-size: 0.9rem;
-            border: 1px solid rgba(255,255,255,0.3);
+            transition: background var(--transition-speed) ease;
+            border: 1px solid var(--border-subtle);
         }
 
         .step-desc .code-inline {
-            background: rgba(225, 238, 250, 0.6);
-            padding: 0.1rem 0.9rem;
-            border-radius: 40px;
+            background: var(--bg-code-inline);
+            backdrop-filter: blur(4px);
+            padding: 0.1rem 0.7rem;
+            border-radius: 30px;
             font-family: 'Inter', monospace;
             font-weight: 600;
             color: #004080;
             font-size: 0.9rem;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid var(--border-subtle);
         }
 
         .step-desc .download-link {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: #1f4b6e;
+            gap: 6px;
+            background: linear-gradient(145deg, var(--accent), #0b2b4a);
             color: white;
-            padding: 0.2rem 1.2rem;
-            border-radius: 40px;
+            padding: 0.25rem 1.2rem;
+            border-radius: 30px;
             text-decoration: none;
             font-weight: 500;
             font-size: 0.85rem;
-            transition: all 0.25s;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 4px 12px rgba(31,75,110,0.15);
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 8px rgba(31, 75, 110, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .step-desc .download-link:hover {
-            background: #0f3452;
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(31,75,110,0.25);
+            box-shadow: 0 6px 20px rgba(31, 75, 110, 0.2);
+            background: linear-gradient(145deg, #0b2b4a, #061a2e);
         }
 
         .step-desc .sub-operation {
             margin-top: 8px;
             font-weight: 400;
-            background: rgba(225, 238, 250, 0.4);
-            padding: 6px 20px;
-            border-radius: 40px;
+            background: var(--bg-code-inline);
+            backdrop-filter: blur(4px);
+            padding: 6px 18px;
+            border-radius: 30px;
             display: inline-block;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid var(--border-subtle);
         }
 
         .step-desc .sub-operation i {
-            margin-right: 8px;
+            margin-right: 6px;
         }
 
-        /* ——— 注意框 · 温暖精致 ——— */
+        /* ===== 注意事项 ===== */
         .note-box {
-            background: rgba(252, 244, 232, 0.6);
-            backdrop-filter: blur(4px);
-            border-radius: 28px;
-            padding: 1.2rem 2.2rem;
+            background: var(--bg-note);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            padding: 1.2rem 2rem;
             margin: 1.5rem 0 2rem 0;
-            border-left: 6px solid #d99e4a;
-            color: #4d3a20;
-            border: 1px solid rgba(255, 235, 200, 0.5);
-            box-shadow: 0 4px 16px rgba(217, 158, 74, 0.06);
+            border-left: 4px solid var(--accent-gold);
+            color: var(--color-text-note);
+            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+            border: 1px solid var(--border-subtle);
         }
 
         .note-box strong {
@@ -429,132 +539,128 @@
         }
 
         .note-box .rule-list li {
-            padding: 0.3rem 0 0.3rem 2rem;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23d99e4a" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>') left center no-repeat;
+            padding: 0.3rem 0 0.3rem 1.8rem;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23d99e4a" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>') left center no-repeat;
             background-size: 18px;
             margin-bottom: 0.1rem;
         }
 
-        /* ——— 图片网格 · 灵动卡片 ——— */
+        /* ===== 图片网格 ===== */
         .img-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 1.8rem 2.2rem;
-            margin: 1.8rem 0 1.8rem 0;
+            gap: 1.5rem 2rem;
+            margin: 1.8rem 0 1.5rem 0;
             align-items: flex-start;
         }
 
         .img-card {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            border-radius: 28px;
+            background: var(--bg-img-card);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
             padding: 0.8rem 0.8rem 1rem 0.8rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
-            border: 1px solid rgba(220, 235, 250, 0.6);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.02);
+            border: 1px solid var(--border-subtle);
             flex: 1 1 220px;
             min-width: 180px;
             text-align: center;
-            transition: all 0.4s cubic-bezier(0.15, 0.85, 0.35, 1);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .img-card:hover {
             transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 20px 50px rgba(0, 20, 40, 0.08);
-            background: rgba(255, 255, 255, 0.8);
-            border-color: rgba(180, 205, 230, 0.6);
+            box-shadow: 0 16px 40px rgba(0, 20, 40, 0.06);
+            border-color: var(--border-strong);
         }
 
         .img-card img {
             width: 100%;
             height: auto;
-            border-radius: 20px;
-            border: 1px solid rgba(210, 225, 240, 0.3);
-            background: #f5f9ff;
-            display: block;
-            margin-bottom: 6px;
-            transition: all 0.3s;
+            border-radius: 14px;
+            border: 1px solid var(--color-border-img);
+            background: var(--img-bg);
+            transition: all 0.3s ease;
             cursor: pointer;
             min-height: 80px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-        }
-
-        .img-card img:hover {
-            filter: brightness(1.02);
+            object-fit: contain;
+            display: block;
+            margin-bottom: 6px;
         }
 
         .img-card .img-caption {
             font-size: 0.8rem;
             font-weight: 500;
             color: #1f4a6e;
-            background: rgba(255,255,255,0.5);
-            padding: 0.2rem 1rem;
+            background: var(--bg-code-inline);
+            backdrop-filter: blur(4px);
+            padding: 0.2rem 0.8rem;
             border-radius: 40px;
             display: inline-block;
             margin-top: 4px;
-            backdrop-filter: blur(2px);
-            border: 1px solid rgba(255,255,255,0.3);
+            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+            border: 1px solid var(--border-subtle);
         }
 
         .img-card .code-tag {
             font-family: 'Inter', monospace;
-            background: rgba(230, 242, 252, 0.5);
-            padding: 0.1rem 1rem;
-            border-radius: 40px;
+            background: var(--bg-code-inline);
+            backdrop-filter: blur(4px);
+            padding: 0.1rem 0.8rem;
+            border-radius: 30px;
             font-size: 0.7rem;
             font-weight: 600;
             color: #004080;
-            border: 1px solid rgba(255,255,255,0.2);
+            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+            border: 1px solid var(--border-subtle);
         }
 
-        /* ——— 页脚 ——— */
+        /* ===== 页脚 ===== */
         .footer-note {
             margin-top: 3.2rem;
             font-size: 0.9rem;
-            color: #3d5e7b;
-            background: rgba(235, 244, 252, 0.5);
-            backdrop-filter: blur(4px);
-            padding: 1rem 2.4rem;
-            border-radius: 80px;
+            color: var(--text-secondary);
+            background: var(--bg-footer);
+            backdrop-filter: blur(12px);
+            padding: 1rem 2.2rem;
+            border-radius: 60px;
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.4);
+            border: 1px solid var(--border-subtle);
             font-weight: 500;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: center;
-            gap: 0.8rem 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            gap: 0.8rem 1.8rem;
+            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease, color var(--transition-speed) ease;
         }
 
         .footer-note .doc-badge {
-            background: #1f4b6e;
+            background: linear-gradient(145deg, var(--accent), #0b2b4a);
             color: white;
-            padding: 0.15rem 1.4rem;
+            padding: 0.15rem 1.2rem;
             border-radius: 40px;
             font-size: 0.8rem;
             font-weight: 600;
-            letter-spacing: 0.4px;
-            box-shadow: 0 4px 12px rgba(31,75,110,0.15);
+            box-shadow: 0 2px 8px rgba(31, 75, 110, 0.12);
         }
 
-        /* ——— 步骤导航侧边栏 (毛玻璃) ——— */
+        /* ===== 侧边导航 ===== */
         .step-nav {
             position: fixed;
-            right: 28px;
+            right: 30px;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: var(--bg-toc);
+            backdrop-filter: blur(16px);
             padding: 14px 10px;
-            border-radius: 50px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--border-subtle);
             z-index: 100;
             display: none;
             flex-direction: column;
             gap: 10px;
+            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
         @media (min-width: 1024px) {
@@ -564,25 +670,30 @@
         }
 
         .step-nav .nav-dot {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            background: rgba(190, 210, 230, 0.5);
-            transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+            background: var(--bg-nav-dot);
+            transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid var(--border-subtle);
+            padding: 0;
+            appearance: none;
+            -webkit-appearance: none;
         }
 
-        .step-nav .nav-dot:hover {
+        .step-nav .nav-dot:hover,
+        .step-nav .nav-dot:focus-visible {
             transform: scale(1.4);
-            background: #1f4b6e;
+            background: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 2px var(--accent-light);
         }
 
         .step-nav .nav-dot.active {
-            background: #1f4b6e;
-            box-shadow: 0 0 0 4px rgba(31, 75, 110, 0.15);
-            transform: scale(1.2);
+            background: var(--accent);
+            box-shadow: 0 0 0 4px rgba(31, 75, 110, 0.08);
         }
 
         .step-nav .nav-dot .tooltip {
@@ -590,25 +701,27 @@
             right: 26px;
             top: 50%;
             transform: translateY(-50%);
-            background: #1f4b6e;
+            background: rgba(15, 30, 47, 0.85);
+            backdrop-filter: blur(8px);
             color: white;
             padding: 4px 14px;
-            border-radius: 30px;
+            border-radius: 20px;
             font-size: 0.7rem;
             white-space: nowrap;
             opacity: 0;
             pointer-events: none;
             transition: all 0.3s ease;
             font-weight: 500;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 10;
         }
 
-        .step-nav .nav-dot:hover .tooltip {
+        .step-nav .nav-dot:hover .tooltip,
+        .step-nav .nav-dot:focus-visible .tooltip {
             opacity: 1;
             right: 30px;
         }
 
-        /* ——— Lightbox ——— */
+        /* ===== Lightbox ===== */
         .lightbox-overlay {
             position: fixed;
             top: 0;
@@ -617,7 +730,6 @@
             bottom: 0;
             background: rgba(8, 18, 32, 0.85);
             backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
             display: none;
             justify-content: center;
             align-items: center;
@@ -631,13 +743,13 @@
         }
 
         .lightbox-overlay img {
-            max-width: 92%;
-            max-height: 92%;
+            max-width: 88%;
+            max-height: 85%;
             object-fit: contain;
-            border-radius: 24px;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            border-radius: 16px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
             animation: zoomIn 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .lightbox-close {
@@ -645,136 +757,301 @@
             top: 30px;
             right: 40px;
             color: white;
-            font-size: 32px;
+            font-size: 28px;
             cursor: pointer;
             z-index: 10000;
-            background: rgba(255,255,255,0.06);
-            width: 54px;
-            height: 54px;
+            background: rgba(255,255,255,0.08);
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s;
-            border: 1px solid rgba(255,255,255,0.15);
-            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.12);
+            backdrop-filter: blur(8px);
+            appearance: none;
+            -webkit-appearance: none;
         }
 
         .lightbox-close:hover {
-            background: rgba(255,255,255,0.12);
-            transform: rotate(90deg) scale(1.05);
+            background: rgba(255,255,255,0.15);
+            transform: rotate(90deg);
         }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes zoomIn { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .lightbox-close:focus-visible {
+            outline: 2px solid white;
+            outline-offset: 2px;
+        }
 
-        /* ——— 深色模式 (柔和) ——— */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background: #0d1b2a;
-                color: #e3eaf2;
+        .lightbox-nav {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10001;
+            transition: all 0.3s ease;
+            font-size: 20px;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .lightbox-nav:focus-visible {
+            outline: 2px solid white;
+            outline-offset: 2px;
+        }
+
+        .lightbox-prev {
+            left: 20px;
+        }
+
+        .lightbox-next {
+            right: 20px;
+        }
+
+        .lightbox-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            background: rgba(0,0,0,0.5);
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            z-index: 10000;
+            pointer-events: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.92); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* ===== 阅读进度条 ===== */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            width: 0%;
+            z-index: 9998;
+            transition: width 0.1s linear;
+        }
+
+        /* ===== 返回顶部按钮 ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            cursor: pointer;
+            z-index: 900;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        .back-to-top:hover {
+            background: var(--accent-light);
+            transform: translateY(-3px);
+        }
+
+        /* ===== 毛玻璃降级（移动端/减少动效） ===== */
+        @media (max-width: 768px),
+               (prefers-reduced-motion: reduce) {
+            .container,
+            .toc,
+            .step-desc,
+            .note-box,
+            .img-card,
+            .author-block,
+            .footer-note,
+            .logo-wrap {
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                background: var(--bg-container-solid);
+            }
+            .step-desc:hover,
+            .img-card:hover {
+                transform: none;
             }
             .container {
-                background: rgba(20, 35, 55, 0.7);
-                backdrop-filter: blur(12px);
-                border-color: rgba(255,255,255,0.05);
-                box-shadow: 0 40px 80px -20px rgba(0,0,0,0.5);
+                background: var(--bg-container-solid);
             }
-            .step-desc {
-                background: rgba(30, 50, 70, 0.5);
-                backdrop-filter: blur(4px);
-                border-color: #3a6a8f;
-                color: #d0dce8;
+            .header-left .subhead {
+                backdrop-filter: none;
             }
-            .step-desc .remark { background: rgba(40, 65, 90, 0.4); color: #b8d0e0; }
-            .step-desc .code-inline { background: rgba(40, 65, 90, 0.4); color: #8ab8e0; }
-            .step-desc .sub-operation { background: rgba(40, 65, 90, 0.3); color: #b8d0e0; }
-            .img-card {
-                background: rgba(30, 50, 70, 0.4);
-                backdrop-filter: blur(4px);
-                border-color: rgba(60, 85, 110, 0.3);
+            .step-desc .remark,
+            .step-desc .code-inline,
+            .step-desc .sub-operation {
+                backdrop-filter: none;
             }
-            .img-card img { border-color: rgba(60, 85, 110, 0.2); background: #0d1b2a; }
-            .toc {
-                background: rgba(25, 45, 65, 0.4);
-                backdrop-filter: blur(8px);
-                border-color: rgba(255,255,255,0.05);
-            }
-            .toc-grid li { color: #c0d0e0; }
-            .toc-grid li .step-num { background: rgba(50, 80, 110, 0.4); color: #8ab0d0; }
-            .note-box {
-                background: rgba(45, 40, 25, 0.5);
-                backdrop-filter: blur(4px);
-                border-color: #b8860b;
-                color: #e0d0b0;
-            }
-            .step-nav {
-                background: rgba(25, 45, 65, 0.5);
-                backdrop-filter: blur(12px);
-                border-color: rgba(255,255,255,0.05);
-            }
-            .step-nav .nav-dot { background: rgba(120, 150, 180, 0.3); }
-            .footer-note {
-                background: rgba(25, 45, 65, 0.3);
-                backdrop-filter: blur(4px);
-                border-color: rgba(255,255,255,0.05);
-                color: #c0d0e0;
-            }
-            .badge-soft { background: rgba(40, 70, 100, 0.3); color: #b0c8e0; }
-            .header-left .subhead { background: rgba(40, 70, 100, 0.3); color: #b0c8e0; }
-            .author-block { background: rgba(30, 55, 80, 0.3); border-color: rgba(255,255,255,0.05); }
-            .author-email { background: rgba(20, 40, 60, 0.4); color: #8ab0d0; }
-            .logo-wrap { background: rgba(20, 40, 60, 0.4); border-color: rgba(255,255,255,0.05); }
-            .logo-wrap .brand-text { color: #c0d0e0; }
-            .section-title { color: #c0d0e0; border-color: rgba(60, 90, 120, 0.2); }
-            .subsection h3 { color: #c0d0e0; }
-            .img-card .img-caption { background: rgba(20, 40, 60, 0.3); color: #8ab0d0; }
-            .img-card .code-tag { background: rgba(40, 70, 100, 0.3); color: #8ab8e0; }
-            .toc-title { color: #c0d0e0; }
-            .step-desc .download-link { background: #0f3452; }
-            .step-desc .download-link:hover { background: #1f4b6e; }
-            .lightbox-overlay { background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(20px); }
         }
 
-        /* ——— 响应式 ——— */
+        /* ===== 移动端 ===== */
         @media (max-width: 768px) {
-            .container { padding: 1.5rem; border-radius: 40px; }
-            .header { flex-direction: column; align-items: stretch; gap: 0.8rem; }
-            .header-right { justify-content: flex-start; }
-            .author-block { align-items: flex-start; }
-            .header-left h1 { font-size: 1.8rem; }
-            .toc { padding: 1rem 1.5rem; }
-            .toc-grid { grid-template-columns: 1fr; }
-            .img-grid { flex-direction: column; align-items: center; }
-            .section-title { font-size: 1.5rem; }
-            .subsection h3 { font-size: 1.3rem; flex-wrap: wrap; }
-            .step-nav { right: 12px; padding: 10px 6px; }
-            .step-nav .nav-dot { width: 10px; height: 10px; }
-            .step-nav .nav-dot .tooltip { display: none; }
-            .lightbox-close { top: 20px; right: 20px; width: 44px; height: 44px; font-size: 24px; }
+            .container {
+                padding: 1.5rem;
+                border-radius: 32px;
+            }
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.8rem;
+                padding: 1rem;
+            }
+            .header-right {
+                justify-content: flex-start;
+            }
+            .author-block {
+                align-items: flex-start;
+            }
+            .header-left h1 {
+                font-size: 1.8rem;
+            }
+            .toc {
+                padding: 1rem 1.5rem;
+            }
+            .toc-grid {
+                grid-template-columns: 1fr;
+            }
+            .img-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            .section-title {
+                font-size: 1.5rem;
+            }
+            .subsection h3 {
+                font-size: 1.2rem;
+                flex-wrap: wrap;
+            }
+            .step-nav {
+                right: 10px;
+                padding: 10px 6px;
+            }
+            .step-nav .nav-dot {
+                width: 8px;
+                height: 8px;
+            }
+            .step-nav .nav-dot .tooltip {
+                display: none;
+            }
+            .lightbox-close {
+                top: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            .lightbox-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+            .lightbox-prev { left: 10px; }
+            .lightbox-next { right: 10px; }
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 44px;
+                height: 44px;
+            }
         }
 
         @media (max-width: 480px) {
-            body { padding: 0.6rem; }
-            .container { padding: 1rem; border-radius: 32px; }
-            .logo-wrap .brand-text { display: none; }
+            body {
+                padding: 0.8rem;
+            }
+            .container {
+                padding: 1rem;
+                border-radius: 24px;
+            }
+            .logo-wrap .brand-text {
+                display: none;
+            }
         }
 
-        /* ——— 打印 ——— */
+        /* ===== 打印 ===== */
         @media print {
-            .step-nav, .lightbox-overlay { display: none !important; }
-            .container { box-shadow: none !important; border-radius: 0 !important; padding: 20px !important; background: white !important; }
-            body { background: white !important; padding: 0 !important; }
-            .img-card { break-inside: avoid; }
-            .step-desc { break-inside: avoid; }
-            .section { break-inside: avoid; }
+            .step-nav,
+            .lightbox-overlay,
+            .reading-progress,
+            .back-to-top,
+            .lightbox-nav,
+            .lightbox-counter {
+                display: none !important;
+            }
+            .container {
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                padding: 20px !important;
+                background: white !important;
+                backdrop-filter: none !important;
+            }
+            body {
+                background: white !important;
+                padding: 0 !important;
+            }
+            .img-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .step-desc {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .section {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .img-card img {
+                object-fit: contain;
+            }
         }
     </style>
 </head>
 <body>
+<!-- 阅读进度条 -->
+<div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
+
 <div class="container">
 
-    <!-- ——— 头部 ——— -->
+    <!-- ===== 头部 ===== -->
     <div class="header">
         <div class="header-brand">
             <div class="logo-wrap">
@@ -788,19 +1065,18 @@
         </div>
         <div class="header-right">
             <div class="author-block">
-                <span class="author-name"><i class="fas fa-user-pen"></i> 刘洋</span>
-                <span class="author-email"><i class="far fa-envelope"></i> liu-yang@top-textiles.vn</span>
+                <span class="author-name"><i class="fas fa-user-pen" aria-hidden="true"></i> 刘洋</span>
+                <span class="author-email"><i class="far fa-envelope" aria-hidden="true"></i> liu-yang@top-textiles.vn</span>
             </div>
-            <!-- 精致小标记替代原有标签，去除“已审核”“图文并茂”字样 -->
-            <span class="badge-soft"><i class="fas fa-check-circle" style="color:#2a7f5a;"></i> 内部培训</span>
-            <span class="badge-soft"><i class="fas fa-gem" style="color:#7f6b3a;"></i> 精细版</span>
+            <span class="badge-soft"><i class="fas fa-check-circle" style="color:#2a7f5a;" aria-hidden="true"></i> 内部培训</span>
+            <span class="badge-soft"><i class="fas fa-gem" style="color:#7f6b3a;" aria-hidden="true"></i> 精细版</span>
         </div>
     </div>
 
-    <!-- ——— 目录 ——— -->
+    <!-- ===== 目录 ===== -->
     <div class="toc">
         <div class="toc-header">
-            <div class="toc-title"><i class="fas fa-list-ul"></i> 目录 <span>7 步骤</span></div>
+            <div class="toc-title"><i class="fas fa-list-ul" aria-hidden="true"></i> 目录 <span>7 步骤</span></div>
         </div>
         <ul class="toc-grid">
             <li><span class="step-num">01</span><span class="step-icon">✅</span><a href="#step-1">启动前确认收货</a></li>
@@ -813,156 +1089,156 @@
         </ul>
     </div>
 
-    <!-- ——— 内容 ——— -->
+    <!-- ===== 内容 ===== -->
     <div class="section">
         <div class="section-title"><span class="num">一</span> 盖黑工单开单流程</div>
 
         <!-- 第一步 -->
         <div class="subsection" id="step-1">
-            <h3><i class="fas fa-check-circle" style="color:#2b5f8a;"></i> 第一步：启动前确认收货</h3>
-            <div class="step-desc" data-step="1">
-                <i class="fas fa-bolt" style="color:#3875ac;"></i> 
+            <h3><i class="fas fa-check-circle" style="color:#2b5f8a;" aria-hidden="true"></i> 第一步：启动前确认收货</h3>
+            <div class="step-desc" data-step-label="确认收货">
+                <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i> 
                 启动盖黑（或深色）流程前，须先确认该工单已完成收货。若尚未收货，需先行完成收货操作。
-                <span class="remark"><i class="far fa-comment-dots"></i> 收货操作功能代码：<span class="code-inline">ZSOHPP190</span></span>
+                <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 收货操作功能代码：<span class="code-inline">ZSOHPP190</span></span>
             </div>
             <div class="img-grid">
                 <div class="img-card">
-                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-2.png?raw=true" alt="1-2 收货界面" loading="lazy" />
-                    <div><span class="code-tag"><i class="fas fa-warehouse"></i> ZSOHPP190</span> <span class="img-caption">图 1-2 收货操作</span></div>
+                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-2.png?raw=true" alt="1-2 收货界面" loading="lazy" decoding="async" />
+                    <div><span class="code-tag"><i class="fas fa-warehouse" aria-hidden="true"></i> ZSOHPP190</span> <span class="img-caption">图 1-2 收货操作</span></div>
                 </div>
             </div>
         </div>
 
         <!-- 第二步 -->
         <div class="subsection" id="step-2">
-            <h3><i class="fas fa-file-signature" style="color:#8a6e9b;"></i> 第二步：提交盖黑需求申请</h3>
-            <div class="step-desc" data-step="2">
-                <i class="fas fa-bolt" style="color:#3875ac;"></i> 
+            <h3><i class="fas fa-file-signature" style="color:#8a6e9b;" aria-hidden="true"></i> 第二步：提交盖黑需求申请</h3>
+            <div class="step-desc" data-step-label="提交需求">
+                <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i> 
                 确认收货后，由需求部门填写盖黑需求表，并向 PPC 正式提交盖黑申请。
                 <span class="remark">
-                    <i class="far fa-comment-dots"></i> 
+                    <i class="far fa-comment-dots" aria-hidden="true"></i> 
                     EXCEL 附件下载： 
                     <a href="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/Black-Over_Request_Form.xlsx?raw=true" class="download-link" download>
-                        <i class="fas fa-file-excel"></i> 盖黑需求表.xlsx
+                        <i class="fas fa-file-excel" aria-hidden="true"></i> 盖黑需求表.xlsx
                     </a>
                 </span>
             </div>
             <div class="img-grid">
                 <div class="img-card">
-                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-1.png?raw=true" alt="1-1 盖黑需求表" loading="lazy" />
-                    <div><span class="code-tag"><i class="fas fa-table"></i> 需求表</span> <span class="img-caption">图 1-1 盖黑需求表</span></div>
+                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-1.png?raw=true" alt="1-1 盖黑需求表" loading="lazy" decoding="async" />
+                    <div><span class="code-tag"><i class="fas fa-table" aria-hidden="true"></i> 需求表</span> <span class="img-caption">图 1-1 盖黑需求表</span></div>
                 </div>
             </div>
         </div>
 
         <!-- 第三步 -->
         <div class="subsection" id="step-3">
-            <h3><i class="fas fa-tag" style="color:#d99e4a;"></i> 第三步：获取黑色销售订单</h3>
-            <div class="step-desc" data-step="3">
-                <i class="fas fa-bolt" style="color:#3875ac;"></i> 
+            <h3><i class="fas fa-tag" style="color:#d99e4a;" aria-hidden="true"></i> 第三步：获取黑色销售订单</h3>
+            <div class="step-desc" data-step-label="销售订单">
+                <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i> 
                 PPC 提供黑色的销售订单号码，且确认是否需要补开单。
             </div>
         </div>
 
         <!-- 第四步 -->
         <div class="subsection" id="step-4">
-            <h3><i class="fas fa-arrow-right-arrow-left" style="color:#3a6b8f;"></i> 第四步：储存地点转销售订单</h3>
-            <div class="step-desc" data-step="4">
-                <i class="fas fa-bolt" style="color:#3875ac;"></i> 
+            <h3><i class="fas fa-arrow-right-arrow-left" style="color:#3a6b8f;" aria-hidden="true"></i> 第四步：储存地点转销售订单</h3>
+            <div class="step-desc" data-step-label="转销售订单">
+                <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i> 
                 操作 TF 儲存地點至銷售訂單（413 E 移动类型）
-                <span class="remark"><i class="far fa-comment-dots"></i> 操作功能代码：<span class="code-inline">ZSOHWM002</span></span>
+                <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">ZSOHWM002</span></span>
             </div>
             <div class="img-grid">
                 <div class="img-card">
-                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-3.png?raw=true" alt="1-3 ZSOHWM002" loading="lazy" />
-                    <div><span class="code-tag"><i class="fas fa-exchange-alt"></i> ZSOHWM002</span> <span class="img-caption">图 1-3 储存地点转销售订单</span></div>
+                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-3.png?raw=true" alt="1-3 ZSOHWM002" loading="lazy" decoding="async" />
+                    <div><span class="code-tag"><i class="fas fa-exchange-alt" aria-hidden="true"></i> ZSOHWM002</span> <span class="img-caption">图 1-3 储存地点转销售订单</span></div>
                 </div>
                 <div class="img-card">
-                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-16.png?raw=true" alt="1-16 储存地点转销售订单补充" loading="lazy" />
-                    <div><span class="code-tag"><i class="fas fa-exchange-alt"></i> ZSOHWM002</span> <span class="img-caption">图 1-16 </span></div>
+                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-16.png?raw=true" alt="1-16 储存地点转销售订单补充" loading="lazy" decoding="async" />
+                    <div><span class="code-tag"><i class="fas fa-exchange-alt" aria-hidden="true"></i> ZSOHWM002</span> <span class="img-caption">图 1-16 </span></div>
                 </div>
             </div>
         </div>
 
         <!-- 第五步 -->
         <div class="subsection" id="step-5">
-            <h3><i class="fas fa-cogs" style="color:#2b5f8a;"></i> 第五步：APO 系统创建黑色工单</h3>
+            <h3><i class="fas fa-cogs" style="color:#2b5f8a;" aria-hidden="true"></i> 第五步：APO 系统创建黑色工单</h3>
 
-            <div class="step-desc" data-step="5-1">
-                <i class="fas fa-bolt" style="color:#3875ac;"></i> 
+            <div class="step-desc" data-step-label="APO创建工单">
+                <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i> 
                 <strong>5-1：</strong>操作功能代码：<span class="code-inline">ZSOH_SE06</span>
             </div>
             <div class="img-grid">
                 <div class="img-card">
-                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-4.png?raw=true" alt="1-4 ZSOH_SE06" loading="lazy" />
-                    <div><span class="code-tag"><i class="fas fa-search"></i> ZSOH_SE06</span> <span class="img-caption">图 1-4 APO 操作</span></div>
+                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-4.png?raw=true" alt="1-4 ZSOH_SE06" loading="lazy" decoding="async" />
+                    <div><span class="code-tag"><i class="fas fa-search" aria-hidden="true"></i> ZSOH_SE06</span> <span class="img-caption">图 1-4 APO 操作</span></div>
                 </div>
             </div>
 
-            <div class="step-desc" data-step="5-2">
-                <i class="fas fa-bolt" style="color:#3875ac;"></i> 
+            <div class="step-desc" data-step-label="特性值修改">
+                <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i> 
                 <strong>5-2：</strong>操作功能代码：<span class="code-inline">ZSOH_SE17</span>
                 <div class="sub-operation">
-                    <i class="fas fa-edit"></i> ① 删除 SF0251（補布原因）特性值；② 更改 PG0886（分紗ID）特性值为“F”开头；③ 更改 PF0621（是否已鎖胚）特性值为“Z”
+                    <i class="fas fa-edit" aria-hidden="true"></i> ① 删除 SF0251（補布原因）特性值；② 更改 PG0886（分紗ID）特性值为“F”开头；③ 更改 PF0621（是否已鎖胚）特性值为“Z”
                 </div>
             </div>
             <div class="img-grid">
                 <div class="img-card">
-                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-5.png?raw=true" alt="1-5 ZSOH_SE17 第一步" loading="lazy" />
-                    <div><span class="code-tag"><i class="fas fa-edit"></i> ZSOH_SE17</span> <span class="img-caption">图 1-5 特性值修改</span></div>
+                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-5.png?raw=true" alt="1-5 ZSOH_SE17 第一步" loading="lazy" decoding="async" />
+                    <div><span class="code-tag"><i class="fas fa-edit" aria-hidden="true"></i> ZSOH_SE17</span> <span class="img-caption">图 1-5 特性值修改</span></div>
                 </div>
                 <div class="img-card">
-                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-6.png?raw=true" alt="1-6 特性值详情" loading="lazy" />
-                    <div><span class="code-tag"><i class="fas fa-list-ul"></i> 特性值</span> <span class="img-caption">图 1-6 详情</span></div>
+                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-6.png?raw=true" alt="1-6 特性值详情" loading="lazy" decoding="async" />
+                    <div><span class="code-tag"><i class="fas fa-list-ul" aria-hidden="true"></i> 特性值</span> <span class="img-caption">图 1-6 详情</span></div>
                 </div>
             </div>
 
-            <div class="step-desc" data-step="5-3">
-                <i class="fas fa-bolt" style="color:#3875ac;"></i> 
+            <div class="step-desc" data-step-label="分缸">
+                <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i> 
                 <strong>5-3：</strong>操作功能代码：<span class="code-inline">ZTRIM_XS___START</span>
-                <span class="remark"><i class="far fa-comment-dots"></i> 操作：分缸</span>
+                <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作：分缸</span>
             </div>
             <div class="img-grid">
-                <div class="img-card"><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-7.png?raw=true" alt="1-7 分缸1" loading="lazy" /><div><span class="code-tag"><i class="fas fa-flask"></i> 分缸</span> <span class="img-caption">图 1-7</span></div></div>
-                <div class="img-card"><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-8.png?raw=true" alt="1-8 分缸2" loading="lazy" /><div><span class="code-tag"><i class="fas fa-flask"></i> 分缸</span> <span class="img-caption">图 1-8</span></div></div>
-                <div class="img-card"><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-9.png?raw=true" alt="1-9 分缸3" loading="lazy" /><div><span class="code-tag"><i class="fas fa-flask"></i> 分缸</span> <span class="img-caption">图 1-9</span></div></div>
-                <div class="img-card"><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-10.png?raw=true" alt="1-10 分缸4" loading="lazy" /><div><span class="code-tag"><i class="fas fa-flask"></i> 分缸</span> <span class="img-caption">图 1-10</span></div></div>
+                <div class="img-card"><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-7.png?raw=true" alt="1-7 分缸1" loading="lazy" decoding="async" /><div><span class="code-tag"><i class="fas fa-flask" aria-hidden="true"></i> 分缸</span> <span class="img-caption">图 1-7</span></div></div>
+                <div class="img-card"><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-8.png?raw=true" alt="1-8 分缸2" loading="lazy" decoding="async" /><div><span class="code-tag"><i class="fas fa-flask" aria-hidden="true"></i> 分缸</span> <span class="img-caption">图 1-8</span></div></div>
+                <div class="img-card"><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-9.png?raw=true" alt="1-9 分缸3" loading="lazy" decoding="async" /><div><span class="code-tag"><i class="fas fa-flask" aria-hidden="true"></i> 分缸</span> <span class="img-caption">图 1-9</span></div></div>
+                <div class="img-card"><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-10.png?raw=true" alt="1-10 分缸4" loading="lazy" decoding="async" /><div><span class="code-tag"><i class="fas fa-flask" aria-hidden="true"></i> 分缸</span> <span class="img-caption">图 1-10</span></div></div>
             </div>
 
-            <div class="step-desc" data-step="5-4">
-                <i class="fas fa-bolt" style="color:#3875ac;"></i> 
+            <div class="step-desc" data-step-label="锁胚">
+                <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i> 
                 <strong>5-4：</strong>操作功能代码：<span class="code-inline">ZSOH_SE17</span>
-                <div class="sub-operation"><i class="fas fa-edit"></i> 更改 PF0621（是否已鎖胚）特性值为“Y”</div>
+                <div class="sub-operation"><i class="fas fa-edit" aria-hidden="true"></i> 更改 PF0621（是否已鎖胚）特性值为“Y”</div>
             </div>
             <div class="img-grid">
                 <div class="img-card">
-                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-11.png?raw=true" alt="1-11 锁定胚" loading="lazy" />
-                    <div><span class="code-tag"><i class="fas fa-lock"></i> 锁胚</span> <span class="img-caption">图 1-11 锁胚</span></div>
+                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-11.png?raw=true" alt="1-11 锁定胚" loading="lazy" decoding="async" />
+                    <div><span class="code-tag"><i class="fas fa-lock" aria-hidden="true"></i> 锁胚</span> <span class="img-caption">图 1-11 锁胚</span></div>
                 </div>
             </div>
 
-            <div class="step-desc" data-step="5-5">
-                <i class="fas fa-bolt" style="color:#3875ac;"></i> 
+            <div class="step-desc" data-step-label="手动转工单">
+                <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i> 
                 <strong>5-5：</strong>手动转工单：<span class="code-inline">/SAPAPO/RRP3</span>
             </div>
             <div class="img-grid">
                 <div class="img-card">
-                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-12.png?raw=true" alt="1-12 手动转工单" loading="lazy" />
-                    <div><span class="code-tag"><i class="fas fa-exchange-alt"></i> /SAPAPO/RRP3</span> <span class="img-caption">图 1-12 手动转工单</span></div>
+                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-12.png?raw=true" alt="1-12 手动转工单" loading="lazy" decoding="async" />
+                    <div><span class="code-tag"><i class="fas fa-exchange-alt" aria-hidden="true"></i> /SAPAPO/RRP3</span> <span class="img-caption">图 1-12 手动转工单</span></div>
                 </div>
             </div>
         </div>
 
         <!-- 第六步 -->
         <div class="subsection" id="step-6">
-            <h3><i class="fas fa-lock" style="color:#b8860b;"></i> 第六步：锁胚 · 报工 · 发单</h3>
-            <div class="step-desc" data-step="6">
-                <i class="fas fa-bolt" style="color:#3875ac;"></i> 
+            <h3><i class="fas fa-lock" style="color:#b8860b;" aria-hidden="true"></i> 第六步：锁胚 · 报工 · 发单</h3>
+            <div class="step-desc" data-step-label="锁胚报工">
+                <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i> 
                 黑色工单锁胚-报工-发单
-                <span class="remark"><i class="far fa-comment-dots"></i> 操作功能代码：<span class="code-inline">ZSOHPP159</span></span>
+                <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">ZSOHPP159</span></span>
             </div>
             <div class="note-box">
-                <strong><i class="fas fa-lightbulb" style="color:#d99e4a;"></i> 注意事项：</strong>
+                <strong><i class="fas fa-lightbulb" style="color:#d99e4a;" aria-hidden="true"></i> 注意事项：</strong>
                 <ul class="rule-list">
                     <li>抽胚异常栏位注明抽布缸号已染色布盖黑，责任部门。</li>
                     <li>抽已染色布盖色：<strong>Y</strong></li>
@@ -971,127 +1247,272 @@
             </div>
             <div class="img-grid">
                 <div class="img-card">
-                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-13.png?raw=true" alt="1-13 ZSOHPP159" loading="lazy" />
-                    <div><span class="code-tag"><i class="fas fa-print"></i> ZSOHPP159</span> <span class="img-caption">图 1-13</span></div>
+                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-13.png?raw=true" alt="1-13 ZSOHPP159" loading="lazy" decoding="async" />
+                    <div><span class="code-tag"><i class="fas fa-print" aria-hidden="true"></i> ZSOHPP159</span> <span class="img-caption">图 1-13</span></div>
                 </div>
                 <div class="img-card">
-                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-14.png?raw=true" alt="1-14 锁胚报工详情" loading="lazy" />
-                    <div><span class="code-tag"><i class="fas fa-print"></i> ZSOHPP159</span> <span class="img-caption">图 1-14</span></div>
+                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-14.png?raw=true" alt="1-14 锁胚报工详情" loading="lazy" decoding="async" />
+                    <div><span class="code-tag"><i class="fas fa-print" aria-hidden="true"></i> ZSOHPP159</span> <span class="img-caption">图 1-14</span></div>
                 </div>
             </div>
         </div>
 
         <!-- 第七步 -->
         <div class="subsection" id="step-7">
-            <h3><i class="fas fa-boxes" style="color:#3a6b8f;"></i> 第七步：工单投料 & 结束</h3>
-            <div class="step-desc" data-step="7">
-                <i class="fas fa-bolt" style="color:#3875ac;"></i> 
+            <h3><i class="fas fa-boxes" style="color:#3a6b8f;" aria-hidden="true"></i> 第七步：工单投料 & 结束</h3>
+            <div class="step-desc" data-step-label="投料结束">
+                <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i> 
                 工单投料
-                <span class="remark"><i class="far fa-comment-dots"></i> 操作功能代码：<span class="code-inline">MIGO</span>（收货批次在线边仓则直接投料，收货批次在成品仓则正常流程从成品仓提布）</span>
+                <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">MIGO</span>（收货批次在线边仓则直接投料，收货批次在成品仓则正常流程从成品仓提布）</span>
             </div>
             <div class="img-grid">
                 <div class="img-card">
-                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-15.png?raw=true" alt="1-15 MIGO 投料" loading="lazy" />
-                    <div><span class="code-tag"><i class="fas fa-truck"></i> MIGO</span> <span class="img-caption">图 1-15 投料</span></div>
+                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-15.png?raw=true" alt="1-15 MIGO 投料" loading="lazy" decoding="async" />
+                    <div><span class="code-tag"><i class="fas fa-truck" aria-hidden="true"></i> MIGO</span> <span class="img-caption">图 1-15 投料</span></div>
                 </div>
             </div>
             <div class="step-desc" style="border-left-color: #6b8fb0; background: rgba(235, 245, 255, 0.4); margin-top: 1.5rem;">
-                <i class="fas fa-flag-checkered" style="color:#1f4b6e;"></i> 
+                <i class="fas fa-flag-checkered" style="color:#1f4b6e;" aria-hidden="true"></i> 
                 <strong>最后确认：</strong>新单补开或不需要补开后，盖黑流程结束。
             </div>
         </div>
     </div>
 
-    <!-- ——— 页脚 ——— -->
+    <!-- ===== 页脚 ===== -->
     <div class="footer-note">
-        <span><i class="fas fa-check-circle" style="color:#1f6b4a;"></i> TOPT 培训教材 · 内部使用</span>
-        <span class="doc-badge"><i class="fas fa-file-alt"></i> 版本 v1.0</span>
-        <span><i class="far fa-copyright"></i> 刘洋 · liu-yang@top-textiles.vn</span>
+        <span><i class="fas fa-check-circle" style="color:#1f6b4a;" aria-hidden="true"></i> TOPT 培训教材 · 内部使用</span>
+        <span class="doc-badge"><i class="fas fa-file-alt" aria-hidden="true"></i> 版本 v1.0</span>
+        <span><i class="far fa-copyright" aria-hidden="true"></i> 刘洋 · liu-yang@top-textiles.vn</span>
     </div>
 </div>
 
-<!-- ——— Lightbox ——— -->
-<div class="lightbox-overlay" id="lightbox">
-    <div class="lightbox-close" id="lightboxClose">✕</div>
+<!-- ===== Lightbox ===== -->
+<div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="图片放大预览">
+    <button class="lightbox-close" id="lightboxClose" aria-label="关闭预览">✕</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="上一张图片">❮</button>
     <img id="lightboxImg" src="" alt="放大图片" />
+    <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="下一张图片">❯</button>
+    <div class="lightbox-counter" id="lightboxCounter" aria-live="polite"></div>
 </div>
 
-<!-- ——— JavaScript ——— -->
+<!-- 返回顶部按钮 -->
+<button class="back-to-top" id="backToTop" aria-label="返回顶部"><i class="fas fa-arrow-up"></i></button>
+
 <script>
+    // ============================================
+    // 1. 图片放大 (Lightbox) 增强
+    // ============================================
     (function() {
-        // 1. Lightbox
-        const images = document.querySelectorAll('.img-card img');
+        const images = Array.from(document.querySelectorAll('.img-card img'));
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightboxImg');
         const closeBtn = document.getElementById('lightboxClose');
+        const prevBtn = document.getElementById('lightboxPrev');
+        const nextBtn = document.getElementById('lightboxNext');
+        const counter = document.getElementById('lightboxCounter');
+        let currentIndex = -1;
 
-        images.forEach(img => {
-            img.addEventListener('click', function(e) {
-                e.stopPropagation();
-                lightboxImg.src = this.src;
-                lightboxImg.alt = this.alt || '放大图片';
-                lightbox.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-        });
+        function openLightbox(index) {
+            if (index < 0 || index >= images.length) return;
+            currentIndex = index;
+            updateLightboxImage();
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            closeBtn.focus();
+        }
 
         function closeLightbox() {
             lightbox.classList.remove('active');
             document.body.style.overflow = '';
+            if (currentIndex >= 0) {
+                images[currentIndex].focus({ preventScroll: true });
+                if (document.activeElement === images[currentIndex]) return;
+            }
+            document.body.focus();
+            currentIndex = -1;
         }
+
+        function updateLightboxImage() {
+            if (currentIndex < 0 || currentIndex >= images.length) return;
+            const img = images[currentIndex];
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt || '放大图片';
+            counter.textContent = `${currentIndex + 1} / ${images.length}`;
+        }
+
+        function showPrev() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateLightboxImage();
+            }
+        }
+
+        function showNext() {
+            if (currentIndex < images.length - 1) {
+                currentIndex++;
+                updateLightboxImage();
+            }
+        }
+
+        document.querySelector('.container').addEventListener('click', (e) => {
+            const img = e.target.closest('.img-card img');
+            if (img) {
+                const index = images.indexOf(img);
+                if (index !== -1) openLightbox(index);
+            }
+        });
 
         closeBtn.addEventListener('click', closeLightbox);
-        lightbox.addEventListener('click', function(e) {
-            if (e.target === this) closeLightbox();
-        });
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox();
-        });
+        prevBtn.addEventListener('click', showPrev);
+        nextBtn.addEventListener('click', showNext);
 
-        // 2. 步骤导航
-        const steps = document.querySelectorAll('.step-desc');
-        if (steps.length) {
-            const nav = document.createElement('div');
-            nav.className = 'step-nav';
-            nav.id = 'stepNav';
-            const stepLabels = ['确认收货','提交需求','销售订单','转销售订单','APO创建工单','锁胚报工','投料结束'];
-            steps.forEach((step, idx) => {
-                const dot = document.createElement('div');
-                dot.className = 'nav-dot';
-                const tip = document.createElement('span');
-                tip.className = 'tooltip';
-                tip.textContent = stepLabels[idx] || `步骤${idx+1}`;
-                dot.appendChild(tip);
-                dot.addEventListener('click', () => step.scrollIntoView({ behavior: 'smooth', block: 'center' }));
-                nav.appendChild(dot);
-            });
-            document.body.appendChild(nav);
-
-            let currentIdx = -1;
-            function updateActive() {
-                let active = 0;
-                const h = window.innerHeight;
-                steps.forEach((s, i) => {
-                    const rect = s.getBoundingClientRect();
-                    if (rect.top < h * 0.4 && rect.bottom > 0) active = i;
-                });
-                if (active !== currentIdx) {
-                    const dots = nav.querySelectorAll('.nav-dot');
-                    dots.forEach((d, i) => d.classList.toggle('active', i === active));
-                    steps.forEach((s, i) => s.classList.toggle('highlight', i === active));
-                    currentIdx = active;
-                }
+        lightbox.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            switch(e.key) {
+                case 'Escape':
+                    closeLightbox();
+                    break;
+                case 'ArrowLeft':
+                    showPrev();
+                    e.preventDefault();
+                    break;
+                case 'ArrowRight':
+                    showNext();
+                    e.preventDefault();
+                    break;
+                case 'Tab':
+                    const focusable = lightbox.querySelectorAll('button');
+                    if (focusable.length === 0) return;
+                    const first = focusable[0];
+                    const last = focusable[focusable.length - 1];
+                    if (e.shiftKey && document.activeElement === first) {
+                        last.focus();
+                        e.preventDefault();
+                    } else if (!e.shiftKey && document.activeElement === last) {
+                        first.focus();
+                        e.preventDefault();
+                    }
+                    break;
             }
-            let ticking = false;
-            window.addEventListener('scroll', () => {
-                if (!ticking) {
-                    requestAnimationFrame(() => { updateActive(); ticking = false; });
-                    ticking = true;
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        let touchStartX = 0;
+        lightbox.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        lightbox.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].screenX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) showNext();
+                else showPrev();
+            }
+        }, { passive: true });
+    })();
+
+    // ============================================
+    // 2. 步骤滚动高亮导航（IntersectionObserver）
+    // ============================================
+    (function() {
+        const steps = document.querySelectorAll('.step-desc');
+        if (steps.length === 0) return;
+
+        const nav = document.createElement('div');
+        nav.className = 'step-nav';
+        nav.id = 'stepNav';
+        nav.setAttribute('role', 'navigation');
+        nav.setAttribute('aria-label', '步骤导航');
+
+        steps.forEach((step, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'nav-dot';
+            btn.setAttribute('aria-label', `跳转到第 ${index+1} 步：${step.dataset.stepLabel || ''}`);
+            const tooltip = document.createElement('span');
+            tooltip.className = 'tooltip';
+            tooltip.textContent = step.dataset.stepLabel || `步骤 ${index + 1}`;
+            btn.appendChild(tooltip);
+
+            btn.addEventListener('click', () => {
+                step.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+
+            nav.appendChild(btn);
+        });
+
+        document.body.appendChild(nav);
+
+        const navDots = nav.querySelectorAll('.nav-dot');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = Array.from(steps).indexOf(entry.target);
+                    if (index !== -1) {
+                        setActiveStep(index);
+                    }
                 }
             });
-            setTimeout(updateActive, 200);
+        }, {
+            root: null,
+            rootMargin: '-20% 0px -60% 0px',
+            threshold: 0
+        });
+
+        steps.forEach(step => observer.observe(step));
+
+        function setActiveStep(index) {
+            navDots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+                if (i === index) {
+                    dot.setAttribute('aria-current', 'step');
+                } else {
+                    dot.removeAttribute('aria-current');
+                }
+            });
+            steps.forEach((step, i) => {
+                step.classList.toggle('highlight', i === index);
+            });
         }
+
+        if (steps.length > 0) setActiveStep(0);
+    })();
+
+    // ============================================
+    // 3. 阅读进度条
+    // ============================================
+    (function() {
+        const progressBar = document.getElementById('readingProgress');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        }, { passive: true });
+    })();
+
+    // ============================================
+    // 4. 返回顶部按钮
+    // ============================================
+    (function() {
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        }, { passive: true });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     })();
 </script>
+
 </body>
 </html>
