@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TOPT · 胚布抽用工单开单流程 · 培训教材</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* ===== CSS 变量定义 ===== */
+        :root {
+            --bg-body: #f1f6fd;
+            --bg-container: rgba(255, 255, 255, 0.70);
+            --bg-container-solid: #ffffff;
+            --text-primary: #0f1e2f;
+            --text-secondary: #4a6a85;
+            --text-heading: #0b2b4a;
+            --text-link: #1f4b6e;
+            --border-subtle: rgba(0, 20, 40, 0.06);
+            --border-strong: rgba(0, 20, 40, 0.12);
+            --shadow-card: 0 40px 80px -20px rgba(0, 20, 40, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+            --accent: #1f4b6e;
+            --accent-light: #3875ac;
+            --accent-gold: #d99e4a;
+            --bg-card: rgba(255, 255, 255, 0.6);
+            --bg-toc: rgba(255, 255, 255, 0.45);
+            --bg-step: rgba(255, 255, 255, 0.6);
+            --bg-step-hover: rgba(255, 255, 255, 0.75);
+            --bg-img-card: rgba(255, 255, 255, 0.45);
+            --bg-note: rgba(252, 244, 232, 0.5);
+            --bg-footer: rgba(255, 255, 255, 0.35);
+            --bg-highlight: rgba(252, 248, 240, 0.7);
+            --bg-code-inline: rgba(234, 241, 250, 0.6);
+            --bg-nav-dot: rgba(220, 230, 242, 0.6);
+            --color-text-on-accent: white;
+            --color-text-remark: #1d3a53;
+            --color-text-note: #5a401f;
+            --color-border-img: rgba(220, 230, 242, 0.4);
+            --img-bg: #f8fafc;
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --backdrop-blur: blur(16px) saturate(180%);
+            --transition-speed: 0.3s;
+            --header-gradient: linear-gradient(135deg, #d6eaf8 0%, #ebf5fb 100%);
+        }
+
+        /* 深色模式变量 */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-body: #0d1b2a;
+                --bg-container: rgba(20, 35, 55, 0.65);
+                --bg-container-solid: #162b40;
+                --text-primary: #e8edf3;
+                --text-secondary: #8a9ab0;
+                --text-heading: #c8d8e8;
+                --text-link: #8ab0d8;
+                --border-subtle: rgba(255, 255, 255, 0.04);
+                --border-strong: rgba(255, 255, 255, 0.08);
+                --shadow-card: 0 40px 80px -20px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+                --accent: #2a5a7a;
+                --accent-light: #4a7aad;
+                --accent-gold: #d99e4a;
+                --bg-card: rgba(255, 255, 255, 0.03);
+                --bg-toc: rgba(255, 255, 255, 0.03);
+                --bg-step: rgba(255, 255, 255, 0.03);
+                --bg-step-hover: rgba(255, 255, 255, 0.05);
+                --bg-img-card: rgba(255, 255, 255, 0.03);
+                --bg-note: rgba(42, 37, 24, 0.3);
+                --bg-footer: rgba(255, 255, 255, 0.02);
+                --bg-highlight: rgba(252, 248, 240, 0.04);
+                --bg-code-inline: rgba(255, 255, 255, 0.04);
+                --bg-nav-dot: rgba(255, 255, 255, 0.06);
+                --color-text-on-accent: white;
+                --color-text-remark: #dce6f2;
+                --color-text-note: #e8d8b8;
+                --color-border-img: rgba(255, 255, 255, 0.04);
+                --img-bg: #0d1b2a;
+                --backdrop-blur: blur(20px) saturate(180%);
+                --header-gradient: linear-gradient(135deg, #1a3a5a 0%, #162b40 100%);
+            }
+        }
+
+        /* ===== 全局重置 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: var(--bg-body);
+            color: var(--text-primary);
+            padding: 2rem 1.5rem;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+            position: relative;
+        }
+
+        /* ===== 主容器 ===== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--bg-container);
+            backdrop-filter: var(--backdrop-blur);
+            -webkit-backdrop-filter: var(--backdrop-blur);
+            border-radius: 56px;
+            box-shadow: var(--shadow-card);
+            padding: 2.8rem 3.2rem;
+            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+
+        /* ===== 头部 ===== */
+        .header {
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1.5rem 2rem;
+            margin-bottom: 2.6rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.2rem;
+            position: relative;
+            background: var(--header-gradient);
+            border-radius: 32px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .logo-wrap {
+            background: var(--bg-card);
+            border-radius: 60px;
+            padding: 0.4rem 0.8rem 0.4rem 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+
+        .logo-wrap img {
+            height: 44px;
+            width: auto;
+            display: block;
+            border-radius: 30px;
+            background: white;
+            padding: 2px;
+        }
+
+        .logo-wrap .brand-text {
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: -0.3px;
+            color: var(--text-heading);
+            padding-right: 0.5rem;
+            transition: color var(--transition-speed) ease;
+        }
+
+        .header-left h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(145deg, #0a1e33, #1a4b70);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.1rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+        }
+
+        .header-left .subhead {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: rgba(230, 242, 255, 0.6);
+            display: inline-block;
+            padding: 0.2rem 1.4rem;
+            border-radius: 40px;
+            letter-spacing: 0.2px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header-left .subhead::before {
+            content: "📘";
+            font-size: 1em;
+        }
+
+        .header-right {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem 1.6rem;
+        }
+
+        .author-block {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            background: var(--bg-card);
+            backdrop-filter: blur(8px);
+            padding: 0.4rem 1.6rem 0.4rem 2rem;
+            border-radius: 60px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+
+        .author-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-heading);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color var(--transition-speed) ease;
+        }
+
+        .author-name i {
+            color: var(--accent-light);
+            font-size: 0.9rem;
+        }
+
+        .author-email {
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: #2a577b;
+            background: var(--bg-card);
+            padding: 0 12px;
+            border-radius: 30px;
+            letter-spacing: 0.2px;
+            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+        }
+
+        /* ===== 目录 ===== */
+        .toc {
+            background: var(--bg-toc);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            padding: 1.2rem 2.2rem;
+            margin-bottom: 3rem;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+
+        .toc-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .toc-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #12344a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color var(--transition-speed) ease;
+        }
+
+        .toc-title span {
+            background: var(--accent);
+            color: var(--color-text-on-accent);
+            padding: 0 16px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            line-height: 1.9;
+            font-weight: 600;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 6px 20px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .toc-grid li {
+            font-weight: 500;
+            font-size: 0.88rem;
+            color: #1a3c57;
+            padding: 4px 0;
+            transition: color var(--transition-speed) ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toc-grid li .step-num {
+            display: inline-block;
+            background: var(--bg-code-inline);
+            color: var(--text-link);
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 0 8px;
+            border-radius: 20px;
+            line-height: 1.8;
+            min-width: 28px;
+            text-align: center;
+            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+        }
+
+        .toc-grid li .step-icon {
+            font-size: 0.75rem;
+            width: 18px;
+            text-align: center;
+        }
+
+        .toc-grid li a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            position: relative;
+        }
+
+        .toc-grid li a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background: var(--text-link);
+            transition: width 0.25s ease;
+        }
+
+        .toc-grid li a:hover {
+            color: var(--text-link);
+        }
+        .toc-grid li a:hover::after {
+            width: 100%;
+        }
+
+        @media (max-width: 600px) {
+            .toc-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== 章节标题 ===== */
+        .section {
+            margin-bottom: 2.8rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            color: var(--text-heading);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-subtle);
+            margin-bottom: 2.2rem;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+
+        .section-title .num {
+            background: linear-gradient(145deg, var(--accent), #0b2b4a);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 0.1rem 1.2rem;
+            border-radius: 40px;
+            box-shadow: 0 4px 12px rgba(31, 75, 110, 0.15);
+        }
+
+        /* ===== 子章节 ===== */
+        .subsection {
+            margin-top: 2.6rem;
+            padding-left: 0.5rem;
+            scroll-margin-top: 20px;
+        }
+
+        .subsection h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1d3d5c;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: color var(--transition-speed) ease;
+        }
+
+        .subsection h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2a4a6a;
+            margin: 1.2rem 0 0.8rem 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color var(--transition-speed) ease;
+        }
+
+        /* ===== 步骤卡片 ===== */
+        .step-desc {
+            background: var(--bg-step);
+            backdrop-filter: blur(8px);
+            padding: 1.2rem 2rem;
+            border-radius: 24px;
+            border-left: 4px solid var(--accent-light);
+            margin: 0.8rem 0 1.5rem 0;
+            font-weight: 500;
+            color: var(--color-text-remark);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: default;
+            scroll-margin-top: 80px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .step-desc:hover {
+            transform: translateX(6px) scale(1.002);
+            box-shadow: 0 8px 24px rgba(0, 20, 40, 0.06);
+            border-color: var(--border-strong);
+            background: var(--bg-step-hover);
+        }
+
+        .step-desc.highlight {
+            border-left-color: var(--accent-gold) !important;
+            background: var(--bg-highlight) !important;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 0 2px rgba(217, 158, 74, 0.12);
+        }
+
+        .step-desc .remark {
+            display: inline-block;
+            margin-top: 6px;
+            font-weight: 400;
+            background: var(--bg-code-inline);
+            backdrop-filter: blur(4px);
+            padding: 4px 18px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            transition: background var(--transition-speed) ease;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .step-desc .code-inline {
+            background: var(--bg-code-inline);
+            backdrop-filter: blur(4px);
+            padding: 0.1rem 0.7rem;
+            border-radius: 30px;
+            font-family: 'Inter', monospace;
+            font-weight: 600;
+            color: #004080;
+            font-size: 0.9rem;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .step-desc .download-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(145deg, var(--accent), #0b2b4a);
+            color: white;
+            padding: 0.25rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 8px rgba(31, 75, 110, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .step-desc .download-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(31, 75, 110, 0.2);
+            background: linear-gradient(145deg, #0b2b4a, #061a2e);
+        }
+
+        .step-desc .sub-operation {
+            margin-top: 8px;
+            font-weight: 400;
+            background: var(--bg-code-inline);
+            backdrop-filter: blur(4px);
+            padding: 6px 18px;
+            border-radius: 30px;
+            display: inline-block;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .step-desc .sub-operation i {
+            margin-right: 6px;
+        }
+
+        /* ===== 注意事项 ===== */
+        .note-box {
+            background: var(--bg-note);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            padding: 1.2rem 2rem;
+            margin: 1.5rem 0 2rem 0;
+            border-left: 4px solid var(--accent-gold);
+            color: var(--color-text-note);
+            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .note-box strong {
+            color: #a8692b;
+        }
+
+        .note-box .rule-list {
+            list-style: none;
+            margin-top: 8px;
+        }
+
+        .note-box .rule-list li {
+            padding: 0.3rem 0 0.3rem 1.8rem;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23d99e4a" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>') left center no-repeat;
+            background-size: 18px;
+            margin-bottom: 0.1rem;
+        }
+
+        /* ===== 图片网格 ===== */
+        .img-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem 2rem;
+            margin: 1.8rem 0 1.5rem 0;
+            align-items: flex-start;
+        }
+
+        .img-card {
+            background: var(--bg-img-card);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            padding: 0.8rem 0.8rem 1rem 0.8rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.02);
+            border: 1px solid var(--border-subtle);
+            flex: 1 1 220px;
+            min-width: 180px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .img-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 16px 40px rgba(0, 20, 40, 0.06);
+            border-color: var(--border-strong);
+        }
+
+        .img-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 14px;
+            border: 1px solid var(--color-border-img);
+            background: var(--img-bg);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            min-height: 100px;
+            object-fit: contain;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .img-card .img-caption {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #1f4a6e;
+            background: var(--bg-code-inline);
+            backdrop-filter: blur(4px);
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            display: inline-block;
+            margin-top: 4px;
+            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .img-card .code-tag {
+            font-family: 'Inter', monospace;
+            background: var(--bg-code-inline);
+            backdrop-filter: blur(4px);
+            padding: 0.1rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #004080;
+            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+            border: 1px solid var(--border-subtle);
+        }
+
+        /* ===== 页脚 ===== */
+        .footer-note {
+            margin-top: 3.2rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            background: var(--bg-footer);
+            backdrop-filter: blur(12px);
+            padding: 1rem 2.2rem;
+            border-radius: 60px;
+            text-align: center;
+            border: 1px solid var(--border-subtle);
+            font-weight: 500;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem 1.8rem;
+            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease, color var(--transition-speed) ease;
+        }
+
+        .footer-note .doc-badge {
+            background: linear-gradient(145deg, var(--accent), #0b2b4a);
+            color: white;
+            padding: 0.15rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(31, 75, 110, 0.12);
+        }
+
+        /* ===== 侧边导航 ===== */
+        .step-nav {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--bg-toc);
+            backdrop-filter: blur(16px);
+            padding: 14px 10px;
+            border-radius: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--border-subtle);
+            z-index: 100;
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
+        }
+
+        @media (min-width: 1024px) {
+            .step-nav {
+                display: flex;
+            }
+        }
+
+        .step-nav .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--bg-nav-dot);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid var(--border-subtle);
+            padding: 0;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .step-nav .nav-dot:hover,
+        .step-nav .nav-dot:focus-visible {
+            transform: scale(1.4);
+            background: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 2px var(--accent-light);
+        }
+
+        .step-nav .nav-dot.active {
+            background: var(--accent);
+            box-shadow: 0 0 0 4px rgba(31, 75, 110, 0.08);
+        }
+
+        .step-nav .nav-dot .tooltip {
+            position: absolute;
+            right: 26px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(15, 30, 47, 0.85);
+            backdrop-filter: blur(8px);
+            color: white;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            z-index: 10;
+        }
+
+        .step-nav .nav-dot:hover .tooltip,
+        .step-nav .nav-dot:focus-visible .tooltip {
+            opacity: 1;
+            right: 30px;
+        }
+
+        /* ===== Lightbox ===== */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(24px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .lightbox-overlay.active {
+            display: flex;
+        }
+
+        .lightbox-overlay img {
+            max-width: 88%;
+            max-height: 85%;
+            object-fit: contain;
+            border-radius: 16px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+            animation: zoomIn 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .lightbox-close {
+            position: fixed;
+            top: 30px;
+            right: 40px;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            z-index: 10000;
+            background: rgba(255,255,255,0.08);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.12);
+            backdrop-filter: blur(8px);
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255,255,255,0.15);
+            transform: rotate(90deg);
+        }
+
+        .lightbox-close:focus-visible {
+            outline: 2px solid white;
+            outline-offset: 2px;
+        }
+
+        .lightbox-nav {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10001;
+            transition: all 0.3s ease;
+            font-size: 20px;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .lightbox-nav:focus-visible {
+            outline: 2px solid white;
+            outline-offset: 2px;
+        }
+
+        .lightbox-prev {
+            left: 20px;
+        }
+
+        .lightbox-next {
+            right: 20px;
+        }
+
+        .lightbox-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            background: rgba(0,0,0,0.5);
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            z-index: 10000;
+            pointer-events: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.92); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* ===== 阅读进度条 ===== */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            width: 0%;
+            z-index: 9998;
+            transition: width 0.1s linear;
+        }
+
+        /* ===== 返回顶部按钮 ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            cursor: pointer;
+            z-index: 900;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        .back-to-top:hover {
+            background: var(--accent-light);
+            transform: translateY(-3px);
+        }
+
+        /* ===== 毛玻璃降级（移动端/减少动效） ===== */
+        @media (max-width: 768px),
+               (prefers-reduced-motion: reduce) {
+            .container,
+            .toc,
+            .step-desc,
+            .note-box,
+            .img-card,
+            .author-block,
+            .footer-note,
+            .logo-wrap {
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                background: var(--bg-container-solid);
+            }
+            .step-desc:hover,
+            .img-card:hover {
+                transform: none;
+            }
+            .container {
+                background: var(--bg-container-solid);
+            }
+            .header-left .subhead {
+                backdrop-filter: none;
+            }
+            .step-desc .remark,
+            .step-desc .code-inline,
+            .step-desc .sub-operation {
+                backdrop-filter: none;
+            }
+        }
+
+        /* ===== 移动端 ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+                border-radius: 32px;
+            }
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.8rem;
+                padding: 1rem;
+            }
+            .header-right {
+                justify-content: flex-start;
+            }
+            .author-block {
+                align-items: flex-start;
+            }
+            .header-left h1 {
+                font-size: 1.8rem;
+            }
+            .toc {
+                padding: 1rem 1.5rem;
+            }
+            .toc-grid {
+                grid-template-columns: 1fr;
+            }
+            .img-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            .section-title {
+                font-size: 1.5rem;
+            }
+            .subsection h3 {
+                font-size: 1.2rem;
+                flex-wrap: wrap;
+            }
+            .step-nav {
+                right: 10px;
+                padding: 10px 6px;
+            }
+            .step-nav .nav-dot {
+                width: 8px;
+                height: 8px;
+            }
+            .step-nav .nav-dot .tooltip {
+                display: none;
+            }
+            .lightbox-close {
+                top: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            .lightbox-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+            .lightbox-prev { left: 10px; }
+            .lightbox-next { right: 10px; }
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 44px;
+                height: 44px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 0.8rem;
+            }
+            .container {
+                padding: 1rem;
+                border-radius: 24px;
+            }
+            .logo-wrap .brand-text {
+                display: none;
+            }
+        }
+
+        /* ===== 打印 ===== */
+        @media print {
+            .step-nav,
+            .lightbox-overlay,
+            .reading-progress,
+            .back-to-top,
+            .lightbox-nav,
+            .lightbox-counter {
+                display: none !important;
+            }
+            .container {
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                padding: 20px !important;
+                background: white !important;
+                backdrop-filter: none !important;
+            }
+            body {
+                background: white !important;
+                padding: 0 !important;
+            }
+            .img-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .step-desc {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .section {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .img-card img {
+                object-fit: contain;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- 阅读进度条 -->
+<div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
+
+<div class="container">
+
+    <!-- ===== 头部 ===== -->
+    <div class="header">
+        <div class="header-brand">
+            <div class="logo-wrap">
+                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/Logo.png?raw=true" alt="TOPT Logo" />
+                <span class="brand-text">TOPT</span>
+            </div>
+            <div class="header-left">
+                <h1>🏷️ 胚布抽用工单开单流程</h1>
+                <div class="subhead">操作指引 · 培训教材 v1.0</div>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="author-block">
+                <span class="author-name"><i class="fas fa-user-pen" aria-hidden="true"></i> 刘洋</span>
+                <span class="author-email"><i class="far fa-envelope" aria-hidden="true"></i> liu-yang@top-textiles.vn</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 目录 ===== -->
+    <div class="toc">
+        <div class="toc-header">
+            <div class="toc-title"><i class="fas fa-list-ul" aria-hidden="true"></i> 目录 <span>7 步骤</span></div>
+        </div>
+        <ul class="toc-grid">
+            <li><span class="step-num">01</span><span class="step-icon">📧</span><a href="#step-1">胚布抽用通知</a></li>
+            <li><span class="step-num">02</span><span class="step-icon">✅</span><a href="#step-2">确认收货</a></li>
+            <li><span class="step-num">03</span><span class="step-icon">🔄</span><a href="#step-3">转销售订单</a></li>
+            <li><span class="step-num">04</span><span class="step-icon">⚙️</span><a href="#step-4">APO 创建工单</a></li>
+            <li><span class="step-num">05</span><span class="step-icon">📋</span><a href="#step-5">ECC 创建工单</a></li>
+            <li><span class="step-num">06</span><span class="step-icon">🔒</span><a href="#step-6">锁胚报工发单</a></li>
+            <li><span class="step-num">07</span><span class="step-icon">📦</span><a href="#step-7">工单投料</a></li>
+        </ul>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 第一步 -->
+    <div class="section" id="step-1">
+        <div class="section-title"><span class="num">一</span> 胚布抽用通知</div>
+
+        <div class="step-desc" data-step-label="胚布抽用通知">
+            <i class="fas fa-envelope" style="color:var(--accent-light);" aria-hidden="true"></i>
+            生产部门通过邮件发出胚布抽用通知
+        </div>
+        <div class="img-grid">
+            <div class="img-card">
+                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-1.png" alt="1-1 胚布抽用通知" loading="lazy" decoding="async" />
+                <div><span class="code-tag">邮件通知</span><span class="img-caption">图 1-1 胚布抽用通知</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 第二步 -->
+    <div class="section" id="step-2">
+        <div class="section-title"><span class="num">二</span> 确认收货</div>
+
+        <div class="step-desc" data-step-label="确认收货">
+            <i class="fas fa-check-circle" style="color:#2b5f8a;" aria-hidden="true"></i>
+            先确认该工单已完成收货。若尚未收货，需先行完成收货操作。
+            <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">ZSOHPP190</span></span>
+        </div>
+        <div class="img-grid">
+            <div class="img-card">
+                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-2.png" alt="1-2 ZSOHPP190" loading="lazy" decoding="async" />
+                <div><span class="code-tag">ZSOHPP190</span><span class="img-caption">图 1-2 收货操作</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 第三步 -->
+    <div class="section" id="step-3">
+        <div class="section-title"><span class="num">三</span> 储存地点转销售订单</div>
+
+        <div class="step-desc" data-step-label="转销售订单">
+            <i class="fas fa-arrow-right-arrow-left" style="color:#3a6b8f;" aria-hidden="true"></i>
+            操作 TF 儲存地點至銷售訂單（413 E 移动类型）
+            <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">ZSOHWM002</span></span>
+        </div>
+        <div class="img-grid">
+            <div class="img-card">
+                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-3.png" alt="1-3 ZSOHWM002" loading="lazy" decoding="async" />
+                <div><span class="code-tag">ZSOHWM002</span><span class="img-caption">图 1-3 转销售订单</span></div>
+            </div>
+            <div class="img-card">
+                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-4.png" alt="1-4 ZSOHWM002" loading="lazy" decoding="async" />
+                <div><span class="code-tag">ZSOHWM002</span><span class="img-caption">图 1-4 转销售订单</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 第四步：APO 系统 -->
+    <div class="section" id="step-4">
+        <div class="section-title"><span class="num">四</span> APO 系统创建工单</div>
+
+        <div class="step-desc" data-step-label="APO方法1说明">
+            <i class="fas fa-info-circle" style="color:var(--accent-light);" aria-hidden="true"></i>
+            <strong>方法1：</strong>在 APO 系统，通过复制生产部要求颜色对应的工单，创建计划单。<span class="remark">适用于大货单</span>
+        </div>
+
+        <!-- 4-1-1 -->
+        <div class="step-desc" data-step-label="APO-1 ZSOH_SE06">
+            <i class="fas fa-1" style="color:var(--accent-light);" aria-hidden="true"></i>
+            <strong>4-1-1：</strong>操作功能代码：<span class="code-inline">ZSOH_SE06</span>
+        </div>
+        <div class="img-grid">
+            <div class="img-card">
+                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-5.png" alt="1-5 ZSOH_SE06" loading="lazy" decoding="async" />
+                <div><span class="code-tag">ZSOH_SE06</span><span class="img-caption">图 1-5 APO 操作</span></div>
+            </div>
+        </div>
+
+        <!-- 4-1-2 -->
+        <div class="step-desc" data-step-label="APO-2 ZSOH_SE17">
+            <i class="fas fa-2" style="color:var(--accent-light);" aria-hidden="true"></i>
+            <strong>4-1-2：</strong>操作功能代码：<span class="code-inline">ZSOH_SE17</span>
+            <div class="sub-operation">
+                <i class="fas fa-edit" aria-hidden="true"></i> ① 删除 SF0251（補布原因）特性值；② 更改 PG0886（分紗ID）特性值为“F”开头；③ 更改 PF0621（是否已鎖胚）特性值为“Z”
+            </div>
+        </div>
+        <div class="img-grid">
+            <div class="img-card">
+                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-6.png" alt="1-6 ZSOH_SE17" loading="lazy" decoding="async" />
+                <div><span class="code-tag">ZSOH_SE17</span><span class="img-caption">图 1-6 特性值修改</span></div>
+            </div>
+            <div class="img-card">
+                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-7.png" alt="1-7 特性值详情" loading="lazy" decoding="async" />
+                <div><span class="code-tag">特性值</span><span class="img-caption">图 1-7 特性值详情</span></div>
+            </div>
+        </div>
+
+        <!-- 4-1-3 -->
+        <div class="step-desc" data-step-label="APO-3 分缸">
+            <i class="fas fa-3" style="color:var(--accent-light);" aria-hidden="true"></i>
+            <strong>4-1-3：</strong>操作功能代码：<span class="code-inline">ZTRIM_XS___START</span>
+            <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作：分缸</span>
+        </div>
+        <div class="img-grid">
+            <div class="img-card">
+                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-8.png" alt="1-8 分缸" loading="lazy" decoding="async" />
+                <div><span class="code-tag">分缸</span><span class="img-caption">图 1-8 分缸操作</span></div>
+            </div>
+            <div class="img-card">
+                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-9.png" alt="1-9 分缸" loading="lazy" decoding="async" />
+                <div><span class="code-tag">分缸</span><span class="img-caption">图 1-9 分缸操作</span></div>
+            </div>
+            <div class="img-card">
+                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-10.png" alt="1-10 分缸" loading="lazy" decoding="async" />
+                <div><span class="code-tag">分缸</span><span class="img-caption">图 1-10 分缸操作</span></div>
+            </div>
+            <div class="img-card">
+                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-11.png" alt="1-11 分缸" loading="lazy" decoding="async" />
+                <div><span class="code-tag">分缸</span><span class="img-caption">图 1-11 分缸操作</span></div>
+            </div>
+        </div>
+
+        <!-- 4-1-4 -->
+        <div class="step-desc" data-step-label="APO-4 锁胚">
+            <i class="fas fa-4" style="color:var(--accent-light);" aria-hidden="true"></i>
+            <strong>4-1-4：</strong>操作功能代码：<span class="code-inline">ZSOH_SE17</span>
+            <div class="sub-operation">
+                <i class="fas fa-edit" aria-hidden="true"></i> 更改 PF0621（是否已鎖胚）特性值为“Y”
+            </div>
+        </div>
+        <div class="img-grid">
+            <div class="img-card">
+                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-12.png" alt="1-12 锁胚" loading="lazy" decoding="async" />
+                <div><span class="code-tag">锁胚</span><span class="img-caption">图 1-12 锁胚操作</span></div>
+            </div>
+        </div>
+
+        <!-- 4-1-5 -->
+        <div class="step-desc" data-step-label="APO-5 转工单">
+            <i class="fas fa-5" style="color:var(--accent-light);" aria-hidden="true"></i>
+            <strong>4-1-5：</strong>手动转工单：<span class="code-inline">/SAPAPO/RRP3</span>
+        </div>
+        <div class="img-grid">
+            <div class="img-card">
+                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-13.png" alt="1-13 手动转工单" loading="lazy" decoding="async" />
+                <div><span class="code-tag">/SAPAPO/RRP3</span><span class="img-caption">图 1-13 手动转工单</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 第五步：ECC 系统 -->
+    <div class="section" id="step-5">
+        <div class="section-title"><span class="num">五</span> ECC 系统创建工单</div>
+
+        <div class="step-desc" data-step-label="ECC方法2说明">
+            <i class="fas fa-info-circle" style="color:#8a6e9b;" aria-hidden="true"></i>
+            <strong>方法2：</strong>在 ECC 系统，通过复制生产部要求颜色对应的工单，复制创建工单。<span class="remark">适用于办单</span>
+        </div>
+
+        <!-- 4-2-1 -->
+        <div class="step-desc" data-step-label="ECC-1 CO01">
+            <i class="fas fa-1" style="color:#8a6e9b;" aria-hidden="true"></i>
+            <strong>4-2-1：</strong>操作功能代码：<span class="code-inline">CO01</span>
+            <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作：复制创建工单</span>
+        </div>
+        <div class="img-grid">
+            <div class="img-card">
+                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-14.png" alt="1-14 CO01" loading="lazy" decoding="async" />
+                <div><span class="code-tag">CO01</span><span class="img-caption">图 1-14 复制创建工单</span></div>
+            </div>
+        </div>
+
+        <!-- 4-2-2 -->
+        <div class="step-desc" data-step-label="ECC-2 重读数据">
+            <i class="fas fa-2" style="color:#8a6e9b;" aria-hidden="true"></i>
+            <strong>4-2-2：</strong>重读数据
+        </div>
+        <div class="img-grid">
+            <div class="img-card">
+                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-15.png" alt="1-15 重读数据" loading="lazy" decoding="async" />
+                <div><span class="code-tag">重读数据</span><span class="img-caption">图 1-15 重读数据</span></div>
+            </div>
+            <div class="img-card">
+                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-16.png" alt="1-16 重读数据" loading="lazy" decoding="async" />
+                <div><span class="code-tag">重读数据</span><span class="img-caption">图 1-16 重读数据</span></div>
+            </div>
+        </div>
+
+        <!-- 4-2-3 -->
+        <div class="step-desc" data-step-label="ECC-3 删B物料">
+            <i class="fas fa-3" style="color:#8a6e9b;" aria-hidden="true"></i>
+            <strong>4-2-3：</strong>在 Components（工单元件）界面，删除“B”开头的物料数据。
+        </div>
+        <div class="img-grid">
+            <div class="img-card">
+                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-17.png" alt="1-17 删除B物料" loading="lazy" decoding="async" />
+                <div><span class="code-tag">Components</span><span class="img-caption">图 1-17 删除B物料</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 第六步 -->
+    <div class="section" id="step-6">
+        <div class="section-title"><span class="num">六</span> 锁胚 · 报工 · 发单</div>
+
+        <div class="step-desc" data-step-label="ZSOHPP159">
+            <i class="fas fa-lock" style="color:#b8860b;" aria-hidden="true"></i>
+            工单锁胚-报工-发单
+            <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">ZSOHPP159</span></span>
+            <div class="sub-operation">
+                <i class="fas fa-edit" aria-hidden="true"></i> ① 删除不需要的工序；② 抽胚异常栏位注明抽布缸号胚布染色；③ 填写差异原因：<strong>RDD5 胚布抽用</strong>
+            </div>
+        </div>
+        <div class="img-grid">
+            <div class="img-card">
+                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-18.png" alt="1-18 ZSOHPP159" loading="lazy" decoding="async" />
+                <div><span class="code-tag">ZSOHPP159</span><span class="img-caption">图 1-18 锁胚报工</span></div>
+            </div>
+        </div>
+
+        <div class="step-desc" data-step-label="Components锁胚">
+            <i class="fas fa-arrow-right" style="color:#b8860b;" aria-hidden="true"></i>
+            双击工单号码，进入 Components（工单元件）界面，进行锁胚。
+        </div>
+        <div class="img-grid">
+            <div class="img-card">
+                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-19.png" alt="1-19 Components锁胚" loading="lazy" decoding="async" />
+                <div><span class="code-tag">锁胚</span><span class="img-caption">图 1-19 Components 锁胚</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 第七步 -->
+    <div class="section" id="step-7">
+        <div class="section-title"><span class="num">七</span> 工单投料</div>
+
+        <div class="step-desc" data-step-label="MIGO投料">
+            <i class="fas fa-boxes" style="color:#3a6b8f;" aria-hidden="true"></i>
+            工单投料
+            <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">MIGO</span>（收货批次在线边仓则直接投料，收货批次在成品仓则正常流程从成品仓提布）</span>
+        </div>
+        <div class="img-grid">
+            <div class="img-card">
+                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-20.png" alt="1-20 MIGO投料" loading="lazy" decoding="async" />
+                <div><span class="code-tag">MIGO</span><span class="img-caption">图 1-20 工单投料</span></div>
+            </div>
+        </div>
+
+        <div class="step-desc" data-step-label="流程结束" style="border-left-color: #6b8fb0; background: rgba(238, 246, 252, 0.5); margin-top: 1.5rem;">
+            <i class="fas fa-flag-checkered" style="color:#1f6b4a;" aria-hidden="true"></i>
+            胚布抽用工单开单流程结束。
+        </div>
+    </div>
+
+    <!-- ===== 页脚 ===== -->
+    <div class="footer-note">
+        <span><i class="fas fa-check-circle" style="color:#1f6b4a;" aria-hidden="true"></i> TOPT 培训教材 · 内部使用</span>
+        <span class="doc-badge"><i class="fas fa-file-alt" aria-hidden="true"></i> 版本 v1.0</span>
+        <span><i class="far fa-copyright" aria-hidden="true"></i> 刘洋 · liu-yang@top-textiles.vn</span>
+    </div>
+
+</div>
+
+<!-- ===== Lightbox ===== -->
+<div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="图片放大预览">
+    <button class="lightbox-close" id="lightboxClose" aria-label="关闭预览">✕</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="上一张图片">❮</button>
+    <img id="lightboxImg" src="" alt="放大图片" />
+    <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="下一张图片">❯</button>
+    <div class="lightbox-counter" id="lightboxCounter" aria-live="polite"></div>
+</div>
+
+<!-- 返回顶部按钮 -->
+<button class="back-to-top" id="backToTop" aria-label="返回顶部"><i class="fas fa-arrow-up"></i></button>
+
+<script>
+    // ============================================
+    // 1. 图片放大 (Lightbox) 增强
+    // ============================================
+    (function() {
+        const images = Array.from(document.querySelectorAll('.img-card img'));
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const closeBtn = document.getElementById('lightboxClose');
+        const prevBtn = document.getElementById('lightboxPrev');
+        const nextBtn = document.getElementById('lightboxNext');
+        const counter = document.getElementById('lightboxCounter');
+        let currentIndex = -1;
+
+        function openLightbox(index) {
+            if (index < 0 || index >= images.length) return;
+            currentIndex = index;
+            updateLightboxImage();
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            closeBtn.focus();
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+            if (currentIndex >= 0) {
+                images[currentIndex].focus({ preventScroll: true });
+                if (document.activeElement === images[currentIndex]) return;
+            }
+            document.body.focus();
+            currentIndex = -1;
+        }
+
+        function updateLightboxImage() {
+            if (currentIndex < 0 || currentIndex >= images.length) return;
+            const img = images[currentIndex];
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt || '放大图片';
+            counter.textContent = `${currentIndex + 1} / ${images.length}`;
+        }
+
+        function showPrev() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateLightboxImage();
+            }
+        }
+
+        function showNext() {
+            if (currentIndex < images.length - 1) {
+                currentIndex++;
+                updateLightboxImage();
+            }
+        }
+
+        document.querySelector('.container').addEventListener('click', (e) => {
+            const img = e.target.closest('.img-card img');
+            if (img) {
+                const index = images.indexOf(img);
+                if (index !== -1) openLightbox(index);
+            }
+        });
+
+        closeBtn.addEventListener('click', closeLightbox);
+        prevBtn.addEventListener('click', showPrev);
+        nextBtn.addEventListener('click', showNext);
+
+        lightbox.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            switch(e.key) {
+                case 'Escape':
+                    closeLightbox();
+                    break;
+                case 'ArrowLeft':
+                    showPrev();
+                    e.preventDefault();
+                    break;
+                case 'ArrowRight':
+                    showNext();
+                    e.preventDefault();
+                    break;
+                case 'Tab':
+                    const focusable = lightbox.querySelectorAll('button');
+                    if (focusable.length === 0) return;
+                    const first = focusable[0];
+                    const last = focusable[focusable.length - 1];
+                    if (e.shiftKey && document.activeElement === first) {
+                        last.focus();
+                        e.preventDefault();
+                    } else if (!e.shiftKey && document.activeElement === last) {
+                        first.focus();
+                        e.preventDefault();
+                    }
+                    break;
+            }
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        let touchStartX = 0;
+        lightbox.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        lightbox.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].screenX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) showNext();
+                else showPrev();
+            }
+        }, { passive: true });
+    })();
+
+    // ============================================
+    // 2. 步骤滚动高亮导航（IntersectionObserver）
+    // ============================================
+    (function() {
+        const steps = document.querySelectorAll('.step-desc');
+        if (steps.length === 0) return;
+
+        const nav = document.createElement('div');
+        nav.className = 'step-nav';
+        nav.id = 'stepNav';
+        nav.setAttribute('role', 'navigation');
+        nav.setAttribute('aria-label', '步骤导航');
+
+        steps.forEach((step, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'nav-dot';
+            btn.setAttribute('aria-label', `跳转到第 ${index+1} 步：${step.dataset.stepLabel || ''}`);
+            const tooltip = document.createElement('span');
+            tooltip.className = 'tooltip';
+            tooltip.textContent = step.dataset.stepLabel || `步骤 ${index + 1}`;
+            btn.appendChild(tooltip);
+
+            btn.addEventListener('click', () => {
+                step.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+
+            nav.appendChild(btn);
+        });
+
+        document.body.appendChild(nav);
+
+        const navDots = nav.querySelectorAll('.nav-dot');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = Array.from(steps).indexOf(entry.target);
+                    if (index !== -1) {
+                        setActiveStep(index);
+                    }
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: '-20% 0px -60% 0px',
+            threshold: 0
+        });
+
+        steps.forEach(step => observer.observe(step));
+
+        function setActiveStep(index) {
+            navDots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+                if (i === index) {
+                    dot.setAttribute('aria-current', 'step');
+                } else {
+                    dot.removeAttribute('aria-current');
+                }
+            });
+            steps.forEach((step, i) => {
+                step.classList.toggle('highlight', i === index);
+            });
+        }
+
+        if (steps.length > 0) setActiveStep(0);
+    })();
+
+    // ============================================
+    // 3. 阅读进度条
+    // ============================================
+    (function() {
+        const progressBar = document.getElementById('readingProgress');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        }, { passive: true });
+    })();
+
+    // ============================================
+    // 4. 返回顶部按钮
+    // ============================================
+    (function() {
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        }, { passive: true });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    })();
+</script>
+
+</body>
+</html>
