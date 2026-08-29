@@ -653,13 +653,14 @@
             margin-bottom: 0.1rem;
         }
 
-        /* ===== 图片网格 ===== */
+        /* ===== 图片网格 - 优化后 ===== */
         .img-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 1.5rem 2rem;
+            gap: 1.2rem 1.8rem;
             margin: 1.8rem 0 1.5rem 0;
             align-items: flex-start;
+            justify-content: flex-start;
         }
 
         .img-card {
@@ -669,28 +670,29 @@
             padding: 0.8rem 0.8rem 1rem 0.8rem;
             box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
             border: 1px solid var(--border-subtle);
-            flex: 1 1 220px;
-            min-width: 180px;
+            flex: 0 1 200px;
+            min-width: 160px;
+            max-width: 260px;
             text-align: center;
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .img-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 16px 40px rgba(0, 20, 40, 0.06);
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 12px 32px rgba(0, 20, 40, 0.08);
             border-color: var(--border-strong);
         }
 
         .img-card img {
             width: 100%;
             height: auto;
+            max-height: 190px;
+            object-fit: scale-down;
             border-radius: 14px;
             border: 1px solid var(--color-border-img);
             background: var(--img-bg);
             transition: all 0.3s ease;
             cursor: pointer;
-            min-height: 100px;
-            object-fit: contain;
             display: block;
             margin-bottom: 6px;
         }
@@ -1071,6 +1073,10 @@
             .img-grid {
                 flex-direction: column;
                 align-items: center;
+            }
+            .img-card {
+                max-width: 280px;
+                flex: 0 1 280px;
             }
             .section-title {
                 font-size: 1.5rem;
