@@ -9,85 +9,113 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        /* ===== CSS 变量定义 ===== */
+        /* ==========================================
+                   CSS 变量与主题
+                   ========================================== */
         :root {
-            --bg-body: #f0f5fc;
-            --bg-container: rgba(255, 255, 255, 0.85);
+            --bg-body: #eef3f8;
+            --bg-container: rgba(255, 255, 255, 0.92);
             --bg-container-solid: #ffffff;
             --text-primary: #14273e;
             --text-secondary: #4a6a85;
             --text-heading: #0b2b4a;
             --text-link: #1f4b6e;
-            --border-subtle: rgba(210, 225, 240, 0.5);
-            --border-strong: rgba(200, 215, 235, 0.7);
-            --shadow-card: 0 40px 80px -20px rgba(0, 20, 40, 0.30), 0 0 0 1px rgba(255,255,255,0.6) inset;
+            --border-subtle: rgba(210, 225, 240, 0.55);
+            --border-strong: rgba(200, 215, 235, 0.75);
+            --shadow-card: 0 40px 80px -20px rgba(0, 20, 40, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 8px 24px rgba(0, 20, 40, 0.08);
+            --shadow-lg: 0 24px 64px rgba(0, 20, 40, 0.15);
             --accent: #1f4b6e;
             --accent-light: #3875ac;
             --accent-gold: #d99e4a;
             --accent-green: #2a7f5a;
             --accent-purple: #8a6e9b;
-            --bg-card: rgba(255, 255, 255, 0.6);
-            --bg-toc: rgba(240, 247, 255, 0.5);
-            --bg-step: rgba(248, 251, 255, 0.7);
-            --bg-step-hover: rgba(252, 254, 255, 0.8);
-            --bg-img-card: rgba(255, 255, 255, 0.6);
-            --bg-note: rgba(252, 244, 232, 0.6);
-            --bg-footer: rgba(235, 244, 252, 0.5);
-            --bg-highlight: rgba(252, 248, 240, 0.7);
-            --bg-code-inline: rgba(225, 238, 250, 0.6);
+            --accent-red: #c0392b;
+            --bg-card: rgba(255, 255, 255, 0.7);
+            --bg-toc: rgba(240, 247, 255, 0.6);
+            --bg-step: rgba(248, 251, 255, 0.8);
+            --bg-step-hover: rgba(252, 254, 255, 0.9);
+            --bg-img-card: rgba(255, 255, 255, 0.75);
+            --bg-note: rgba(252, 244, 232, 0.7);
+            --bg-footer: rgba(235, 244, 252, 0.6);
+            --bg-highlight: rgba(252, 248, 240, 0.8);
+            --bg-code-inline: rgba(225, 238, 250, 0.7);
             --bg-nav-dot: rgba(190, 210, 230, 0.5);
             --color-text-on-accent: white;
             --color-text-remark: #1a3a53;
             --color-text-note: #4d3a20;
-            --color-border-img: rgba(210, 225, 240, 0.3);
+            --color-border-img: rgba(210, 225, 240, 0.4);
             --img-bg: #f5f9ff;
-            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            --backdrop-blur: blur(16px) saturate(180%);
-            --transition-speed: 0.3s;
+            --img-placeholder-bg: #e8f0f8;
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --backdrop-blur: blur(18px) saturate(180%);
+            --transition-speed: 0.35s;
             --header-gradient: linear-gradient(135deg, #d6eaf8 0%, #ebf5fb 100%);
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 32px;
+            --radius-xl: 56px;
+            --radius-full: 999px;
+            --img-ratio: 16 / 10;
         }
 
         @media (prefers-color-scheme: dark) {
             :root {
                 --bg-body: #0d1b2a;
-                --bg-container: rgba(20, 35, 55, 0.7);
+                --bg-container: rgba(20, 35, 55, 0.75);
                 --bg-container-solid: #162b40;
                 --text-primary: #e3eaf2;
                 --text-secondary: #8a9ab0;
                 --text-heading: #c0d0e0;
                 --text-link: #8ab0d8;
-                --border-subtle: rgba(255, 255, 255, 0.04);
-                --border-strong: rgba(255, 255, 255, 0.08);
-                --shadow-card: 0 40px 80px -20px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04) inset;
+                --border-subtle: rgba(255, 255, 255, 0.05);
+                --border-strong: rgba(255, 255, 255, 0.1);
+                --shadow-card: 0 40px 80px -20px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+                --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+                --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+                --shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.45);
                 --accent: #2a5a7a;
                 --accent-light: #4a7aad;
                 --accent-gold: #d99e4a;
                 --accent-green: #3a8a6a;
                 --accent-purple: #9a7aad;
-                --bg-card: rgba(255, 255, 255, 0.03);
-                --bg-toc: rgba(25, 45, 65, 0.4);
-                --bg-step: rgba(30, 50, 70, 0.5);
-                --bg-step-hover: rgba(40, 65, 90, 0.5);
-                --bg-img-card: rgba(30, 50, 70, 0.4);
-                --bg-note: rgba(45, 40, 25, 0.5);
-                --bg-footer: rgba(25, 45, 65, 0.3);
-                --bg-highlight: rgba(252, 248, 240, 0.04);
-                --bg-code-inline: rgba(40, 65, 90, 0.4);
-                --bg-nav-dot: rgba(120, 150, 180, 0.3);
+                --accent-red: #e74c3c;
+                --bg-card: rgba(255, 255, 255, 0.04);
+                --bg-toc: rgba(25, 45, 65, 0.5);
+                --bg-step: rgba(30, 50, 70, 0.55);
+                --bg-step-hover: rgba(40, 65, 90, 0.55);
+                --bg-img-card: rgba(30, 50, 70, 0.5);
+                --bg-note: rgba(45, 40, 25, 0.55);
+                --bg-footer: rgba(25, 45, 65, 0.4);
+                --bg-highlight: rgba(252, 248, 240, 0.05);
+                --bg-code-inline: rgba(40, 65, 90, 0.5);
+                --bg-nav-dot: rgba(120, 150, 180, 0.35);
                 --color-text-on-accent: white;
                 --color-text-remark: #d0dce8;
                 --color-text-note: #e0d0b0;
-                --color-border-img: rgba(60, 85, 110, 0.2);
+                --color-border-img: rgba(60, 85, 110, 0.25);
                 --img-bg: #0d1b2a;
-                --backdrop-blur: blur(20px) saturate(180%);
+                --img-placeholder-bg: #1a2d42;
+                --backdrop-blur: blur(22px) saturate(180%);
                 --header-gradient: linear-gradient(135deg, #1a3a5a 0%, #162b40 100%);
             }
         }
 
-        * {
+        /* ==========================================
+                   重置与基础样式
+                   ========================================== */
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -95,28 +123,33 @@
             background: var(--bg-body);
             color: var(--text-primary);
             padding: 2rem 1.5rem;
-            line-height: 1.6;
+            line-height: 1.65;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
             position: relative;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1440px;
             margin: 0 auto;
             background: var(--bg-container);
             backdrop-filter: var(--backdrop-blur);
             -webkit-backdrop-filter: var(--backdrop-blur);
-            border-radius: 56px;
+            border-radius: var(--radius-xl);
             box-shadow: var(--shadow-card);
-            padding: 2.8rem 3.2rem;
-            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
+            padding: 2.8rem 3rem;
+            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+            width: 100%;
         }
 
-        /* ===== 头部 ===== */
+        /* ==========================================
+                   头部样式
+                   ========================================== */
         .header {
             border-bottom: 1px solid var(--border-subtle);
             padding: 1.5rem 2rem;
@@ -128,8 +161,8 @@
             gap: 1.2rem;
             position: relative;
             background: var(--header-gradient);
-            border-radius: 32px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
@@ -142,28 +175,34 @@
 
         .logo-wrap {
             background: var(--bg-card);
-            border-radius: 60px;
-            padding: 0.4rem 0.8rem 0.4rem 0.4rem;
+            border-radius: var(--radius-full);
+            padding: 0.35rem 0.8rem 0.35rem 0.35rem;
             display: flex;
             align-items: center;
             gap: 0.75rem;
             border: 1px solid var(--border-subtle);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            box-shadow: var(--shadow-sm);
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
+            flex-shrink: 0;
         }
 
         .logo-wrap img {
-            height: 44px;
+            height: 46px;
             width: auto;
             display: block;
-            border-radius: 30px;
+            border-radius: 50%;
             background: white;
-            padding: 2px;
+            padding: 3px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease;
+        }
+        .logo-wrap img:hover {
+            transform: scale(1.06);
         }
 
         .logo-wrap .brand-text {
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             letter-spacing: -0.3px;
             color: var(--text-heading);
             padding-right: 0.5rem;
@@ -178,36 +217,34 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 0.1rem;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+            margin-bottom: 0.15rem;
+            line-height: 1.3;
         }
 
         .header-left .subhead {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 500;
             color: var(--text-secondary);
-            background: rgba(230, 242, 255, 0.6);
-            display: inline-block;
-            padding: 0.2rem 1.4rem;
-            border-radius: 40px;
-            letter-spacing: 0.2px;
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+            background: rgba(230, 242, 255, 0.65);
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            padding: 0.2rem 1.4rem;
+            border-radius: var(--radius-full);
+            letter-spacing: 0.2px;
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
         }
         .header-left .subhead::before {
             content: "📘";
-            font-size: 1em;
+            font-size: 0.95em;
         }
 
         .header-right {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 1rem 1.6rem;
+            gap: 0.8rem 1.4rem;
         }
 
         .author-block {
@@ -216,10 +253,10 @@
             align-items: flex-end;
             background: var(--bg-card);
             backdrop-filter: blur(8px);
-            padding: 0.4rem 1.6rem 0.4rem 2rem;
-            border-radius: 60px;
+            padding: 0.4rem 1.6rem 0.4rem 1.8rem;
+            border-radius: var(--radius-full);
             border: 1px solid var(--border-subtle);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            box-shadow: var(--shadow-sm);
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
@@ -232,7 +269,6 @@
             gap: 6px;
             transition: color var(--transition-speed) ease;
         }
-
         .author-name i {
             color: var(--accent-light);
             font-size: 0.9rem;
@@ -244,39 +280,42 @@
             color: #2a577b;
             background: var(--bg-card);
             padding: 0 12px;
-            border-radius: 30px;
+            border-radius: var(--radius-full);
             letter-spacing: 0.2px;
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
         }
 
         .badge-soft {
-            background: rgba(220, 235, 250, 0.5);
+            background: rgba(220, 235, 250, 0.55);
             backdrop-filter: blur(4px);
             padding: 0.3rem 1.2rem;
-            border-radius: 40px;
+            border-radius: var(--radius-full);
             font-size: 0.75rem;
             font-weight: 500;
             color: #1f4a6e;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            border: 1px solid rgba(255,255,255,0.4);
+            border: 1px solid rgba(255, 255, 255, 0.45);
             letter-spacing: 0.3px;
+            white-space: nowrap;
+            transition: background var(--transition-speed) ease;
         }
-
         .badge-soft i {
             opacity: 0.7;
         }
 
-        /* ===== 目录 ===== */
+        /* ==========================================
+                   目录
+                   ========================================== */
         .toc {
             background: var(--bg-toc);
             backdrop-filter: blur(12px);
-            border-radius: 32px;
-            padding: 1.2rem 2.2rem;
+            border-radius: var(--radius-lg);
+            padding: 1.2rem 2rem;
             margin-bottom: 3rem;
             border: 1px solid var(--border-subtle);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+            box-shadow: var(--shadow-sm);
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
@@ -296,21 +335,21 @@
             gap: 10px;
             transition: color var(--transition-speed) ease;
         }
-
         .toc-title span {
             background: var(--accent);
             color: var(--color-text-on-accent);
-            padding: 0 16px;
-            border-radius: 40px;
+            padding: 0 14px;
+            border-radius: var(--radius-full);
             font-size: 0.7rem;
             line-height: 1.9;
             font-weight: 600;
+            letter-spacing: 0.4px;
         }
 
         .toc-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 6px 20px;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 6px 24px;
             list-style: none;
             padding: 0;
         }
@@ -333,26 +372,27 @@
             font-size: 0.6rem;
             font-weight: 700;
             padding: 0 8px;
-            border-radius: 20px;
+            border-radius: var(--radius-full);
             line-height: 1.8;
             min-width: 28px;
             text-align: center;
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+            flex-shrink: 0;
         }
 
         .toc-grid li .step-icon {
             font-size: 0.75rem;
             width: 18px;
             text-align: center;
+            flex-shrink: 0;
         }
 
         .toc-grid li a {
             color: inherit;
             text-decoration: none;
-            transition: color 0.2s ease;
+            transition: color 0.25s ease;
             position: relative;
         }
-
         .toc-grid li a::after {
             content: '';
             position: absolute;
@@ -361,9 +401,8 @@
             width: 0;
             height: 1.5px;
             background: var(--text-link);
-            transition: width 0.25s ease;
+            transition: width 0.3s ease;
         }
-
         .toc-grid li a:hover {
             color: var(--text-link);
         }
@@ -371,13 +410,9 @@
             width: 100%;
         }
 
-        @media (max-width: 600px) {
-            .toc-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* ===== 章节标题 ===== */
+        /* ==========================================
+                   章节与标题
+                   ========================================== */
         .section {
             margin-bottom: 2.8rem;
         }
@@ -402,12 +437,11 @@
             font-size: 1.2rem;
             font-weight: 600;
             padding: 0.1rem 1.2rem;
-            border-radius: 40px;
-            box-shadow: 0 4px 12px rgba(31, 75, 110, 0.15);
+            border-radius: var(--radius-full);
+            box-shadow: 0 4px 12px rgba(31, 75, 110, 0.18);
             flex-shrink: 0;
         }
 
-        /* ===== 子章节 ===== */
         .subsection {
             margin-top: 2.6rem;
             padding-left: 0.5rem;
@@ -436,15 +470,21 @@
             transition: color var(--transition-speed) ease;
         }
 
-        /* ===== 流程路径卡片 ===== */
+        /* ==========================================
+                   路径卡片
+                   ========================================== */
         .path-box {
             background: var(--bg-step);
             backdrop-filter: blur(8px);
-            border-radius: 24px;
+            border-radius: var(--radius-md);
             padding: 1.5rem 2rem;
             margin: 1.2rem 0 1.8rem 0;
             border: 1px solid var(--border-subtle);
-            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
+            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease, transform 0.3s ease;
+        }
+        .path-box:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         .path-box .path-title {
@@ -454,28 +494,28 @@
             align-items: center;
             gap: 10px;
             margin-bottom: 0.6rem;
+            flex-wrap: wrap;
         }
 
         .path-box .path-title .path-badge {
             font-size: 0.7rem;
             font-weight: 600;
-            padding: 0.1rem 1rem;
-            border-radius: 40px;
+            padding: 0.15rem 1rem;
+            border-radius: var(--radius-full);
             background: var(--bg-code-inline);
             color: var(--text-link);
             border: 1px solid var(--border-subtle);
+            letter-spacing: 0.3px;
         }
-
         .path-box .path-title .path-badge.a {
-            background: rgba(58, 122, 138, 0.12);
+            background: rgba(58, 122, 138, 0.15);
             color: #2a6a7a;
-            border-color: rgba(58, 122, 138, 0.2);
+            border-color: rgba(58, 122, 138, 0.25);
         }
-
         .path-box .path-title .path-badge.b {
-            background: rgba(138, 110, 155, 0.12);
+            background: rgba(138, 110, 155, 0.15);
             color: #6a4a7a;
-            border-color: rgba(138, 110, 155, 0.2);
+            border-color: rgba(138, 110, 155, 0.25);
         }
 
         .path-box .path-desc {
@@ -483,37 +523,39 @@
             font-weight: 400;
             line-height: 1.8;
         }
-
         .path-box .path-desc code {
             background: var(--bg-code-inline);
             padding: 0.1rem 0.6rem;
-            border-radius: 30px;
+            border-radius: var(--radius-full);
             font-size: 0.85rem;
             font-weight: 600;
             color: #004080;
             font-family: 'Inter', monospace;
+            border: 1px solid var(--border-subtle);
         }
 
-        /* ===== 步骤卡片 ===== */
+        /* ==========================================
+                   步骤卡片
+                   ========================================== */
         .step-desc {
             background: var(--bg-step);
             backdrop-filter: blur(8px);
             padding: 1.2rem 2rem;
-            border-radius: 24px;
+            border-radius: var(--radius-md);
             border-left: 4px solid var(--accent-light);
             margin: 0.8rem 0 1.5rem 0;
             font-weight: 500;
             color: var(--color-text-remark);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            box-shadow: var(--shadow-sm);
             transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             cursor: default;
             scroll-margin-top: 80px;
             border: 1px solid var(--border-subtle);
+            border-left-width: 4px;
         }
-
         .step-desc:hover {
-            transform: translateX(6px) scale(1.002);
-            box-shadow: 0 8px 24px rgba(0, 20, 40, 0.06);
+            transform: translateX(6px);
+            box-shadow: var(--shadow-md);
             border-color: var(--border-strong);
             background: var(--bg-step-hover);
         }
@@ -521,8 +563,7 @@
         .step-desc.highlight {
             border-left-color: var(--accent-gold) !important;
             background: var(--bg-highlight) !important;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 0 0 2px rgba(217, 158, 74, 0.12);
+            box-shadow: 0 0 0 2px rgba(217, 158, 74, 0.15), var(--shadow-md);
         }
 
         .step-desc .remark {
@@ -530,63 +571,59 @@
             margin-top: 6px;
             font-weight: 400;
             background: var(--bg-code-inline);
-            backdrop-filter: blur(4px);
             padding: 4px 18px;
-            border-radius: 30px;
+            border-radius: var(--radius-full);
             font-size: 0.9rem;
             transition: background var(--transition-speed) ease;
             border: 1px solid var(--border-subtle);
         }
-
         .step-desc .code-inline {
             background: var(--bg-code-inline);
-            backdrop-filter: blur(4px);
             padding: 0.1rem 0.7rem;
-            border-radius: 30px;
+            border-radius: var(--radius-full);
             font-family: 'Inter', monospace;
             font-weight: 600;
             color: #004080;
             font-size: 0.9rem;
             border: 1px solid var(--border-subtle);
+            white-space: nowrap;
         }
-
         .step-desc .sub-operation {
             margin-top: 8px;
             font-weight: 400;
             background: var(--bg-code-inline);
-            backdrop-filter: blur(4px);
             padding: 6px 18px;
-            border-radius: 30px;
+            border-radius: var(--radius-full);
             display: inline-block;
             border: 1px solid var(--border-subtle);
+            font-size: 0.9rem;
         }
-
         .step-desc .sub-operation i {
             margin-right: 6px;
         }
 
-        /* ===== 注意事项 ===== */
+        /* ==========================================
+                   注意事项
+                   ========================================== */
         .note-box {
             background: var(--bg-note);
             backdrop-filter: blur(8px);
-            border-radius: 20px;
+            border-radius: var(--radius-md);
             padding: 1.2rem 2rem;
             margin: 1.5rem 0 2rem 0;
             border-left: 4px solid var(--accent-gold);
             color: var(--color-text-note);
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
             border: 1px solid var(--border-subtle);
+            border-left-width: 4px;
         }
-
         .note-box strong {
             color: #a8692b;
         }
-
         .note-box .rule-list {
             list-style: none;
             margin-top: 8px;
         }
-
         .note-box .rule-list li {
             padding: 0.3rem 0 0.3rem 1.8rem;
             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23d99e4a" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>') left center no-repeat;
@@ -594,85 +631,232 @@
             margin-bottom: 0.1rem;
         }
 
-        /* ===== 图片网格 ===== */
+        /* ==========================================
+                   图片网格 — 核心优化区域
+                   ========================================== */
         .img-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem 2.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.8rem;
             margin: 1.8rem 0 1.5rem 0;
-            align-items: flex-start;
+            align-items: start;
         }
 
         .img-card {
             background: var(--bg-img-card);
             backdrop-filter: blur(8px);
-            border-radius: 20px;
-            padding: 1rem 1rem 1.2rem 1rem;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.02);
+            border-radius: var(--radius-md);
+            padding: 1rem 1rem 1.1rem 1rem;
+            box-shadow: var(--shadow-sm);
             border: 1px solid var(--border-subtle);
-            flex: 1 1 320px;
-            min-width: 260px;
-            max-width: 520px;
             text-align: center;
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
         }
-
+        .img-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-light), var(--accent), var(--accent-light));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+        }
+        .img-card:hover::before {
+            opacity: 1;
+        }
         .img-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 16px 40px rgba(0, 20, 40, 0.06);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
             border-color: var(--border-strong);
         }
 
-        .img-card img {
-            width: 100%;
-            height: auto;
-            border-radius: 14px;
-            border: 1px solid var(--color-border-img);
-            background: var(--img-bg);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            min-height: 160px;
-            object-fit: contain;
-            display: block;
-            margin-bottom: 8px;
+        /* 图片序号徽章 */
+        .img-card .img-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            z-index: 5;
+            background: rgba(15, 30, 47, 0.72);
+            backdrop-filter: blur(8px);
+            color: #fff;
+            padding: 0.15rem 0.7rem;
+            border-radius: var(--radius-full);
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(-4px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .img-card:hover .img-badge {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .img-card .img-caption {
+        /* 图片容器 — 统一比例 */
+        .img-card .img-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: var(--img-ratio);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background: var(--img-placeholder-bg);
+            cursor: pointer;
+            border: 1px solid var(--color-border-img);
+            margin-bottom: 10px;
+            transition: border-color 0.3s ease;
+        }
+        .img-card:hover .img-wrapper {
+            border-color: var(--border-strong);
+        }
+
+        /* 图片本身 */
+        .img-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            background: var(--img-bg);
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            opacity: 0;
+        }
+        .img-card img.loaded {
+            opacity: 1;
+            animation: imgFadeIn 0.4s ease forwards;
+        }
+        .img-card:hover img.loaded {
+            transform: scale(1.03);
+        }
+
+        @keyframes imgFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.97);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* 图片加载占位动画 */
+        .img-card .img-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--img-placeholder-bg);
+            z-index: 2;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+        .img-card .img-placeholder.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .img-card .img-placeholder .spinner {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 3px solid var(--border-strong);
+            border-top-color: var(--accent-light);
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* 图片加载失败占位 */
+        .img-card .img-error {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: var(--img-placeholder-bg);
+            z-index: 2;
+            color: var(--text-secondary);
             font-size: 0.8rem;
+            font-weight: 500;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .img-card .img-error.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .img-card .img-error i {
+            font-size: 1.6rem;
+            color: var(--accent-red);
+            opacity: 0.7;
+        }
+
+        /* 图片底部标注 */
+        .img-card .img-caption-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+        .img-card .img-caption {
+            font-size: 0.78rem;
             font-weight: 500;
             color: #1f4a6e;
             background: var(--bg-code-inline);
-            backdrop-filter: blur(4px);
             padding: 0.2rem 0.8rem;
-            border-radius: 40px;
+            border-radius: var(--radius-full);
             display: inline-block;
-            margin-top: 4px;
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
             border: 1px solid var(--border-subtle);
         }
-
         .img-card .code-tag {
             font-family: 'Inter', monospace;
             background: var(--bg-code-inline);
-            backdrop-filter: blur(4px);
             padding: 0.1rem 0.8rem;
-            border-radius: 30px;
-            font-size: 0.7rem;
+            border-radius: var(--radius-full);
+            font-size: 0.68rem;
             font-weight: 600;
             color: #004080;
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
             border: 1px solid var(--border-subtle);
+            letter-spacing: 0.2px;
         }
 
-        /* ===== 页脚 ===== */
+        /* 单图居中 */
+        .img-grid.single-img {
+            grid-template-columns: minmax(280px, 560px);
+            justify-content: center;
+        }
+        .img-grid.single-img .img-card {
+            max-width: 100%;
+        }
+
+        /* ==========================================
+                   页脚
+                   ========================================== */
         .footer-note {
             margin-top: 3.2rem;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             color: var(--text-secondary);
             background: var(--bg-footer);
             backdrop-filter: blur(12px);
-            padding: 1rem 2.2rem;
-            border-radius: 60px;
+            padding: 1rem 2rem;
+            border-radius: var(--radius-full);
             text-align: center;
             border: 1px solid var(--border-subtle);
             font-weight: 500;
@@ -683,28 +867,29 @@
             gap: 0.8rem 1.8rem;
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease, color var(--transition-speed) ease;
         }
-
         .footer-note .doc-badge {
             background: linear-gradient(145deg, var(--accent), #0b2b4a);
             color: white;
             padding: 0.15rem 1.2rem;
-            border-radius: 40px;
+            border-radius: var(--radius-full);
             font-size: 0.8rem;
             font-weight: 600;
-            box-shadow: 0 2px 8px rgba(31, 75, 110, 0.12);
+            box-shadow: 0 2px 8px rgba(31, 75, 110, 0.15);
         }
 
-        /* ===== 侧边导航 ===== */
+        /* ==========================================
+                   侧边导航
+                   ========================================== */
         .step-nav {
             position: fixed;
-            right: 30px;
+            right: 28px;
             top: 50%;
             transform: translateY(-50%);
             background: var(--bg-toc);
             backdrop-filter: blur(16px);
             padding: 14px 10px;
             border-radius: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+            box-shadow: var(--shadow-md);
             border: 1px solid var(--border-subtle);
             z-index: 100;
             display: none;
@@ -712,7 +897,6 @@
             gap: 10px;
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
-
         @media (min-width: 1024px) {
             .step-nav {
                 display: flex;
@@ -732,7 +916,6 @@
             appearance: none;
             -webkit-appearance: none;
         }
-
         .step-nav .nav-dot:hover,
         .step-nav .nav-dot:focus-visible {
             transform: scale(1.4);
@@ -740,22 +923,20 @@
             outline: none;
             box-shadow: 0 0 0 2px var(--accent-light);
         }
-
         .step-nav .nav-dot.active {
             background: var(--accent);
-            box-shadow: 0 0 0 4px rgba(31, 75, 110, 0.08);
+            box-shadow: 0 0 0 4px rgba(31, 75, 110, 0.1);
         }
-
         .step-nav .nav-dot .tooltip {
             position: absolute;
             right: 26px;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(15, 30, 47, 0.85);
+            background: rgba(15, 30, 47, 0.88);
             backdrop-filter: blur(8px);
             color: white;
             padding: 4px 14px;
-            border-radius: 20px;
+            border-radius: var(--radius-full);
             font-size: 0.7rem;
             white-space: nowrap;
             opacity: 0;
@@ -763,23 +944,25 @@
             transition: all 0.3s ease;
             font-weight: 500;
             z-index: 10;
+            letter-spacing: 0.3px;
         }
-
         .step-nav .nav-dot:hover .tooltip,
         .step-nav .nav-dot:focus-visible .tooltip {
             opacity: 1;
             right: 30px;
         }
 
-        /* ===== Lightbox ===== */
+        /* ==========================================
+                   Lightbox 灯箱
+                   ========================================== */
         .lightbox-overlay {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(8, 18, 32, 0.85);
-            backdrop-filter: blur(18px);
+            background: rgba(8, 18, 32, 0.88);
+            backdrop-filter: blur(20px);
             display: none;
             justify-content: center;
             align-items: center;
@@ -787,30 +970,29 @@
             padding: 20px;
             animation: fadeIn 0.3s ease;
         }
-
         .lightbox-overlay.active {
             display: flex;
         }
-
         .lightbox-overlay img {
             max-width: 88%;
             max-height: 85%;
             object-fit: contain;
             border-radius: 16px;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
-            animation: zoomIn 0.3s ease;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.45);
+            animation: zoomIn 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #fff;
         }
 
         .lightbox-close {
             position: fixed;
-            top: 30px;
-            right: 40px;
+            top: 24px;
+            right: 32px;
             color: white;
-            font-size: 28px;
+            font-size: 24px;
             cursor: pointer;
             z-index: 10000;
-            background: rgba(255,255,255,0.08);
+            background: rgba(255, 255, 255, 0.08);
             width: 48px;
             height: 48px;
             border-radius: 50%;
@@ -818,17 +1000,16 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.12);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(8px);
             appearance: none;
             -webkit-appearance: none;
+            line-height: 1;
         }
-
         .lightbox-close:hover {
-            background: rgba(255,255,255,0.15);
+            background: rgba(255, 255, 255, 0.18);
             transform: rotate(90deg);
         }
-
         .lightbox-close:focus-visible {
             outline: 2px solid white;
             outline-offset: 2px;
@@ -838,8 +1019,8 @@
             position: fixed;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             color: white;
             width: 48px;
             height: 48px;
@@ -850,65 +1031,77 @@
             cursor: pointer;
             z-index: 10001;
             transition: all 0.3s ease;
-            font-size: 20px;
+            font-size: 18px;
             appearance: none;
             -webkit-appearance: none;
         }
-
         .lightbox-nav:hover {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.22);
         }
-
         .lightbox-nav:focus-visible {
             outline: 2px solid white;
             outline-offset: 2px;
         }
-
         .lightbox-prev {
             left: 20px;
         }
-
         .lightbox-next {
             right: 20px;
         }
 
         .lightbox-counter {
             position: fixed;
-            bottom: 30px;
+            bottom: 28px;
             left: 50%;
             transform: translateX(-50%);
             color: white;
-            background: rgba(0,0,0,0.5);
-            padding: 4px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
+            background: rgba(0, 0, 0, 0.55);
+            padding: 4px 18px;
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
             z-index: 10000;
             pointer-events: none;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(8px);
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
-
         @keyframes zoomIn {
-            from { transform: scale(0.92); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+            from {
+                transform: scale(0.92);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
-        /* ===== 阅读进度条 ===== */
+        /* ==========================================
+                   阅读进度条
+                   ========================================== */
         .reading-progress {
             position: fixed;
             top: 0;
             left: 0;
             height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            background: linear-gradient(90deg, var(--accent), var(--accent-light), var(--accent-gold));
             width: 0%;
             z-index: 9998;
             transition: width 0.1s linear;
+            border-radius: 0 2px 2px 0;
         }
 
-        /* ===== 返回顶部按钮 ===== */
+        /* ==========================================
+                   返回顶部按钮
+                   ========================================== */
         .back-to-top {
             position: fixed;
             bottom: 30px;
@@ -919,30 +1112,31 @@
             background: var(--accent);
             color: white;
             border: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
             cursor: pointer;
             z-index: 900;
             display: none;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 18px;
             transition: all 0.3s ease;
             appearance: none;
             -webkit-appearance: none;
         }
-
         .back-to-top.visible {
             display: flex;
         }
-
         .back-to-top:hover {
             background: var(--accent-light);
             transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
         }
 
-        /* ===== 毛玻璃降级 ===== */
+        /* ==========================================
+                   毛玻璃降级 & 移动端
+                   ========================================== */
         @media (max-width: 768px),
-               (prefers-reduced-motion: reduce) {
+        (prefers-reduced-motion: reduce) {
             .container,
             .toc,
             .step-desc,
@@ -971,54 +1165,75 @@
             .step-desc .sub-operation {
                 backdrop-filter: none;
             }
+            .img-card .img-badge {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* ===== 移动端 ===== */
         @media (max-width: 768px) {
             .container {
-                padding: 1.5rem;
-                border-radius: 32px;
+                padding: 1.5rem 1.2rem;
+                border-radius: var(--radius-lg);
             }
             .header {
                 flex-direction: column;
                 align-items: stretch;
                 gap: 0.8rem;
                 padding: 1rem;
+                border-radius: var(--radius-md);
             }
             .header-right {
                 justify-content: flex-start;
+                gap: 0.6rem;
             }
             .author-block {
                 align-items: flex-start;
+                padding: 0.3rem 1rem;
             }
             .header-left h1 {
-                font-size: 1.8rem;
+                font-size: 1.7rem;
             }
             .toc {
-                padding: 1rem 1.5rem;
+                padding: 1rem 1.2rem;
+                border-radius: var(--radius-md);
             }
             .toc-grid {
                 grid-template-columns: 1fr;
+                gap: 4px 12px;
             }
             .img-grid {
-                flex-direction: column;
-                align-items: center;
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .img-grid.single-img {
+                grid-template-columns: 1fr;
             }
             .img-card {
-                flex: 1 1 100%;
-                min-width: 0;
                 max-width: 100%;
+            }
+            .img-card .img-wrapper {
+                aspect-ratio: auto;
+                min-height: 200px;
+                max-height: 420px;
             }
             .section-title {
                 font-size: 1.5rem;
+                gap: 10px;
+            }
+            .section-title .num {
+                font-size: 1rem;
+                padding: 0.1rem 0.9rem;
             }
             .subsection h3 {
                 font-size: 1.2rem;
                 flex-wrap: wrap;
+                gap: 8px;
             }
             .step-nav {
-                right: 10px;
+                right: 8px;
                 padding: 10px 6px;
+                border-radius: 24px;
             }
             .step-nav .nav-dot {
                 width: 8px;
@@ -1028,51 +1243,107 @@
                 display: none;
             }
             .lightbox-close {
-                top: 20px;
-                right: 20px;
-                width: 40px;
-                height: 40px;
-                font-size: 20px;
-            }
-            .lightbox-nav {
+                top: 14px;
+                right: 14px;
                 width: 40px;
                 height: 40px;
                 font-size: 18px;
             }
-            .lightbox-prev { left: 10px; }
-            .lightbox-next { right: 10px; }
+            .lightbox-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+            .lightbox-prev {
+                left: 8px;
+            }
+            .lightbox-next {
+                right: 8px;
+            }
             .back-to-top {
-                bottom: 20px;
-                right: 20px;
+                bottom: 16px;
+                right: 16px;
                 width: 44px;
                 height: 44px;
+                font-size: 16px;
             }
             .path-box {
                 padding: 1rem 1.2rem;
+                border-radius: var(--radius-sm);
+            }
+            .step-desc {
+                padding: 1rem 1.2rem;
+                border-radius: var(--radius-sm);
+            }
+            .step-desc .code-inline {
+                white-space: normal;
+                word-break: break-all;
             }
         }
 
         @media (max-width: 480px) {
             body {
-                padding: 0.8rem;
+                padding: 0.6rem;
             }
             .container {
-                padding: 1rem;
-                border-radius: 24px;
+                padding: 0.8rem;
+                border-radius: var(--radius-md);
             }
             .logo-wrap .brand-text {
                 display: none;
             }
+            .logo-wrap img {
+                height: 38px;
+                padding: 2px;
+            }
+            .header-left h1 {
+                font-size: 1.4rem;
+            }
+            .header-left .subhead {
+                font-size: 0.75rem;
+                padding: 0.15rem 1rem;
+            }
+            .author-email {
+                font-size: 0.65rem;
+            }
+            .badge-soft {
+                font-size: 0.68rem;
+                padding: 0.25rem 0.9rem;
+            }
+            .img-card .img-wrapper {
+                min-height: 160px;
+                max-height: 340px;
+            }
+            .img-card .img-caption {
+                font-size: 0.7rem;
+            }
+            .img-card .code-tag {
+                font-size: 0.6rem;
+            }
+            .toc-title {
+                font-size: 0.9rem;
+            }
+            .section-title {
+                font-size: 1.3rem;
+            }
+            .subsection h3 {
+                font-size: 1.05rem;
+            }
         }
 
-        /* ===== 打印 ===== */
+        /* ==========================================
+                   打印样式
+                   ========================================== */
         @media print {
             .step-nav,
             .lightbox-overlay,
             .reading-progress,
             .back-to-top,
             .lightbox-nav,
-            .lightbox-counter {
+            .lightbox-counter,
+            .img-badge,
+            .img-placeholder,
+            .img-error {
                 display: none !important;
             }
             .container {
@@ -1081,6 +1352,7 @@
                 padding: 20px !important;
                 background: white !important;
                 backdrop-filter: none !important;
+                max-width: 100% !important;
             }
             body {
                 background: white !important;
@@ -1089,17 +1361,27 @@
             .img-card {
                 break-inside: avoid;
                 page-break-inside: avoid;
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+                background: white !important;
             }
-            .step-desc {
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
-            .section {
+            .step-desc,
+            .section,
+            .subsection {
                 break-inside: avoid;
                 page-break-inside: avoid;
             }
             .img-card img {
                 object-fit: contain;
+                opacity: 1 !important;
+            }
+            .img-card .img-wrapper {
+                background: white !important;
+                border: 1px solid #ddd !important;
+                aspect-ratio: auto !important;
+            }
+            .img-grid {
+                gap: 12px !important;
             }
         }
     </style>
@@ -1114,7 +1396,7 @@
         <div class="header">
             <div class="header-brand">
                 <div class="logo-wrap">
-                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/Logo.png?raw=true" alt="TOPT Logo" />
+                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/Logo.png?raw=true" alt="TOPT Logo" loading="eager" />
                     <span class="brand-text">TOPT</span>
                 </div>
                 <div class="header-left">
@@ -1196,12 +1478,22 @@
                 </div>
                 <div class="img-grid">
                     <div class="img-card">
-                        <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-1.png?raw=true" alt="1-1 MRP计划单" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">RRP3</span><span class="img-caption">图 1-1 MRP 计划单</span></div>
+                        <span class="img-badge">图 1-1</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-1.png?raw=true" alt="1-1 MRP计划单" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">RRP3</span><span class="img-caption">图 1-1 MRP 计划单</span></div>
                     </div>
                     <div class="img-card">
-                        <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-2.png?raw=true" alt="1-2 MRP计划单" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">RRP3</span><span class="img-caption">图 1-2 MRP 计划单</span></div>
+                        <span class="img-badge">图 1-2</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-2.png?raw=true" alt="1-2 MRP计划单" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">RRP3</span><span class="img-caption">图 1-2 MRP 计划单</span></div>
                     </div>
                 </div>
             </div>
@@ -1216,16 +1508,31 @@
                 </div>
                 <div class="img-grid">
                     <div class="img-card">
-                        <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-3.png?raw=true" alt="1-3 分缸" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">分缸</span><span class="img-caption">图 1-3 分缸操作</span></div>
+                        <span class="img-badge">图 1-3</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-3.png?raw=true" alt="1-3 分缸" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">分缸</span><span class="img-caption">图 1-3 分缸操作</span></div>
                     </div>
                     <div class="img-card">
-                        <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-4.png?raw=true" alt="1-4 分缸" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">分缸</span><span class="img-caption">图 1-4 分缸操作</span></div>
+                        <span class="img-badge">图 1-4</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-4.png?raw=true" alt="1-4 分缸" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">分缸</span><span class="img-caption">图 1-4 分缸操作</span></div>
                     </div>
                     <div class="img-card">
-                        <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-5.png?raw=true" alt="1-5 分缸" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">分缸</span><span class="img-caption">图 1-5 分缸操作</span></div>
+                        <span class="img-badge">图 1-5</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-5.png?raw=true" alt="1-5 分缸" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">分缸</span><span class="img-caption">图 1-5 分缸操作</span></div>
                     </div>
                 </div>
             </div>
@@ -1240,12 +1547,22 @@
                 </div>
                 <div class="img-grid">
                     <div class="img-card">
-                        <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-6.png?raw=true" alt="1-6 转工单" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">RRP3/RRP4</span><span class="img-caption">图 1-6 转工单</span></div>
+                        <span class="img-badge">图 1-6</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-6.png?raw=true" alt="1-6 转工单" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">RRP3/RRP4</span><span class="img-caption">图 1-6 转工单</span></div>
                     </div>
                     <div class="img-card">
-                        <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-7.png?raw=true" alt="1-7 转工单" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">RRP3/RRP4</span><span class="img-caption">图 1-7 转工单</span></div>
+                        <span class="img-badge">图 1-7</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-7.png?raw=true" alt="1-7 转工单" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">RRP3/RRP4</span><span class="img-caption">图 1-7 转工单</span></div>
                     </div>
                 </div>
             </div>
@@ -1259,12 +1576,22 @@
                 </div>
                 <div class="img-grid">
                     <div class="img-card">
-                        <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-8.png?raw=true" alt="1-8 库存查询" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">ZSOHPP155</span><span class="img-caption">图 1-8 库存查询</span></div>
+                        <span class="img-badge">图 1-8</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-8.png?raw=true" alt="1-8 库存查询" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">ZSOHPP155</span><span class="img-caption">图 1-8 库存查询</span></div>
                     </div>
                     <div class="img-card">
-                        <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-9.png?raw=true" alt="1-9 库存查询" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">ZSOHPP155</span><span class="img-caption">图 1-9 库存查询</span></div>
+                        <span class="img-badge">图 1-9</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-9.png?raw=true" alt="1-9 库存查询" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">ZSOHPP155</span><span class="img-caption">图 1-9 库存查询</span></div>
                     </div>
                 </div>
             </div>
@@ -1284,16 +1611,31 @@
                 </div>
                 <div class="img-grid">
                     <div class="img-card">
-                        <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-10.png?raw=true" alt="1-10 删除工序" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">ZSOHPP159</span><span class="img-caption">图 1-10 删除工序</span></div>
+                        <span class="img-badge">图 1-10</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-10.png?raw=true" alt="1-10 删除工序" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">ZSOHPP159</span><span class="img-caption">图 1-10 删除工序</span></div>
                     </div>
                     <div class="img-card">
-                        <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-11.png?raw=true" alt="1-11 删除工序" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">ZSOHPP159</span><span class="img-caption">图 1-11 删除工序</span></div>
+                        <span class="img-badge">图 1-11</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-11.png?raw=true" alt="1-11 删除工序" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">ZSOHPP159</span><span class="img-caption">图 1-11 删除工序</span></div>
                     </div>
                     <div class="img-card">
-                        <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-12.png?raw=true" alt="1-12 删除工序" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">ZSOHPP159</span><span class="img-caption">图 1-12 删除工序</span></div>
+                        <span class="img-badge">图 1-12</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-12.png?raw=true" alt="1-12 删除工序" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">ZSOHPP159</span><span class="img-caption">图 1-12 删除工序</span></div>
                     </div>
                 </div>
 
@@ -1303,20 +1645,40 @@
                 </div>
                 <div class="img-grid">
                     <div class="img-card">
-                        <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-13.png?raw=true" alt="1-13 锁胚" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">锁胚</span><span class="img-caption">图 1-13 锁胚</span></div>
+                        <span class="img-badge">图 1-13</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-13.png?raw=true" alt="1-13 锁胚" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">锁胚</span><span class="img-caption">图 1-13 锁胚</span></div>
                     </div>
                     <div class="img-card">
-                        <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-14.png?raw=true" alt="1-14 锁胚" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">锁胚</span><span class="img-caption">图 1-14 锁胚</span></div>
+                        <span class="img-badge">图 1-14</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-14.png?raw=true" alt="1-14 锁胚" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">锁胚</span><span class="img-caption">图 1-14 锁胚</span></div>
                     </div>
                     <div class="img-card">
-                        <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-15.png?raw=true" alt="1-15 锁胚" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">锁胚</span><span class="img-caption">图 1-15 锁胚</span></div>
+                        <span class="img-badge">图 1-15</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-15.png?raw=true" alt="1-15 锁胚" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">锁胚</span><span class="img-caption">图 1-15 锁胚</span></div>
                     </div>
                     <div class="img-card">
-                        <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-16.png?raw=true" alt="1-16 锁胚" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">锁胚</span><span class="img-caption">图 1-16 锁胚</span></div>
+                        <span class="img-badge">图 1-16</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-16.png?raw=true" alt="1-16 锁胚" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">锁胚</span><span class="img-caption">图 1-16 锁胚</span></div>
                     </div>
                 </div>
 
@@ -1326,12 +1688,22 @@
                 </div>
                 <div class="img-grid">
                     <div class="img-card">
-                        <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-17.png?raw=true" alt="1-17 写长文" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">长文</span><span class="img-caption">图 1-17 写长文</span></div>
+                        <span class="img-badge">图 1-17</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-17.png?raw=true" alt="1-17 写长文" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">长文</span><span class="img-caption">图 1-17 写长文</span></div>
                     </div>
                     <div class="img-card">
-                        <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-18.png?raw=true" alt="1-18 写长文" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">长文</span><span class="img-caption">图 1-18 写长文</span></div>
+                        <span class="img-badge">图 1-18</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-18.png?raw=true" alt="1-18 写长文" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">长文</span><span class="img-caption">图 1-18 写长文</span></div>
                     </div>
                 </div>
             </div>
@@ -1347,20 +1719,40 @@
                 </div>
                 <div class="img-grid">
                     <div class="img-card">
-                        <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-19.png?raw=true" alt="1-19 ZSOHPP163" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">ZSOHPP163</span><span class="img-caption">图 1-19 审单</span></div>
+                        <span class="img-badge">图 1-19</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-19.png?raw=true" alt="1-19 ZSOHPP163" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">ZSOHPP163</span><span class="img-caption">图 1-19 审单</span></div>
                     </div>
                     <div class="img-card">
-                        <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-20.png?raw=true" alt="1-20 ZSOHPP163" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">ZSOHPP163</span><span class="img-caption">图 1-20 报工</span></div>
+                        <span class="img-badge">图 1-20</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-20.png?raw=true" alt="1-20 ZSOHPP163" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">ZSOHPP163</span><span class="img-caption">图 1-20 报工</span></div>
                     </div>
                     <div class="img-card">
-                        <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-21.png?raw=true" alt="1-21 ZSOHPP163" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">ZSOHPP163</span><span class="img-caption">图 1-21 发单</span></div>
+                        <span class="img-badge">图 1-21</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-21.png?raw=true" alt="1-21 ZSOHPP163" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">ZSOHPP163</span><span class="img-caption">图 1-21 发单</span></div>
                     </div>
                     <div class="img-card">
-                        <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-22.png?raw=true" alt="1-22 ZSOHPP163" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">ZSOHPP163</span><span class="img-caption">图 1-22 发单</span></div>
+                        <span class="img-badge">图 1-22</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-22.png?raw=true" alt="1-22 ZSOHPP163" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">ZSOHPP163</span><span class="img-caption">图 1-22 发单</span></div>
                     </div>
                 </div>
 
@@ -1368,10 +1760,15 @@
                     <i class="fas fa-flag-checkered" style="color:#1f4b6e;" aria-hidden="true"></i>
                     经编常规工单开单流程完结。
                 </div>
-                <div class="img-grid">
+                <div class="img-grid single-img">
                     <div class="img-card">
-                        <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-23.png?raw=true" alt="1-23 流程完结" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">完结</span><span class="img-caption">图 1-23 流程完结</span></div>
+                        <span class="img-badge">图 1-23</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-23.png?raw=true" alt="1-23 流程完结" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">完结</span><span class="img-caption">图 1-23 流程完结</span></div>
                     </div>
                 </div>
             </div>
@@ -1398,21 +1795,54 @@
     <button class="back-to-top" id="backToTop" aria-label="返回顶部"><i class="fas fa-arrow-up"></i></button>
 
     <script>
-        // ============================================
-        // 1. 图片放大 (Lightbox) 增强
-        // ============================================
         (function() {
-            const images = Array.from(document.querySelectorAll('.img-card img'));
+            'use strict';
+
+            // ============================================
+            // 1. 图片加载状态管理
+            // ============================================
+            const allImages = document.querySelectorAll('.img-card img');
+            allImages.forEach(img => {
+                const wrapper = img.closest('.img-wrapper');
+                const placeholder = wrapper?.querySelector('.img-placeholder');
+                const errorDiv = wrapper?.querySelector('.img-error');
+
+                if (img.complete && img.naturalWidth > 0) {
+                    img.classList.add('loaded');
+                    placeholder?.classList.add('hidden');
+                } else {
+                    img.addEventListener('load', () => {
+                        img.classList.add('loaded');
+                        placeholder?.classList.add('hidden');
+                    });
+                    img.addEventListener('error', () => {
+                        placeholder?.classList.add('hidden');
+                        errorDiv?.classList.add('visible');
+                    });
+                    // 超时保护
+                    setTimeout(() => {
+                        if (!img.classList.contains('loaded') && !img.complete) {
+                            placeholder?.classList.add('hidden');
+                            errorDiv?.classList.add('visible');
+                        }
+                    }, 15000);
+                }
+            });
+
+            // ============================================
+            // 2. Lightbox 增强
+            // ============================================
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightboxImg');
             const closeBtn = document.getElementById('lightboxClose');
             const prevBtn = document.getElementById('lightboxPrev');
             const nextBtn = document.getElementById('lightboxNext');
             const counter = document.getElementById('lightboxCounter');
+            const loadedImages = Array.from(allImages).filter(img => img.src);
             let currentIndex = -1;
 
             function openLightbox(index) {
-                if (index < 0 || index >= images.length) return;
+                if (index < 0 || index >= loadedImages.length) return;
                 currentIndex = index;
                 updateLightboxImage();
                 lightbox.classList.add('active');
@@ -1423,20 +1853,18 @@
             function closeLightbox() {
                 lightbox.classList.remove('active');
                 document.body.style.overflow = '';
-                if (currentIndex >= 0) {
-                    images[currentIndex].focus({ preventScroll: true });
-                    if (document.activeElement === images[currentIndex]) return;
+                if (currentIndex >= 0 && loadedImages[currentIndex]) {
+                    loadedImages[currentIndex].focus({ preventScroll: true });
                 }
-                document.body.focus();
                 currentIndex = -1;
             }
 
             function updateLightboxImage() {
-                if (currentIndex < 0 || currentIndex >= images.length) return;
-                const img = images[currentIndex];
+                if (currentIndex < 0 || currentIndex >= loadedImages.length) return;
+                const img = loadedImages[currentIndex];
                 lightboxImg.src = img.src;
                 lightboxImg.alt = img.alt || '放大图片';
-                counter.textContent = `${currentIndex + 1} / ${images.length}`;
+                counter.textContent = `${currentIndex + 1} / ${loadedImages.length}`;
             }
 
             function showPrev() {
@@ -1447,7 +1875,7 @@
             }
 
             function showNext() {
-                if (currentIndex < images.length - 1) {
+                if (currentIndex < loadedImages.length - 1) {
                     currentIndex++;
                     updateLightboxImage();
                 }
@@ -1456,7 +1884,7 @@
             document.querySelector('.container').addEventListener('click', (e) => {
                 const img = e.target.closest('.img-card img');
                 if (img) {
-                    const index = images.indexOf(img);
+                    const index = loadedImages.indexOf(img);
                     if (index !== -1) openLightbox(index);
                 }
             });
@@ -1467,7 +1895,7 @@
 
             lightbox.addEventListener('keydown', (e) => {
                 if (!lightbox.classList.contains('active')) return;
-                switch(e.key) {
+                switch (e.key) {
                     case 'Escape':
                         closeLightbox();
                         break;
@@ -1499,11 +1927,11 @@
                 if (e.target === lightbox) closeLightbox();
             });
 
+            // 触摸滑动支持
             let touchStartX = 0;
             lightbox.addEventListener('touchstart', (e) => {
                 touchStartX = e.changedTouches[0].screenX;
             }, { passive: true });
-
             lightbox.addEventListener('touchend', (e) => {
                 const touchEndX = e.changedTouches[0].screenX;
                 const diff = touchStartX - touchEndX;
@@ -1512,79 +1940,69 @@
                     else showPrev();
                 }
             }, { passive: true });
-        })();
 
-        // ============================================
-        // 2. 步骤滚动高亮导航（IntersectionObserver）
-        // ============================================
-        (function() {
+            // ============================================
+            // 3. 步骤滚动高亮导航
+            // ============================================
             const steps = document.querySelectorAll('.step-desc');
-            if (steps.length === 0) return;
+            if (steps.length > 0) {
+                const nav = document.createElement('div');
+                nav.className = 'step-nav';
+                nav.id = 'stepNav';
+                nav.setAttribute('role', 'navigation');
+                nav.setAttribute('aria-label', '步骤导航');
 
-            const nav = document.createElement('div');
-            nav.className = 'step-nav';
-            nav.id = 'stepNav';
-            nav.setAttribute('role', 'navigation');
-            nav.setAttribute('aria-label', '步骤导航');
-
-            steps.forEach((step, index) => {
-                const btn = document.createElement('button');
-                btn.className = 'nav-dot';
-                btn.setAttribute('aria-label', `跳转到第 ${index+1} 步：${step.dataset.stepLabel || ''}`);
-                const tooltip = document.createElement('span');
-                tooltip.className = 'tooltip';
-                tooltip.textContent = step.dataset.stepLabel || `步骤 ${index + 1}`;
-                btn.appendChild(tooltip);
-
-                btn.addEventListener('click', () => {
-                    step.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                steps.forEach((step, index) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'nav-dot';
+                    btn.setAttribute('aria-label', `跳转到第 ${index+1} 步：${step.dataset.stepLabel || ''}`);
+                    const tooltip = document.createElement('span');
+                    tooltip.className = 'tooltip';
+                    tooltip.textContent = step.dataset.stepLabel || `步骤 ${index + 1}`;
+                    btn.appendChild(tooltip);
+                    btn.addEventListener('click', () => {
+                        step.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                    nav.appendChild(btn);
                 });
 
-                nav.appendChild(btn);
-            });
+                document.body.appendChild(nav);
+                const navDots = nav.querySelectorAll('.nav-dot');
 
-            document.body.appendChild(nav);
-
-            const navDots = nav.querySelectorAll('.nav-dot');
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const index = Array.from(steps).indexOf(entry.target);
-                        if (index !== -1) {
-                            setActiveStep(index);
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const index = Array.from(steps).indexOf(entry.target);
+                            if (index !== -1) setActiveStep(index);
                         }
-                    }
+                    });
+                }, {
+                    root: null,
+                    rootMargin: '-20% 0px -60% 0px',
+                    threshold: 0
                 });
-            }, {
-                root: null,
-                rootMargin: '-20% 0px -60% 0px',
-                threshold: 0
-            });
 
-            steps.forEach(step => observer.observe(step));
+                steps.forEach(step => observer.observe(step));
 
-            function setActiveStep(index) {
-                navDots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === index);
-                    if (i === index) {
-                        dot.setAttribute('aria-current', 'step');
-                    } else {
-                        dot.removeAttribute('aria-current');
-                    }
-                });
-                steps.forEach((step, i) => {
-                    step.classList.toggle('highlight', i === index);
-                });
+                function setActiveStep(index) {
+                    navDots.forEach((dot, i) => {
+                        dot.classList.toggle('active', i === index);
+                        if (i === index) {
+                            dot.setAttribute('aria-current', 'step');
+                        } else {
+                            dot.removeAttribute('aria-current');
+                        }
+                    });
+                    steps.forEach((step, i) => {
+                        step.classList.toggle('highlight', i === index);
+                    });
+                }
+                if (steps.length > 0) setActiveStep(0);
             }
 
-            if (steps.length > 0) setActiveStep(0);
-        })();
-
-        // ============================================
-        // 3. 阅读进度条
-        // ============================================
-        (function() {
+            // ============================================
+            // 4. 阅读进度条
+            // ============================================
             const progressBar = document.getElementById('readingProgress');
             window.addEventListener('scroll', () => {
                 const scrollTop = window.scrollY;
@@ -1592,12 +2010,10 @@
                 const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
                 progressBar.style.width = progress + '%';
             }, { passive: true });
-        })();
 
-        // ============================================
-        // 4. 返回顶部按钮
-        // ============================================
-        (function() {
+            // ============================================
+            // 5. 返回顶部按钮
+            // ============================================
             const backToTop = document.getElementById('backToTop');
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 300) {
@@ -1610,8 +2026,20 @@
             backToTop.addEventListener('click', () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
+
+            // ============================================
+            // 6. 键盘快捷键
+            // ============================================
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                    closeLightbox();
+                }
+                if (e.key === 'Home' && !lightbox.classList.contains('active')) {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
         })();
     </script>
-
 </body>
 </html>
