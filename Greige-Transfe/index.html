@@ -24,6 +24,8 @@
             --accent: #1f4b6e;
             --accent-light: #3875ac;
             --accent-gold: #d99e4a;
+            --accent-apo: #3a7a8a;
+            --accent-ecc: #8a6e9b;
             --bg-card: rgba(255, 255, 255, 0.6);
             --bg-toc: rgba(255, 255, 255, 0.45);
             --bg-step: rgba(255, 255, 255, 0.6);
@@ -45,7 +47,6 @@
             --header-gradient: linear-gradient(135deg, #d6eaf8 0%, #ebf5fb 100%);
         }
 
-        /* 深色模式变量 */
         @media (prefers-color-scheme: dark) {
             :root {
                 --bg-body: #0d1b2a;
@@ -61,6 +62,8 @@
                 --accent: #2a5a7a;
                 --accent-light: #4a7aad;
                 --accent-gold: #d99e4a;
+                --accent-apo: #4a8a9a;
+                --accent-ecc: #9a7aad;
                 --bg-card: rgba(255, 255, 255, 0.03);
                 --bg-toc: rgba(255, 255, 255, 0.03);
                 --bg-step: rgba(255, 255, 255, 0.03);
@@ -81,7 +84,6 @@
             }
         }
 
-        /* ===== 全局重置 ===== */
         * {
             margin: 0;
             padding: 0;
@@ -102,7 +104,6 @@
             position: relative;
         }
 
-        /* ===== 主容器 ===== */
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -128,7 +129,7 @@
             position: relative;
             background: var(--header-gradient);
             border-radius: 32px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
@@ -178,7 +179,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 0.1rem;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
         }
 
         .header-left .subhead {
@@ -218,7 +219,7 @@
             padding: 0.4rem 1.6rem 0.4rem 2rem;
             border-radius: 60px;
             border: 1px solid var(--border-subtle);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
@@ -351,6 +352,18 @@
             width: 100%;
         }
 
+        .toc-grid .or-badge {
+            font-size: 0.55rem;
+            font-weight: 700;
+            color: #b8860b;
+            background: rgba(217, 158, 74, 0.15);
+            padding: 0 8px;
+            border-radius: 20px;
+            line-height: 1.6;
+            margin-left: 2px;
+            border: 1px solid rgba(217, 158, 74, 0.15);
+        }
+
         @media (max-width: 600px) {
             .toc-grid {
                 grid-template-columns: 1fr;
@@ -374,6 +387,7 @@
             align-items: center;
             gap: 14px;
             transition: color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+            flex-wrap: wrap;
         }
 
         .section-title .num {
@@ -384,6 +398,18 @@
             padding: 0.1rem 1.2rem;
             border-radius: 40px;
             box-shadow: 0 4px 12px rgba(31, 75, 110, 0.15);
+            flex-shrink: 0;
+        }
+
+        .section-title .method-tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.1rem 1.2rem;
+            border-radius: 40px;
+            background: rgba(217, 158, 74, 0.12);
+            color: #b8860b;
+            border: 1px solid rgba(217, 158, 74, 0.2);
+            flex-shrink: 0;
         }
 
         /* ===== 子章节 ===== */
@@ -402,6 +428,7 @@
             align-items: center;
             gap: 12px;
             transition: color var(--transition-speed) ease;
+            flex-wrap: wrap;
         }
 
         .subsection h4 {
@@ -415,6 +442,66 @@
             transition: color var(--transition-speed) ease;
         }
 
+        /* ===== 方法选择提示 ===== */
+        .method-or-divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.8rem 0 2.2rem 0;
+            padding: 0.8rem 2rem;
+            background: rgba(217, 158, 74, 0.06);
+            border-radius: 60px;
+            border: 1px dashed rgba(217, 158, 74, 0.25);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .method-or-divider .or-icon {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #b8860b;
+            background: rgba(217, 158, 74, 0.12);
+            padding: 0.1rem 1.2rem;
+            border-radius: 40px;
+            letter-spacing: 0.5px;
+        }
+
+        .method-or-divider .choice-hint {
+            font-weight: 500;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .method-or-divider .choice-hint i {
+            margin-right: 4px;
+            color: var(--accent-gold);
+        }
+
+        .method-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            padding: 0.15rem 1.2rem;
+            border-radius: 40px;
+            background: var(--bg-code-inline);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-heading);
+        }
+
+        .method-badge.apo {
+            background: rgba(58, 122, 138, 0.10);
+            color: #2a6a7a;
+            border-color: rgba(58, 122, 138, 0.15);
+        }
+
+        .method-badge.ecc {
+            background: rgba(138, 110, 155, 0.10);
+            color: #6a4a7a;
+            border-color: rgba(138, 110, 155, 0.15);
+        }
+
         /* ===== 步骤卡片 ===== */
         .step-desc {
             background: var(--bg-step);
@@ -425,7 +512,7 @@
             margin: 0.8rem 0 1.5rem 0;
             font-weight: 500;
             color: var(--color-text-remark);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
             transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             cursor: default;
             scroll-margin-top: 80px;
@@ -508,6 +595,35 @@
             margin-right: 6px;
         }
 
+        /* 方法卡片特殊样式 */
+        .step-desc.method-apo {
+            border-left-color: var(--accent-apo);
+            background: rgba(58, 122, 138, 0.04);
+        }
+
+        .step-desc.method-apo:hover {
+            background: rgba(58, 122, 138, 0.07);
+        }
+
+        .step-desc.method-ecc {
+            border-left-color: var(--accent-ecc);
+            background: rgba(138, 110, 155, 0.04);
+        }
+
+        .step-desc.method-ecc:hover {
+            background: rgba(138, 110, 155, 0.07);
+        }
+
+        .step-desc.method-header {
+            border-left-color: var(--accent-gold);
+            background: rgba(217, 158, 74, 0.04);
+            font-weight: 600;
+        }
+
+        .step-desc.method-header:hover {
+            background: rgba(217, 158, 74, 0.07);
+        }
+
         /* ===== 注意事项 ===== */
         .note-box {
             background: var(--bg-note);
@@ -551,7 +667,7 @@
             backdrop-filter: blur(8px);
             border-radius: 20px;
             padding: 0.8rem 0.8rem 1rem 0.8rem;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
             border: 1px solid var(--border-subtle);
             flex: 1 1 220px;
             min-width: 180px;
@@ -604,6 +720,7 @@
             color: #004080;
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
             border: 1px solid var(--border-subtle);
+            margin-right: 6px;
         }
 
         /* ===== 页脚 ===== */
@@ -752,7 +869,7 @@
             font-size: 28px;
             cursor: pointer;
             z-index: 10000;
-            background: rgba(255,255,255,0.08);
+            background: rgba(255, 255, 255, 0.08);
             width: 48px;
             height: 48px;
             border-radius: 50%;
@@ -760,14 +877,14 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.12);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(8px);
             appearance: none;
             -webkit-appearance: none;
         }
 
         .lightbox-close:hover {
-            background: rgba(255,255,255,0.15);
+            background: rgba(255, 255, 255, 0.15);
             transform: rotate(90deg);
         }
 
@@ -780,8 +897,8 @@
             position: fixed;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             color: white;
             width: 48px;
             height: 48px;
@@ -798,7 +915,7 @@
         }
 
         .lightbox-nav:hover {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .lightbox-nav:focus-visible {
@@ -820,7 +937,7 @@
             left: 50%;
             transform: translateX(-50%);
             color: white;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             padding: 4px 16px;
             border-radius: 20px;
             font-size: 0.9rem;
@@ -829,13 +946,23 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
         @keyframes zoomIn {
-            from { transform: scale(0.92); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+            from {
+                transform: scale(0.92);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         /* ===== 阅读进度条 ===== */
@@ -861,7 +988,7 @@
             background: var(--accent);
             color: white;
             border: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             cursor: pointer;
             z-index: 900;
             display: none;
@@ -882,9 +1009,9 @@
             transform: translateY(-3px);
         }
 
-        /* ===== 毛玻璃降级（移动端/减少动效） ===== */
+        /* ===== 毛玻璃降级 ===== */
         @media (max-width: 768px),
-               (prefers-reduced-motion: reduce) {
+        (prefers-reduced-motion: reduce) {
             .container,
             .toc,
             .step-desc,
@@ -975,13 +1102,22 @@
                 height: 40px;
                 font-size: 18px;
             }
-            .lightbox-prev { left: 10px; }
-            .lightbox-next { right: 10px; }
+            .lightbox-prev {
+                left: 10px;
+            }
+            .lightbox-next {
+                right: 10px;
+            }
             .back-to-top {
                 bottom: 20px;
                 right: 20px;
                 width: 44px;
                 height: 44px;
+            }
+            .method-or-divider {
+                padding: 0.6rem 1rem;
+                flex-direction: column;
+                gap: 0.4rem;
             }
         }
 
@@ -1038,541 +1174,586 @@
     </style>
 </head>
 <body>
-<!-- 阅读进度条 -->
-<div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
+    <!-- 阅读进度条 -->
+    <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
 
-<div class="container">
+    <div class="container">
 
-    <!-- ===== 头部 ===== -->
-    <div class="header">
-        <div class="header-brand">
-            <div class="logo-wrap">
-                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/Logo.png?raw=true" alt="TOPT Logo" />
-                <span class="brand-text">TOPT</span>
+        <!-- ===== 头部 ===== -->
+        <div class="header">
+            <div class="header-brand">
+                <div class="logo-wrap">
+                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/Logo.png?raw=true" alt="TOPT Logo" />
+                    <span class="brand-text">TOPT</span>
+                </div>
+                <div class="header-left">
+                    <h1>🏷️ 胚布抽用工单开单流程</h1>
+                    <div class="subhead">操作指引 · 培训教材 v1.0</div>
+                </div>
             </div>
-            <div class="header-left">
-                <h1>🏷️ 胚布抽用工单开单流程</h1>
-                <div class="subhead">操作指引 · 培训教材 v1.0</div>
+            <div class="header-right">
+                <div class="author-block">
+                    <span class="author-name"><i class="fas fa-user-pen" aria-hidden="true"></i> 刘洋</span>
+                    <span class="author-email"><i class="far fa-envelope" aria-hidden="true"></i> liu-yang@top-textiles.vn</span>
+                </div>
             </div>
         </div>
-        <div class="header-right">
-            <div class="author-block">
-                <span class="author-name"><i class="fas fa-user-pen" aria-hidden="true"></i> 刘洋</span>
-                <span class="author-email"><i class="far fa-envelope" aria-hidden="true"></i> liu-yang@top-textiles.vn</span>
+
+        <!-- ===== 目录 ===== -->
+        <div class="toc">
+            <div class="toc-header">
+                <div class="toc-title"><i class="fas fa-list-ul" aria-hidden="true"></i> 目录 <span>6 步骤</span></div>
+            </div>
+            <ul class="toc-grid">
+                <li><span class="step-num">01</span><span class="step-icon">📧</span><a href="#step-1">胚布抽用通知</a></li>
+                <li><span class="step-num">02</span><span class="step-icon">✅</span><a href="#step-2">确认收货</a></li>
+                <li><span class="step-num">03</span><span class="step-icon">🔄</span><a href="#step-3">转销售订单</a></li>
+                <li>
+                    <span class="step-num">04</span>
+                    <span class="step-icon">⚙️</span>
+                    <a href="#step-4">创建工单 <span class="or-badge">APO / ECC 二选一</span></a>
+                </li>
+                <li><span class="step-num">05</span><span class="step-icon">🔒</span><a href="#step-5">锁胚 · 报工 · 发单</a></li>
+                <li><span class="step-num">06</span><span class="step-icon">📦</span><a href="#step-6">工单投料</a></li>
+            </ul>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 第一步 -->
+        <div class="section" id="step-1">
+            <div class="section-title"><span class="num">一</span> 胚布抽用通知</div>
+
+            <div class="step-desc" data-step-label="胚布抽用通知">
+                <i class="fas fa-envelope" style="color:var(--accent-light);" aria-hidden="true"></i>
+                生产部门通过邮件发出胚布抽用通知
+            </div>
+            <div class="img-grid">
+                <div class="img-card">
+                    <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-1.png" alt="1-1 胚布抽用通知" loading="lazy" decoding="async" />
+                    <div><span class="code-tag">邮件通知</span><span class="img-caption">图 1-1 胚布抽用通知</span></div>
+                </div>
             </div>
         </div>
+
+        <!-- ============================================================ -->
+        <!-- 第二步 -->
+        <div class="section" id="step-2">
+            <div class="section-title"><span class="num">二</span> 确认收货</div>
+
+            <div class="step-desc" data-step-label="确认收货">
+                <i class="fas fa-check-circle" style="color:#2b5f8a;" aria-hidden="true"></i>
+                先确认该工单已完成收货。若尚未收货，需先行完成收货操作。
+                <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">ZSOHPP190</span></span>
+            </div>
+            <div class="img-grid">
+                <div class="img-card">
+                    <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-2.png" alt="1-2 ZSOHPP190" loading="lazy" decoding="async" />
+                    <div><span class="code-tag">ZSOHPP190</span><span class="img-caption">图 1-2 收货操作</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 第三步 -->
+        <div class="section" id="step-3">
+            <div class="section-title"><span class="num">三</span> 储存地点转销售订单</div>
+
+            <div class="step-desc" data-step-label="转销售订单">
+                <i class="fas fa-arrow-right-arrow-left" style="color:#3a6b8f;" aria-hidden="true"></i>
+                操作 TF 儲存地點至銷售訂單（413 E 移动类型）
+                <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">ZSOHWM002</span></span>
+            </div>
+            <div class="img-grid">
+                <div class="img-card">
+                    <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-3.png" alt="1-3 ZSOHWM002" loading="lazy" decoding="async" />
+                    <div><span class="code-tag">ZSOHWM002</span><span class="img-caption">图 1-3 转销售订单</span></div>
+                </div>
+                <div class="img-card">
+                    <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-4.png" alt="1-4 ZSOHWM002" loading="lazy" decoding="async" />
+                    <div><span class="code-tag">ZSOHWM002</span><span class="img-caption">图 1-4 转销售订单</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 第四步：创建工单（APO / ECC 二选一） -->
+        <div class="section" id="step-4">
+            <div class="section-title">
+                <span class="num">四</span>
+                创建工单
+                <span class="method-tag"><i class="fas fa-code-branch" aria-hidden="true"></i> APO / ECC 二选一</span>
+            </div>
+
+            <!-- ===== 二选一提示 ===== -->
+            <div class="method-or-divider">
+                <span class="choice-hint"><i class="fas fa-info-circle" aria-hidden="true"></i> 根据业务类型选择以下其中一种方法</span>
+                <span class="or-icon">或</span>
+                <span style="display:flex; gap:0.8rem; flex-wrap:wrap;">
+                    <span class="method-badge apo"><i class="fas fa-server"></i> APO 系统 · 大货单</span>
+                    <span class="method-badge ecc"><i class="fas fa-database"></i> ECC 系统 · 办单</span>
+                </span>
+            </div>
+
+            <!-- ========================================================== -->
+            <!-- 方法一：APO 系统 -->
+            <div class="subsection">
+                <h3>
+                    <span class="method-badge apo"><i class="fas fa-server"></i> 方法一：APO 系统</span>
+                    <span style="font-size:0.85rem; font-weight:400; color:var(--text-secondary);">适用于大货单</span>
+                </h3>
+
+                <div class="step-desc method-apo" data-step-label="APO方法说明">
+                    <i class="fas fa-info-circle" style="color:var(--accent-apo);" aria-hidden="true"></i>
+                    在 APO 系统，通过复制生产部要求颜色对应的工单，创建计划单。
+                    <span class="remark">适用于大货单</span>
+                </div>
+
+                <!-- 4-1-1 -->
+                <div class="step-desc method-apo" data-step-label="APO-1 ZSOH_SE06">
+                    <i class="fas fa-1" style="color:var(--accent-apo);" aria-hidden="true"></i>
+                    <strong>4-1-1：</strong>操作功能代码：<span class="code-inline">ZSOH_SE06</span>
+                </div>
+                <div class="img-grid">
+                    <div class="img-card">
+                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-5.png" alt="1-5 ZSOH_SE06" loading="lazy" decoding="async" />
+                        <div><span class="code-tag">ZSOH_SE06</span><span class="img-caption">图 1-5 APO 操作</span></div>
+                    </div>
+                </div>
+
+                <!-- 4-1-2 -->
+                <div class="step-desc method-apo" data-step-label="APO-2 ZSOH_SE17">
+                    <i class="fas fa-2" style="color:var(--accent-apo);" aria-hidden="true"></i>
+                    <strong>4-1-2：</strong>操作功能代码：<span class="code-inline">ZSOH_SE17</span>
+                    <div class="sub-operation">
+                        <i class="fas fa-edit" aria-hidden="true"></i> ① 删除 SF0251（補布原因）特性值；② 更改 PG0886（分紗ID）特性值为“F”开头；③ 更改 PF0621（是否已鎖胚）特性值为“Z”
+                    </div>
+                </div>
+                <div class="img-grid">
+                    <div class="img-card">
+                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-6.png" alt="1-6 ZSOH_SE17" loading="lazy" decoding="async" />
+                        <div><span class="code-tag">ZSOH_SE17</span><span class="img-caption">图 1-6 特性值修改</span></div>
+                    </div>
+                    <div class="img-card">
+                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-7.png" alt="1-7 特性值详情" loading="lazy" decoding="async" />
+                        <div><span class="code-tag">特性值</span><span class="img-caption">图 1-7 特性值详情</span></div>
+                    </div>
+                </div>
+
+                <!-- 4-1-3 -->
+                <div class="step-desc method-apo" data-step-label="APO-3 分缸">
+                    <i class="fas fa-3" style="color:var(--accent-apo);" aria-hidden="true"></i>
+                    <strong>4-1-3：</strong>操作功能代码：<span class="code-inline">ZTRIM_XS___START</span>
+                    <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作：分缸</span>
+                </div>
+                <div class="img-grid">
+                    <div class="img-card">
+                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-8.png" alt="1-8 分缸" loading="lazy" decoding="async" />
+                        <div><span class="code-tag">分缸</span><span class="img-caption">图 1-8 分缸操作</span></div>
+                    </div>
+                    <div class="img-card">
+                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-9.png" alt="1-9 分缸" loading="lazy" decoding="async" />
+                        <div><span class="code-tag">分缸</span><span class="img-caption">图 1-9 分缸操作</span></div>
+                    </div>
+                    <div class="img-card">
+                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-10.png" alt="1-10 分缸" loading="lazy" decoding="async" />
+                        <div><span class="code-tag">分缸</span><span class="img-caption">图 1-10 分缸操作</span></div>
+                    </div>
+                    <div class="img-card">
+                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-11.png" alt="1-11 分缸" loading="lazy" decoding="async" />
+                        <div><span class="code-tag">分缸</span><span class="img-caption">图 1-11 分缸操作</span></div>
+                    </div>
+                </div>
+
+                <!-- 4-1-4 -->
+                <div class="step-desc method-apo" data-step-label="APO-4 锁胚">
+                    <i class="fas fa-4" style="color:var(--accent-apo);" aria-hidden="true"></i>
+                    <strong>4-1-4：</strong>操作功能代码：<span class="code-inline">ZSOH_SE17</span>
+                    <div class="sub-operation">
+                        <i class="fas fa-edit" aria-hidden="true"></i> 更改 PF0621（是否已鎖胚）特性值为“Y”
+                    </div>
+                </div>
+                <div class="img-grid">
+                    <div class="img-card">
+                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-12.png" alt="1-12 锁胚" loading="lazy" decoding="async" />
+                        <div><span class="code-tag">锁胚</span><span class="img-caption">图 1-12 锁胚操作</span></div>
+                    </div>
+                </div>
+
+                <!-- 4-1-5 -->
+                <div class="step-desc method-apo" data-step-label="APO-5 转工单">
+                    <i class="fas fa-5" style="color:var(--accent-apo);" aria-hidden="true"></i>
+                    <strong>4-1-5：</strong>手动转工单：<span class="code-inline">/SAPAPO/RRP3</span>
+                </div>
+                <div class="img-grid">
+                    <div class="img-card">
+                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-13.png" alt="1-13 手动转工单" loading="lazy" decoding="async" />
+                        <div><span class="code-tag">/SAPAPO/RRP3</span><span class="img-caption">图 1-13 手动转工单</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== 方法分隔线 ===== -->
+            <div class="method-or-divider" style="margin:1.2rem 0 1.8rem 0;">
+                <span class="or-icon"><i class="fas fa-circle-notch" style="font-size:0.9rem;"></i> 或</span>
+                <span class="choice-hint">选择另一种方式</span>
+            </div>
+
+            <!-- ========================================================== -->
+            <!-- 方法二：ECC 系统 -->
+            <div class="subsection">
+                <h3>
+                    <span class="method-badge ecc"><i class="fas fa-database"></i> 方法二：ECC 系统</span>
+                    <span style="font-size:0.85rem; font-weight:400; color:var(--text-secondary);">适用于办单</span>
+                </h3>
+
+                <div class="step-desc method-ecc" data-step-label="ECC方法说明">
+                    <i class="fas fa-info-circle" style="color:var(--accent-ecc);" aria-hidden="true"></i>
+                    在 ECC 系统，通过复制生产部要求颜色对应的工单，复制创建工单。
+                    <span class="remark">适用于办单</span>
+                </div>
+
+                <!-- 4-2-1 -->
+                <div class="step-desc method-ecc" data-step-label="ECC-1 CO01">
+                    <i class="fas fa-1" style="color:var(--accent-ecc);" aria-hidden="true"></i>
+                    <strong>4-2-1：</strong>操作功能代码：<span class="code-inline">CO01</span>
+                    <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作：复制创建工单</span>
+                </div>
+                <div class="img-grid">
+                    <div class="img-card">
+                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-14.png" alt="1-14 CO01" loading="lazy" decoding="async" />
+                        <div><span class="code-tag">CO01</span><span class="img-caption">图 1-14 复制创建工单</span></div>
+                    </div>
+                </div>
+
+                <!-- 4-2-2 -->
+                <div class="step-desc method-ecc" data-step-label="ECC-2 重读数据">
+                    <i class="fas fa-2" style="color:var(--accent-ecc);" aria-hidden="true"></i>
+                    <strong>4-2-2：</strong>重读数据
+                </div>
+                <div class="img-grid">
+                    <div class="img-card">
+                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-15.png" alt="1-15 重读数据" loading="lazy" decoding="async" />
+                        <div><span class="code-tag">重读数据</span><span class="img-caption">图 1-15 重读数据</span></div>
+                    </div>
+                    <div class="img-card">
+                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-16.png" alt="1-16 重读数据" loading="lazy" decoding="async" />
+                        <div><span class="code-tag">重读数据</span><span class="img-caption">图 1-16 重读数据</span></div>
+                    </div>
+                </div>
+
+                <!-- 4-2-3 -->
+                <div class="step-desc method-ecc" data-step-label="ECC-3 删B物料">
+                    <i class="fas fa-3" style="color:var(--accent-ecc);" aria-hidden="true"></i>
+                    <strong>4-2-3：</strong>在 Components（工单元件）界面，删除“B”开头的物料数据。
+                </div>
+                <div class="img-grid">
+                    <div class="img-card">
+                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-17.png" alt="1-17 删除B物料" loading="lazy" decoding="async" />
+                        <div><span class="code-tag">Components</span><span class="img-caption">图 1-17 删除B物料</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 方法选择总结 -->
+            <div class="note-box" style="margin-top:1.8rem;">
+                <i class="fas fa-lightbulb" style="color:var(--accent-gold); margin-right:8px;" aria-hidden="true"></i>
+                <strong>选择指引：</strong>
+                方法一（APO）适用于<strong>大货单</strong>，方法二（ECC）适用于<strong>办单</strong>。
+                请根据实际业务类型选择其中一种方式执行，<strong>无需两种都做</strong>。
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 第五步（原第六步） -->
+        <div class="section" id="step-5">
+            <div class="section-title"><span class="num">五</span> 锁胚 · 报工 · 发单</div>
+
+            <div class="step-desc" data-step-label="ZSOHPP159">
+                <i class="fas fa-lock" style="color:#b8860b;" aria-hidden="true"></i>
+                工单锁胚-报工-发单
+                <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">ZSOHPP159</span></span>
+                <div class="sub-operation">
+                    <i class="fas fa-edit" aria-hidden="true"></i> ① 删除不需要的工序；② 抽胚异常栏位注明抽布缸号胚布染色；③ 填写差异原因：<strong>RDD5 胚布抽用</strong>
+                </div>
+            </div>
+            <div class="img-grid">
+                <div class="img-card">
+                    <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-18.png" alt="1-18 ZSOHPP159" loading="lazy" decoding="async" />
+                    <div><span class="code-tag">ZSOHPP159</span><span class="img-caption">图 1-18 锁胚报工</span></div>
+                </div>
+            </div>
+
+            <div class="step-desc" data-step-label="Components锁胚">
+                <i class="fas fa-arrow-right" style="color:#b8860b;" aria-hidden="true"></i>
+                双击工单号码，进入 Components（工单元件）界面，进行锁胚。
+            </div>
+            <div class="img-grid">
+                <div class="img-card">
+                    <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-19.png" alt="1-19 Components锁胚" loading="lazy" decoding="async" />
+                    <div><span class="code-tag">锁胚</span><span class="img-caption">图 1-19 Components 锁胚</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 第六步（原第七步） -->
+        <div class="section" id="step-6">
+            <div class="section-title"><span class="num">六</span> 工单投料</div>
+
+            <div class="step-desc" data-step-label="MIGO投料">
+                <i class="fas fa-boxes" style="color:#3a6b8f;" aria-hidden="true"></i>
+                工单投料
+                <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">MIGO</span>（收货批次在线边仓则直接投料，收货批次在成品仓则正常流程从成品仓提布）</span>
+            </div>
+            <div class="img-grid">
+                <div class="img-card">
+                    <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-20.png" alt="1-20 MIGO投料" loading="lazy" decoding="async" />
+                    <div><span class="code-tag">MIGO</span><span class="img-caption">图 1-20 工单投料</span></div>
+                </div>
+            </div>
+
+            <div class="step-desc" data-step-label="流程结束" style="border-left-color: #6b8fb0; background: rgba(238, 246, 252, 0.5); margin-top: 1.5rem;">
+                <i class="fas fa-flag-checkered" style="color:#1f6b4a;" aria-hidden="true"></i>
+                胚布抽用工单开单流程结束。
+            </div>
+        </div>
+
+        <!-- ===== 页脚 ===== -->
+        <div class="footer-note">
+            <span><i class="fas fa-check-circle" style="color:#1f6b4a;" aria-hidden="true"></i> TOPT 培训教材 · 内部使用</span>
+            <span class="doc-badge"><i class="fas fa-file-alt" aria-hidden="true"></i> 版本 v1.0</span>
+            <span><i class="far fa-copyright" aria-hidden="true"></i> 刘洋 · liu-yang@top-textiles.vn</span>
+        </div>
+
     </div>
 
-    <!-- ===== 目录 ===== -->
-    <div class="toc">
-        <div class="toc-header">
-            <div class="toc-title"><i class="fas fa-list-ul" aria-hidden="true"></i> 目录 <span>7 步骤</span></div>
-        </div>
-        <ul class="toc-grid">
-            <li><span class="step-num">01</span><span class="step-icon">📧</span><a href="#step-1">胚布抽用通知</a></li>
-            <li><span class="step-num">02</span><span class="step-icon">✅</span><a href="#step-2">确认收货</a></li>
-            <li><span class="step-num">03</span><span class="step-icon">🔄</span><a href="#step-3">转销售订单</a></li>
-            <li><span class="step-num">04</span><span class="step-icon">⚙️</span><a href="#step-4">APO 创建工单</a></li>
-            <li><span class="step-num">05</span><span class="step-icon">📋</span><a href="#step-5">ECC 创建工单</a></li>
-            <li><span class="step-num">06</span><span class="step-icon">🔒</span><a href="#step-6">锁胚报工发单</a></li>
-            <li><span class="step-num">07</span><span class="step-icon">📦</span><a href="#step-7">工单投料</a></li>
-        </ul>
+    <!-- ===== Lightbox ===== -->
+    <div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="图片放大预览">
+        <button class="lightbox-close" id="lightboxClose" aria-label="关闭预览">✕</button>
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="上一张图片">❮</button>
+        <img id="lightboxImg" src="" alt="放大图片" />
+        <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="下一张图片">❯</button>
+        <div class="lightbox-counter" id="lightboxCounter" aria-live="polite"></div>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- 第一步 -->
-    <div class="section" id="step-1">
-        <div class="section-title"><span class="num">一</span> 胚布抽用通知</div>
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" id="backToTop" aria-label="返回顶部"><i class="fas fa-arrow-up"></i></button>
 
-        <div class="step-desc" data-step-label="胚布抽用通知">
-            <i class="fas fa-envelope" style="color:var(--accent-light);" aria-hidden="true"></i>
-            生产部门通过邮件发出胚布抽用通知
-        </div>
-        <div class="img-grid">
-            <div class="img-card">
-                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-1.png" alt="1-1 胚布抽用通知" loading="lazy" decoding="async" />
-                <div><span class="code-tag">邮件通知</span><span class="img-caption">图 1-1 胚布抽用通知</span></div>
-            </div>
-        </div>
-    </div>
+    <script>
+        // ============================================
+        // 1. 图片放大 (Lightbox) 增强
+        // ============================================
+        (function() {
+            const images = Array.from(document.querySelectorAll('.img-card img'));
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const closeBtn = document.getElementById('lightboxClose');
+            const prevBtn = document.getElementById('lightboxPrev');
+            const nextBtn = document.getElementById('lightboxNext');
+            const counter = document.getElementById('lightboxCounter');
+            let currentIndex = -1;
 
-    <!-- ============================================================ -->
-    <!-- 第二步 -->
-    <div class="section" id="step-2">
-        <div class="section-title"><span class="num">二</span> 确认收货</div>
-
-        <div class="step-desc" data-step-label="确认收货">
-            <i class="fas fa-check-circle" style="color:#2b5f8a;" aria-hidden="true"></i>
-            先确认该工单已完成收货。若尚未收货，需先行完成收货操作。
-            <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">ZSOHPP190</span></span>
-        </div>
-        <div class="img-grid">
-            <div class="img-card">
-                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-2.png" alt="1-2 ZSOHPP190" loading="lazy" decoding="async" />
-                <div><span class="code-tag">ZSOHPP190</span><span class="img-caption">图 1-2 收货操作</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ============================================================ -->
-    <!-- 第三步 -->
-    <div class="section" id="step-3">
-        <div class="section-title"><span class="num">三</span> 储存地点转销售订单</div>
-
-        <div class="step-desc" data-step-label="转销售订单">
-            <i class="fas fa-arrow-right-arrow-left" style="color:#3a6b8f;" aria-hidden="true"></i>
-            操作 TF 儲存地點至銷售訂單（413 E 移动类型）
-            <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">ZSOHWM002</span></span>
-        </div>
-        <div class="img-grid">
-            <div class="img-card">
-                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-3.png" alt="1-3 ZSOHWM002" loading="lazy" decoding="async" />
-                <div><span class="code-tag">ZSOHWM002</span><span class="img-caption">图 1-3 转销售订单</span></div>
-            </div>
-            <div class="img-card">
-                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-4.png" alt="1-4 ZSOHWM002" loading="lazy" decoding="async" />
-                <div><span class="code-tag">ZSOHWM002</span><span class="img-caption">图 1-4 转销售订单</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ============================================================ -->
-    <!-- 第四步：APO 系统 -->
-    <div class="section" id="step-4">
-        <div class="section-title"><span class="num">四</span> APO 系统创建工单</div>
-
-        <div class="step-desc" data-step-label="APO方法1说明">
-            <i class="fas fa-info-circle" style="color:var(--accent-light);" aria-hidden="true"></i>
-            <strong>方法1：</strong>在 APO 系统，通过复制生产部要求颜色对应的工单，创建计划单。<span class="remark">适用于大货单</span>
-        </div>
-
-        <!-- 4-1-1 -->
-        <div class="step-desc" data-step-label="APO-1 ZSOH_SE06">
-            <i class="fas fa-1" style="color:var(--accent-light);" aria-hidden="true"></i>
-            <strong>4-1-1：</strong>操作功能代码：<span class="code-inline">ZSOH_SE06</span>
-        </div>
-        <div class="img-grid">
-            <div class="img-card">
-                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-5.png" alt="1-5 ZSOH_SE06" loading="lazy" decoding="async" />
-                <div><span class="code-tag">ZSOH_SE06</span><span class="img-caption">图 1-5 APO 操作</span></div>
-            </div>
-        </div>
-
-        <!-- 4-1-2 -->
-        <div class="step-desc" data-step-label="APO-2 ZSOH_SE17">
-            <i class="fas fa-2" style="color:var(--accent-light);" aria-hidden="true"></i>
-            <strong>4-1-2：</strong>操作功能代码：<span class="code-inline">ZSOH_SE17</span>
-            <div class="sub-operation">
-                <i class="fas fa-edit" aria-hidden="true"></i> ① 删除 SF0251（補布原因）特性值；② 更改 PG0886（分紗ID）特性值为“F”开头；③ 更改 PF0621（是否已鎖胚）特性值为“Z”
-            </div>
-        </div>
-        <div class="img-grid">
-            <div class="img-card">
-                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-6.png" alt="1-6 ZSOH_SE17" loading="lazy" decoding="async" />
-                <div><span class="code-tag">ZSOH_SE17</span><span class="img-caption">图 1-6 特性值修改</span></div>
-            </div>
-            <div class="img-card">
-                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-7.png" alt="1-7 特性值详情" loading="lazy" decoding="async" />
-                <div><span class="code-tag">特性值</span><span class="img-caption">图 1-7 特性值详情</span></div>
-            </div>
-        </div>
-
-        <!-- 4-1-3 -->
-        <div class="step-desc" data-step-label="APO-3 分缸">
-            <i class="fas fa-3" style="color:var(--accent-light);" aria-hidden="true"></i>
-            <strong>4-1-3：</strong>操作功能代码：<span class="code-inline">ZTRIM_XS___START</span>
-            <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作：分缸</span>
-        </div>
-        <div class="img-grid">
-            <div class="img-card">
-                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-8.png" alt="1-8 分缸" loading="lazy" decoding="async" />
-                <div><span class="code-tag">分缸</span><span class="img-caption">图 1-8 分缸操作</span></div>
-            </div>
-            <div class="img-card">
-                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-9.png" alt="1-9 分缸" loading="lazy" decoding="async" />
-                <div><span class="code-tag">分缸</span><span class="img-caption">图 1-9 分缸操作</span></div>
-            </div>
-            <div class="img-card">
-                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-10.png" alt="1-10 分缸" loading="lazy" decoding="async" />
-                <div><span class="code-tag">分缸</span><span class="img-caption">图 1-10 分缸操作</span></div>
-            </div>
-            <div class="img-card">
-                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-11.png" alt="1-11 分缸" loading="lazy" decoding="async" />
-                <div><span class="code-tag">分缸</span><span class="img-caption">图 1-11 分缸操作</span></div>
-            </div>
-        </div>
-
-        <!-- 4-1-4 -->
-        <div class="step-desc" data-step-label="APO-4 锁胚">
-            <i class="fas fa-4" style="color:var(--accent-light);" aria-hidden="true"></i>
-            <strong>4-1-4：</strong>操作功能代码：<span class="code-inline">ZSOH_SE17</span>
-            <div class="sub-operation">
-                <i class="fas fa-edit" aria-hidden="true"></i> 更改 PF0621（是否已鎖胚）特性值为“Y”
-            </div>
-        </div>
-        <div class="img-grid">
-            <div class="img-card">
-                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-12.png" alt="1-12 锁胚" loading="lazy" decoding="async" />
-                <div><span class="code-tag">锁胚</span><span class="img-caption">图 1-12 锁胚操作</span></div>
-            </div>
-        </div>
-
-        <!-- 4-1-5 -->
-        <div class="step-desc" data-step-label="APO-5 转工单">
-            <i class="fas fa-5" style="color:var(--accent-light);" aria-hidden="true"></i>
-            <strong>4-1-5：</strong>手动转工单：<span class="code-inline">/SAPAPO/RRP3</span>
-        </div>
-        <div class="img-grid">
-            <div class="img-card">
-                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-13.png" alt="1-13 手动转工单" loading="lazy" decoding="async" />
-                <div><span class="code-tag">/SAPAPO/RRP3</span><span class="img-caption">图 1-13 手动转工单</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ============================================================ -->
-    <!-- 第五步：ECC 系统 -->
-    <div class="section" id="step-5">
-        <div class="section-title"><span class="num">五</span> ECC 系统创建工单</div>
-
-        <div class="step-desc" data-step-label="ECC方法2说明">
-            <i class="fas fa-info-circle" style="color:#8a6e9b;" aria-hidden="true"></i>
-            <strong>方法2：</strong>在 ECC 系统，通过复制生产部要求颜色对应的工单，复制创建工单。<span class="remark">适用于办单</span>
-        </div>
-
-        <!-- 4-2-1 -->
-        <div class="step-desc" data-step-label="ECC-1 CO01">
-            <i class="fas fa-1" style="color:#8a6e9b;" aria-hidden="true"></i>
-            <strong>4-2-1：</strong>操作功能代码：<span class="code-inline">CO01</span>
-            <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作：复制创建工单</span>
-        </div>
-        <div class="img-grid">
-            <div class="img-card">
-                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-14.png" alt="1-14 CO01" loading="lazy" decoding="async" />
-                <div><span class="code-tag">CO01</span><span class="img-caption">图 1-14 复制创建工单</span></div>
-            </div>
-        </div>
-
-        <!-- 4-2-2 -->
-        <div class="step-desc" data-step-label="ECC-2 重读数据">
-            <i class="fas fa-2" style="color:#8a6e9b;" aria-hidden="true"></i>
-            <strong>4-2-2：</strong>重读数据
-        </div>
-        <div class="img-grid">
-            <div class="img-card">
-                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-15.png" alt="1-15 重读数据" loading="lazy" decoding="async" />
-                <div><span class="code-tag">重读数据</span><span class="img-caption">图 1-15 重读数据</span></div>
-            </div>
-            <div class="img-card">
-                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-16.png" alt="1-16 重读数据" loading="lazy" decoding="async" />
-                <div><span class="code-tag">重读数据</span><span class="img-caption">图 1-16 重读数据</span></div>
-            </div>
-        </div>
-
-        <!-- 4-2-3 -->
-        <div class="step-desc" data-step-label="ECC-3 删B物料">
-            <i class="fas fa-3" style="color:#8a6e9b;" aria-hidden="true"></i>
-            <strong>4-2-3：</strong>在 Components（工单元件）界面，删除“B”开头的物料数据。
-        </div>
-        <div class="img-grid">
-            <div class="img-card">
-                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-17.png" alt="1-17 删除B物料" loading="lazy" decoding="async" />
-                <div><span class="code-tag">Components</span><span class="img-caption">图 1-17 删除B物料</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ============================================================ -->
-    <!-- 第六步 -->
-    <div class="section" id="step-6">
-        <div class="section-title"><span class="num">六</span> 锁胚 · 报工 · 发单</div>
-
-        <div class="step-desc" data-step-label="ZSOHPP159">
-            <i class="fas fa-lock" style="color:#b8860b;" aria-hidden="true"></i>
-            工单锁胚-报工-发单
-            <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">ZSOHPP159</span></span>
-            <div class="sub-operation">
-                <i class="fas fa-edit" aria-hidden="true"></i> ① 删除不需要的工序；② 抽胚异常栏位注明抽布缸号胚布染色；③ 填写差异原因：<strong>RDD5 胚布抽用</strong>
-            </div>
-        </div>
-        <div class="img-grid">
-            <div class="img-card">
-                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-18.png" alt="1-18 ZSOHPP159" loading="lazy" decoding="async" />
-                <div><span class="code-tag">ZSOHPP159</span><span class="img-caption">图 1-18 锁胚报工</span></div>
-            </div>
-        </div>
-
-        <div class="step-desc" data-step-label="Components锁胚">
-            <i class="fas fa-arrow-right" style="color:#b8860b;" aria-hidden="true"></i>
-            双击工单号码，进入 Components（工单元件）界面，进行锁胚。
-        </div>
-        <div class="img-grid">
-            <div class="img-card">
-                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-19.png" alt="1-19 Components锁胚" loading="lazy" decoding="async" />
-                <div><span class="code-tag">锁胚</span><span class="img-caption">图 1-19 Components 锁胚</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ============================================================ -->
-    <!-- 第七步 -->
-    <div class="section" id="step-7">
-        <div class="section-title"><span class="num">七</span> 工单投料</div>
-
-        <div class="step-desc" data-step-label="MIGO投料">
-            <i class="fas fa-boxes" style="color:#3a6b8f;" aria-hidden="true"></i>
-            工单投料
-            <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">MIGO</span>（收货批次在线边仓则直接投料，收货批次在成品仓则正常流程从成品仓提布）</span>
-        </div>
-        <div class="img-grid">
-            <div class="img-card">
-                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-20.png" alt="1-20 MIGO投料" loading="lazy" decoding="async" />
-                <div><span class="code-tag">MIGO</span><span class="img-caption">图 1-20 工单投料</span></div>
-            </div>
-        </div>
-
-        <div class="step-desc" data-step-label="流程结束" style="border-left-color: #6b8fb0; background: rgba(238, 246, 252, 0.5); margin-top: 1.5rem;">
-            <i class="fas fa-flag-checkered" style="color:#1f6b4a;" aria-hidden="true"></i>
-            胚布抽用工单开单流程结束。
-        </div>
-    </div>
-
-    <!-- ===== 页脚 ===== -->
-    <div class="footer-note">
-        <span><i class="fas fa-check-circle" style="color:#1f6b4a;" aria-hidden="true"></i> TOPT 培训教材 · 内部使用</span>
-        <span class="doc-badge"><i class="fas fa-file-alt" aria-hidden="true"></i> 版本 v1.0</span>
-        <span><i class="far fa-copyright" aria-hidden="true"></i> 刘洋 · liu-yang@top-textiles.vn</span>
-    </div>
-
-</div>
-
-<!-- ===== Lightbox ===== -->
-<div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="图片放大预览">
-    <button class="lightbox-close" id="lightboxClose" aria-label="关闭预览">✕</button>
-    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="上一张图片">❮</button>
-    <img id="lightboxImg" src="" alt="放大图片" />
-    <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="下一张图片">❯</button>
-    <div class="lightbox-counter" id="lightboxCounter" aria-live="polite"></div>
-</div>
-
-<!-- 返回顶部按钮 -->
-<button class="back-to-top" id="backToTop" aria-label="返回顶部"><i class="fas fa-arrow-up"></i></button>
-
-<script>
-    // ============================================
-    // 1. 图片放大 (Lightbox) 增强
-    // ============================================
-    (function() {
-        const images = Array.from(document.querySelectorAll('.img-card img'));
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightboxImg');
-        const closeBtn = document.getElementById('lightboxClose');
-        const prevBtn = document.getElementById('lightboxPrev');
-        const nextBtn = document.getElementById('lightboxNext');
-        const counter = document.getElementById('lightboxCounter');
-        let currentIndex = -1;
-
-        function openLightbox(index) {
-            if (index < 0 || index >= images.length) return;
-            currentIndex = index;
-            updateLightboxImage();
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            closeBtn.focus();
-        }
-
-        function closeLightbox() {
-            lightbox.classList.remove('active');
-            document.body.style.overflow = '';
-            if (currentIndex >= 0) {
-                images[currentIndex].focus({ preventScroll: true });
-                if (document.activeElement === images[currentIndex]) return;
-            }
-            document.body.focus();
-            currentIndex = -1;
-        }
-
-        function updateLightboxImage() {
-            if (currentIndex < 0 || currentIndex >= images.length) return;
-            const img = images[currentIndex];
-            lightboxImg.src = img.src;
-            lightboxImg.alt = img.alt || '放大图片';
-            counter.textContent = `${currentIndex + 1} / ${images.length}`;
-        }
-
-        function showPrev() {
-            if (currentIndex > 0) {
-                currentIndex--;
+            function openLightbox(index) {
+                if (index < 0 || index >= images.length) return;
+                currentIndex = index;
                 updateLightboxImage();
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                closeBtn.focus();
             }
-        }
 
-        function showNext() {
-            if (currentIndex < images.length - 1) {
-                currentIndex++;
-                updateLightboxImage();
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+                if (currentIndex >= 0) {
+                    images[currentIndex].focus({ preventScroll: true });
+                    if (document.activeElement === images[currentIndex]) return;
+                }
+                document.body.focus();
+                currentIndex = -1;
             }
-        }
 
-        document.querySelector('.container').addEventListener('click', (e) => {
-            const img = e.target.closest('.img-card img');
-            if (img) {
-                const index = images.indexOf(img);
-                if (index !== -1) openLightbox(index);
+            function updateLightboxImage() {
+                if (currentIndex < 0 || currentIndex >= images.length) return;
+                const img = images[currentIndex];
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt || '放大图片';
+                counter.textContent = `${currentIndex + 1} / ${images.length}`;
             }
-        });
 
-        closeBtn.addEventListener('click', closeLightbox);
-        prevBtn.addEventListener('click', showPrev);
-        nextBtn.addEventListener('click', showNext);
-
-        lightbox.addEventListener('keydown', (e) => {
-            if (!lightbox.classList.contains('active')) return;
-            switch(e.key) {
-                case 'Escape':
-                    closeLightbox();
-                    break;
-                case 'ArrowLeft':
-                    showPrev();
-                    e.preventDefault();
-                    break;
-                case 'ArrowRight':
-                    showNext();
-                    e.preventDefault();
-                    break;
-                case 'Tab':
-                    const focusable = lightbox.querySelectorAll('button');
-                    if (focusable.length === 0) return;
-                    const first = focusable[0];
-                    const last = focusable[focusable.length - 1];
-                    if (e.shiftKey && document.activeElement === first) {
-                        last.focus();
-                        e.preventDefault();
-                    } else if (!e.shiftKey && document.activeElement === last) {
-                        first.focus();
-                        e.preventDefault();
-                    }
-                    break;
+            function showPrev() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateLightboxImage();
+                }
             }
-        });
 
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) closeLightbox();
-        });
-
-        let touchStartX = 0;
-        lightbox.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
-
-        lightbox.addEventListener('touchend', (e) => {
-            const touchEndX = e.changedTouches[0].screenX;
-            const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > 50) {
-                if (diff > 0) showNext();
-                else showPrev();
+            function showNext() {
+                if (currentIndex < images.length - 1) {
+                    currentIndex++;
+                    updateLightboxImage();
+                }
             }
-        }, { passive: true });
-    })();
 
-    // ============================================
-    // 2. 步骤滚动高亮导航（IntersectionObserver）
-    // ============================================
-    (function() {
-        const steps = document.querySelectorAll('.step-desc');
-        if (steps.length === 0) return;
-
-        const nav = document.createElement('div');
-        nav.className = 'step-nav';
-        nav.id = 'stepNav';
-        nav.setAttribute('role', 'navigation');
-        nav.setAttribute('aria-label', '步骤导航');
-
-        steps.forEach((step, index) => {
-            const btn = document.createElement('button');
-            btn.className = 'nav-dot';
-            btn.setAttribute('aria-label', `跳转到第 ${index+1} 步：${step.dataset.stepLabel || ''}`);
-            const tooltip = document.createElement('span');
-            tooltip.className = 'tooltip';
-            tooltip.textContent = step.dataset.stepLabel || `步骤 ${index + 1}`;
-            btn.appendChild(tooltip);
-
-            btn.addEventListener('click', () => {
-                step.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            });
-
-            nav.appendChild(btn);
-        });
-
-        document.body.appendChild(nav);
-
-        const navDots = nav.querySelectorAll('.nav-dot');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const index = Array.from(steps).indexOf(entry.target);
-                    if (index !== -1) {
-                        setActiveStep(index);
-                    }
+            document.querySelector('.container').addEventListener('click', (e) => {
+                const img = e.target.closest('.img-card img');
+                if (img) {
+                    const index = images.indexOf(img);
+                    if (index !== -1) openLightbox(index);
                 }
             });
-        }, {
-            root: null,
-            rootMargin: '-20% 0px -60% 0px',
-            threshold: 0
-        });
 
-        steps.forEach(step => observer.observe(step));
+            closeBtn.addEventListener('click', closeLightbox);
+            prevBtn.addEventListener('click', showPrev);
+            nextBtn.addEventListener('click', showNext);
 
-        function setActiveStep(index) {
-            navDots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-                if (i === index) {
-                    dot.setAttribute('aria-current', 'step');
+            lightbox.addEventListener('keydown', (e) => {
+                if (!lightbox.classList.contains('active')) return;
+                switch (e.key) {
+                    case 'Escape':
+                        closeLightbox();
+                        break;
+                    case 'ArrowLeft':
+                        showPrev();
+                        e.preventDefault();
+                        break;
+                    case 'ArrowRight':
+                        showNext();
+                        e.preventDefault();
+                        break;
+                    case 'Tab':
+                        const focusable = lightbox.querySelectorAll('button');
+                        if (focusable.length === 0) return;
+                        const first = focusable[0];
+                        const last = focusable[focusable.length - 1];
+                        if (e.shiftKey && document.activeElement === first) {
+                            last.focus();
+                            e.preventDefault();
+                        } else if (!e.shiftKey && document.activeElement === last) {
+                            first.focus();
+                            e.preventDefault();
+                        }
+                        break;
+                }
+            });
+
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) closeLightbox();
+            });
+
+            let touchStartX = 0;
+            lightbox.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            lightbox.addEventListener('touchend', (e) => {
+                const touchEndX = e.changedTouches[0].screenX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) showNext();
+                    else showPrev();
+                }
+            }, { passive: true });
+        })();
+
+        // ============================================
+        // 2. 步骤滚动高亮导航（IntersectionObserver）
+        // ============================================
+        (function() {
+            const steps = document.querySelectorAll('.step-desc');
+            if (steps.length === 0) return;
+
+            const nav = document.createElement('div');
+            nav.className = 'step-nav';
+            nav.id = 'stepNav';
+            nav.setAttribute('role', 'navigation');
+            nav.setAttribute('aria-label', '步骤导航');
+
+            steps.forEach((step, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'nav-dot';
+                btn.setAttribute('aria-label', `跳转到第 ${index+1} 步：${step.dataset.stepLabel || ''}`);
+                const tooltip = document.createElement('span');
+                tooltip.className = 'tooltip';
+                tooltip.textContent = step.dataset.stepLabel || `步骤 ${index + 1}`;
+                btn.appendChild(tooltip);
+
+                btn.addEventListener('click', () => {
+                    step.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+
+                nav.appendChild(btn);
+            });
+
+            document.body.appendChild(nav);
+
+            const navDots = nav.querySelectorAll('.nav-dot');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const index = Array.from(steps).indexOf(entry.target);
+                        if (index !== -1) {
+                            setActiveStep(index);
+                        }
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: '-20% 0px -60% 0px',
+                threshold: 0
+            });
+
+            steps.forEach(step => observer.observe(step));
+
+            function setActiveStep(index) {
+                navDots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                    if (i === index) {
+                        dot.setAttribute('aria-current', 'step');
+                    } else {
+                        dot.removeAttribute('aria-current');
+                    }
+                });
+                steps.forEach((step, i) => {
+                    step.classList.toggle('highlight', i === index);
+                });
+            }
+
+            if (steps.length > 0) setActiveStep(0);
+        })();
+
+        // ============================================
+        // 3. 阅读进度条
+        // ============================================
+        (function() {
+            const progressBar = document.getElementById('readingProgress');
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                progressBar.style.width = progress + '%';
+            }, { passive: true });
+        })();
+
+        // ============================================
+        // 4. 返回顶部按钮
+        // ============================================
+        (function() {
+            const backToTop = document.getElementById('backToTop');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('visible');
                 } else {
-                    dot.removeAttribute('aria-current');
+                    backToTop.classList.remove('visible');
                 }
+            }, { passive: true });
+
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
-            steps.forEach((step, i) => {
-                step.classList.toggle('highlight', i === index);
-            });
-        }
-
-        if (steps.length > 0) setActiveStep(0);
-    })();
-
-    // ============================================
-    // 3. 阅读进度条
-    // ============================================
-    (function() {
-        const progressBar = document.getElementById('readingProgress');
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.scrollY;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-            progressBar.style.width = progress + '%';
-        }, { passive: true });
-    })();
-
-    // ============================================
-    // 4. 返回顶部按钮
-    // ============================================
-    (function() {
-        const backToTop = document.getElementById('backToTop');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
-        }, { passive: true });
-
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    })();
-</script>
+        })();
+    </script>
 
 </body>
 </html>
