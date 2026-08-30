@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
-    <title>TOPT · 盖黑工单开单流程 · 培训教材 v1.1</title>
+    <title>TOPT · 盖黑工单开单流程 · 培训教材 v1.2</title>
     <meta name="description" content="TOPT 盖黑工单开单流程培训教材，涵盖7个核心步骤，适配电脑、手机与打印。" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -52,13 +52,14 @@
             --img-radius: 14px;
             --gap-grid: 1.8rem;
             --max-img-width: 100%;
-            /* 流式图片高度（优化） */
             --img-max-height-desktop: clamp(420px, 60vh, 760px);
             --img-max-height-tablet: clamp(320px, 50vh, 540px);
             --img-max-height-mobile: clamp(240px, 45vh, 420px);
             --img-max-height-print: 280px;
             --grid-col-min-desktop: 320px;
             --grid-col-min-tablet: 280px;
+            /* 新增大图网格最小宽度 */
+            --grid-col-min-large: 420px;
             /* 流式排版 */
             --fs-h1: clamp(1.4rem, 4vw, 2rem);
             --fs-section: clamp(1.1rem, 3vw, 1.8rem);
@@ -104,9 +105,7 @@
             }
         }
 
-        /* ============================================================
-           全局重置 & 基础
-           ============================================================ */
+        /* 全局重置 */
         *,
         *::before,
         *::after {
@@ -148,9 +147,7 @@
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
-        /* ============================================================
-           头部
-           ============================================================ */
+        /* 头部 */
         .header {
             border-bottom: 1px solid var(--border-subtle);
             padding: clamp(0.6rem, 2vw, 1.8rem);
@@ -283,9 +280,7 @@
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
         }
 
-        /* ============================================================
-           目录
-           ============================================================ */
+        /* 目录 */
         .toc {
             background: var(--bg-toc);
             backdrop-filter: blur(12px);
@@ -368,7 +363,6 @@
             text-decoration: none;
             transition: color 0.2s ease;
             position: relative;
-            /* 确保触摸目标足够大 */
             padding: 4px 0;
             display: inline-block;
         }
@@ -393,9 +387,7 @@
             width: 100%;
         }
 
-        /* ============================================================
-           章节标题
-           ============================================================ */
+        /* 章节标题 */
         .section {
             margin-bottom: clamp(1.2rem, 3vw, 2.6rem);
         }
@@ -425,9 +417,7 @@
             white-space: nowrap;
         }
 
-        /* ============================================================
-           子章节
-           ============================================================ */
+        /* 子章节 */
         .subsection {
             margin-top: clamp(1rem, 2.5vw, 2.2rem);
             padding-left: 0.2rem;
@@ -446,9 +436,7 @@
             flex-wrap: wrap;
         }
 
-        /* ============================================================
-           步骤描述卡片
-           ============================================================ */
+        /* 步骤描述卡片 */
         .step-desc {
             background: var(--bg-step);
             backdrop-filter: blur(8px);
@@ -555,9 +543,7 @@
             font-size: 1.1rem;
         }
 
-        /* ============================================================
-           注意事项
-           ============================================================ */
+        /* 注意事项 */
         .note-box {
             background: var(--bg-note);
             backdrop-filter: blur(8px);
@@ -588,9 +574,7 @@
             margin-bottom: 0.1rem;
         }
 
-        /* ============================================================
-           图片网格 — 核心响应式布局
-           ============================================================ */
+        /* 图片网格 */
         .img-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(var(--grid-col-min-desktop), 1fr));
@@ -598,7 +582,7 @@
             margin: 1.6rem 0 1.4rem 0;
         }
 
-        /* 单张图片：居中并放大 */
+        /* 单张图片 */
         .img-grid:has(> .img-card:only-child) {
             grid-template-columns: 1fr;
             max-width: 88%;
@@ -606,12 +590,18 @@
             margin-right: auto;
         }
 
-        /* 强制单列堆叠 */
+        /* 堆叠单列 */
         .img-grid.stacked {
             grid-template-columns: 1fr !important;
             max-width: 88% !important;
             margin-left: auto !important;
             margin-right: auto !important;
+        }
+
+        /* 新增：大图网格（用于分缸部分，显示更清晰） */
+        .img-grid.large-grid {
+            grid-template-columns: repeat(auto-fill, minmax(var(--grid-col-min-large), 1fr));
+            gap: 2rem;
         }
 
         /* 图片卡片 */
@@ -628,7 +618,6 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            /* 性能优化：延迟渲染视口外内容 */
             content-visibility: auto;
             contain-intrinsic-size: 300px;
         }
@@ -639,7 +628,6 @@
             border-color: var(--border-strong);
         }
 
-        /* 图片包装器 */
         .img-wrapper {
             position: relative;
             width: 100%;
@@ -668,6 +656,7 @@
 
         .img-wrapper .img-placeholder.hidden {
             opacity: 0;
+            pointer-events: none;
         }
 
         .img-wrapper .img-placeholder .spinner {
@@ -680,9 +669,7 @@
         }
 
         @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
+            to { transform: rotate(360deg); }
         }
 
         .img-wrapper .img-error {
@@ -694,7 +681,7 @@
             justify-content: center;
             gap: 6px;
             background: var(--img-bg);
-            z-index: 2;
+            z-index: 3;
             color: var(--text-secondary);
             font-size: var(--fs-small);
             opacity: 0;
@@ -704,11 +691,36 @@
 
         .img-wrapper .img-error.visible {
             opacity: 1;
+            pointer-events: auto;
         }
 
         .img-wrapper .img-error i {
             font-size: 2rem;
             color: #c0392b;
+        }
+
+        .img-wrapper .img-error .retry-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: var(--fs-small);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 4px;
+            touch-action: manipulation;
+        }
+
+        .img-wrapper .img-error .retry-btn:hover,
+        .img-wrapper .img-error .retry-btn:focus-visible {
+            background: var(--accent-light);
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
         }
 
         .img-card img {
@@ -731,14 +743,8 @@
         }
 
         @keyframes imgFadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.97);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.97); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .img-card:hover img.loaded {
@@ -797,9 +803,7 @@
             margin-top: 2px;
         }
 
-        /* ============================================================
-           页脚
-           ============================================================ */
+        /* 页脚 */
         .footer-note {
             margin-top: clamp(1.2rem, 3vw, 2.8rem);
             font-size: var(--fs-small);
@@ -829,9 +833,7 @@
             box-shadow: 0 2px 8px rgba(31, 75, 110, 0.12);
         }
 
-        /* ============================================================
-           侧边导航（桌面）
-           ============================================================ */
+        /* 侧边导航（桌面） */
         .step-nav {
             position: fixed;
             right: clamp(8px, 2vw, 24px);
@@ -869,7 +871,6 @@
             appearance: none;
             -webkit-appearance: none;
             flex-shrink: 0;
-            /* 触摸目标放大 */
             min-width: 24px;
             min-height: 24px;
             background-clip: content-box;
@@ -914,9 +915,7 @@
             right: 32px;
         }
 
-        /* ============================================================
-           移动端底部导航
-           ============================================================ */
+        /* 移动端底部导航 */
         .mobile-nav {
             position: fixed;
             bottom: 0;
@@ -990,9 +989,7 @@
             transition: color var(--transition-speed) ease;
         }
 
-        /* ============================================================
-           Lightbox
-           ============================================================ */
+        /* Lightbox */
         .lightbox-overlay {
             position: fixed;
             top: 0;
@@ -1106,27 +1103,15 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         @keyframes zoomIn {
-            from {
-                transform: scale(0.92);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
+            from { transform: scale(0.92); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
-        /* ============================================================
-           阅读进度条
-           ============================================================ */
+        /* 阅读进度条 */
         .reading-progress {
             position: fixed;
             top: 0;
@@ -1139,9 +1124,7 @@
             border-radius: 0 2px 2px 0;
         }
 
-        /* ============================================================
-           返回顶部按钮
-           ============================================================ */
+        /* 返回顶部按钮 */
         .back-to-top {
             position: fixed;
             bottom: clamp(60px, 12vh, 28px);
@@ -1177,9 +1160,7 @@
             outline-offset: 2px;
         }
 
-        /* ============================================================
-           Focus-visible 全局样式
-           ============================================================ */
+        /* Focus-visible */
         a:focus-visible,
         button:focus-visible,
         [tabindex]:focus-visible {
@@ -1188,9 +1169,7 @@
             border-radius: 4px;
         }
 
-        /* ============================================================
-           响应式：平板 & 手机
-           ============================================================ */
+        /* 响应式 */
         @media (max-width: 1024px) {
             .container {
                 padding: 1.2rem 1.2rem;
@@ -1199,7 +1178,8 @@
             .header {
                 padding: 0.8rem 1rem;
             }
-            .img-grid {
+            .img-grid,
+            .img-grid.large-grid {
                 grid-template-columns: repeat(auto-fill, minmax(var(--grid-col-min-tablet), 1fr));
                 gap: 1.2rem;
             }
@@ -1294,7 +1274,8 @@
                 font-size: 0.74rem;
             }
 
-            .img-grid {
+            .img-grid,
+            .img-grid.large-grid {
                 grid-template-columns: 1fr;
                 gap: 1rem;
                 margin: 1rem 0 0.8rem 0;
@@ -1369,9 +1350,7 @@
             }
         }
 
-        /* ============================================================
-           毛玻璃降级
-           ============================================================ */
+        /* 毛玻璃降级 */
         @media (max-width: 768px),
         (prefers-reduced-motion: reduce) {
             .container,
@@ -1412,7 +1391,7 @@
             }
         }
 
-        /* 减少动效偏好 */
+        /* 减少动效 */
         @media (prefers-reduced-motion: reduce) {
             html {
                 scroll-behavior: auto;
@@ -1430,9 +1409,7 @@
             }
         }
 
-        /* ============================================================
-           打印样式 — 优化图片展示与分页
-           ============================================================ */
+        /* 打印样式 */
         @media print {
             @page {
                 margin: 18mm 15mm 20mm 15mm;
@@ -1615,8 +1592,9 @@
                 background-size: 14px !important;
             }
 
-            /* 打印：图片展示优化 */
-            .img-grid {
+            /* 打印图片 */
+            .img-grid,
+            .img-grid.large-grid {
                 display: grid !important;
                 grid-template-columns: repeat(2, 1fr) !important;
                 gap: 10px 16px !important;
@@ -1708,7 +1686,7 @@
                 font-size: 7pt !important;
             }
 
-            /* 隐藏交互元素 */
+            /* 隐藏交互 */
             .step-nav,
             .reading-progress,
             .back-to-top,
@@ -1720,7 +1698,6 @@
                 display: none !important;
             }
 
-            /* 分页控制 */
             .section {
                 break-inside: auto;
                 page-break-inside: auto;
@@ -1743,12 +1720,10 @@
                 page-break-inside: avoid;
                 break-inside: avoid;
             }
-            /* 图片不跨页 */
             .img-grid {
                 break-inside: avoid;
                 page-break-inside: avoid;
             }
-            /* 如果图片网格太大，允许分开 */
             .img-grid.stacked {
                 break-inside: auto;
                 page-break-inside: auto;
@@ -1759,9 +1734,6 @@
             }
         }
 
-        /* ============================================================
-           辅助类
-           ============================================================ */
         .sr-only {
             position: absolute !important;
             width: 1px !important;
@@ -1791,7 +1763,7 @@
                 </div>
                 <div class="header-left">
                     <h1>🧵 盖黑工单开单流程</h1>
-                    <div class="subhead" role="doc-subtitle">操作指引 · 培训教材 v1.1</div>
+                    <div class="subhead" role="doc-subtitle">操作指引 · 培训教材 v1.2</div>
                 </div>
             </div>
             <div class="header-right">
@@ -1835,7 +1807,7 @@
                         <div class="img-card">
                             <div class="img-wrapper">
                                 <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-2.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
                                 <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-2.png?raw=true" alt="1-2 收货操作界面截图，展示 ZSOHPP090 功能代码的使用" loading="lazy" decoding="async" fetchpriority="low" />
                             </div>
                             <div class="card-labels">
@@ -1865,7 +1837,7 @@
                         <div class="img-card">
                             <div class="img-wrapper">
                                 <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-1.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
                                 <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-1.png?raw=true" alt="1-1 盖黑需求表格式示例" loading="lazy" decoding="async" fetchpriority="low" />
                             </div>
                             <div class="card-labels">
@@ -1898,7 +1870,7 @@
                         <div class="img-card">
                             <div class="img-wrapper">
                                 <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-3.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
                                 <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-3.png?raw=true" alt="1-3 ZSOHWM002 储存地点转销售订单操作界面" loading="lazy" decoding="async" fetchpriority="low" />
                             </div>
                             <div class="card-labels">
@@ -1910,7 +1882,7 @@
                         <div class="img-card">
                             <div class="img-wrapper">
                                 <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-16.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
                                 <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-16.png?raw=true" alt="1-16 ZSOHWM002 补充操作细节" loading="lazy" decoding="async" fetchpriority="low" />
                             </div>
                             <div class="card-labels">
@@ -1934,7 +1906,7 @@
                         <div class="img-card">
                             <div class="img-wrapper">
                                 <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-4.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
                                 <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-4.png?raw=true" alt="1-4 ZSOH_SE06 APO 创建工单操作界面" loading="lazy" decoding="async" fetchpriority="low" />
                             </div>
                             <div class="card-labels">
@@ -1956,7 +1928,7 @@
                         <div class="img-card">
                             <div class="img-wrapper">
                                 <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-5.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
                                 <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-5.png?raw=true" alt="1-5 ZSOH_SE17 特性值修改第一步操作" loading="lazy" decoding="async" fetchpriority="low" />
                             </div>
                             <div class="card-labels">
@@ -1968,7 +1940,7 @@
                         <div class="img-card">
                             <div class="img-wrapper">
                                 <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-6.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
                                 <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-6.png?raw=true" alt="1-6 特性值详情页面" loading="lazy" decoding="async" fetchpriority="low" />
                             </div>
                             <div class="card-labels">
@@ -1984,11 +1956,12 @@
                         <strong>5-3：</strong>操作功能代码：<span class="code-inline">ZTRIM_XS___START</span>
                         <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作：分缸</span>
                     </div>
-                    <div class="img-grid">
+                    <!-- 为分缸图片添加 large-grid 类，提升桌面端清晰度 -->
+                    <div class="img-grid large-grid">
                         <div class="img-card">
                             <div class="img-wrapper">
                                 <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-7.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
                                 <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-7.png?raw=true" alt="1-7 分缸操作第一步" loading="lazy" decoding="async" fetchpriority="low" />
                             </div>
                             <div class="card-labels">
@@ -2000,7 +1973,7 @@
                         <div class="img-card">
                             <div class="img-wrapper">
                                 <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-8.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
                                 <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-8.png?raw=true" alt="1-8 分缸操作第二步" loading="lazy" decoding="async" fetchpriority="low" />
                             </div>
                             <div class="card-labels">
@@ -2012,7 +1985,7 @@
                         <div class="img-card">
                             <div class="img-wrapper">
                                 <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-9.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
                                 <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-9.png?raw=true" alt="1-9 分缸操作第三步" loading="lazy" decoding="async" fetchpriority="low" />
                             </div>
                             <div class="card-labels">
@@ -2024,7 +1997,7 @@
                         <div class="img-card">
                             <div class="img-wrapper">
                                 <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-10.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
                                 <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-10.png?raw=true" alt="1-10 分缸操作第四步" loading="lazy" decoding="async" fetchpriority="low" />
                             </div>
                             <div class="card-labels">
@@ -2044,7 +2017,7 @@
                         <div class="img-card">
                             <div class="img-wrapper">
                                 <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-11.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
                                 <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-11.png?raw=true" alt="1-11 锁胚操作界面" loading="lazy" decoding="async" fetchpriority="low" />
                             </div>
                             <div class="card-labels">
@@ -2063,7 +2036,7 @@
                         <div class="img-card">
                             <div class="img-wrapper">
                                 <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-12.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
                                 <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-12.png?raw=true" alt="1-12 手动转工单操作界面" loading="lazy" decoding="async" fetchpriority="low" />
                             </div>
                             <div class="card-labels">
@@ -2095,7 +2068,7 @@
                         <div class="img-card">
                             <div class="img-wrapper">
                                 <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-13.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
                                 <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-13.png?raw=true" alt="1-13 ZSOHPP159 锁胚报工发单操作界面" loading="lazy" decoding="async" fetchpriority="low" />
                             </div>
                             <div class="card-labels">
@@ -2107,7 +2080,7 @@
                         <div class="img-card">
                             <div class="img-wrapper">
                                 <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-14.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
                                 <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-14.png?raw=true" alt="1-14 锁胚报工详情页面" loading="lazy" decoding="async" fetchpriority="low" />
                             </div>
                             <div class="card-labels">
@@ -2131,7 +2104,7 @@
                         <div class="img-card">
                             <div class="img-wrapper">
                                 <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-15.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
                                 <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-15.png?raw=true" alt="1-15 MIGO 工单投料操作界面" loading="lazy" decoding="async" fetchpriority="low" />
                             </div>
                             <div class="card-labels">
@@ -2152,7 +2125,7 @@
         <!-- 页脚 -->
         <footer class="footer-note" role="contentinfo">
             <span><i class="fas fa-check-circle" style="color:#1f6b4a;" aria-hidden="true"></i> TOPT 培训教材 · 内部使用</span>
-            <span class="doc-badge"><i class="fas fa-file-alt" aria-hidden="true"></i> 版本 v1.1</span>
+            <span class="doc-badge"><i class="fas fa-file-alt" aria-hidden="true"></i> 版本 v1.2</span>
             <span><i class="far fa-copyright" aria-hidden="true"></i> 刘洋 · liu-yang@top-textiles.vn</span>
         </footer>
 
@@ -2181,9 +2154,7 @@
         (function() {
             'use strict';
 
-            // ============================================================
             // 工具函数：防抖
-            // ============================================================
             function debounce(fn, delay) {
                 let timer = null;
                 return function(...args) {
@@ -2193,27 +2164,37 @@
             }
 
             // ============================================================
-            // 1. 图片加载状态管理（优化：使用事件委托 + 超时处理）
+            // 1. 图片加载管理（修复超时误报，增加重试按钮）
             // ============================================================
             const images = Array.from(document.querySelectorAll('.img-card img'));
-            const imageLoadTimeout = 12000; // 12秒超时
-
+            // 取消超时逻辑，改为依赖load和error事件，并在error时显示重试按钮
             images.forEach(img => {
                 const wrapper = img.closest('.img-wrapper');
                 const placeholder = wrapper?.querySelector('.img-placeholder');
                 const errorDiv = wrapper?.querySelector('.img-error');
-                let timeoutId = null;
+                const retryBtn = errorDiv?.querySelector('.retry-btn');
 
                 function markLoaded() {
                     img.classList.add('loaded');
                     placeholder?.classList.add('hidden');
-                    if (timeoutId) clearTimeout(timeoutId);
+                    errorDiv?.classList.remove('visible');
                 }
 
                 function markError() {
                     placeholder?.classList.add('hidden');
                     errorDiv?.classList.add('visible');
-                    if (timeoutId) clearTimeout(timeoutId);
+                }
+
+                function resetImage() {
+                    // 重置状态并重新加载图片
+                    img.classList.remove('loaded');
+                    placeholder?.classList.remove('hidden');
+                    errorDiv?.classList.remove('visible');
+                    // 添加时间戳防止缓存
+                    const originalSrc = img.getAttribute('src');
+                    const newSrc = originalSrc.includes('?') ? originalSrc + '&retry=' + Date.now() :
+                        originalSrc + '?retry=' + Date.now();
+                    img.src = newSrc;
                 }
 
                 if (img.complete && img.naturalWidth > 0) {
@@ -2221,16 +2202,19 @@
                 } else {
                     img.addEventListener('load', markLoaded, { once: true });
                     img.addEventListener('error', markError, { once: true });
-                    timeoutId = setTimeout(() => {
-                        if (!img.classList.contains('loaded')) {
-                            markError();
-                        }
-                    }, imageLoadTimeout);
+                }
+
+                // 点击重试按钮
+                if (retryBtn) {
+                    retryBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        resetImage();
+                    });
                 }
             });
 
             // ============================================================
-            // 2. Lightbox 图片放大（优化：焦点陷阱 + 触摸滑动 + 预加载）
+            // 2. Lightbox 图片放大（保持不变）
             // ============================================================
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightboxImg');
@@ -2300,7 +2284,6 @@
                 }
             }
 
-            // 使用事件委托监听图片点击
             document.querySelector('.container').addEventListener('click', function(e) {
                 const img = e.target.closest('.img-card img');
                 if (img) {
@@ -2313,7 +2296,6 @@
             prevBtn.addEventListener('click', showPrev);
             nextBtn.addEventListener('click', showNext);
 
-            // 键盘控制（焦点陷阱）
             lightbox.addEventListener('keydown', function(e) {
                 if (!lightbox.classList.contains('active')) return;
                 switch (e.key) {
@@ -2355,12 +2337,10 @@
                 }
             });
 
-            // 点击背景关闭
             lightbox.addEventListener('click', function(e) {
                 if (e.target === lightbox) closeLightbox();
             });
 
-            // 触摸滑动（区分水平/垂直）
             lightbox.addEventListener('touchstart', function(e) {
                 touchStartX = e.changedTouches[0].screenX;
                 touchStartY = e.changedTouches[0].screenY;
@@ -2371,7 +2351,6 @@
                 const touchEndY = e.changedTouches[0].screenY;
                 const diffX = touchStartX - touchEndX;
                 const diffY = touchStartY - touchEndY;
-                // 仅当水平滑动明显大于垂直滑动时触发
                 if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY) * 1.5) {
                     if (diffX > 0) showNext();
                     else showPrev();
@@ -2379,7 +2358,7 @@
             }, { passive: true });
 
             // ============================================================
-            // 3. 步骤滚动高亮导航（优化：IntersectionObserver + 移动端导航同步）
+            // 3. 步骤滚动高亮导航
             // ============================================================
             const steps = Array.from(document.querySelectorAll('.step-desc'));
             let navDots = [];
@@ -2395,7 +2374,6 @@
                 if (index < 0 || index >= steps.length) return;
                 currentStepIndex = index;
 
-                // 更新桌面端侧边导航
                 navDots.forEach((dot, i) => {
                     const isActive = i === index;
                     dot.classList.toggle('active', isActive);
@@ -2406,12 +2384,10 @@
                     }
                 });
 
-                // 更新步骤高亮
                 steps.forEach((step, i) => {
                     step.classList.toggle('highlight', i === index);
                 });
 
-                // 更新移动端导航
                 if (mnProgress) {
                     mnProgress.textContent = (index + 1) + ' / ' + steps.length;
                 }
@@ -2459,7 +2435,6 @@
                 navDots = Array.from(nav.querySelectorAll('.nav-dot'));
             }
 
-            // IntersectionObserver 用于监听步骤进入视口
             if ('IntersectionObserver' in window && steps.length > 0) {
                 observer = new IntersectionObserver(function(entries) {
                     entries.forEach(function(entry) {
@@ -2476,11 +2451,9 @@
                     threshold: 0.05
                 });
                 steps.forEach(step => observer.observe(step));
-                // 初始设置
                 setActiveStep(0);
             }
 
-            // 移动端导航按钮
             if (mnPrev && mnNext) {
                 mnPrev.addEventListener('click', function() {
                     if (currentStepIndex > 0) goToStep(currentStepIndex - 1);
@@ -2491,7 +2464,7 @@
             }
 
             // ============================================================
-            // 4. 阅读进度条（优化：使用 requestAnimationFrame）
+            // 4. 阅读进度条
             // ============================================================
             const progressBar = document.getElementById('readingProgress');
             let progressTicking = false;
@@ -2516,7 +2489,6 @@
 
             window.addEventListener('scroll', requestProgressUpdate, { passive: true });
             window.addEventListener('resize', requestProgressUpdate, { passive: true });
-            // 初始更新
             updateProgress();
 
             // ============================================================
@@ -2545,35 +2517,30 @@
             backToTop.addEventListener('click', function() {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
-            // 初始更新
             updateBackToTop();
 
             // ============================================================
-            // 6. 键盘快捷键（优化：添加键盘导航快捷键）
+            // 6. 键盘快捷键
             // ============================================================
             document.addEventListener('keydown', function(e) {
-                // 仅在非输入框且lightbox未打开时响应
                 const tag = document.activeElement?.tagName?.toLowerCase();
                 const isInput = tag === 'input' || tag === 'textarea' || tag === 'select';
                 if (isInput || lightbox.classList.contains('active')) return;
 
-                // Alt+左右方向键切换步骤
                 if (e.altKey && e.key === 'ArrowRight' && steps.length > 0) {
                     if (currentStepIndex < steps.length - 1) goToStep(currentStepIndex + 1);
                     e.preventDefault();
                 } else if (e.altKey && e.key === 'ArrowLeft' && steps.length > 0) {
                     if (currentStepIndex > 0) goToStep(currentStepIndex - 1);
                     e.preventDefault();
-                }
-                // Home键返回顶部
-                else if (e.key === 'Home' && !e.ctrlKey && !e.metaKey) {
+                } else if (e.key === 'Home' && !e.ctrlKey && !e.metaKey) {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                     e.preventDefault();
                 }
             });
 
             // ============================================================
-            // 7. 打印前优化（确保所有图片在打印时可见）
+            // 7. 打印前优化
             // ============================================================
             window.addEventListener('beforeprint', function() {
                 images.forEach(img => {
@@ -2582,9 +2549,9 @@
             });
 
             // ============================================================
-            // 8. 控制台友好提示
+            // 8. 控制台提示
             // ============================================================
-            console.log('%c📘 TOPT 培训教材 v1.1', 'font-size:16px;font-weight:700;color:#1f4b6e;');
+            console.log('%c📘 TOPT 培训教材 v1.2', 'font-size:16px;font-weight:700;color:#1f4b6e;');
             console.log('%c提示：按 Alt+←/→ 快速切换步骤，按 Home 返回顶部', 'font-size:12px;color:#4a6a85;');
 
         })();
