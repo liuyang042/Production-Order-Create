@@ -2,17 +2,13 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
-    <title>TOPT · 经编常规工单开单流程 · 培训教材 v1.2</title>
-    <meta name="description" content="TOPT 经编常规工单开单流程培训教材，涵盖7个核心步骤，适配电脑、手机与打印。" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TOPT · 经编常规工单开单流程 · 培训教材</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        /* ============================================================
-           CSS 变量 — 浅色 / 深色自适应（与盖黑版本保持统一）
-           ============================================================ */
         :root {
             --bg-body: #eef3f8;
             --bg-container: rgba(255, 255, 255, 0.88);
@@ -26,7 +22,7 @@
             --shadow-card: 0 40px 80px -20px rgba(0, 20, 40, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
             --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
             --shadow-md: 0 8px 24px rgba(0, 20, 40, 0.08);
-            --shadow-lg: 0 16px 48px rgba(0, 20, 40, 0.12);
+            --shadow-lg: 0 24px 64px rgba(0, 20, 40, 0.15);
             --accent: #1f4b6e;
             --accent-light: #3875ac;
             --accent-gold: #d99e4a;
@@ -43,14 +39,13 @@
             --bg-highlight: rgba(252, 248, 240, 0.8);
             --bg-code-inline: rgba(225, 238, 250, 0.7);
             --bg-nav-dot: rgba(190, 210, 230, 0.5);
-            --bg-mobile-nav: rgba(255, 255, 255, 0.92);
             --color-text-on-accent: white;
             --color-text-remark: #1a3a53;
             --color-text-note: #4d3a20;
             --color-border-img: rgba(210, 225, 240, 0.4);
             --img-bg: #f5f9ff;
             --img-placeholder-bg: #e8f0f8;
-            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --backdrop-blur: blur(18px) saturate(180%);
             --transition-speed: 0.35s;
             --header-gradient: linear-gradient(135deg, #d6eaf8 0%, #ebf5fb 100%);
@@ -59,20 +54,8 @@
             --radius-lg: 32px;
             --radius-xl: 56px;
             --radius-full: 999px;
-            /* ===== 图片尺寸变量 — 与盖黑版本保持一致 ===== */
-            --img-max-height-desktop: clamp(480px, 65vh, 820px);
-            --img-max-height-tablet: clamp(380px, 55vh, 620px);
-            --img-max-height-mobile: clamp(300px, 50vh, 480px);
-            --img-max-height-print: 320px;
-            --grid-col-min-desktop: 340px;
-            --grid-col-min-tablet: 300px;
-            --grid-col-min-large: 460px;
-            --fs-h1: clamp(1.4rem, 4vw, 2rem);
-            --fs-section: clamp(1.1rem, 3vw, 1.8rem);
-            --fs-h3: clamp(0.95rem, 2.5vw, 1.35rem);
-            --fs-body: clamp(0.8rem, 1.8vw, 0.98rem);
-            --fs-small: clamp(0.65rem, 1.5vw, 0.85rem);
-            --fs-tiny: clamp(0.55rem, 1.2vw, 0.68rem);
+            --img-max-width: 100%;
+            --img-max-height: 70vh;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -89,7 +72,7 @@
                 --shadow-card: 0 40px 80px -20px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
                 --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
                 --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
-                --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.4);
+                --shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.45);
                 --accent: #2a5a7a;
                 --accent-light: #4a7aad;
                 --accent-gold: #d99e4a;
@@ -106,7 +89,6 @@
                 --bg-highlight: rgba(252, 248, 240, 0.05);
                 --bg-code-inline: rgba(40, 65, 90, 0.5);
                 --bg-nav-dot: rgba(120, 150, 180, 0.35);
-                --bg-mobile-nav: rgba(20, 30, 45, 0.92);
                 --color-text-on-accent: white;
                 --color-text-remark: #d0dce8;
                 --color-text-note: #e0d0b0;
@@ -118,1511 +100,241 @@
             }
         }
 
-        /* ========== 全局重置 ========== */
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html {
-            scroll-behavior: smooth;
-            -webkit-text-size-adjust: 100%;
-            -webkit-tap-highlight-color: transparent;
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
         body {
             font-family: var(--font-family);
             background: var(--bg-body);
             color: var(--text-primary);
-            padding: clamp(0.5rem, 2vw, 2rem) clamp(0.5rem, 2vw, 1.5rem);
-            line-height: 1.6;
+            padding: 1.5rem 1rem;
+            line-height: 1.65;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
-            font-size: var(--fs-body);
+            transition: background 0.3s ease, color 0.3s ease;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         .container {
             max-width: 1400px;
-            width: 100%;
             margin: 0 auto;
             background: var(--bg-container);
             backdrop-filter: var(--backdrop-blur);
             -webkit-backdrop-filter: var(--backdrop-blur);
             border-radius: var(--radius-xl);
             box-shadow: var(--shadow-card);
-            padding: clamp(1rem, 3vw, 2.8rem);
-            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
+            padding: 2rem 2rem;
+            transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
         }
 
-        /* ========== 头部 ========== */
+        /* 头部样式 */
         .header {
             border-bottom: 1px solid var(--border-subtle);
-            padding: clamp(0.6rem, 2vw, 1.8rem);
-            margin-bottom: clamp(1rem, 2.5vw, 2.4rem);
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 2rem;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            gap: 1rem 1.8rem;
+            gap: 1rem;
+            position: relative;
             background: var(--header-gradient);
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-sm);
-            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
-        .header-brand {
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
-            flex-wrap: wrap;
-        }
+        .header-brand { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
         .logo-wrap {
             background: var(--bg-card);
             border-radius: var(--radius-full);
             padding: 0.3rem 0.7rem 0.3rem 0.3rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
+            display: flex; align-items: center; gap: 0.6rem;
             border: 1px solid var(--border-subtle);
             box-shadow: var(--shadow-sm);
             flex-shrink: 0;
         }
-        .logo-wrap img {
-            height: clamp(28px, 4vw, 42px);
-            width: auto;
-            display: block;
-            border-radius: 50%;
-            background: white;
-            padding: 2px;
-        }
-        .logo-wrap .brand-text {
-            font-weight: 700;
-            font-size: clamp(0.8rem, 1.5vw, 1.2rem);
-            color: var(--text-heading);
-            padding-right: 0.5rem;
-        }
-        .header-left h1 {
-            font-size: var(--fs-h1);
-            font-weight: 700;
-            background: linear-gradient(145deg, #0a1e33, #1a4b70);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.1rem;
-        }
-        .header-left .subhead {
-            font-size: var(--fs-small);
-            color: var(--text-secondary);
-            background: rgba(230, 242, 255, 0.65);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 0.2rem 1.2rem;
-            border-radius: var(--radius-full);
-        }
-        .header-right {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 0.6rem 1.2rem;
-        }
-        .author-block {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            background: var(--bg-card);
-            backdrop-filter: blur(8px);
-            padding: 0.3rem 1.2rem 0.3rem 1.4rem;
-            border-radius: var(--radius-full);
-            border: 1px solid var(--border-subtle);
-        }
-        .author-name {
-            font-weight: 700;
-            font-size: clamp(0.8rem, 1.4vw, 0.95rem);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .author-email {
-            font-size: var(--fs-tiny);
-            color: #2a577b;
-        }
-        .badge-soft {
-            background: rgba(220, 235, 250, 0.55);
-            padding: 0.25rem 1rem;
-            border-radius: var(--radius-full);
-            font-size: var(--fs-tiny);
-            color: #1f4a6e;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.45);
-        }
+        .logo-wrap img { height: 42px; width: auto; display: block; border-radius: 50%; background: white; padding: 2px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+        .logo-wrap .brand-text { font-weight: 700; font-size: 1.2rem; color: var(--text-heading); padding-right: 0.5rem; }
+        .header-left h1 { font-size: 1.8rem; font-weight: 700; background: linear-gradient(145deg, #0a1e33, #1a4b70); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.1rem; }
+        .header-left .subhead { font-size: 0.85rem; color: var(--text-secondary); background: rgba(230,242,255,0.65); display: inline-flex; align-items: center; gap: 6px; padding: 0.2rem 1.2rem; border-radius: var(--radius-full); }
+        .header-right { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1.2rem; }
+        .author-block { display: flex; flex-direction: column; align-items: flex-end; background: var(--bg-card); backdrop-filter: blur(8px); padding: 0.3rem 1.2rem 0.3rem 1.4rem; border-radius: var(--radius-full); border: 1px solid var(--border-subtle); }
+        .author-name { font-weight: 700; font-size: 0.95rem; }
+        .author-email { font-size: 0.7rem; color: #2a577b; }
+        .badge-soft { background: rgba(220,235,250,0.55); padding: 0.25rem 1rem; border-radius: var(--radius-full); font-size: 0.75rem; color: #1f4a6e; display: inline-flex; align-items: center; gap: 6px; border: 1px solid rgba(255,255,255,0.45); }
 
-        /* ========== 目录 ========== */
-        .toc {
-            background: var(--bg-toc);
-            backdrop-filter: blur(12px);
-            border-radius: var(--radius-lg);
-            padding: clamp(0.6rem, 1.5vw, 1.4rem) clamp(0.8rem, 2vw, 2rem);
-            margin-bottom: clamp(1rem, 2.5vw, 2.6rem);
-            border: 1px solid var(--border-subtle);
-            box-shadow: var(--shadow-sm);
-            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
-        }
-        .toc-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        .toc-title {
-            font-weight: 700;
-            font-size: clamp(0.85rem, 1.6vw, 1rem);
-            color: #12344a;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .toc-title span {
-            background: var(--accent);
-            color: var(--color-text-on-accent);
-            padding: 0 14px;
-            border-radius: var(--radius-full);
-            font-size: 0.65rem;
-            line-height: 1.8;
-            font-weight: 600;
-        }
-        .toc-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 4px 16px;
-            list-style: none;
-            padding: 0;
-        }
-        .toc-grid li {
-            font-weight: 500;
-            font-size: var(--fs-small);
-            color: #1a3c57;
-            padding: 3px 0;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .toc-grid li .step-num {
-            background: var(--bg-code-inline);
-            color: var(--text-link);
-            font-size: 0.55rem;
-            font-weight: 700;
-            padding: 0 8px;
-            border-radius: var(--radius-full);
-            line-height: 1.8;
-            min-width: 26px;
-            text-align: center;
-        }
-        .toc-grid li .step-icon {
-            font-size: 0.7rem;
-            width: 18px;
-            text-align: center;
-        }
-        .toc-grid li a {
-            color: inherit;
-            text-decoration: none;
-            transition: color 0.2s ease;
-            position: relative;
-            padding: 4px 0;
-            display: inline-block;
-        }
-        .toc-grid li a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 1.5px;
-            background: var(--text-link);
-            transition: width 0.25s ease;
-        }
-        .toc-grid li a:hover,
-        .toc-grid li a:focus-visible {
-            color: var(--text-link);
-        }
-        .toc-grid li a:hover::after,
-        .toc-grid li a:focus-visible::after {
-            width: 100%;
-        }
+        /* 目录 */
+        .toc { background: var(--bg-toc); backdrop-filter: blur(12px); border-radius: var(--radius-lg); padding: 1rem 1.8rem; margin-bottom: 2rem; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-sm); }
+        .toc-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .toc-title { font-weight: 700; font-size: 1rem; color: #12344a; display: flex; align-items: center; gap: 8px; }
+        .toc-title span { background: var(--accent); color: white; padding: 0 12px; border-radius: var(--radius-full); font-size: 0.7rem; line-height: 1.8; font-weight: 600; }
+        .toc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 4px 20px; list-style: none; }
+        .toc-grid li { font-weight: 500; font-size: 0.85rem; color: #1a3c57; padding: 3px 0; display: flex; align-items: center; gap: 6px; }
+        .toc-grid li .step-num { background: var(--bg-code-inline); color: var(--text-link); font-size: 0.6rem; font-weight: 700; padding: 0 8px; border-radius: var(--radius-full); line-height: 1.7; min-width: 26px; text-align: center; }
+        .toc-grid li a { color: inherit; text-decoration: none; }
+        .toc-grid li a:hover { color: var(--text-link); }
 
-        /* ========== 章节 ========== */
-        .section {
-            margin-bottom: clamp(1.2rem, 3vw, 2.6rem);
-        }
-        .section-title {
-            font-size: var(--fs-section);
-            font-weight: 700;
-            color: var(--text-heading);
-            padding-bottom: 0.4rem;
-            border-bottom: 2px solid var(--border-subtle);
-            margin-bottom: clamp(0.8rem, 2vw, 1.8rem);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .section-title .num {
-            background: linear-gradient(145deg, var(--accent), #0b2b4a);
-            color: white;
-            font-size: clamp(0.75rem, 1.5vw, 1.1rem);
-            font-weight: 600;
-            padding: 0.05rem 1.2rem;
-            border-radius: var(--radius-full);
-            box-shadow: 0 4px 12px rgba(31, 75, 110, 0.15);
-            white-space: nowrap;
-        }
+        /* 章节 */
+        .section { margin-bottom: 2rem; }
+        .section-title { font-size: 1.6rem; font-weight: 700; color: var(--text-heading); padding-bottom: 0.4rem; border-bottom: 2px solid var(--border-subtle); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 12px; }
+        .section-title .num { background: linear-gradient(145deg, var(--accent), #0b2b4a); color: white; font-size: 1rem; padding: 0.1rem 1rem; border-radius: var(--radius-full); }
+        .subsection { margin-top: 1.8rem; padding-left: 0.5rem; scroll-margin-top: 20px; }
+        .subsection h3 { font-size: 1.2rem; font-weight: 600; color: #1d3d5c; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; }
+        .path-box { background: var(--bg-step); backdrop-filter: blur(8px); border-radius: var(--radius-md); padding: 1rem 1.5rem; margin: 0.8rem 0 1.2rem 0; border: 1px solid var(--border-subtle); }
+        .path-box .path-title { font-weight: 700; font-size: 1rem; display: flex; gap: 8px; align-items: center; margin-bottom: 0.4rem; }
+        .path-box .path-badge { font-size: 0.7rem; padding: 0.1rem 0.8rem; border-radius: var(--radius-full); background: var(--bg-code-inline); color: var(--text-link); }
+        .path-box .path-desc code { background: var(--bg-code-inline); padding: 0.1rem 0.6rem; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 600; color: #004080; }
+        .step-desc { background: var(--bg-step); backdrop-filter: blur(8px); padding: 0.8rem 1.5rem; border-radius: var(--radius-md); border-left: 4px solid var(--accent-light); margin: 0.6rem 0 1rem 0; font-weight: 500; color: var(--color-text-remark); box-shadow: var(--shadow-sm); transition: all 0.3s ease; scroll-margin-top: 80px; border: 1px solid var(--border-subtle); border-left-width: 4px; }
+        .step-desc:hover { transform: translateX(4px); box-shadow: var(--shadow-md); }
+        .step-desc.highlight { border-left-color: var(--accent-gold) !important; background: var(--bg-highlight) !important; }
+        .step-desc .code-inline { background: var(--bg-code-inline); padding: 0.1rem 0.6rem; border-radius: var(--radius-full); font-family: monospace; font-weight: 600; color: #004080; font-size: 0.85rem; }
+        .step-desc .remark { display: inline-block; margin-top: 4px; background: var(--bg-code-inline); padding: 2px 14px; border-radius: var(--radius-full); font-size: 0.85rem; }
 
-        .subsection {
-            margin-top: clamp(1rem, 2.5vw, 2.2rem);
-            padding-left: 0.2rem;
-            scroll-margin-top: 20px;
-        }
-        .subsection h3 {
-            font-size: var(--fs-h3);
-            font-weight: 600;
-            color: #1d3d5c;
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .path-box {
-            background: var(--bg-step);
-            backdrop-filter: blur(8px);
-            border-radius: var(--radius-md);
-            padding: 1rem 1.5rem;
-            margin: 0.8rem 0 1.2rem 0;
-            border: 1px solid var(--border-subtle);
-            box-shadow: var(--shadow-sm);
-        }
-        .path-box .path-title {
-            font-weight: 700;
-            font-size: 1rem;
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            margin-bottom: 0.4rem;
-        }
-        .path-box .path-badge {
-            font-size: 0.7rem;
-            padding: 0.1rem 0.8rem;
-            border-radius: var(--radius-full);
-            background: var(--bg-code-inline);
-            color: var(--text-link);
-        }
-        .path-box .path-desc code {
-            background: var(--bg-code-inline);
-            padding: 0.1rem 0.6rem;
-            border-radius: var(--radius-full);
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #004080;
-        }
-
-        /* ========== 步骤描述卡片 ========== */
-        .step-desc {
-            background: var(--bg-step);
-            backdrop-filter: blur(8px);
-            padding: clamp(0.5rem, 1.5vw, 1rem) clamp(0.8rem, 2vw, 1.6rem);
-            border-radius: var(--radius-md);
-            border-left: 4px solid var(--accent-light);
-            margin: 0.6rem 0 1.2rem 0;
-            font-weight: 500;
-            color: var(--color-text-remark);
-            box-shadow: var(--shadow-sm);
-            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            cursor: default;
-            scroll-margin-top: 80px;
-            border: 1px solid var(--border-subtle);
-            font-size: var(--fs-body);
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 0.5rem 1rem;
-        }
-        .step-desc:hover {
-            transform: translateX(4px) scale(1.002);
-            box-shadow: var(--shadow-md);
-            border-color: var(--border-strong);
-            background: var(--bg-step-hover);
-        }
-        .step-desc.highlight {
-            border-left-color: var(--accent-gold) !important;
-            background: var(--bg-highlight) !important;
-            box-shadow: 0 0 0 2px rgba(217, 158, 74, 0.12);
-        }
-        .step-desc .remark {
-            display: inline-block;
-            font-weight: 400;
-            background: var(--bg-code-inline);
-            backdrop-filter: blur(4px);
-            padding: 2px 16px;
-            border-radius: var(--radius-full);
-            font-size: var(--fs-small);
-            border: 1px solid var(--border-subtle);
-        }
-        .step-desc .code-inline {
-            background: var(--bg-code-inline);
-            backdrop-filter: blur(4px);
-            padding: 0.05rem 0.7rem;
-            border-radius: var(--radius-full);
-            font-family: 'Inter', monospace;
-            font-weight: 600;
-            color: #004080;
-            font-size: var(--fs-small);
-            border: 1px solid var(--border-subtle);
-        }
-        .step-desc .sub-operation {
-            font-weight: 400;
-            background: var(--bg-code-inline);
-            backdrop-filter: blur(4px);
-            padding: 4px 16px;
-            border-radius: var(--radius-full);
-            display: inline-block;
-            border: 1px solid var(--border-subtle);
-            font-size: var(--fs-small);
-            width: 100%;
-            margin-top: 4px;
-        }
-        .step-desc .sub-operation i {
-            margin-right: 6px;
-        }
-        .step-desc i {
-            font-size: 1.1rem;
-        }
-
-        /* ========== 图片网格 — 与盖黑版本一致 ========== */
+        /* 图片网格 - 按照图片实际大小优化 */
         .img-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(var(--grid-col-min-desktop), 1fr));
-            gap: var(--gap-grid);
-            margin: 1.6rem 0 1.4rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+            justify-content: center;
         }
-        .img-grid:has(> .img-card:only-child) {
-            grid-template-columns: 1fr;
-            max-width: 88%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .img-grid.stacked {
-            grid-template-columns: 1fr !important;
-            max-width: 88% !important;
-            margin-left: auto !important;
-            margin-right: auto !important;
-        }
-        .img-grid.large-grid {
-            grid-template-columns: repeat(auto-fill, minmax(var(--grid-col-min-large), 1fr));
-            gap: 2rem;
-        }
-
-        /* ========== 图片卡片 — 与盖黑版本保持一致 ========== */
         .img-card {
             background: var(--bg-img-card);
             backdrop-filter: blur(8px);
-            border-radius: var(--card-radius);
-            padding: 0.5rem 0.5rem 0.7rem 0.5rem;
+            border-radius: var(--radius-md);
+            padding: 0.8rem;
             box-shadow: var(--shadow-sm);
             border: 1px solid var(--border-subtle);
             text-align: center;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+            position: relative;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
-            content-visibility: auto;
-            contain-intrinsic-size: 300px;
-            position: relative;
-            overflow: hidden;
+            width: auto;
+            max-width: 100%;
+            flex: 1 1 auto;
+            min-width: 250px;
         }
-        /* 顶部装饰条 */
-        .img-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-light), var(--accent), var(--accent-light));
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: 4;
-        }
-        .img-card:hover::before {
-            opacity: 1;
-        }
-        .img-card:hover {
-            transform: translateY(-4px) scale(1.008);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--border-strong);
-        }
-        /* 图片编号 Badge */
-        .img-badge {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            z-index: 5;
-            background: rgba(15, 30, 47, 0.78);
-            backdrop-filter: blur(8px);
-            color: #fff;
-            padding: 0.15rem 0.8rem;
-            border-radius: var(--radius-full);
-            font-size: var(--fs-tiny);
-            font-weight: 600;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.35s ease;
-            letter-spacing: 0.3px;
-        }
-        .img-card:hover .img-badge {
-            opacity: 1;
-        }
+        .img-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--border-strong); }
+        .img-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent-light), var(--accent), var(--accent-light)); opacity: 0; transition: opacity 0.3s; }
+        .img-card:hover::before { opacity: 1; }
+        .img-card .img-badge { position: absolute; top: 12px; left: 12px; z-index: 5; background: rgba(15,30,47,0.75); backdrop-filter: blur(8px); color: #fff; padding: 0.2rem 0.7rem; border-radius: var(--radius-full); font-size: 0.7rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.2); pointer-events: none; opacity: 0; transition: opacity 0.3s; }
+        .img-card:hover .img-badge { opacity: 1; }
 
-        .img-wrapper {
+        /* 图片容器 - 不再使用固定比例，根据图片实际尺寸自适应 */
+        .img-card .img-wrapper {
             position: relative;
             width: 100%;
-            border-radius: var(--img-radius);
+            max-width: 100%;
+            border-radius: var(--radius-sm);
             overflow: hidden;
             background: var(--img-placeholder-bg);
+            cursor: pointer;
             border: 1px solid var(--color-border-img);
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 140px;
-            transition: background 0.3s ease;
+            min-height: 100px;
         }
-        .img-wrapper .img-placeholder {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--img-placeholder-bg);
-            z-index: 2;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-        }
-        .img-wrapper .img-placeholder.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        .img-wrapper .img-placeholder .spinner {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: 4px solid var(--border-strong);
-            border-top-color: var(--accent-light);
-            animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .img-wrapper .img-error {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            background: var(--img-placeholder-bg);
-            z-index: 3;
-            color: var(--text-secondary);
-            font-size: var(--fs-small);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
-        }
-        .img-wrapper .img-error.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        .img-wrapper .img-error i {
-            font-size: 2rem;
-            color: var(--accent-red);
-        }
-        .img-wrapper .img-error .retry-btn {
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 4px 16px;
-            border-radius: var(--radius-full);
-            font-size: var(--fs-small);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            margin-top: 4px;
-            touch-action: manipulation;
-        }
-        .img-wrapper .img-error .retry-btn:hover,
-        .img-wrapper .img-error .retry-btn:focus-visible {
-            background: var(--accent-light);
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-        }
-
-        /* ===== 关键修复：图片本身尺寸 ===== */
         .img-card img {
-            width: 100%;
+            width: auto;
             height: auto;
-            max-height: var(--img-max-height-desktop);
+            max-width: 100%;
+            max-height: var(--img-max-height);
             object-fit: contain;
-            border-radius: var(--img-radius);
-            background: var(--img-bg);
-            transition: all 0.3s ease;
-            cursor: pointer;
             display: block;
+            background: var(--img-bg);
+            transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
             opacity: 0;
-            aspect-ratio: auto;
+            margin: 0 auto;
         }
-        .img-card img.loaded {
-            opacity: 1;
-            animation: imgFadeIn 0.4s ease forwards;
-        }
-        @keyframes imgFadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.97);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        .img-card:hover img.loaded {
-            transform: scale(1.01);
+        .img-card img.loaded { opacity: 1; animation: imgFadeIn 0.4s ease forwards; }
+        .img-card:hover img.loaded { transform: scale(1.01); }
+        @keyframes imgFadeIn { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+
+        .img-card .img-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: var(--img-placeholder-bg); z-index: 2; transition: opacity 0.4s ease; pointer-events: none; }
+        .img-card .img-placeholder.hidden { opacity: 0; }
+        .img-card .img-placeholder .spinner { width: 36px; height: 36px; border-radius: 50%; border: 4px solid var(--border-strong); border-top-color: var(--accent-light); animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .img-card .img-error { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; background: var(--img-placeholder-bg); z-index: 2; color: var(--text-secondary); font-size: 0.85rem; opacity: 0; pointer-events: none; }
+        .img-card .img-error.visible { opacity: 1; }
+        .img-card .img-error i { font-size: 2rem; color: var(--accent-red); }
+
+        .img-card .img-caption-row { display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap; }
+        .img-card .img-caption { font-size: 0.85rem; font-weight: 500; color: #1f4a6e; background: var(--bg-code-inline); padding: 0.2rem 1rem; border-radius: var(--radius-full); }
+        .img-card .code-tag { font-family: monospace; background: var(--bg-code-inline); padding: 0.1rem 0.8rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 600; color: #004080; }
+
+        .footer-note { margin-top: 2rem; font-size: 0.85rem; color: var(--text-secondary); background: var(--bg-footer); backdrop-filter: blur(12px); padding: 0.8rem 1.8rem; border-radius: var(--radius-full); text-align: center; border: 1px solid var(--border-subtle); display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem 1.5rem; }
+        .footer-note .doc-badge { background: linear-gradient(145deg, var(--accent), #0b2b4a); color: white; padding: 0.15rem 1rem; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 600; }
+
+        /* 侧边导航 */
+        .step-nav { position: fixed; right: 28px; top: 50%; transform: translateY(-50%); background: var(--bg-toc); backdrop-filter: blur(16px); padding: 14px 10px; border-radius: 40px; box-shadow: var(--shadow-md); border: 1px solid var(--border-subtle); z-index: 100; display: none; flex-direction: column; gap: 10px; }
+        @media (min-width: 1024px) { .step-nav { display: flex; } }
+        .step-nav .nav-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--bg-nav-dot); transition: all 0.3s ease; cursor: pointer; border: 1px solid var(--border-subtle); padding: 0; }
+        .step-nav .nav-dot.active { background: var(--accent); box-shadow: 0 0 0 4px rgba(31,75,110,0.1); }
+        .step-nav .nav-dot .tooltip { position: absolute; right: 26px; top: 50%; transform: translateY(-50%); background: rgba(15,30,47,0.88); color: white; padding: 4px 14px; border-radius: var(--radius-full); font-size: 0.7rem; white-space: nowrap; opacity: 0; pointer-events: none; transition: all 0.3s ease; }
+        .step-nav .nav-dot:hover .tooltip { opacity: 1; right: 30px; }
+
+        /* Lightbox */
+        .lightbox-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(8,18,32,0.88); backdrop-filter: blur(20px); display: none; justify-content: center; align-items: center; z-index: 9999; padding: 20px; animation: fadeIn 0.3s ease; }
+        .lightbox-overlay.active { display: flex; }
+        .lightbox-overlay img { max-width: 95%; max-height: 95%; object-fit: contain; border-radius: 16px; box-shadow: 0 40px 80px rgba(0,0,0,0.45); animation: zoomIn 0.35s; border: 1px solid rgba(255,255,255,0.1); background: #fff; }
+        .lightbox-close { position: fixed; top: 24px; right: 32px; color: white; font-size: 24px; cursor: pointer; z-index: 10000; background: rgba(255,255,255,0.08); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s; border: 1px solid rgba(255,255,255,0.12); }
+        .lightbox-close:hover { background: rgba(255,255,255,0.18); }
+        .lightbox-nav { position: fixed; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); color: white; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10001; transition: all 0.3s; font-size: 18px; }
+        .lightbox-nav:hover { background: rgba(255,255,255,0.22); }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+        .lightbox-counter { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%); color: white; background: rgba(0,0,0,0.55); padding: 4px 18px; border-radius: var(--radius-full); font-size: 0.85rem; z-index: 10000; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes zoomIn { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .reading-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-light), var(--accent-gold)); width: 0%; z-index: 9998; transition: width 0.1s linear; }
+        .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 48px; height: 48px; border-radius: 50%; background: var(--accent); color: white; border: none; box-shadow: 0 4px 16px rgba(0,0,0,0.18); cursor: pointer; z-index: 900; display: none; align-items: center; justify-content: center; font-size: 18px; }
+        .back-to-top.visible { display: flex; }
+
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .img-grid { justify-content: center; }
         }
 
-        .img-card .img-hint {
-            font-size: var(--fs-tiny);
-            color: var(--text-secondary);
-            opacity: 0.5;
-            transition: opacity 0.3s ease;
-            margin-top: 2px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            letter-spacing: 0.3px;
-        }
-        .img-card:hover .img-hint {
-            opacity: 0.9;
-        }
-
-        .img-card .card-labels {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 4px 10px;
-            margin-top: 4px;
-        }
-        .img-card .img-caption {
-            font-size: var(--fs-tiny);
-            font-weight: 500;
-            color: #1f4a6e;
-            background: var(--bg-code-inline);
-            backdrop-filter: blur(4px);
-            padding: 0.15rem 0.8rem;
-            border-radius: var(--radius-full);
-            display: inline-block;
-            border: 1px solid var(--border-subtle);
-        }
-        .img-card .code-tag {
-            font-family: 'Inter', monospace;
-            background: var(--bg-code-inline);
-            backdrop-filter: blur(4px);
-            padding: 0.05rem 0.8rem;
-            border-radius: var(--radius-full);
-            font-size: var(--fs-tiny);
-            font-weight: 600;
-            color: #004080;
-            border: 1px solid var(--border-subtle);
-            display: inline-block;
-        }
-
-        /* ========== 页脚 ========== */
-        .footer-note {
-            margin-top: clamp(1.2rem, 3vw, 2.8rem);
-            font-size: var(--fs-small);
-            color: var(--text-secondary);
-            background: var(--bg-footer);
-            backdrop-filter: blur(12px);
-            padding: 0.8rem 2rem;
-            border-radius: var(--radius-full);
-            text-align: center;
-            border: 1px solid var(--border-subtle);
-            font-weight: 500;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem 1.6rem;
-        }
-        .footer-note .doc-badge {
-            background: linear-gradient(145deg, var(--accent), #0b2b4a);
-            color: white;
-            padding: 0.1rem 1.2rem;
-            border-radius: var(--radius-full);
-            font-size: var(--fs-tiny);
-            font-weight: 600;
-            box-shadow: 0 2px 8px rgba(31, 75, 110, 0.12);
-        }
-
-        /* ========== 侧边导航 ========== */
-        .step-nav {
-            position: fixed;
-            right: clamp(8px, 2vw, 24px);
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--bg-toc);
-            backdrop-filter: blur(16px);
-            padding: 12px 8px;
-            border-radius: var(--radius-full);
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border-subtle);
-            z-index: 100;
-            display: none;
-            flex-direction: column;
-            gap: 8px;
-        }
-        @media (min-width: 1024px) {
-            .step-nav {
-                display: flex;
-            }
-        }
-        .step-nav .nav-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--bg-nav-dot);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            border: 1px solid var(--border-subtle);
-            padding: 0;
-            appearance: none;
-            -webkit-appearance: none;
-            flex-shrink: 0;
-            min-width: 24px;
-            min-height: 24px;
-            background-clip: content-box;
-            padding: 6px;
-        }
-        .step-nav .nav-dot:hover,
-        .step-nav .nav-dot:focus-visible {
-            transform: scale(1.3);
-            background: var(--accent);
-            outline: none;
-            box-shadow: 0 0 0 2px var(--accent-light);
-        }
-        .step-nav .nav-dot.active {
-            background: var(--accent);
-            box-shadow: 0 0 0 4px rgba(31, 75, 110, 0.08);
-        }
-        .step-nav .nav-dot .tooltip {
-            position: absolute;
-            right: 30px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(15, 30, 47, 0.88);
-            backdrop-filter: blur(8px);
-            color: white;
-            padding: 3px 12px;
-            border-radius: var(--radius-full);
-            font-size: 0.65rem;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            z-index: 10;
-        }
-        .step-nav .nav-dot:hover .tooltip,
-        .step-nav .nav-dot:focus-visible .tooltip {
-            opacity: 1;
-            right: 32px;
-        }
-
-        /* ========== 移动端底部导航 ========== */
-        .mobile-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--bg-mobile-nav);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-top: 1px solid var(--border-subtle);
-            padding: 8px 12px;
-            padding-bottom: max(8px, env(safe-area-inset-bottom));
-            z-index: 500;
-            display: none;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
-        }
-        @media (max-width: 1024px) {
-            .mobile-nav {
-                display: flex;
-            }
-            body {
-                padding-bottom: 70px;
-            }
-        }
-        .mobile-nav .mn-btn {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            color: var(--text-primary);
-            padding: 8px 14px;
-            border-radius: var(--radius-full);
-            font-size: var(--fs-small);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            min-height: 40px;
-            appearance: none;
-            -webkit-appearance: none;
-            touch-action: manipulation;
-        }
-        .mobile-nav .mn-btn:hover,
-        .mobile-nav .mn-btn:focus-visible {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-            outline: none;
-            box-shadow: 0 4px 12px rgba(31, 75, 110, 0.2);
-        }
-        .mobile-nav .mn-btn:disabled {
-            opacity: 0.35;
-            cursor: not-allowed;
-            pointer-events: none;
-        }
-        .mobile-nav .mn-progress {
-            font-size: var(--fs-small);
-            font-weight: 700;
-            color: var(--text-heading);
-            text-align: center;
-            min-width: 60px;
-            letter-spacing: 0.5px;
-        }
-
-        /* ========== Lightbox ========== */
-        .lightbox-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(8, 18, 32, 0.88);
-            backdrop-filter: blur(24px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            padding: 20px;
-            animation: fadeIn 0.3s ease;
-        }
-        .lightbox-overlay.active {
-            display: flex;
-        }
-        .lightbox-overlay img {
-            max-width: 92%;
-            max-height: 82%;
-            object-fit: contain;
-            border-radius: 16px;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
-            animation: zoomIn 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .lightbox-close {
-            position: fixed;
-            top: clamp(12px, 3vw, 24px);
-            right: clamp(12px, 3vw, 32px);
-            color: white;
-            font-size: clamp(18px, 3vw, 26px);
-            cursor: pointer;
-            z-index: 10000;
-            background: rgba(255, 255, 255, 0.08);
-            width: clamp(36px, 5vw, 44px);
-            height: clamp(36px, 5vw, 44px);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(8px);
-            appearance: none;
-            -webkit-appearance: none;
-            touch-action: manipulation;
-        }
-        .lightbox-close:hover,
-        .lightbox-close:focus-visible {
-            background: rgba(255, 255, 255, 0.18);
-            transform: rotate(90deg);
-            outline: 2px solid white;
-            outline-offset: 2px;
-        }
-        .lightbox-nav {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: white;
-            width: clamp(36px, 5vw, 44px);
-            height: clamp(36px, 5vw, 44px);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10001;
-            transition: all 0.3s ease;
-            font-size: clamp(16px, 2.5vw, 18px);
-            appearance: none;
-            -webkit-appearance: none;
-            touch-action: manipulation;
-        }
-        .lightbox-nav:hover,
-        .lightbox-nav:focus-visible {
-            background: rgba(255, 255, 255, 0.2);
-            outline: 2px solid white;
-            outline-offset: 2px;
-        }
-        .lightbox-prev {
-            left: clamp(8px, 2vw, 16px);
-        }
-        .lightbox-next {
-            right: clamp(8px, 2vw, 16px);
-        }
-        .lightbox-counter {
-            position: fixed;
-            bottom: clamp(12px, 3vw, 24px);
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 3px 14px;
-            border-radius: var(--radius-full);
-            font-size: var(--fs-small);
-            z-index: 10000;
-            pointer-events: none;
-            letter-spacing: 0.5px;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        @keyframes zoomIn {
-            from {
-                transform: scale(0.92);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        /* ========== 阅读进度条 & 返回顶部 ========== */
-        .reading-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--accent-light), var(--accent-gold));
-            width: 0%;
-            z-index: 9998;
-            transition: width 0.08s linear;
-            border-radius: 0 2px 2px 0;
-        }
-        .back-to-top {
-            position: fixed;
-            bottom: clamp(60px, 12vh, 28px);
-            right: clamp(12px, 2vw, 28px);
-            width: clamp(40px, 5vw, 44px);
-            height: clamp(40px, 5vw, 44px);
-            border-radius: 50%;
-            background: var(--accent);
-            color: white;
-            border: none;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            cursor: pointer;
-            z-index: 900;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            transition: all 0.3s ease;
-            appearance: none;
-            -webkit-appearance: none;
-            touch-action: manipulation;
-        }
-        .back-to-top.visible {
-            display: flex;
-        }
-        .back-to-top:hover,
-        .back-to-top:focus-visible {
-            background: var(--accent-light);
-            transform: translateY(-3px);
-            outline: 2px solid var(--accent-light);
-            outline-offset: 2px;
-        }
-
-        /* ========== 辅助 ========== */
-        .sr-only {
-            position: absolute !important;
-            width: 1px !important;
-            height: 1px !important;
-            padding: 0 !important;
-            margin: -1px !important;
-            overflow: hidden !important;
-            clip: rect(0, 0, 0, 0) !important;
-            border: 0 !important;
-            white-space: nowrap !important;
-        }
-        a:focus-visible,
-        button:focus-visible,
-        [tabindex]:focus-visible {
-            outline: 2px solid var(--accent-light);
-            outline-offset: 2px;
-            border-radius: 4px;
-        }
-
-        /* ========== 响应式 ========== */
-        @media (max-width: 1024px) {
-            .container {
-                padding: 1.2rem 1.2rem;
-                border-radius: var(--radius-lg);
-            }
-            .header {
-                padding: 0.8rem 1rem;
-            }
-            .img-grid,
-            .img-grid.large-grid {
-                grid-template-columns: repeat(auto-fill, minmax(var(--grid-col-min-tablet), 1fr));
-                gap: 1.2rem;
-            }
-            .img-grid:has(> .img-card:only-child),
-            .img-grid.stacked {
-                max-width: 82%;
-            }
-            .img-card img {
-                max-height: var(--img-max-height-tablet);
-            }
-            .step-nav {
-                right: 10px;
-                padding: 10px 6px;
-            }
-            .step-nav .nav-dot .tooltip {
-                display: none;
-            }
-        }
         @media (max-width: 768px) {
-            body {
-                padding: 0.6rem 0.4rem;
-            }
-            .container {
-                padding: 0.8rem 0.7rem;
-                border-radius: var(--radius-md);
-            }
-            .header {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 0.5rem;
-                padding: 0.7rem 0.8rem;
-                border-radius: var(--radius-md);
-            }
-            .header-brand {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.4rem;
-            }
-            .header-right {
-                justify-content: flex-start;
-            }
-            .author-block {
-                align-items: flex-start;
-                padding: 0.3rem 1rem 0.3rem 1.2rem;
-                border-radius: var(--radius-full);
-            }
-            .toc {
-                padding: 0.6rem 0.8rem;
-                border-radius: var(--radius-md);
-                margin-bottom: 1.2rem;
-            }
-            .toc-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 2px;
-            }
-            .toc-grid li {
-                font-size: 0.72rem;
-                gap: 4px;
-            }
-            .toc-grid li .step-num {
-                font-size: 0.5rem;
-                min-width: 22px;
-                padding: 0 6px;
-            }
-            .section-title {
-                gap: 8px;
-                margin-bottom: 1rem;
-            }
-            .subsection {
-                margin-top: 1.2rem;
-            }
-            .subsection h3 {
-                gap: 6px;
-            }
-            .step-desc {
-                padding: 0.6rem 0.9rem;
-                font-size: 0.82rem;
-                border-radius: var(--radius-sm);
-                margin: 0.4rem 0 0.7rem 0;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.3rem;
-            }
-            .step-desc .remark,
-            .step-desc .code-inline,
-            .step-desc .sub-operation {
-                font-size: 0.74rem;
-            }
-            .img-grid,
-            .img-grid.large-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-                margin: 1rem 0 0.8rem 0;
-            }
-            .img-grid:has(> .img-card:only-child),
-            .img-grid.stacked {
-                max-width: 100%;
-            }
-            .img-card img {
-                max-height: var(--img-max-height-mobile);
-            }
-            .img-card {
-                padding: 0.35rem 0.35rem 0.5rem 0.35rem;
-                border-radius: var(--radius-sm);
-            }
-            .img-card .img-caption {
-                font-size: 0.68rem;
-                padding: 0.1rem 0.7rem;
-            }
-            .img-card .code-tag {
-                font-size: 0.6rem;
-                padding: 0.05rem 0.6rem;
-            }
-            .img-card .img-badge {
-                opacity: 1;
-                font-size: 0.55rem;
-                top: 8px;
-                left: 8px;
-                padding: 0.1rem 0.6rem;
-            }
-            .footer-note {
-                font-size: 0.7rem;
-                padding: 0.5rem 1rem;
-                border-radius: var(--radius-full);
-                gap: 0.3rem 1rem;
-                flex-direction: column;
-            }
-            .step-nav {
-                display: none !important;
-            }
-            .lightbox-overlay {
-                padding: 10px;
-            }
-            .lightbox-overlay img {
-                max-width: 96%;
-                max-height: 75%;
-            }
+            .container { padding: 1rem 0.8rem; }
+            .img-grid { flex-direction: column; align-items: center; }
+            .img-card { width: 100%; }
+            .img-card .img-wrapper { max-height: none; }
+            .img-card img { max-width: 100%; max-height: none; }
+            .section-title { font-size: 1.4rem; }
+            .subsection h3 { font-size: 1.1rem; }
+            .img-card .img-badge { opacity: 1; transform: translateY(0); }
         }
+
         @media (max-width: 480px) {
-            .container {
-                padding: 0.6rem 0.45rem;
-                border-radius: var(--radius-sm);
-            }
-            .header {
-                padding: 0.5rem 0.6rem;
-                border-radius: var(--radius-sm);
-            }
-            .toc-grid {
-                grid-template-columns: 1fr;
-            }
-            .toc-grid li {
-                font-size: 0.7rem;
-            }
-            .img-card img {
-                max-height: 260px;
-            }
-            .img-grid {
-                gap: 0.8rem;
-            }
-            .footer-note {
-                font-size: 0.6rem;
-                padding: 0.35rem 0.6rem;
-                border-radius: var(--radius-md);
-            }
+            .img-card .img-wrapper { min-height: auto; }
         }
 
-        /* ========== 毛玻璃降级 ========== */
-        @media (max-width: 768px),
-        (prefers-reduced-motion: reduce) {
-            .container,
-            .toc,
-            .step-desc,
-            .note-box,
-            .img-card,
-            .author-block,
-            .footer-note,
-            .logo-wrap,
-            .header-left .subhead,
-            .step-desc .remark,
-            .step-desc .code-inline,
-            .step-desc .sub-operation,
-            .mobile-nav {
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-                background: var(--bg-container-solid) !important;
-            }
-            .step-desc:hover,
-            .img-card:hover {
-                transform: none !important;
-            }
-            .container {
-                background: var(--bg-container-solid) !important;
-            }
-            .header {
-                background: var(--bg-container-solid) !important;
-            }
-            .step-desc.highlight {
-                background: var(--bg-highlight) !important;
-            }
-            .img-card {
-                background: var(--bg-container-solid) !important;
-            }
-            .toc {
-                background: var(--bg-container-solid) !important;
-            }
-            .img-card::before {
-                opacity: 0 !important;
-            }
-            .img-card .img-badge {
-                opacity: 1 !important;
-            }
-        }
-
-        /* ========== 减少动效 ========== */
-        @media (prefers-reduced-motion: reduce) {
-            html {
-                scroll-behavior: auto;
-            }
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-            .img-card img.loaded {
-                animation: none !important;
-                opacity: 1 !important;
-            }
-        }
-
-        /* ========== 打印样式 ========== */
+        /* 打印样式 */
         @media print {
-            @page {
-                margin: 18mm 15mm 20mm 15mm;
-                size: A4 portrait;
-                @bottom-center {
-                    content: "第 " counter(page) " 页";
-                    font-size: 9pt;
-                    color: #333;
-                    font-family: 'Inter', sans-serif;
-                    font-weight: 400;
-                }
-            }
-            html {
-                font-size: 10.5pt;
-            }
-            body {
-                background: white !important;
-                padding: 0 !important;
-                color: #000 !important;
-                font-size: 10.5pt;
-                line-height: 1.5;
-                display: block !important;
-            }
-            .container {
-                max-width: 100% !important;
-                background: white !important;
-                box-shadow: none !important;
-                border-radius: 0 !important;
-                padding: 8px 4px !important;
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-            }
-            .header {
-                display: none !important;
-            }
-            .footer-note {
-                display: none !important;
-            }
-            .toc,
-            .step-desc,
-            .note-box,
-            .img-card {
-                background: #f7f9fc !important;
-                border: 1px solid #ccc !important;
-                border-radius: 6px !important;
-                box-shadow: none !important;
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
-            .toc {
-                padding: 8px 14px !important;
-                margin-bottom: 12px !important;
-            }
-            .toc-title {
-                color: #0a1e33 !important;
-            }
-            .toc-title span {
-                background: #1f4b6e !important;
-                color: white !important;
-            }
-            .toc-grid li {
-                color: #1a3c57 !important;
-            }
-            .toc-grid li .step-num {
-                background: #e8edf3 !important;
-                color: #1f4b6e !important;
-            }
-            .toc-grid li a::after {
-                display: none !important;
-            }
-            .section-title {
-                color: #0a1e33 !important;
-                border-bottom: 1.5px solid #999 !important;
-                font-size: 13pt !important;
-                break-after: avoid;
-                page-break-after: avoid;
-            }
-            .section-title .num {
-                background: #1f4b6e !important;
-                color: white !important;
-                box-shadow: none !important;
-            }
-            .subsection h3 {
-                color: #0a1e33 !important;
-                font-size: 11pt !important;
-                break-after: avoid;
-                page-break-after: avoid;
-            }
-            .step-desc {
-                background: #f7f9fc !important;
-                border: 1px solid #ccc !important;
-                border-left: 4px solid #1f4b6e !important;
-                border-radius: 4px !important;
-                padding: 5px 10px !important;
-                margin: 3px 0 8px 0 !important;
-                color: #000 !important;
-                box-shadow: none !important;
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-                transform: none !important;
-                font-size: 9.5pt !important;
-                break-inside: avoid;
-                page-break-inside: avoid;
-                orphans: 3;
-                widows: 3;
-            }
-            .step-desc .code-inline {
-                background: #e8edf3 !important;
-                border: 1px solid #ccc !important;
-                color: #004080 !important;
-            }
-            .step-desc .remark {
-                background: #e8edf3 !important;
-                border: 1px solid #ccc !important;
-            }
-            .step-desc .sub-operation {
-                background: #e8edf3 !important;
-                border: 1px solid #ccc !important;
-                font-size: 8.5pt !important;
-            }
-            .step-desc.highlight {
-                border-left-color: #b8860b !important;
-                background: #fcf8f0 !important;
-            }
-            .note-box {
-                background: #fcf8f0 !important;
-                border: 1px solid #ccc !important;
-                border-left: 4px solid #b8860b !important;
-                color: #333 !important;
-                font-size: 9pt !important;
-                break-inside: avoid;
-                page-break-inside: avoid;
-                padding: 6px 12px !important;
-            }
-            .img-grid,
-            .img-grid.large-grid {
-                display: grid !important;
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 10px 16px !important;
-                margin: 8px 0 !important;
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
-            .img-grid:has(> .img-card:only-child) {
-                grid-template-columns: 1fr !important;
-                max-width: 70% !important;
-                margin-left: auto !important;
-                margin-right: auto !important;
-            }
-            .img-grid.stacked {
-                grid-template-columns: 1fr !important;
-                max-width: 75% !important;
-            }
-            .img-card {
-                background: white !important;
-                border: 1px solid #bbb !important;
-                border-radius: 4px !important;
-                padding: 4px !important;
-                box-shadow: none !important;
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-                transform: none !important;
-                break-inside: avoid;
-                page-break-inside: avoid;
-                content-visibility: visible !important;
-                contain-intrinsic-size: none !important;
-            }
-            .img-card::before {
-                display: none !important;
-            }
-            .img-card .img-badge {
-                display: none !important;
-            }
-            .img-card img {
-                max-height: var(--img-max-height-print) !important;
-                border: 1px solid #ccc !important;
-                background: white !important;
-                border-radius: 3px !important;
-                cursor: default !important;
-                max-width: 100% !important;
-                opacity: 1 !important;
-                animation: none !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-            .img-card .img-caption {
-                background: #f0f4f8 !important;
-                border: 1px solid #ddd !important;
-                color: #1a3c57 !important;
-                font-size: 7pt !important;
-            }
-            .img-card .code-tag {
-                background: #f0f4f8 !important;
-                border: 1px solid #ddd !important;
-                color: #004080 !important;
-                font-size: 6.5pt !important;
-            }
-            .img-card .img-hint {
-                display: none !important;
-            }
-            .img-wrapper .img-placeholder,
-            .img-wrapper .img-error {
-                display: none !important;
-            }
-            .img-wrapper {
-                min-height: auto !important;
-                border: none !important;
-                background: white !important;
-            }
-            .step-nav,
-            .reading-progress,
-            .back-to-top,
-            .lightbox-overlay,
-            .lightbox-nav,
-            .lightbox-counter,
-            .lightbox-close,
-            .mobile-nav {
-                display: none !important;
-            }
-            .section {
-                break-inside: auto;
-                page-break-inside: auto;
-            }
-            .subsection {
-                break-inside: auto;
-                page-break-inside: auto;
-            }
-            .subsection h3 {
-                break-after: avoid;
-                page-break-after: avoid;
-            }
-            .step-desc {
-                break-inside: avoid;
-                page-break-inside: avoid;
-                orphans: 2;
-                widows: 2;
-            }
-            .img-grid .img-card {
-                page-break-inside: avoid;
-                break-inside: avoid;
-            }
-            .img-grid {
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
-            .img-grid.stacked {
-                break-inside: auto;
-                page-break-inside: auto;
-            }
-            .img-grid.stacked .img-card {
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
+            .step-nav, .lightbox-overlay, .reading-progress, .back-to-top, .lightbox-nav, .lightbox-counter, .img-badge, .img-placeholder, .img-error { display: none !important; }
+            .container { box-shadow: none !important; border-radius: 0 !important; padding: 10px !important; background: white !important; max-width: 100% !important; }
+            body { background: white !important; padding: 0 !important; }
+            .img-card { break-inside: avoid; page-break-inside: avoid; box-shadow: none !important; border: 1px solid #ddd !important; background: white !important; }
+            .img-card img { object-fit: contain; opacity: 1 !important; max-width: 100%; max-height: none; }
+            .img-card .img-wrapper { background: white !important; border: none !important; }
+            .img-grid { gap: 8px !important; }
+            .header, .toc, .path-box, .step-desc { break-inside: avoid; }
+            a { text-decoration: none; color: inherit; }
         }
     </style>
 </head>
 <body>
-
-    <!-- 阅读进度条 -->
     <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
-
     <div class="container">
-
-        <!-- 头部 -->
-        <header class="header">
+        <div class="header">
             <div class="header-brand">
                 <div class="logo-wrap">
                     <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/Logo.png?raw=true" alt="TOPT Logo" loading="eager" decoding="async" />
@@ -1630,7 +342,7 @@
                 </div>
                 <div class="header-left">
                     <h1>🧶 经编常规工单开单流程</h1>
-                    <div class="subhead">操作指引 · 培训教材 v1.2</div>
+                    <div class="subhead">操作指引 · 培训教材 v1.0</div>
                 </div>
             </div>
             <div class="header-right">
@@ -1641,581 +353,245 @@
                 <span class="badge-soft"><i class="fas fa-check-circle" style="color:#2a7f5a;" aria-hidden="true"></i> 内部培训</span>
                 <span class="badge-soft"><i class="fas fa-gem" style="color:#7f6b3a;" aria-hidden="true"></i> 精细版</span>
             </div>
-        </header>
-
-        <!-- 目录 -->
-        <nav class="toc" aria-label="文档目录">
+        </div>
+        <div class="toc">
             <div class="toc-header">
                 <div class="toc-title"><i class="fas fa-list-ul" aria-hidden="true"></i> 目录 <span>7 步骤</span></div>
             </div>
             <ul class="toc-grid">
-                <li><span class="step-num">01</span><span class="step-icon" aria-hidden="true">📋</span><a href="#step-1">流程介绍</a></li>
-                <li><span class="step-num">02</span><span class="step-icon" aria-hidden="true">📦</span><a href="#step-2">MRP 产生计划单</a></li>
-                <li><span class="step-num">03</span><span class="step-icon" aria-hidden="true">🧪</span><a href="#step-3">染厂计划员分缸</a></li>
-                <li><span class="step-num">04</span><span class="step-icon" aria-hidden="true">🔄</span><a href="#step-4">计划单转工单</a></li>
-                <li><span class="step-num">05</span><span class="step-icon" aria-hidden="true">📊</span><a href="#step-5">胚布库存查询</a></li>
-                <li><span class="step-num">06</span><span class="step-icon" aria-hidden="true">🔒</span><a href="#step-6">编辑工单 · 锁胚</a></li>
-                <li><span class="step-num">07</span><span class="step-icon" aria-hidden="true">✅</span><a href="#step-7">审单 · 报工 · 发单</a></li>
+                <li><span class="step-num">01</span><span class="step-icon">📋</span><a href="#step-1">流程介绍</a></li>
+                <li><span class="step-num">02</span><span class="step-icon">📦</span><a href="#step-2">MRP 产生计划单</a></li>
+                <li><span class="step-num">03</span><span class="step-icon">🧪</span><a href="#step-3">染厂计划员分缸</a></li>
+                <li><span class="step-num">04</span><span class="step-icon">🔄</span><a href="#step-4">计划单转工单</a></li>
+                <li><span class="step-num">05</span><span class="step-icon">📊</span><a href="#step-5">胚布库存查询</a></li>
+                <li><span class="step-num">06</span><span class="step-icon">🔒</span><a href="#step-6">编辑工单 · 锁胚</a></li>
+                <li><span class="step-num">07</span><span class="step-icon">✅</span><a href="#step-7">审单 · 报工 · 发单</a></li>
             </ul>
-        </nav>
-
-        <!-- 主内容 -->
-        <main>
-            <section class="section" aria-labelledby="main-title">
-                <div class="section-title" id="main-title"><span class="num">一</span> 经编单运作流程介绍</div>
-                <div class="step-desc" data-step-label="流程总览" style="border-left-color: var(--accent-green);">
-                    <i class="fas fa-sitemap" style="color:var(--accent-green);" aria-hidden="true"></i>
-                    <strong>PCTL 创建备胚单</strong> → TOPT 采购胚布，收货入 <code class="code-inline">1054</code> 仓 → 此后分两种路径：
+        </div>
+        <div class="section" id="step-1">
+            <div class="section-title"><span class="num">一</span> 经编单运作流程介绍</div>
+            <div class="step-desc" data-step-label="流程总览" style="border-left-color: var(--accent-green);">
+                <i class="fas fa-sitemap" style="color:var(--accent-green);" aria-hidden="true"></i>
+                <strong>PCTL 创建备胚单</strong> → TOPT 采购胚布，收货入 <code class="code-inline">1054</code> 仓 → 此后分两种路径：
+            </div>
+            <div class="path-box">
+                <div class="path-title"><span class="path-badge a">路径 A</span> G单模式</div>
+                <div class="path-desc">TOPT 创建 <strong>G单</strong> 做除油定胚 → 入 <code>1055</code> 仓 → 创建生产工单，配置 <code>1055</code> 仓胚布。</div>
+            </div>
+            <div class="path-box">
+                <div class="path-title"><span class="path-badge b">路径 B</span> 工单直接生产</div>
+                <div class="path-desc">TOPT 创建生产工单，配置 <code>1054</code> 仓胚布（保留除油定胚工序），直接产出成品。</div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="section-title" style="border-bottom-color: var(--accent-light);"><span class="num">二</span> 开单流程</div>
+            <div class="subsection" id="step-2">
+                <h3><i class="fas fa-cog" style="color:#2b5f8a;" aria-hidden="true"></i> 第一步：MRP 产生成品计划单</h3>
+                <div class="step-desc" data-step-label="MRP计划单">
+                    <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
+                    TOPT 经编销售订单进入 APO 系统后，MRP 产生成品计划单。
+                    <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 代码：<span class="code-inline">/SAPAPO/RRP3</span></span>
                 </div>
-                <div class="path-box">
-                    <div class="path-title"><span class="path-badge" style="background:var(--accent-green);color:white;">路径 A</span> G单模式</div>
-                    <div class="path-desc">TOPT 创建 <strong>G单</strong> 做除油定胚 → 入 <code>1055</code> 仓 → 创建生产工单，配置 <code>1055</code> 仓胚布。</div>
-                </div>
-                <div class="path-box">
-                    <div class="path-title"><span class="path-badge" style="background:var(--accent-purple);color:white;">路径 B</span> 工单直接生产</div>
-                    <div class="path-desc">TOPT 创建生产工单，配置 <code>1054</code> 仓胚布（保留除油定胚工序），直接产出成品。</div>
-                </div>
-            </section>
-
-            <section class="section">
-                <div class="section-title"><span class="num">二</span> 开单流程</div>
-
-                <!-- 第二步：MRP 计划单 -->
-                <div class="subsection" id="step-2">
-                    <h3><i class="fas fa-cog" style="color:#2b5f8a;" aria-hidden="true"></i> 第一步：MRP 产生成品计划单</h3>
-                    <div class="step-desc" data-step-label="MRP计划单">
-                        <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
-                        TOPT 经编销售订单进入 APO 系统后，MRP 产生成品计划单。
-                        <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 代码：<span class="code-inline">/SAPAPO/RRP3</span></span>
+                <div class="img-grid">
+                    <div class="img-card">
+                        <span class="img-badge">图 1-1</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-1.png?raw=true" alt="1-1 MRP计划单" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="img-caption-row"><span class="code-tag">RRP3</span><span class="img-caption">图 1-1 MRP 计划单</span></div>
                     </div>
-                    <div class="img-grid">
-                        <div class="img-card">
-                            <span class="img-badge">图 1-1</span>
-                            <div class="img-wrapper">
-                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-1.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
-                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-1.png?raw=true" alt="1-1 MRP计划单" loading="lazy" decoding="async" />
-                            </div>
-                            <div class="card-labels">
-                                <span class="code-tag">RRP3</span>
-                                <span class="img-caption">图 1-1 MRP 计划单</span>
-                            </div>
-                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                    <div class="img-card">
+                        <span class="img-badge">图 1-2</span>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder"><div class="spinner"></div></div>
+                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
+                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-2.png?raw=true" alt="1-2 MRP计划单" loading="lazy" decoding="async" />
                         </div>
-                        <div class="img-card">
-                            <span class="img-badge">图 1-2</span>
-                            <div class="img-wrapper">
-                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-2.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
-                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-2.png?raw=true" alt="1-2 MRP计划单" loading="lazy" decoding="async" />
-                            </div>
-                            <div class="card-labels">
-                                <span class="code-tag">RRP3</span>
-                                <span class="img-caption">图 1-2 MRP 计划单</span>
-                            </div>
-                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                        </div>
+                        <div class="img-caption-row"><span class="code-tag">RRP3</span><span class="img-caption">图 1-2 MRP 计划单</span></div>
                     </div>
                 </div>
-
-                <!-- 第三步：分缸 -->
-                <div class="subsection" id="step-3">
-                    <h3><i class="fas fa-flask" style="color:#b8860b;" aria-hidden="true"></i> 第二步：染厂计划员分缸</h3>
-                    <div class="step-desc" data-step-label="分缸">
-                        <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
-                        染厂计划员分缸（TE_TGWARP），产生已固定的成品计划单。
-                        <span class="remark">代码：<span class="code-inline">ZTRIM_XS___START</span></span>
-                    </div>
-                    <div class="img-grid">
-                        <div class="img-card">
-                            <span class="img-badge">图 1-3</span>
-                            <div class="img-wrapper">
-                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-3.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
-                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-3.png?raw=true" alt="1-3 分缸" loading="lazy" decoding="async" />
-                            </div>
-                            <div class="card-labels">
-                                <span class="code-tag">分缸</span>
-                                <span class="img-caption">图 1-3 分缸操作</span>
-                            </div>
-                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                        </div>
-                        <div class="img-card">
-                            <span class="img-badge">图 1-4</span>
-                            <div class="img-wrapper">
-                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-4.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
-                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-4.png?raw=true" alt="1-4 分缸" loading="lazy" decoding="async" />
-                            </div>
-                            <div class="card-labels">
-                                <span class="code-tag">分缸</span>
-                                <span class="img-caption">图 1-4 分缸操作</span>
-                            </div>
-                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                        </div>
-                        <div class="img-card">
-                            <span class="img-badge">图 1-5</span>
-                            <div class="img-wrapper">
-                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-5.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
-                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-5.png?raw=true" alt="1-5 分缸" loading="lazy" decoding="async" />
-                            </div>
-                            <div class="card-labels">
-                                <span class="code-tag">分缸</span>
-                                <span class="img-caption">图 1-5 分缸操作</span>
-                            </div>
-                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                        </div>
-                    </div>
+            </div>
+            <div class="subsection" id="step-3">
+                <h3><i class="fas fa-flask" style="color:#b8860b;" aria-hidden="true"></i> 第二步：染厂计划员分缸</h3>
+                <div class="step-desc" data-step-label="分缸">
+                    <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
+                    染厂计划员分缸（TE_TGWARP），产生已固定的成品计划单。
+                    <span class="remark">代码：<span class="code-inline">ZTRIM_XS___START</span></span>
                 </div>
-
-                <!-- 第四步：转工单 -->
-                <div class="subsection" id="step-4">
-                    <h3><i class="fas fa-arrow-right" style="color:#3a6b8f;" aria-hidden="true"></i> 第三步：计划单转工单</h3>
-                    <div class="step-desc" data-step-label="转工单">
-                        <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
-                        将分缸后的成品计划单转成染整印工单。
-                        <span class="remark">代码：<span class="code-inline">/SAPAPO/RRP3</span> 或 <span class="code-inline">/SAPAPO/RRP4</span></span>
-                    </div>
-                    <div class="img-grid">
-                        <div class="img-card">
-                            <span class="img-badge">图 1-6</span>
-                            <div class="img-wrapper">
-                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-6.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
-                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-6.png?raw=true" alt="1-6 转工单" loading="lazy" decoding="async" />
-                            </div>
-                            <div class="card-labels">
-                                <span class="code-tag">RRP3/RRP4</span>
-                                <span class="img-caption">图 1-6 转工单</span>
-                            </div>
-                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                        </div>
-                        <div class="img-card">
-                            <span class="img-badge">图 1-7</span>
-                            <div class="img-wrapper">
-                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-7.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
-                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-7.png?raw=true" alt="1-7 转工单" loading="lazy" decoding="async" />
-                            </div>
-                            <div class="card-labels">
-                                <span class="code-tag">RRP3/RRP4</span>
-                                <span class="img-caption">图 1-7 转工单</span>
-                            </div>
-                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                        </div>
-                    </div>
+                <div class="img-grid">
+                    <div class="img-card"><span class="img-badge">图 1-3</span><div class="img-wrapper"><div class="img-placeholder"><div class="spinner"></div></div><div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-3.png?raw=true" alt="1-3 分缸" loading="lazy" decoding="async" /></div><div class="img-caption-row"><span class="code-tag">分缸</span><span class="img-caption">图 1-3 分缸操作</span></div></div>
+                    <div class="img-card"><span class="img-badge">图 1-4</span><div class="img-wrapper"><div class="img-placeholder"><div class="spinner"></div></div><div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-4.png?raw=true" alt="1-4 分缸" loading="lazy" decoding="async" /></div><div class="img-caption-row"><span class="code-tag">分缸</span><span class="img-caption">图 1-4 分缸操作</span></div></div>
+                    <div class="img-card"><span class="img-badge">图 1-5</span><div class="img-wrapper"><div class="img-placeholder"><div class="spinner"></div></div><div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-5.png?raw=true" alt="1-5 分缸" loading="lazy" decoding="async" /></div><div class="img-caption-row"><span class="code-tag">分缸</span><span class="img-caption">图 1-5 分缸操作</span></div></div>
                 </div>
-
-                <!-- 第五步：库存查询 -->
-                <div class="subsection" id="step-5">
-                    <h3><i class="fas fa-search" style="color:#2b5f8a;" aria-hidden="true"></i> 第四步：胚布库存查询</h3>
-                    <div class="step-desc" data-step-label="库存查询">
-                        <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
-                        经编胚布库存查询功能 <span class="code-inline">ZSOHPP155</span>。
-                    </div>
-                    <div class="img-grid">
-                        <div class="img-card">
-                            <span class="img-badge">图 1-8</span>
-                            <div class="img-wrapper">
-                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-8.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
-                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-8.png?raw=true" alt="1-8 库存查询" loading="lazy" decoding="async" />
-                            </div>
-                            <div class="card-labels">
-                                <span class="code-tag">ZSOHPP155</span>
-                                <span class="img-caption">图 1-8 库存查询</span>
-                            </div>
-                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                        </div>
-                        <div class="img-card">
-                            <span class="img-badge">图 1-9</span>
-                            <div class="img-wrapper">
-                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-9.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
-                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-9.png?raw=true" alt="1-9 库存查询" loading="lazy" decoding="async" />
-                            </div>
-                            <div class="card-labels">
-                                <span class="code-tag">ZSOHPP155</span>
-                                <span class="img-caption">图 1-9 库存查询</span>
-                            </div>
-                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                        </div>
-                    </div>
+            </div>
+            <div class="subsection" id="step-4">
+                <h3><i class="fas fa-arrow-right" style="color:#3a6b8f;" aria-hidden="true"></i> 第三步：计划单转工单</h3>
+                <div class="step-desc" data-step-label="转工单">
+                    <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
+                    将分缸后的成品计划单转成染整印工单。
+                    <span class="remark">代码：<span class="code-inline">/SAPAPO/RRP3</span> 或 <span class="code-inline">/SAPAPO/RRP4</span></span>
                 </div>
-
-                <!-- 第六步：编辑工单 · 锁胚 -->
-                <div class="subsection" id="step-6">
-                    <h3><i class="fas fa-edit" style="color:#8a6e9b;" aria-hidden="true"></i> 第五步：编辑工单 · 锁胚</h3>
-                    <div class="step-desc" data-step-label="ZSOHPP159">
-                        <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
-                        代码：<span class="code-inline">ZSOHPP159</span>
-                    </div>
-                    <div class="step-desc" data-step-label="删除工序" style="border-left-color: var(--accent-purple);">
-                        <i class="fas fa-1" style="color:var(--accent-purple);" aria-hidden="true"></i>
-                        <strong>操作 1：</strong>删除不需要的工序。
-                    </div>
-                    <div class="img-grid">
-                        <div class="img-card">
-                            <span class="img-badge">图 1-10</span>
-                            <div class="img-wrapper">
-                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-10.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
-                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-10.png?raw=true" alt="1-10 删除工序" loading="lazy" decoding="async" />
-                            </div>
-                            <div class="card-labels">
-                                <span class="code-tag">ZSOHPP159</span>
-                                <span class="img-caption">图 1-10 删除工序</span>
-                            </div>
-                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                        </div>
-                        <div class="img-card">
-                            <span class="img-badge">图 1-11</span>
-                            <div class="img-wrapper">
-                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-11.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
-                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-11.png?raw=true" alt="1-11 删除工序" loading="lazy" decoding="async" />
-                            </div>
-                            <div class="card-labels">
-                                <span class="code-tag">ZSOHPP159</span>
-                                <span class="img-caption">图 1-11 删除工序</span>
-                            </div>
-                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                        </div>
-                        <div class="img-card">
-                            <span class="img-badge">图 1-12</span>
-                            <div class="img-wrapper">
-                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-12.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
-                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-12.png?raw=true" alt="1-12 删除工序" loading="lazy" decoding="async" />
-                            </div>
-                            <div class="card-labels">
-                                <span class="code-tag">ZSOHPP159</span>
-                                <span class="img-caption">图 1-12 删除工序</span>
-                            </div>
-                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                        </div>
-                    </div>
-
-                    <div class="step-desc" data-step-label="锁胚" style="border-left-color: var(--accent-purple);">
-                        <i class="fas fa-2" style="color:var(--accent-purple);" aria-hidden="true"></i>
-                        <strong>操作 2：</strong>双击工单号码，进入 Components 界面锁胚。
-                    </div>
-                    <div class="img-grid">
-                        <div class="img-card">
-                            <span class="img-badge">图 1-13</span>
-                            <div class="img-wrapper">
-                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-13.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
-                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-13.png?raw=true" alt="1-13 锁胚" loading="lazy" decoding="async" />
-                            </div>
-                            <div class="card-labels">
-                                <span class="code-tag">锁胚</span>
-                                <span class="img-caption">图 1-13 锁胚</span>
-                            </div>
-                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                        </div>
-                        <div class="img-card">
-                            <span class="img-badge">图 1-14</span>
-                            <div class="img-wrapper">
-                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-14.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
-                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-14.png?raw=true" alt="1-14 锁胚" loading="lazy" decoding="async" />
-                            </div>
-                            <div class="card-labels">
-                                <span class="code-tag">锁胚</span>
-                                <span class="img-caption">图 1-14 锁胚</span>
-                            </div>
-                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                        </div>
-                        <div class="img-card">
-                            <span class="img-badge">图 1-15</span>
-                            <div class="img-wrapper">
-                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-15.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
-                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-15.png?raw=true" alt="1-15 锁胚" loading="lazy" decoding="async" />
-                            </div>
-                            <div class="card-labels">
-                                <span class="code-tag">锁胚</span>
-                                <span class="img-caption">图 1-15 锁胚</span>
-                            </div>
-                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                        </div>
-                        <div class="img-card">
-                            <span class="img-badge">图 1-16</span>
-                            <div class="img-wrapper">
-                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-16.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
-                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-16.png?raw=true" alt="1-16 锁胚" loading="lazy" decoding="async" />
-                            </div>
-                            <div class="card-labels">
-                                <span class="code-tag">锁胚</span>
-                                <span class="img-caption">图 1-16 锁胚</span>
-                            </div>
-                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                        </div>
-                    </div>
-
-                    <div class="step-desc" data-step-label="写长文" style="border-left-color: var(--accent-purple);">
-                        <i class="fas fa-3" style="color:var(--accent-purple);" aria-hidden="true"></i>
-                        <strong>操作 3：</strong>将胚布的 G 单信息写入长文。
-                    </div>
-                    <div class="img-grid">
-                        <div class="img-card">
-                            <span class="img-badge">图 1-17</span>
-                            <div class="img-wrapper">
-                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-17.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
-                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-17.png?raw=true" alt="1-17 写长文" loading="lazy" decoding="async" />
-                            </div>
-                            <div class="card-labels">
-                                <span class="code-tag">长文</span>
-                                <span class="img-caption">图 1-17 写长文</span>
-                            </div>
-                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                        </div>
-                        <div class="img-card">
-                            <span class="img-badge">图 1-18</span>
-                            <div class="img-wrapper">
-                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-18.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
-                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-18.png?raw=true" alt="1-18 写长文" loading="lazy" decoding="async" />
-                            </div>
-                            <div class="card-labels">
-                                <span class="code-tag">长文</span>
-                                <span class="img-caption">图 1-18 写长文</span>
-                            </div>
-                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                        </div>
-                    </div>
+                <div class="img-grid">
+                    <div class="img-card"><span class="img-badge">图 1-6</span><div class="img-wrapper"><div class="img-placeholder"><div class="spinner"></div></div><div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-6.png?raw=true" alt="1-6 转工单" loading="lazy" decoding="async" /></div><div class="img-caption-row"><span class="code-tag">RRP3/RRP4</span><span class="img-caption">图 1-6 转工单</span></div></div>
+                    <div class="img-card"><span class="img-badge">图 1-7</span><div class="img-wrapper"><div class="img-placeholder"><div class="spinner"></div></div><div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-7.png?raw=true" alt="1-7 转工单" loading="lazy" decoding="async" /></div><div class="img-caption-row"><span class="code-tag">RRP3/RRP4</span><span class="img-caption">图 1-7 转工单</span></div></div>
                 </div>
-
-                <!-- 第七步：审单 · 报工 · 发单 -->
-                <div class="subsection" id="step-7">
-                    <h3><i class="fas fa-check-double" style="color:#1f6b4a;" aria-hidden="true"></i> 第六步：审单 · 报工 · 发单</h3>
-                    <div class="step-desc" data-step-label="审单发单">
-                        <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
-                        审单、报工、发单。
-                        <span class="remark">代码：<span class="code-inline">ZSOHPP163</span></span>
-                    </div>
-                    <div class="img-grid">
-                        <div class="img-card">
-                            <span class="img-badge">图 1-19</span>
-                            <div class="img-wrapper">
-                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-19.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
-                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-19.png?raw=true" alt="1-19 ZSOHPP163" loading="lazy" decoding="async" />
-                            </div>
-                            <div class="card-labels">
-                                <span class="code-tag">ZSOHPP163</span>
-                                <span class="img-caption">图 1-19 审单</span>
-                            </div>
-                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                        </div>
-                        <div class="img-card">
-                            <span class="img-badge">图 1-20</span>
-                            <div class="img-wrapper">
-                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-20.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
-                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-20.png?raw=true" alt="1-20 ZSOHPP163" loading="lazy" decoding="async" />
-                            </div>
-                            <div class="card-labels">
-                                <span class="code-tag">ZSOHPP163</span>
-                                <span class="img-caption">图 1-20 报工</span>
-                            </div>
-                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                        </div>
-                        <div class="img-card">
-                            <span class="img-badge">图 1-21</span>
-                            <div class="img-wrapper">
-                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-21.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
-                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-21.png?raw=true" alt="1-21 ZSOHPP163" loading="lazy" decoding="async" />
-                            </div>
-                            <div class="card-labels">
-                                <span class="code-tag">ZSOHPP163</span>
-                                <span class="img-caption">图 1-21 发单</span>
-                            </div>
-                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                        </div>
-                        <div class="img-card">
-                            <span class="img-badge">图 1-22</span>
-                            <div class="img-wrapper">
-                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-22.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
-                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-22.png?raw=true" alt="1-22 ZSOHPP163" loading="lazy" decoding="async" />
-                            </div>
-                            <div class="card-labels">
-                                <span class="code-tag">ZSOHPP163</span>
-                                <span class="img-caption">图 1-22 发单</span>
-                            </div>
-                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                        </div>
-                    </div>
-                    <div class="step-desc" data-step-label="流程完结" style="border-left-color: #6b8fb0; background: rgba(235, 245, 255, 0.4); margin-top: 1rem;">
-                        <i class="fas fa-flag-checkered" style="color:#1f4b6e;" aria-hidden="true"></i>
-                        经编常规工单开单流程完结。
-                    </div>
-                    <div class="img-grid">
-                        <div class="img-card">
-                            <span class="img-badge">图 1-23</span>
-                            <div class="img-wrapper">
-                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
-                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-23.png?raw=true"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
-                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-23.png?raw=true" alt="1-23 流程完结" loading="lazy" decoding="async" />
-                            </div>
-                            <div class="card-labels">
-                                <span class="code-tag">完结</span>
-                                <span class="img-caption">图 1-23 流程完结</span>
-                            </div>
-                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                        </div>
-                    </div>
+            </div>
+            <div class="subsection" id="step-5">
+                <h3><i class="fas fa-search" style="color:#2b5f8a;" aria-hidden="true"></i> 第四步：胚布库存查询</h3>
+                <div class="step-desc" data-step-label="库存查询">
+                    <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
+                    经编胚布库存查询功能 <span class="code-inline">ZSOHPP155</span>。
                 </div>
-            </section>
-        </main>
-
-        <!-- 页脚 -->
-        <footer class="footer-note" role="contentinfo">
+                <div class="img-grid">
+                    <div class="img-card"><span class="img-badge">图 1-8</span><div class="img-wrapper"><div class="img-placeholder"><div class="spinner"></div></div><div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-8.png?raw=true" alt="1-8 库存查询" loading="lazy" decoding="async" /></div><div class="img-caption-row"><span class="code-tag">ZSOHPP155</span><span class="img-caption">图 1-8 库存查询</span></div></div>
+                    <div class="img-card"><span class="img-badge">图 1-9</span><div class="img-wrapper"><div class="img-placeholder"><div class="spinner"></div></div><div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-9.png?raw=true" alt="1-9 库存查询" loading="lazy" decoding="async" /></div><div class="img-caption-row"><span class="code-tag">ZSOHPP155</span><span class="img-caption">图 1-9 库存查询</span></div></div>
+                </div>
+            </div>
+            <div class="subsection" id="step-6">
+                <h3><i class="fas fa-edit" style="color:#8a6e9b;" aria-hidden="true"></i> 第五步：编辑工单 · 锁胚</h3>
+                <div class="step-desc" data-step-label="ZSOHPP159">
+                    <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
+                    代码：<span class="code-inline">ZSOHPP159</span>
+                </div>
+                <div class="step-desc" data-step-label="删除工序" style="border-left-color: var(--accent-purple);">
+                    <i class="fas fa-1" style="color:var(--accent-purple);" aria-hidden="true"></i>
+                    <strong>操作 1：</strong>删除不需要的工序。
+                </div>
+                <div class="img-grid">
+                    <div class="img-card"><span class="img-badge">图 1-10</span><div class="img-wrapper"><div class="img-placeholder"><div class="spinner"></div></div><div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-10.png?raw=true" alt="1-10 删除工序" loading="lazy" decoding="async" /></div><div class="img-caption-row"><span class="code-tag">ZSOHPP159</span><span class="img-caption">图 1-10 删除工序</span></div></div>
+                    <div class="img-card"><span class="img-badge">图 1-11</span><div class="img-wrapper"><div class="img-placeholder"><div class="spinner"></div></div><div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-11.png?raw=true" alt="1-11 删除工序" loading="lazy" decoding="async" /></div><div class="img-caption-row"><span class="code-tag">ZSOHPP159</span><span class="img-caption">图 1-11 删除工序</span></div></div>
+                    <div class="img-card"><span class="img-badge">图 1-12</span><div class="img-wrapper"><div class="img-placeholder"><div class="spinner"></div></div><div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-12.png?raw=true" alt="1-12 删除工序" loading="lazy" decoding="async" /></div><div class="img-caption-row"><span class="code-tag">ZSOHPP159</span><span class="img-caption">图 1-12 删除工序</span></div></div>
+                </div>
+                <div class="step-desc" data-step-label="锁胚" style="border-left-color: var(--accent-purple);">
+                    <i class="fas fa-2" style="color:var(--accent-purple);" aria-hidden="true"></i>
+                    <strong>操作 2：</strong>双击工单号码，进入 Components 界面锁胚。
+                </div>
+                <div class="img-grid">
+                    <div class="img-card"><span class="img-badge">图 1-13</span><div class="img-wrapper"><div class="img-placeholder"><div class="spinner"></div></div><div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-13.png?raw=true" alt="1-13 锁胚" loading="lazy" decoding="async" /></div><div class="img-caption-row"><span class="code-tag">锁胚</span><span class="img-caption">图 1-13 锁胚</span></div></div>
+                    <div class="img-card"><span class="img-badge">图 1-14</span><div class="img-wrapper"><div class="img-placeholder"><div class="spinner"></div></div><div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-14.png?raw=true" alt="1-14 锁胚" loading="lazy" decoding="async" /></div><div class="img-caption-row"><span class="code-tag">锁胚</span><span class="img-caption">图 1-14 锁胚</span></div></div>
+                    <div class="img-card"><span class="img-badge">图 1-15</span><div class="img-wrapper"><div class="img-placeholder"><div class="spinner"></div></div><div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-15.png?raw=true" alt="1-15 锁胚" loading="lazy" decoding="async" /></div><div class="img-caption-row"><span class="code-tag">锁胚</span><span class="img-caption">图 1-15 锁胚</span></div></div>
+                    <div class="img-card"><span class="img-badge">图 1-16</span><div class="img-wrapper"><div class="img-placeholder"><div class="spinner"></div></div><div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-16.png?raw=true" alt="1-16 锁胚" loading="lazy" decoding="async" /></div><div class="img-caption-row"><span class="code-tag">锁胚</span><span class="img-caption">图 1-16 锁胚</span></div></div>
+                </div>
+                <div class="step-desc" data-step-label="写长文" style="border-left-color: var(--accent-purple);">
+                    <i class="fas fa-3" style="color:var(--accent-purple);" aria-hidden="true"></i>
+                    <strong>操作 3：</strong>将胚布的 G 单信息写入长文。
+                </div>
+                <div class="img-grid">
+                    <div class="img-card"><span class="img-badge">图 1-17</span><div class="img-wrapper"><div class="img-placeholder"><div class="spinner"></div></div><div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-17.png?raw=true" alt="1-17 写长文" loading="lazy" decoding="async" /></div><div class="img-caption-row"><span class="code-tag">长文</span><span class="img-caption">图 1-17 写长文</span></div></div>
+                    <div class="img-card"><span class="img-badge">图 1-18</span><div class="img-wrapper"><div class="img-placeholder"><div class="spinner"></div></div><div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-18.png?raw=true" alt="1-18 写长文" loading="lazy" decoding="async" /></div><div class="img-caption-row"><span class="code-tag">长文</span><span class="img-caption">图 1-18 写长文</span></div></div>
+                </div>
+            </div>
+            <div class="subsection" id="step-7">
+                <h3><i class="fas fa-check-double" style="color:#1f6b4a;" aria-hidden="true"></i> 第六步：审单 · 报工 · 发单</h3>
+                <div class="step-desc" data-step-label="审单发单">
+                    <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
+                    审单、报工、发单。
+                    <span class="remark">代码：<span class="code-inline">ZSOHPP163</span></span>
+                </div>
+                <div class="img-grid">
+                    <div class="img-card"><span class="img-badge">图 1-19</span><div class="img-wrapper"><div class="img-placeholder"><div class="spinner"></div></div><div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-19.png?raw=true" alt="1-19 ZSOHPP163" loading="lazy" decoding="async" /></div><div class="img-caption-row"><span class="code-tag">ZSOHPP163</span><span class="img-caption">图 1-19 审单</span></div></div>
+                    <div class="img-card"><span class="img-badge">图 1-20</span><div class="img-wrapper"><div class="img-placeholder"><div class="spinner"></div></div><div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-20.png?raw=true" alt="1-20 ZSOHPP163" loading="lazy" decoding="async" /></div><div class="img-caption-row"><span class="code-tag">ZSOHPP163</span><span class="img-caption">图 1-20 报工</span></div></div>
+                    <div class="img-card"><span class="img-badge">图 1-21</span><div class="img-wrapper"><div class="img-placeholder"><div class="spinner"></div></div><div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-21.png?raw=true" alt="1-21 ZSOHPP163" loading="lazy" decoding="async" /></div><div class="img-caption-row"><span class="code-tag">ZSOHPP163</span><span class="img-caption">图 1-21 发单</span></div></div>
+                    <div class="img-card"><span class="img-badge">图 1-22</span><div class="img-wrapper"><div class="img-placeholder"><div class="spinner"></div></div><div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-22.png?raw=true" alt="1-22 ZSOHPP163" loading="lazy" decoding="async" /></div><div class="img-caption-row"><span class="code-tag">ZSOHPP163</span><span class="img-caption">图 1-22 发单</span></div></div>
+                </div>
+                <div class="step-desc" data-step-label="流程完结" style="border-left-color: #6b8fb0; background: rgba(235, 245, 255, 0.4); margin-top: 1rem;">
+                    <i class="fas fa-flag-checkered" style="color:#1f4b6e;" aria-hidden="true"></i>
+                    经编常规工单开单流程完结。
+                </div>
+                <div class="img-grid">
+                    <div class="img-card"><span class="img-badge">图 1-23</span><div class="img-wrapper"><div class="img-placeholder"><div class="spinner"></div></div><div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div><img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Warp-Knitting/1-23.png?raw=true" alt="1-23 流程完结" loading="lazy" decoding="async" /></div><div class="img-caption-row"><span class="code-tag">完结</span><span class="img-caption">图 1-23 流程完结</span></div></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-note">
             <span><i class="fas fa-check-circle" style="color:#1f6b4a;" aria-hidden="true"></i> TOPT 培训教材 · 内部使用</span>
-            <span class="doc-badge"><i class="fas fa-file-alt" aria-hidden="true"></i> 版本 v1.2</span>
+            <span class="doc-badge"><i class="fas fa-file-alt" aria-hidden="true"></i> 版本 v1.0</span>
             <span><i class="far fa-copyright" aria-hidden="true"></i> 刘洋 · liu-yang@top-textiles.vn</span>
-        </footer>
-
+        </div>
     </div>
-
-    <!-- 移动端底部导航 -->
-    <nav class="mobile-nav" id="mobileNav" aria-label="移动端步骤导航">
-        <button class="mn-btn" id="mnPrev" aria-label="上一步"><i class="fas fa-chevron-left" aria-hidden="true"></i> 上一步</button>
-        <span class="mn-progress" id="mnProgress" aria-live="polite">1 / 7</span>
-        <button class="mn-btn" id="mnNext" aria-label="下一步">下一步 <i class="fas fa-chevron-right" aria-hidden="true"></i></button>
-    </nav>
-
-    <!-- Lightbox -->
-    <div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="图片放大预览" aria-hidden="true">
+    <div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="图片放大预览">
         <button class="lightbox-close" id="lightboxClose" aria-label="关闭预览">✕</button>
         <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="上一张图片">❮</button>
         <img id="lightboxImg" src="" alt="放大图片" />
         <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="下一张图片">❯</button>
         <div class="lightbox-counter" id="lightboxCounter" aria-live="polite"></div>
     </div>
-
-    <!-- 返回顶部按钮 -->
-    <button class="back-to-top" id="backToTop" aria-label="返回页面顶部"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
+    <button class="back-to-top" id="backToTop" aria-label="返回顶部"><i class="fas fa-arrow-up"></i></button>
 
     <script>
         (function() {
             'use strict';
 
-            // ============================================================
-            // 1. 图片加载管理（含重试）
-            // ============================================================
-            const images = Array.from(document.querySelectorAll('.img-card img'));
-            images.forEach(img => {
+            // 图片加载状态管理
+            const allImages = document.querySelectorAll('.img-card img');
+            allImages.forEach(img => {
                 const wrapper = img.closest('.img-wrapper');
                 const placeholder = wrapper?.querySelector('.img-placeholder');
                 const errorDiv = wrapper?.querySelector('.img-error');
-                const retryBtn = errorDiv?.querySelector('.retry-btn');
-
-                function markLoaded() {
-                    img.classList.add('loaded');
-                    placeholder?.classList.add('hidden');
-                    errorDiv?.classList.remove('visible');
-                }
-
-                function markError() {
-                    placeholder?.classList.add('hidden');
-                    errorDiv?.classList.add('visible');
-                }
-
-                function resetImage() {
-                    img.classList.remove('loaded');
-                    placeholder?.classList.remove('hidden');
-                    errorDiv?.classList.remove('visible');
-                    const originalSrc = img.getAttribute('src');
-                    const newSrc = originalSrc.includes('?') ? originalSrc + '&retry=' + Date.now() :
-                        originalSrc + '?retry=' + Date.now();
-                    img.src = newSrc;
-                }
 
                 if (img.complete && img.naturalWidth > 0) {
-                    markLoaded();
+                    img.classList.add('loaded');
+                    placeholder?.classList.add('hidden');
                 } else {
-                    img.addEventListener('load', markLoaded, { once: true });
-                    img.addEventListener('error', markError, { once: true });
-                }
-
-                if (retryBtn) {
-                    retryBtn.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        resetImage();
+                    img.addEventListener('load', () => {
+                        img.classList.add('loaded');
+                        placeholder?.classList.add('hidden');
                     });
+                    img.addEventListener('error', () => {
+                        placeholder?.classList.add('hidden');
+                        errorDiv?.classList.add('visible');
+                    });
+                    setTimeout(() => {
+                        if (!img.classList.contains('loaded') && !img.complete) {
+                            placeholder?.classList.add('hidden');
+                            errorDiv?.classList.add('visible');
+                        }
+                    }, 15000);
                 }
             });
 
-            // ============================================================
-            // 2. Lightbox
-            // ============================================================
+            // Lightbox 功能
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightboxImg');
             const closeBtn = document.getElementById('lightboxClose');
             const prevBtn = document.getElementById('lightboxPrev');
             const nextBtn = document.getElementById('lightboxNext');
             const counter = document.getElementById('lightboxCounter');
+            const loadedImages = Array.from(allImages).filter(img => img.src);
             let currentIndex = -1;
-            let lastFocusedElement = null;
-            let touchStartX = 0,
-                touchStartY = 0;
-
-            function preloadAdjacent(index) {
-                if (index > 0) { const p = new Image();
-                    p.src = images[index - 1].src; }
-                if (index < images.length - 1) { const n = new Image();
-                    n.src = images[index + 1].src; }
-            }
 
             function openLightbox(index) {
-                if (index < 0 || index >= images.length || images.length === 0) return;
-                lastFocusedElement = document.activeElement;
+                if (index < 0 || index >= loadedImages.length) return;
                 currentIndex = index;
                 updateLightboxImage();
                 lightbox.classList.add('active');
-                lightbox.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden';
                 closeBtn.focus();
-                preloadAdjacent(index);
             }
-
             function closeLightbox() {
                 lightbox.classList.remove('active');
-                lightbox.setAttribute('aria-hidden', 'true');
                 document.body.style.overflow = '';
-                if (lastFocusedElement && lastFocusedElement.focus) {
-                    lastFocusedElement.focus({ preventScroll: true });
+                if (currentIndex >= 0 && loadedImages[currentIndex]) {
+                    loadedImages[currentIndex].focus({ preventScroll: true });
                 }
                 currentIndex = -1;
             }
-
             function updateLightboxImage() {
-                if (currentIndex < 0 || currentIndex >= images.length) return;
-                const img = images[currentIndex];
+                if (currentIndex < 0 || currentIndex >= loadedImages.length) return;
+                const img = loadedImages[currentIndex];
                 lightboxImg.src = img.src;
                 lightboxImg.alt = img.alt || '放大图片';
-                counter.textContent = (currentIndex + 1) + ' / ' + images.length;
+                counter.textContent = `${currentIndex + 1} / ${loadedImages.length}`;
             }
+            function showPrev() { if (currentIndex > 0) { currentIndex--; updateLightboxImage(); } }
+            function showNext() { if (currentIndex < loadedImages.length - 1) { currentIndex++; updateLightboxImage(); } }
 
-            function showPrev() { if (currentIndex > 0) { currentIndex--;
-                    updateLightboxImage();
-                    preloadAdjacent(currentIndex); } }
-
-            function showNext() { if (currentIndex < images.length - 1) { currentIndex++;
-                    updateLightboxImage();
-                    preloadAdjacent(currentIndex); } }
-
-            document.querySelector('.container').addEventListener('click', function(e) {
+            document.querySelector('.container').addEventListener('click', (e) => {
                 const img = e.target.closest('.img-card img');
                 if (img) {
-                    const index = images.indexOf(img);
+                    const index = loadedImages.indexOf(img);
                     if (index !== -1) openLightbox(index);
                 }
             });
@@ -2224,206 +600,100 @@
             prevBtn.addEventListener('click', showPrev);
             nextBtn.addEventListener('click', showNext);
 
-            lightbox.addEventListener('keydown', function(e) {
+            lightbox.addEventListener('keydown', (e) => {
                 if (!lightbox.classList.contains('active')) return;
                 switch (e.key) {
-                    case 'Escape':
-                        closeLightbox();
-                        e.preventDefault();
-                        break;
-                    case 'ArrowLeft':
-                        showPrev();
-                        e.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        showNext();
-                        e.preventDefault();
-                        break;
-                    case 'Home':
-                        if (images.length > 0) { currentIndex = 0;
-                            updateLightboxImage(); }
-                        e.preventDefault();
-                        break;
-                    case 'End':
-                        if (images.length > 0) { currentIndex = images.length - 1;
-                            updateLightboxImage(); }
-                        e.preventDefault();
-                        break;
+                    case 'Escape': closeLightbox(); break;
+                    case 'ArrowLeft': showPrev(); e.preventDefault(); break;
+                    case 'ArrowRight': showNext(); e.preventDefault(); break;
                     case 'Tab': {
                         const focusable = lightbox.querySelectorAll('button');
                         if (focusable.length === 0) return;
-                        const first = focusable[0],
-                            last = focusable[focusable.length - 1];
-                        if (e.shiftKey && document.activeElement === first) { last.focus();
-                            e.preventDefault(); } else if (!e.shiftKey && document.activeElement === last) { first
-                                .focus();
-                            e.preventDefault(); }
+                        const first = focusable[0];
+                        const last = focusable[focusable.length - 1];
+                        if (e.shiftKey && document.activeElement === first) { last.focus(); e.preventDefault(); }
+                        else if (!e.shiftKey && document.activeElement === last) { first.focus(); e.preventDefault(); }
                         break;
                     }
                 }
             });
 
-            lightbox.addEventListener('click', function(e) { if (e.target === lightbox) closeLightbox(); });
-            lightbox.addEventListener('touchstart', function(e) {
-                touchStartX = e.changedTouches[0].screenX;
-                touchStartY = e.changedTouches[0].screenY;
-            }, { passive: true });
-            lightbox.addEventListener('touchend', function(e) {
-                const diffX = touchStartX - e.changedTouches[0].screenX;
-                const diffY = touchStartY - e.changedTouches[0].screenY;
-                if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY) * 1.5) {
-                    if (diffX > 0) showNext();
-                    else showPrev();
-                }
+            lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+
+            let touchStartX = 0;
+            lightbox.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+            lightbox.addEventListener('touchend', (e) => {
+                const touchEndX = e.changedTouches[0].screenX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 50) { if (diff > 0) showNext(); else showPrev(); }
             }, { passive: true });
 
-            // ============================================================
-            // 3. 步骤导航
-            // ============================================================
-            const steps = Array.from(document.querySelectorAll('.step-desc'));
-            let navDots = [];
-            let observer = null;
-            const mobileNav = document.getElementById('mobileNav');
-            const mnPrev = document.getElementById('mnPrev');
-            const mnNext = document.getElementById('mnNext');
-            const mnProgress = document.getElementById('mnProgress');
-            let currentStepIndex = 0;
-
-            function setActiveStep(index) {
-                if (index < 0 || index >= steps.length) return;
-                currentStepIndex = index;
-                navDots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === index);
-                    if (i === index) dot.setAttribute('aria-current', 'step');
-                    else dot.removeAttribute('aria-current');
-                });
-                steps.forEach((step, i) => step.classList.toggle('highlight', i === index));
-                if (mnProgress) mnProgress.textContent = (index + 1) + ' / ' + steps.length;
-                if (mnPrev) mnPrev.disabled = index === 0;
-                if (mnNext) mnNext.disabled = index === steps.length - 1;
-            }
-
-            function goToStep(index) {
-                if (index < 0 || index >= steps.length) return;
-                steps[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-
-            if (steps.length > 0 && window.matchMedia('(min-width: 1024px)').matches) {
+            // 步骤导航
+            const steps = document.querySelectorAll('.step-desc');
+            if (steps.length > 0) {
                 const nav = document.createElement('div');
                 nav.className = 'step-nav';
                 nav.id = 'stepNav';
                 nav.setAttribute('role', 'navigation');
-                nav.setAttribute('aria-label', '步骤快速导航');
+                nav.setAttribute('aria-label', '步骤导航');
                 steps.forEach((step, index) => {
                     const btn = document.createElement('button');
                     btn.className = 'nav-dot';
-                    btn.setAttribute('aria-label', '跳转到第 ' + (index + 1) + ' 步：' + (step.dataset.stepLabel ||
-                        '步骤 ' + (index + 1)));
-                    btn.setAttribute('data-index', index);
+                    btn.setAttribute('aria-label', `跳转到第 ${index+1} 步：${step.dataset.stepLabel || ''}`);
                     const tooltip = document.createElement('span');
                     tooltip.className = 'tooltip';
-                    tooltip.textContent = step.dataset.stepLabel || '步骤 ' + (index + 1);
-                    tooltip.setAttribute('aria-hidden', 'true');
+                    tooltip.textContent = step.dataset.stepLabel || `步骤 ${index + 1}`;
                     btn.appendChild(tooltip);
-                    btn.addEventListener('click', function() { goToStep(index); });
+                    btn.addEventListener('click', () => { step.scrollIntoView({ behavior: 'smooth', block: 'center' }); });
                     nav.appendChild(btn);
                 });
                 document.body.appendChild(nav);
-                navDots = Array.from(nav.querySelectorAll('.nav-dot'));
-            }
-
-            if ('IntersectionObserver' in window && steps.length > 0) {
-                observer = new IntersectionObserver(function(entries) {
-                    entries.forEach(function(entry) {
+                const navDots = nav.querySelectorAll('.nav-dot');
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
                         if (entry.isIntersecting) {
-                            const index = steps.indexOf(entry.target);
+                            const index = Array.from(steps).indexOf(entry.target);
                             if (index !== -1) setActiveStep(index);
                         }
                     });
-                }, { root: null, rootMargin: '-15% 0px -55% 0px', threshold: 0.05 });
+                }, { root: null, rootMargin: '-20% 0px -60% 0px', threshold: 0 });
                 steps.forEach(step => observer.observe(step));
-                setActiveStep(0);
+                function setActiveStep(index) {
+                    navDots.forEach((dot, i) => {
+                        dot.classList.toggle('active', i === index);
+                        if (i === index) dot.setAttribute('aria-current', 'step');
+                        else dot.removeAttribute('aria-current');
+                    });
+                    steps.forEach((step, i) => step.classList.toggle('highlight', i === index));
+                }
+                if (steps.length > 0) setActiveStep(0);
             }
 
-            if (mnPrev && mnNext) {
-                mnPrev.addEventListener('click', function() { if (currentStepIndex > 0) goToStep(currentStepIndex -
-                        1); });
-                mnNext.addEventListener('click', function() { if (currentStepIndex < steps.length - 1) goToStep(
-                        currentStepIndex + 1); });
-            }
-
-            // ============================================================
-            // 4. 阅读进度条
-            // ============================================================
+            // 阅读进度条
             const progressBar = document.getElementById('readingProgress');
-            let progressTicking = false;
-
-            function updateProgress() {
+            window.addEventListener('scroll', () => {
                 const scrollTop = window.scrollY;
                 const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const progress = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
+                const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
                 progressBar.style.width = progress + '%';
-                progressTicking = false;
-            }
+            }, { passive: true });
 
-            function requestProgressUpdate() {
-                if (!progressTicking) { progressTicking = true;
-                    window.requestAnimationFrame(updateProgress); }
-            }
-            window.addEventListener('scroll', requestProgressUpdate, { passive: true });
-            window.addEventListener('resize', requestProgressUpdate, { passive: true });
-            updateProgress();
-
-            // ============================================================
-            // 5. 返回顶部
-            // ============================================================
+            // 返回顶部按钮
             const backToTop = document.getElementById('backToTop');
-            let backToTopTicking = false;
-
-            function updateBackToTop() {
+            window.addEventListener('scroll', () => {
                 backToTop.classList.toggle('visible', window.scrollY > 300);
-                backToTopTicking = false;
-            }
+            }, { passive: true });
+            backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-            function requestBackToTopUpdate() {
-                if (!backToTopTicking) { backToTopTicking = true;
-                    window.requestAnimationFrame(updateBackToTop); }
-            }
-            window.addEventListener('scroll', requestBackToTopUpdate, { passive: true });
-            backToTop.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
-            updateBackToTop();
-
-            // ============================================================
-            // 6. 键盘快捷键
-            // ============================================================
-            document.addEventListener('keydown', function(e) {
-                const tag = document.activeElement?.tagName?.toLowerCase();
-                const isInput = tag === 'input' || tag === 'textarea' || tag === 'select';
-                if (isInput || lightbox.classList.contains('active')) return;
-                if (e.altKey && e.key === 'ArrowRight' && steps.length > 0) {
-                    if (currentStepIndex < steps.length - 1) goToStep(currentStepIndex + 1);
+            // 键盘快捷键
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox();
+                if (e.key === 'Home' && !lightbox.classList.contains('active')) {
                     e.preventDefault();
-                } else if (e.altKey && e.key === 'ArrowLeft' && steps.length > 0) {
-                    if (currentStepIndex > 0) goToStep(currentStepIndex - 1);
-                    e.preventDefault();
-                } else if (e.key === 'Home' && !e.ctrlKey && !e.metaKey) {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
-                    e.preventDefault();
                 }
             });
-
-            // ============================================================
-            // 7. 打印前优化
-            // ============================================================
-            window.addEventListener('beforeprint', function() {
-                images.forEach(img => img.classList.add('loaded'));
-            });
-
-            console.log('%c🧶 TOPT 培训教材 v1.2 (经编·图片尺寸修复版)', 'font-size:16px;font-weight:700;color:#1f4b6e;');
-            console.log('%c提示：按 Alt+←/→ 快速切换步骤，按 Home 返回顶部', 'font-size:12px;color:#4a6a85;');
-
         })();
     </script>
-
 </body>
 </html>
