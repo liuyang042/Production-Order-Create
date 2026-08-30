@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
         /* ============================================================
-           CSS 变量 — 浅色 / 深色 自适应（图片高度已优化）
+           CSS 变量 — 浅色 / 深色 自适应
            ============================================================ */
         :root {
             --bg-body: #f1f6fd;
@@ -50,7 +50,6 @@
             --img-radius: 14px;
             --gap-grid: 1.8rem;
             --max-img-width: 100%;
-            /* ---- 图片尺寸优化（增大高度限制） ---- */
             --img-max-height-desktop: 760px;
             --img-max-height-tablet: 540px;
             --img-max-height-mobile: 420px;
@@ -506,7 +505,7 @@
         }
 
         /* ============================================================
-           图片网格 — 核心响应式布局（优化版）
+           图片网格 — 核心响应式布局
            ============================================================ */
         .img-grid {
             display: grid;
@@ -515,12 +514,20 @@
             margin: 1.6rem 0 1.4rem 0;
         }
 
-        /* 单张图片：居中并放大（宽度从 76% 提升到 88%） */
+        /* 单张图片：居中并放大 */
         .img-grid:has(> .img-card:only-child) {
             grid-template-columns: 1fr;
             max-width: 88%;
             margin-left: auto;
             margin-right: auto;
+        }
+
+        /* ===== 强制单列堆叠（用于1-5, 1-6等双图场景） ===== */
+        .img-grid.stacked {
+            grid-template-columns: 1fr !important;
+            max-width: 88% !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
         }
 
         /* 图片卡片 */
@@ -1006,6 +1013,9 @@
             .img-grid:has(> .img-card:only-child) {
                 max-width: 82%;
             }
+            .img-grid.stacked {
+                max-width: 90% !important;
+            }
             .img-card img {
                 max-height: var(--img-max-height-tablet);
             }
@@ -1117,6 +1127,9 @@
             }
             .img-grid:has(> .img-card:only-child) {
                 max-width: 100%;
+            }
+            .img-grid.stacked {
+                max-width: 100% !important;
             }
             .img-card img {
                 max-height: var(--img-max-height-mobile);
@@ -1475,6 +1488,12 @@
                 margin-right: auto !important;
             }
 
+            /* 打印时强制堆叠类也保持单列，符合“不并排”需求 */
+            .img-grid.stacked {
+                grid-template-columns: 1fr !important;
+                max-width: 80% !important;
+            }
+
             .img-card {
                 background: white !important;
                 border: 1px solid #ccc !important;
@@ -1741,7 +1760,8 @@
                     双击工单号码，进入锁胚界面
                 </div>
 
-                <div class="img-grid">
+                <!-- ===== 关键修改：添加 .stacked 类强制单列，不再并排 ===== -->
+                <div class="img-grid stacked">
                     <div class="img-card">
                         <div class="img-wrapper">
                             <div class="img-placeholder"><div class="spinner"></div></div>
