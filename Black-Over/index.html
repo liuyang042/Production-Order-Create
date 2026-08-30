@@ -58,9 +58,7 @@
             --img-max-height-print: 280px;
             --grid-col-min-desktop: 320px;
             --grid-col-min-tablet: 280px;
-            /* 新增大图网格最小宽度 */
             --grid-col-min-large: 420px;
-            /* 流式排版 */
             --fs-h1: clamp(1.4rem, 4vw, 2rem);
             --fs-section: clamp(1.1rem, 3vw, 1.8rem);
             --fs-h3: clamp(0.95rem, 2.5vw, 1.35rem);
@@ -598,7 +596,7 @@
             margin-right: auto !important;
         }
 
-        /* 新增：大图网格（用于分缸部分，显示更清晰） */
+        /* 大图网格 */
         .img-grid.large-grid {
             grid-template-columns: repeat(auto-fill, minmax(var(--grid-col-min-large), 1fr));
             gap: 2rem;
@@ -1409,11 +1407,20 @@
             }
         }
 
-        /* 打印样式 */
+        /* ============================================================
+           打印样式 — 隐藏页眉，页脚仅显示页码
+           ============================================================ */
         @media print {
             @page {
                 margin: 18mm 15mm 20mm 15mm;
                 size: A4 portrait;
+                @bottom-center {
+                    content: "第 " counter(page) " 页";
+                    font-size: 9pt;
+                    color: #333;
+                    font-family: 'Inter', sans-serif;
+                    font-weight: 400;
+                }
             }
 
             html {
@@ -1439,61 +1446,34 @@
                 -webkit-backdrop-filter: none !important;
             }
 
+            /* 隐藏页眉 */
             .header {
-                background: #f0f4f8 !important;
-                border-radius: 6px !important;
-                padding: 8px 14px !important;
-                margin-bottom: 12px !important;
-                box-shadow: none !important;
-                border: 1px solid #ccc !important;
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
-            .header-left h1 {
-                -webkit-text-fill-color: #0a1e33 !important;
-                background: none !important;
-                color: #0a1e33 !important;
-                filter: none !important;
-                font-size: 16pt !important;
-            }
-            .header-left .subhead {
-                background: #eef2f6 !important;
-                border: 1px solid #ccc !important;
-                -webkit-text-fill-color: #333 !important;
-                color: #333 !important;
-            }
-            .logo-wrap {
-                background: white !important;
-                border: 1px solid #ccc !important;
-            }
-            .logo-wrap img {
-                background: white !important;
-            }
-            .logo-wrap .brand-text {
-                color: #0a1e33 !important;
-            }
-            .author-block {
-                background: white !important;
-                border: 1px solid #ccc !important;
-            }
-            .author-name {
-                color: #0a1e33 !important;
-            }
-            .author-email {
-                color: #1a4b70 !important;
-                background: white !important;
+                display: none !important;
             }
 
-            .toc {
+            /* 隐藏原有页脚，因为用@page显示页码 */
+            .footer-note {
+                display: none !important;
+            }
+
+            /* 目录、步骤卡片、图片卡片等保持原有打印样式 */
+            .toc,
+            .step-desc,
+            .note-box,
+            .img-card {
                 background: #f7f9fc !important;
                 border: 1px solid #ccc !important;
                 border-radius: 6px !important;
-                padding: 8px 14px !important;
-                margin-bottom: 12px !important;
+                box-shadow: none !important;
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
                 break-inside: avoid;
                 page-break-inside: avoid;
+            }
+
+            .toc {
+                padding: 8px 14px !important;
+                margin-bottom: 12px !important;
             }
             .toc-title {
                 color: #0a1e33 !important;
@@ -1664,26 +1644,6 @@
                 min-height: auto !important;
                 border: none !important;
                 background: white !important;
-            }
-
-            .footer-note {
-                background: #f7f9fc !important;
-                border: 1px solid #ccc !important;
-                border-radius: 6px !important;
-                padding: 5px 12px !important;
-                margin-top: 12px !important;
-                color: #333 !important;
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-                font-size: 8pt !important;
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
-            .footer-note .doc-badge {
-                background: #1f4b6e !important;
-                color: white !important;
-                box-shadow: none !important;
-                font-size: 7pt !important;
             }
 
             /* 隐藏交互 */
@@ -2122,7 +2082,7 @@
             </section>
         </main>
 
-        <!-- 页脚 -->
+        <!-- 页脚（打印时隐藏） -->
         <footer class="footer-note" role="contentinfo">
             <span><i class="fas fa-check-circle" style="color:#1f6b4a;" aria-hidden="true"></i> TOPT 培训教材 · 内部使用</span>
             <span class="doc-badge"><i class="fas fa-file-alt" aria-hidden="true"></i> 版本 v1.2</span>
