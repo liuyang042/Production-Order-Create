@@ -1384,12 +1384,20 @@
         }
 
         /* ============================================================
-           打印样式 — 隐藏页眉，其余完全不变
+           打印样式 — 隐藏页眉，页脚仅显示页码
            ============================================================ */
         @media print {
             @page {
                 margin: 18mm 15mm 20mm 15mm;
                 size: A4 portrait;
+                /* 页脚页码 */
+                @bottom-center {
+                    content: "第 " counter(page) " 页";
+                    font-size: 9pt;
+                    color: #333;
+                    font-family: 'Inter', sans-serif;
+                    font-weight: 400;
+                }
             }
             html {
                 font-size: 10.5pt;
@@ -1412,8 +1420,13 @@
                 -webkit-backdrop-filter: none !important;
             }
 
-            /* ----- 隐藏页眉 (header) 及其所有子元素 ----- */
+            /* 隐藏页眉 */
             .header {
+                display: none !important;
+            }
+
+            /* 隐藏原有的页脚内容（footer-note） */
+            .footer-note {
                 display: none !important;
             }
 
@@ -1421,8 +1434,7 @@
             .toc,
             .step-desc,
             .note-box,
-            .img-card,
-            .footer-note {
+            .img-card {
                 background: #f7f9fc !important;
                 border: 1px solid #ccc !important;
                 border-radius: 6px !important;
@@ -1577,20 +1589,6 @@
             .img-wrapper .img-placeholder,
             .img-wrapper .img-error {
                 display: none !important;
-            }
-
-            .footer-note {
-                padding: 5px 12px !important;
-                margin-top: 12px !important;
-                font-size: 8pt !important;
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
-            .footer-note .doc-badge {
-                background: #1f4b6e !important;
-                color: white !important;
-                box-shadow: none !important;
-                font-size: 7pt !important;
             }
 
             /* 隐藏 UI 交互元素 */
@@ -2089,7 +2087,7 @@
             </section>
         </main>
 
-        <!-- 页脚 -->
+        <!-- 页脚（打印时隐藏） -->
         <footer class="footer-note" role="contentinfo">
             <span><i class="fas fa-check-circle" style="color:#1f6b4a;" aria-hidden="true"></i> TOPT 培训教材 · 内部使用</span>
             <span class="doc-badge"><i class="fas fa-file-alt" aria-hidden="true"></i> 版本 v1.2</span>
