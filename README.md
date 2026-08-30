@@ -1,10 +1,4 @@
-# 📋 经编生产工单开单流程
-
-本系列流程覆盖经编车间主要工单类型，点击下方卡片即可在线体验完整的开单操作。
-
----
-
-## 🧵 常规工单
+## 🧵 经编常规工单开单流程
 **Warp-Knitting Production Order Creation**
 
 <a href="https://liuyang042.github.io/Production-Order-Create/Warp-Knitting/" target="_blank" rel="noopener noreferrer">🔗 在线演示 →</a>
