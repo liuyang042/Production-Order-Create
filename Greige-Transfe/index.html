@@ -1383,7 +1383,9 @@
             }
         }
 
-        /* 打印 */
+        /* ============================================================
+           打印样式 — 隐藏页眉，其余完全不变
+           ============================================================ */
         @media print {
             @page {
                 margin: 18mm 15mm 20mm 15mm;
@@ -1409,7 +1411,13 @@
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
             }
-            .header,
+
+            /* ----- 隐藏页眉 (header) 及其所有子元素 ----- */
+            .header {
+                display: none !important;
+            }
+
+            /* 目录、步骤卡片、图片卡片等保持原有打印样式 */
             .toc,
             .step-desc,
             .note-box,
@@ -1424,34 +1432,7 @@
                 break-inside: avoid;
                 page-break-inside: avoid;
             }
-            .header {
-                padding: 8px 14px !important;
-                margin-bottom: 12px !important;
-            }
-            .header-left h1 {
-                -webkit-text-fill-color: #0a1e33 !important;
-                background: none !important;
-                color: #0a1e33 !important;
-                filter: none !important;
-                font-size: 16pt !important;
-            }
-            .header-left .subhead {
-                background: #eef2f6 !important;
-                border: 1px solid #ccc !important;
-                -webkit-text-fill-color: #333 !important;
-                color: #333 !important;
-            }
-            .logo-wrap {
-                background: white !important;
-                border: 1px solid #ccc !important;
-            }
-            .logo-wrap img {
-                background: white !important;
-            }
-            .author-block {
-                background: white !important;
-                border: 1px solid #ccc !important;
-            }
+
             .toc {
                 padding: 8px 14px !important;
                 margin-bottom: 12px !important;
@@ -1470,6 +1451,7 @@
                 background: #e8edf3 !important;
                 color: #1f4b6e !important;
             }
+
             .section-title {
                 color: #0a1e33 !important;
                 border-bottom: 1.5px solid #999 !important;
@@ -1482,12 +1464,14 @@
                 color: white !important;
                 box-shadow: none !important;
             }
+
             .subsection h3 {
                 color: #0a1e33 !important;
                 font-size: 11pt !important;
                 break-after: avoid;
                 page-break-after: avoid;
             }
+
             .step-desc {
                 padding: 5px 10px !important;
                 margin: 3px 0 8px 0 !important;
@@ -1516,6 +1500,7 @@
                 border-left-color: #b8860b !important;
                 background: #fcf8f0 !important;
             }
+
             .note-box {
                 padding: 6px 12px !important;
                 font-size: 9pt !important;
@@ -1526,7 +1511,8 @@
                 padding-left: 1.4rem !important;
                 background-size: 14px !important;
             }
-            /* 打印图片：双图/四图也强制两列，保持清晰 */
+
+            /* 图片网格：打印时双列，单图居中 */
             .img-grid,
             .img-grid.two-col,
             .img-grid.four-col,
@@ -1548,6 +1534,7 @@
                 grid-template-columns: 1fr !important;
                 max-width: 75% !important;
             }
+
             .img-card {
                 background: white !important;
                 border: 1px solid #bbb !important;
@@ -1591,6 +1578,7 @@
             .img-wrapper .img-error {
                 display: none !important;
             }
+
             .footer-note {
                 padding: 5px 12px !important;
                 margin-top: 12px !important;
@@ -1604,6 +1592,8 @@
                 box-shadow: none !important;
                 font-size: 7pt !important;
             }
+
+            /* 隐藏 UI 交互元素 */
             .step-nav,
             .reading-progress,
             .back-to-top,
@@ -1612,6 +1602,7 @@
                 display: none !important;
             }
         }
+
         .sr-only {
             position: absolute !important;
             width: 1px !important;
