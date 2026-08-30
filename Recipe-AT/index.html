@@ -10,10 +10,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
         /* ============================================================
-               CSS 变量 — 浅色 / 深色 自适应
-               ============================================================ */
+           CSS 变量 — 浅色 / 深色 自适应
+           ============================================================ */
         :root {
-            /* 基础色板 */
             --bg-body: #f1f6fd;
             --bg-container: rgba(255, 255, 255, 0.72);
             --bg-container-solid: #ffffff;
@@ -51,6 +50,7 @@
             --img-radius: 14px;
             --gap-grid: 1.5rem;
             --max-img-width: 100%;
+            --max-img-height-desktop: 80vh; /* 桌面端最大高度为视口高度的80% */
         }
 
         /* 深色模式 */
@@ -89,8 +89,8 @@
         }
 
         /* ============================================================
-               全局重置 & 基础
-               ============================================================ */
+           全局重置 & 基础
+           ============================================================ */
         *,
         *::before,
         *::after {
@@ -112,9 +112,6 @@
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
         }
 
-        /* ============================================================
-               主容器
-               ============================================================ */
         .container {
             max-width: 1440px;
             width: 100%;
@@ -128,9 +125,7 @@
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
-        /* ============================================================
-               头部
-               ============================================================ */
+        /* 头部 */
         .header {
             border-bottom: 1px solid var(--border-subtle);
             padding: 1.2rem 1.8rem;
@@ -162,7 +157,6 @@
             gap: 0.6rem;
             border: 1px solid var(--border-subtle);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
-            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
         .logo-wrap img {
@@ -180,7 +174,6 @@
             letter-spacing: -0.3px;
             color: var(--text-heading);
             padding-right: 0.4rem;
-            transition: color var(--transition-speed) ease;
         }
 
         .header-left h1 {
@@ -201,16 +194,14 @@
             font-weight: 500;
             color: var(--text-secondary);
             background: rgba(230, 242, 255, 0.55);
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             padding: 0.15rem 1.2rem;
             border-radius: 40px;
             letter-spacing: 0.2px;
             backdrop-filter: blur(4px);
             border: 1px solid rgba(255, 255, 255, 0.4);
-            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
         }
         .header-left .subhead::before {
             content: "📘";
@@ -234,7 +225,6 @@
             border-radius: 60px;
             border: 1px solid var(--border-subtle);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
         .author-name {
@@ -244,12 +234,6 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            transition: color var(--transition-speed) ease;
-        }
-
-        .author-name i {
-            color: var(--accent-light);
-            font-size: 0.85rem;
         }
 
         .author-email {
@@ -259,13 +243,9 @@
             background: var(--bg-card);
             padding: 0 10px;
             border-radius: 30px;
-            letter-spacing: 0.2px;
-            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
         }
 
-        /* ============================================================
-               目录
-               ============================================================ */
+        /* 目录 */
         .toc {
             background: var(--bg-toc);
             backdrop-filter: blur(12px);
@@ -274,7 +254,6 @@
             margin-bottom: 2.6rem;
             border: 1px solid var(--border-subtle);
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
-            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
         .toc-header {
@@ -291,12 +270,10 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: color var(--transition-speed) ease;
         }
-
         .toc-title span {
             background: var(--accent);
-            color: var(--color-text-on-accent);
+            color: white;
             padding: 0 14px;
             border-radius: 40px;
             font-size: 0.65rem;
@@ -311,18 +288,15 @@
             list-style: none;
             padding: 0;
         }
-
         .toc-grid li {
             font-weight: 500;
             font-size: 0.85rem;
             color: #1a3c57;
             padding: 3px 0;
-            transition: color var(--transition-speed) ease;
             display: flex;
             align-items: center;
             gap: 6px;
         }
-
         .toc-grid li .step-num {
             display: inline-block;
             background: var(--bg-code-inline);
@@ -334,22 +308,13 @@
             line-height: 1.8;
             min-width: 26px;
             text-align: center;
-            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
         }
-
-        .toc-grid li .step-icon {
-            font-size: 0.7rem;
-            width: 18px;
-            text-align: center;
-        }
-
         .toc-grid li a {
             color: inherit;
             text-decoration: none;
             transition: color 0.2s ease;
             position: relative;
         }
-
         .toc-grid li a::after {
             content: '';
             position: absolute;
@@ -360,7 +325,6 @@
             background: var(--text-link);
             transition: width 0.25s ease;
         }
-
         .toc-grid li a:hover {
             color: var(--text-link);
         }
@@ -368,17 +332,13 @@
             width: 100%;
         }
 
-        /* ============================================================
-               章节标题
-               ============================================================ */
+        /* 章节 */
         .section {
             margin-bottom: 2.6rem;
         }
-
         .section-title {
             font-size: 1.8rem;
             font-weight: 700;
-            letter-spacing: -0.01em;
             color: var(--text-heading);
             padding-bottom: 0.4rem;
             border-bottom: 2px solid var(--border-subtle);
@@ -386,9 +346,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            transition: color var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
-
         .section-title .num {
             background: linear-gradient(145deg, var(--accent), #0b2b4a);
             color: white;
@@ -397,18 +355,13 @@
             padding: 0.05rem 1.2rem;
             border-radius: 40px;
             box-shadow: 0 4px 12px rgba(31, 75, 110, 0.15);
-            white-space: nowrap;
         }
 
-        /* ============================================================
-               子章节
-               ============================================================ */
         .subsection {
             margin-top: 2.2rem;
             padding-left: 0.2rem;
             scroll-margin-top: 20px;
         }
-
         .subsection h3 {
             font-size: 1.35rem;
             font-weight: 600;
@@ -417,13 +370,9 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            transition: color var(--transition-speed) ease;
-            flex-wrap: wrap;
         }
 
-        /* ============================================================
-               步骤描述卡片
-               ============================================================ */
+        /* 步骤描述 */
         .step-desc {
             background: var(--bg-step);
             backdrop-filter: blur(8px);
@@ -434,8 +383,6 @@
             font-weight: 500;
             color: var(--color-text-remark);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            cursor: default;
             scroll-margin-top: 80px;
             border: 1px solid var(--border-subtle);
             font-size: 0.98rem;
@@ -443,76 +390,46 @@
             flex-wrap: wrap;
             align-items: center;
             gap: 0.5rem 1rem;
+            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-
         .step-desc:hover {
             transform: translateX(4px) scale(1.002);
             box-shadow: 0 8px 24px rgba(0, 20, 40, 0.06);
             border-color: var(--border-strong);
             background: var(--bg-step-hover);
         }
-
         .step-desc.highlight {
             border-left-color: var(--accent-gold) !important;
             background: var(--bg-highlight) !important;
-            backdrop-filter: blur(8px);
             box-shadow: 0 0 0 2px rgba(217, 158, 74, 0.12);
         }
-
-        .step-desc .remark {
-            display: inline-block;
-            font-weight: 400;
+        .step-desc .remark,
+        .step-desc .code-inline,
+        .step-desc .sub-operation {
             background: var(--bg-code-inline);
             backdrop-filter: blur(4px);
-            padding: 2px 16px;
+            padding: 2px 12px;
             border-radius: 30px;
             font-size: 0.85rem;
-            transition: background var(--transition-speed) ease;
             border: 1px solid var(--border-subtle);
         }
-
         .step-desc .code-inline {
-            background: var(--bg-code-inline);
-            backdrop-filter: blur(4px);
-            padding: 0.05rem 0.7rem;
-            border-radius: 30px;
-            font-family: 'Inter', monospace;
+            font-family: monospace;
             font-weight: 600;
             color: #004080;
-            font-size: 0.85rem;
-            border: 1px solid var(--border-subtle);
         }
-
-        .step-desc .sub-operation {
-            font-weight: 400;
-            background: var(--bg-code-inline);
-            backdrop-filter: blur(4px);
-            padding: 4px 16px;
-            border-radius: 30px;
-            display: inline-block;
-            border: 1px solid var(--border-subtle);
-            font-size: 0.85rem;
-        }
-
         .step-desc .sub-operation i {
             margin-right: 6px;
         }
 
-        .step-desc i {
-            font-size: 1.1rem;
-        }
-
-        /* ============================================================
-               图片网格 — 核心响应式布局
-               ============================================================ */
+        /* 图片网格 —— 核心优化：桌面更大，手机不受限 */
         .img-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: var(--gap-grid);
             margin: 1.4rem 0 1.2rem 0;
         }
 
-        /* 图片卡片 */
         .img-card {
             background: var(--bg-img-card);
             backdrop-filter: blur(8px);
@@ -527,7 +444,6 @@
             align-items: center;
             justify-content: flex-start;
         }
-
         .img-card:hover {
             transform: translateY(-6px) scale(1.01);
             box-shadow: 0 16px 40px rgba(0, 20, 40, 0.06);
@@ -537,7 +453,7 @@
         .img-card img {
             width: 100%;
             height: auto;
-            max-height: 380px;
+            max-height: var(--max-img-height-desktop); /* 桌面端限制高度，但足够大 */
             object-fit: contain;
             border-radius: var(--img-radius);
             border: 1px solid var(--color-border-img);
@@ -546,38 +462,28 @@
             cursor: pointer;
             display: block;
             margin-bottom: 4px;
-            aspect-ratio: auto;
         }
 
-        .img-card .img-caption {
-            font-size: 0.78rem;
-            font-weight: 500;
-            color: #1f4a6e;
+        .img-card .img-caption,
+        .img-card .code-tag {
             background: var(--bg-code-inline);
             backdrop-filter: blur(4px);
             padding: 0.15rem 0.8rem;
             border-radius: 40px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: #1f4a6e;
             display: inline-block;
             margin-top: 4px;
-            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
             border: 1px solid var(--border-subtle);
         }
-
         .img-card .code-tag {
-            font-family: 'Inter', monospace;
-            background: var(--bg-code-inline);
-            backdrop-filter: blur(4px);
-            padding: 0.05rem 0.8rem;
-            border-radius: 30px;
+            font-family: monospace;
             font-size: 0.68rem;
             font-weight: 600;
             color: #004080;
-            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
-            border: 1px solid var(--border-subtle);
-            display: inline-block;
             margin-right: 6px;
         }
-
         .img-card .card-labels {
             display: flex;
             flex-wrap: wrap;
@@ -586,9 +492,7 @@
             margin-top: 2px;
         }
 
-        /* ============================================================
-               页脚
-               ============================================================ */
+        /* 页脚 */
         .footer-note {
             margin-top: 2.8rem;
             font-size: 0.85rem;
@@ -605,9 +509,7 @@
             align-items: center;
             justify-content: center;
             gap: 0.6rem 1.6rem;
-            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease, color var(--transition-speed) ease;
         }
-
         .footer-note .doc-badge {
             background: linear-gradient(145deg, var(--accent), #0b2b4a);
             color: white;
@@ -618,9 +520,7 @@
             box-shadow: 0 2px 8px rgba(31, 75, 110, 0.12);
         }
 
-        /* ============================================================
-               侧边导航（桌面）
-               ============================================================ */
+        /* 侧边导航 */
         .step-nav {
             position: fixed;
             right: 24px;
@@ -636,15 +536,12 @@
             display: none;
             flex-direction: column;
             gap: 8px;
-            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
-
         @media (min-width: 1024px) {
             .step-nav {
                 display: flex;
             }
         }
-
         .step-nav .nav-dot {
             width: 10px;
             height: 10px;
@@ -652,34 +549,20 @@
             background: var(--bg-nav-dot);
             transition: all 0.3s ease;
             cursor: pointer;
-            position: relative;
             border: 1px solid var(--border-subtle);
             padding: 0;
             appearance: none;
-            -webkit-appearance: none;
-            flex-shrink: 0;
         }
-
-        .step-nav .nav-dot:hover,
-        .step-nav .nav-dot:focus-visible {
-            transform: scale(1.4);
-            background: var(--accent);
-            outline: none;
-            box-shadow: 0 0 0 2px var(--accent-light);
-        }
-
         .step-nav .nav-dot.active {
             background: var(--accent);
             box-shadow: 0 0 0 4px rgba(31, 75, 110, 0.08);
         }
-
         .step-nav .nav-dot .tooltip {
             position: absolute;
             right: 26px;
             top: 50%;
             transform: translateY(-50%);
             background: rgba(15, 30, 47, 0.85);
-            backdrop-filter: blur(8px);
             color: white;
             padding: 3px 12px;
             border-radius: 20px;
@@ -688,19 +571,13 @@
             opacity: 0;
             pointer-events: none;
             transition: all 0.3s ease;
-            font-weight: 500;
-            z-index: 10;
         }
-
-        .step-nav .nav-dot:hover .tooltip,
-        .step-nav .nav-dot:focus-visible .tooltip {
+        .step-nav .nav-dot:hover .tooltip {
             opacity: 1;
             right: 28px;
         }
 
-        /* ============================================================
-               Lightbox
-               ============================================================ */
+        /* Lightbox */
         .lightbox-overlay {
             position: fixed;
             top: 0;
@@ -716,11 +593,9 @@
             padding: 20px;
             animation: fadeIn 0.3s ease;
         }
-
         .lightbox-overlay.active {
             display: flex;
         }
-
         .lightbox-overlay img {
             max-width: 92%;
             max-height: 85%;
@@ -728,9 +603,7 @@
             border-radius: 16px;
             box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
             animation: zoomIn 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.08);
         }
-
         .lightbox-close {
             position: fixed;
             top: 24px;
@@ -746,23 +619,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(8px);
-            appearance: none;
-            -webkit-appearance: none;
         }
-
-        .lightbox-close:hover {
-            background: rgba(255, 255, 255, 0.18);
-            transform: rotate(90deg);
-        }
-
-        .lightbox-close:focus-visible {
-            outline: 2px solid white;
-            outline-offset: 2px;
-        }
-
         .lightbox-nav {
             position: fixed;
             top: 50%;
@@ -778,29 +637,10 @@
             justify-content: center;
             cursor: pointer;
             z-index: 10001;
-            transition: all 0.3s ease;
             font-size: 18px;
-            appearance: none;
-            -webkit-appearance: none;
         }
-
-        .lightbox-nav:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .lightbox-nav:focus-visible {
-            outline: 2px solid white;
-            outline-offset: 2px;
-        }
-
-        .lightbox-prev {
-            left: 16px;
-        }
-
-        .lightbox-next {
-            right: 16px;
-        }
-
+        .lightbox-prev { left: 16px; }
+        .lightbox-next { right: 16px; }
         .lightbox-counter {
             position: fixed;
             bottom: 24px;
@@ -812,32 +652,11 @@
             border-radius: 20px;
             font-size: 0.85rem;
             z-index: 10000;
-            pointer-events: none;
-            backdrop-filter: blur(4px);
         }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes zoomIn { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        @keyframes zoomIn {
-            from {
-                transform: scale(0.92);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        /* ============================================================
-               阅读进度条
-               ============================================================ */
+        /* 阅读进度条 */
         .reading-progress {
             position: fixed;
             top: 0;
@@ -849,9 +668,7 @@
             transition: width 0.08s linear;
         }
 
-        /* ============================================================
-               返回顶部按钮
-               ============================================================ */
+        /* 返回顶部 */
         .back-to-top {
             position: fixed;
             bottom: 28px;
@@ -869,597 +686,99 @@
             align-items: center;
             justify-content: center;
             font-size: 18px;
-            transition: all 0.3s ease;
-            appearance: none;
-            -webkit-appearance: none;
         }
-
-        .back-to-top.visible {
-            display: flex;
-        }
-
-        .back-to-top:hover {
-            background: var(--accent-light);
-            transform: translateY(-3px);
-        }
+        .back-to-top.visible { display: flex; }
 
         /* ============================================================
-               响应式：平板 & 手机
-               ============================================================ */
-
-        /* 平板 (768–1024) */
+           响应式：平板 & 手机
+           ============================================================ */
         @media (max-width: 1024px) {
-            .container {
-                padding: 1.8rem 2rem;
-                border-radius: 36px;
-            }
-            .header {
-                padding: 1rem 1.4rem;
-            }
-            .header-left h1 {
-                font-size: 1.7rem;
-            }
-            .img-grid {
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-                gap: 1.2rem;
-            }
-            .step-nav {
-                right: 14px;
-                padding: 10px 6px;
-            }
-            .step-nav .nav-dot {
-                width: 8px;
-                height: 8px;
-            }
-            .step-nav .nav-dot .tooltip {
-                display: none;
-            }
+            .container { padding: 1.8rem 2rem; border-radius: 36px; }
+            .header-left h1 { font-size: 1.7rem; }
+            .img-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.2rem; }
+            .step-nav { right: 14px; padding: 10px 6px; }
+            .step-nav .nav-dot { width: 8px; height: 8px; }
         }
 
-        /* 手机 (≤768) */
         @media (max-width: 768px) {
-            body {
-                padding: 0.8rem 0.5rem;
-            }
-            .container {
-                padding: 1.2rem 1rem;
-                border-radius: 28px;
-            }
-            .header {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 0.6rem;
-                padding: 0.8rem 1rem;
-                border-radius: 24px;
-            }
-            .header-brand {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.4rem;
-            }
-            .header-right {
-                justify-content: flex-start;
-            }
-            .author-block {
-                align-items: flex-start;
-                padding: 0.3rem 1rem 0.3rem 1.2rem;
-            }
-            .header-left h1 {
-                font-size: 1.5rem;
-            }
-            .header-left .subhead {
-                font-size: 0.75rem;
-                padding: 0.1rem 1rem;
-            }
-            .logo-wrap img {
-                height: 34px;
-            }
-            .logo-wrap .brand-text {
-                font-size: 0.95rem;
-            }
-
-            .toc {
-                padding: 0.8rem 1.2rem;
-                border-radius: 20px;
-                margin-bottom: 1.8rem;
-            }
-            .toc-grid {
-                grid-template-columns: 1fr;
-                gap: 2px;
-            }
-            .toc-grid li {
-                font-size: 0.8rem;
-            }
-
-            .section-title {
-                font-size: 1.4rem;
-                gap: 8px;
-                margin-bottom: 1.2rem;
-            }
-            .section-title .num {
-                font-size: 0.9rem;
-                padding: 0.05rem 1rem;
-            }
-
-            .subsection {
-                margin-top: 1.6rem;
-            }
-            .subsection h3 {
-                font-size: 1.1rem;
-                gap: 6px;
-            }
-
-            .step-desc {
-                padding: 0.7rem 1.2rem;
-                font-size: 0.88rem;
-                border-radius: 16px;
-                margin: 0.4rem 0 0.8rem 0;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.3rem;
-            }
-            .step-desc .remark,
-            .step-desc .code-inline,
-            .step-desc .sub-operation {
-                font-size: 0.78rem;
-            }
-
-            .img-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-                margin: 1rem 0 0.8rem 0;
-            }
-
-            .img-card {
-                padding: 0.5rem 0.5rem 0.7rem 0.5rem;
-                border-radius: 16px;
-            }
+            body { padding: 0.8rem 0.5rem; }
+            .container { padding: 1.2rem 1rem; border-radius: 28px; }
+            .header { flex-direction: column; align-items: stretch; gap: 0.6rem; padding: 0.8rem 1rem; border-radius: 24px; }
+            .header-brand { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+            .header-left h1 { font-size: 1.5rem; }
+            .toc { padding: 0.8rem 1.2rem; border-radius: 20px; }
+            .toc-grid { grid-template-columns: 1fr; gap: 2px; }
+            .section-title { font-size: 1.4rem; }
+            .subsection h3 { font-size: 1.1rem; }
+            .step-desc { padding: 0.7rem 1.2rem; font-size: 0.88rem; flex-direction: column; align-items: flex-start; }
+            .img-grid { grid-template-columns: 1fr; gap: 1rem; margin: 1rem 0 0.8rem 0; }
+            .img-card { padding: 0.5rem 0.5rem 0.7rem 0.5rem; border-radius: 16px; }
             .img-card img {
-                max-height: 280px;
-                border-radius: 12px;
+                max-height: none; /* 手机端移除高度限制，完全显示图片实际大小 */
             }
-            .img-card .img-caption {
-                font-size: 0.72rem;
-                padding: 0.1rem 0.7rem;
-            }
-            .img-card .code-tag {
-                font-size: 0.62rem;
-                padding: 0.05rem 0.6rem;
-            }
-
-            .footer-note {
-                font-size: 0.75rem;
-                padding: 0.6rem 1.2rem;
-                border-radius: 40px;
-                gap: 0.4rem 1.2rem;
-                flex-direction: column;
-            }
-            .footer-note .doc-badge {
-                font-size: 0.7rem;
-                padding: 0.05rem 1rem;
-            }
-
-            .step-nav {
-                right: 8px;
-                padding: 8px 5px;
-                border-radius: 30px;
-                gap: 6px;
-            }
-            .step-nav .nav-dot {
-                width: 7px;
-                height: 7px;
-            }
-
-            .lightbox-close {
-                top: 16px;
-                right: 16px;
-                width: 36px;
-                height: 36px;
-                font-size: 18px;
-            }
-            .lightbox-nav {
-                width: 36px;
-                height: 36px;
-                font-size: 16px;
-            }
-            .lightbox-prev {
-                left: 8px;
-            }
-            .lightbox-next {
-                right: 8px;
-            }
-            .lightbox-counter {
-                font-size: 0.75rem;
-                bottom: 16px;
-                padding: 2px 12px;
-            }
-            .lightbox-overlay img {
-                max-width: 96%;
-                max-height: 78%;
-            }
-
-            .back-to-top {
-                bottom: 16px;
-                right: 16px;
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
-            }
+            .footer-note { font-size: 0.75rem; padding: 0.6rem 1.2rem; flex-direction: column; }
+            .back-to-top { bottom: 16px; right: 16px; width: 40px; height: 40px; }
         }
 
-        /* 小屏手机 (≤480) */
         @media (max-width: 480px) {
-            .container {
-                padding: 0.8rem 0.6rem;
-                border-radius: 20px;
-            }
-            .header {
-                padding: 0.6rem 0.8rem;
-            }
-            .header-left h1 {
-                font-size: 1.2rem;
-            }
-            .header-left .subhead {
-                font-size: 0.65rem;
-                padding: 0.05rem 0.8rem;
-            }
-            .logo-wrap img {
-                height: 28px;
-            }
-            .logo-wrap .brand-text {
-                font-size: 0.8rem;
-            }
-            .author-name {
-                font-size: 0.8rem;
-            }
-            .author-email {
-                font-size: 0.6rem;
-            }
-
-            .section-title {
-                font-size: 1.1rem;
-            }
-            .section-title .num {
-                font-size: 0.75rem;
-                padding: 0.05rem 0.8rem;
-            }
-
-            .subsection h3 {
-                font-size: 0.95rem;
-            }
-
-            .step-desc {
-                font-size: 0.8rem;
-                padding: 0.5rem 0.9rem;
-            }
-
-            .img-card img {
-                max-height: 200px;
-            }
-
-            .toc {
-                padding: 0.5rem 0.8rem;
-            }
-            .toc-grid li {
-                font-size: 0.7rem;
-            }
-            .toc-grid li .step-num {
-                font-size: 0.5rem;
-                min-width: 22px;
-            }
-
-            .footer-note {
-                font-size: 0.65rem;
-                padding: 0.4rem 0.8rem;
-            }
+            .container { padding: 0.8rem 0.6rem; border-radius: 20px; }
+            .header-left h1 { font-size: 1.2rem; }
+            .section-title { font-size: 1.1rem; }
+            .subsection h3 { font-size: 0.95rem; }
+            .step-desc { font-size: 0.8rem; padding: 0.5rem 0.9rem; }
+            .img-card img { max-height: none; }
         }
 
         /* ============================================================
-               毛玻璃降级（减少动效 / 低性能）
-               ============================================================ */
+           毛玻璃降级（减少动效 / 低性能）
+           ============================================================ */
         @media (max-width: 768px),
         (prefers-reduced-motion: reduce) {
-            .container,
-            .toc,
-            .step-desc,
-            .img-card,
-            .author-block,
-            .footer-note,
-            .logo-wrap,
-            .header-left .subhead,
-            .step-desc .remark,
-            .step-desc .code-inline,
-            .step-desc .sub-operation {
+            .container, .toc, .step-desc, .img-card, .author-block, .footer-note,
+            .logo-wrap, .header-left .subhead, .step-desc .remark,
+            .step-desc .code-inline, .step-desc .sub-operation {
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
                 background: var(--bg-container-solid) !important;
             }
-            .step-desc:hover,
-            .img-card:hover {
-                transform: none !important;
-            }
-            .container {
-                background: var(--bg-container-solid) !important;
-            }
-            .header {
-                background: var(--bg-container-solid) !important;
-            }
-            .step-desc.highlight {
-                background: var(--bg-highlight) !important;
-            }
-            .img-card {
-                background: var(--bg-container-solid) !important;
-            }
-            .toc {
-                background: var(--bg-container-solid) !important;
-            }
-            .step-nav {
-                backdrop-filter: none !important;
-                background: var(--bg-container-solid) !important;
-            }
+            .step-desc:hover, .img-card:hover { transform: none !important; }
+            .container { background: var(--bg-container-solid) !important; }
+            .header { background: var(--bg-container-solid) !important; }
+            .step-nav { backdrop-filter: none !important; background: var(--bg-container-solid) !important; }
         }
 
         /* ============================================================
-               打印样式
-               ============================================================ */
+           打印样式
+           ============================================================ */
         @media print {
-            /* 重置 */
-            body {
-                background: white !important;
-                padding: 0 !important;
-                color: #000 !important;
-                font-size: 11pt;
-                line-height: 1.5;
-            }
-
-            .container {
-                max-width: 100% !important;
-                background: white !important;
-                box-shadow: none !important;
-                border-radius: 0 !important;
-                padding: 16px 20px !important;
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-            }
-
-            .header {
-                background: #f0f4f8 !important;
-                border-radius: 8px !important;
-                padding: 10px 16px !important;
-                margin-bottom: 16px !important;
-                box-shadow: none !important;
-                border: 1px solid #ddd !important;
-            }
-            .header-left h1 {
-                -webkit-text-fill-color: #0a1e33 !important;
-                background: none !important;
-                color: #0a1e33 !important;
-                filter: none !important;
-                font-size: 18pt !important;
-            }
-            .header-left .subhead {
-                background: #eef2f6 !important;
-                border: 1px solid #ccc !important;
-                -webkit-text-fill-color: #333 !important;
-                color: #333 !important;
-            }
-            .header-left .subhead::before {
-                content: "📘" !important;
-            }
-            .logo-wrap {
-                background: white !important;
-                border: 1px solid #ccc !important;
-            }
-            .logo-wrap img {
-                background: white !important;
-            }
-            .logo-wrap .brand-text {
-                color: #0a1e33 !important;
-            }
-            .author-block {
-                background: white !important;
-                border: 1px solid #ccc !important;
-            }
-            .author-name {
-                color: #0a1e33 !important;
-            }
-            .author-email {
-                color: #1a4b70 !important;
-                background: white !important;
-            }
-
-            .toc {
-                background: #f7f9fc !important;
-                border: 1px solid #ccc !important;
-                border-radius: 8px !important;
-                padding: 10px 16px !important;
-                margin-bottom: 16px !important;
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-            }
-            .toc-title {
-                color: #0a1e33 !important;
-            }
-            .toc-title span {
-                background: #1f4b6e !important;
-                color: white !important;
-            }
-            .toc-grid li {
-                color: #1a3c57 !important;
-            }
-            .toc-grid li .step-num {
-                background: #e8edf3 !important;
-                color: #1f4b6e !important;
-            }
-            .toc-grid li a::after {
-                display: none !important;
-            }
-
-            .section-title {
-                color: #0a1e33 !important;
-                border-bottom: 2px solid #ccc !important;
-            }
-            .section-title .num {
-                background: #1f4b6e !important;
-                color: white !important;
-                box-shadow: none !important;
-            }
-
-            .subsection h3 {
-                color: #0a1e33 !important;
-            }
-
-            .step-desc {
-                background: #f7f9fc !important;
-                border: 1px solid #ccc !important;
-                border-left: 4px solid #1f4b6e !important;
-                border-radius: 6px !important;
-                padding: 6px 12px !important;
-                margin: 4px 0 10px 0 !important;
-                color: #000 !important;
-                box-shadow: none !important;
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-                transform: none !important;
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
-            .step-desc .code-inline {
-                background: #e8edf3 !important;
-                border: 1px solid #ccc !important;
-                color: #004080 !important;
-            }
-            .step-desc .remark {
-                background: #e8edf3 !important;
-                border: 1px solid #ccc !important;
-            }
-            .step-desc .sub-operation {
-                background: #e8edf3 !important;
-                border: 1px solid #ccc !important;
-            }
-            .step-desc.highlight {
-                border-left-color: #b8860b !important;
-                background: #fcf8f0 !important;
-            }
-
-            .img-grid {
-                display: grid !important;
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 12px 16px !important;
-                margin: 12px 0 !important;
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
-
-            .img-card {
-                background: white !important;
-                border: 1px solid #ccc !important;
-                border-radius: 6px !important;
-                padding: 6px !important;
-                box-shadow: none !important;
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-                transform: none !important;
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
+            body { background: white !important; padding: 0 !important; color: #000 !important; font-size: 11pt; }
+            .container { max-width: 100% !important; background: white !important; box-shadow: none !important; border-radius: 0 !important; padding: 16px 20px !important; }
+            .header { background: #f0f4f8 !important; border-radius: 8px !important; padding: 10px 16px !important; margin-bottom: 16px !important; box-shadow: none !important; }
+            .header-left h1 { -webkit-text-fill-color: #0a1e33 !important; background: none !important; color: #0a1e33 !important; font-size: 18pt !important; }
+            .toc { background: #f7f9fc !important; border-radius: 8px !important; padding: 10px 16px !important; }
+            .section-title { color: #0a1e33 !important; }
+            .step-desc { background: #f7f9fc !important; border: 1px solid #ccc !important; border-left: 4px solid #1f4b6e !important; color: #000 !important; box-shadow: none !important; transform: none !important; }
+            .img-grid { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; gap: 12px 16px !important; }
+            .img-card { background: white !important; border: 1px solid #ccc !important; box-shadow: none !important; transform: none !important; }
             .img-card img {
-                max-height: 200px !important;
+                max-height: none !important; /* 打印时完全显示，不限制高度 */
                 border: 1px solid #ddd !important;
                 background: white !important;
                 border-radius: 4px !important;
                 cursor: default !important;
             }
-            .img-card .img-caption {
-                background: #f0f4f8 !important;
-                border: 1px solid #ddd !important;
-                color: #1a3c57 !important;
-                font-size: 8pt !important;
-            }
-            .img-card .code-tag {
-                background: #f0f4f8 !important;
-                border: 1px solid #ddd !important;
-                color: #004080 !important;
-                font-size: 7pt !important;
-            }
-
-            .footer-note {
-                background: #f7f9fc !important;
-                border: 1px solid #ccc !important;
-                border-radius: 8px !important;
-                padding: 6px 16px !important;
-                margin-top: 16px !important;
-                color: #333 !important;
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-                font-size: 9pt !important;
-            }
-            .footer-note .doc-badge {
-                background: #1f4b6e !important;
-                color: white !important;
-                box-shadow: none !important;
-            }
-
-            /* 隐藏交互元素 */
-            .step-nav,
-            .reading-progress,
-            .back-to-top,
-            .lightbox-overlay,
-            .lightbox-nav,
-            .lightbox-counter,
-            .lightbox-close {
-                display: none !important;
-            }
-
-            /* 分页控制 */
-            .section {
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
-            .subsection {
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
-            .img-card {
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
-            .step-desc {
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
-
-            /* 打印时每个图片卡片尽量保持在一页内 */
-            .img-grid .img-card {
-                page-break-inside: avoid;
-            }
-        }
-
-        /* ============================================================
-               辅助类
-               ============================================================ */
-        .sr-only {
-            position: absolute !important;
-            width: 1px !important;
-            height: 1px !important;
-            padding: 0 !important;
-            margin: -1px !important;
-            overflow: hidden !important;
-            clip: rect(0, 0, 0, 0) !important;
-            border: 0 !important;
+            .img-card .img-caption, .img-card .code-tag { background: #f0f4f8 !important; border: 1px solid #ddd !important; color: #1a3c57 !important; font-size: 8pt !important; }
+            .footer-note { background: #f7f9fc !important; border: 1px solid #ccc !important; border-radius: 8px !important; padding: 6px 16px !important; margin-top: 16px !important; color: #333 !important; }
+            .step-nav, .reading-progress, .back-to-top, .lightbox-overlay, .lightbox-nav, .lightbox-counter, .lightbox-close { display: none !important; }
+            .section, .subsection, .img-card { break-inside: avoid; page-break-inside: avoid; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 阅读进度条 -->
     <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
 
     <div class="container">
-
-        <!-- ==========================================================
-        头部
-        ========================================================== -->
         <header class="header">
             <div class="header-brand">
                 <div class="logo-wrap">
@@ -1479,9 +798,6 @@
             </div>
         </header>
 
-        <!-- ==========================================================
-        目录
-        ========================================================== -->
         <nav class="toc" aria-label="目录">
             <div class="toc-header">
                 <div class="toc-title"><i class="fas fa-list-ul" aria-hidden="true"></i> 目录 <span>4 步骤</span></div>
@@ -1494,17 +810,12 @@
             </ul>
         </nav>
 
-        <!-- ==========================================================
-        一、流程背景
-        ========================================================== -->
         <section class="section" id="sec-bg">
             <div class="section-title"><span class="num">一</span> 复方AT流程背景</div>
-
             <div class="step-desc" data-step-label="流程背景">
                 <i class="fas fa-info-circle" style="color:var(--accent-light);" aria-hidden="true"></i>
                 复方AT流程背景说明
             </div>
-
             <div class="img-grid">
                 <div class="img-card">
                     <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Recipe-AT/1-1.png" alt="1-1 复方AT流程背景" loading="lazy" decoding="async" />
@@ -1516,17 +827,12 @@
             </div>
         </section>
 
-        <!-- ==========================================================
-        二、运作流程图
-        ========================================================== -->
         <section class="section" id="sec-flow">
             <div class="section-title"><span class="num">二</span> 复方AT运作流程图</div>
-
             <div class="step-desc" data-step-label="运作流程图">
                 <i class="fas fa-project-diagram" style="color:var(--accent-light);" aria-hidden="true"></i>
                 复方AT整体运作流程
             </div>
-
             <div class="img-grid">
                 <div class="img-card">
                     <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Recipe-AT/1-2.png" alt="1-2 复方AT运作流程图" loading="lazy" decoding="async" />
@@ -1538,22 +844,15 @@
             </div>
         </section>
 
-        <!-- ==========================================================
-        三、AT单开单操作指引
-        ========================================================== -->
         <section class="section" id="sec-step1">
             <div class="section-title"><span class="num">三</span> AT单开单操作指引</div>
-
-            <!-- 第一步 -->
             <div class="subsection" id="sec-step1-1">
                 <h3><i class="fas fa-search" style="color:#2b5f8a;" aria-hidden="true"></i> 第一步：查询AT标记的库存数据</h3>
-
                 <div class="step-desc" data-step-label="ZSOHWM014">
                     <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
                     操作代码：<span class="code-inline">ZSOHWM014</span>
                     <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 查询AT标记的库存数据</span>
                 </div>
-
                 <div class="img-grid">
                     <div class="img-card">
                         <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Recipe-AT/1-3.png" alt="1-3 ZSOHWM014 查询AT库存" loading="lazy" decoding="async" />
@@ -1565,16 +864,13 @@
                 </div>
             </div>
 
-            <!-- 第二步 -->
             <div class="subsection" id="sec-step2">
                 <h3><i class="fas fa-plus-circle" style="color:#8a6e9b;" aria-hidden="true"></i> 第二步：创建复方AT单</h3>
-
                 <div class="step-desc" data-step-label="ZSOHPP219">
                     <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
                     操作代码：<span class="code-inline">ZSOHPP219</span>
                     <span class="remark">输入 Sale Group、Plant、Material 后回车，系统自动计算 Generated Order</span>
                 </div>
-
                 <div class="img-grid">
                     <div class="img-card">
                         <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Recipe-AT/1-4.png" alt="1-4 ZSOHPP219 创建复方AT单" loading="lazy" decoding="async" />
@@ -1584,12 +880,10 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="step-desc" data-step-label="锁胚界面">
                     <i class="fas fa-arrow-right" style="color:var(--accent-light);" aria-hidden="true"></i>
                     双击工单号码，进入锁胚界面
                 </div>
-
                 <div class="img-grid">
                     <div class="img-card">
                         <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Recipe-AT/1-5.png" alt="1-5 锁胚界面1" loading="lazy" decoding="async" />
@@ -1606,12 +900,10 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="step-desc" data-step-label="流程完结">
                     <i class="fas fa-flag-checkered" style="color:#1f6b4a;" aria-hidden="true"></i>
                     锁胚报工、发单，开单流程完结。
                 </div>
-
                 <div class="img-grid">
                     <div class="img-card">
                         <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Recipe-AT/1-7.png" alt="1-7 开单流程完结" loading="lazy" decoding="async" />
@@ -1624,20 +916,13 @@
             </div>
         </section>
 
-        <!-- ==========================================================
-        页脚
-        ========================================================== -->
         <footer class="footer-note">
             <span><i class="fas fa-check-circle" style="color:#1f6b4a;" aria-hidden="true"></i> TOPT 培训教材 · 内部使用</span>
             <span class="doc-badge"><i class="fas fa-file-alt" aria-hidden="true"></i> 版本 v1.0</span>
             <span><i class="far fa-copyright" aria-hidden="true"></i> 刘洋 · liu-yang@top-textiles.vn</span>
         </footer>
-
     </div>
 
-    <!-- ==========================================================
-    Lightbox
-    ========================================================== -->
     <div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="图片放大预览">
         <button class="lightbox-close" id="lightboxClose" aria-label="关闭预览">✕</button>
         <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="上一张图片">❮</button>
@@ -1646,13 +931,9 @@
         <div class="lightbox-counter" id="lightboxCounter" aria-live="polite"></div>
     </div>
 
-    <!-- 返回顶部按钮 -->
     <button class="back-to-top" id="backToTop" aria-label="返回顶部"><i class="fas fa-arrow-up"></i></button>
 
     <script>
-        // ============================================================
-        // 1. Lightbox 图片放大
-        // ============================================================
         (function() {
             const images = Array.from(document.querySelectorAll('.img-card img'));
             const lightbox = document.getElementById('lightbox');
@@ -1690,16 +971,13 @@
             }
 
             function showPrev() {
-                if (currentIndex > 0) { currentIndex--;
-                    updateLightboxImage(); }
+                if (currentIndex > 0) { currentIndex--; updateLightboxImage(); }
             }
 
             function showNext() {
-                if (currentIndex < images.length - 1) { currentIndex++;
-                    updateLightboxImage(); }
+                if (currentIndex < images.length - 1) { currentIndex++; updateLightboxImage(); }
             }
 
-            // 点击图片打开
             document.querySelector('.container').addEventListener('click', function(e) {
                 const img = e.target.closest('.img-card img');
                 if (img) {
@@ -1712,129 +990,76 @@
             prevBtn.addEventListener('click', showPrev);
             nextBtn.addEventListener('click', showNext);
 
-            // 键盘控制
             lightbox.addEventListener('keydown', function(e) {
                 if (!lightbox.classList.contains('active')) return;
                 switch (e.key) {
-                    case 'Escape':
-                        closeLightbox();
-                        break;
-                    case 'ArrowLeft':
-                        showPrev();
-                        e.preventDefault();
-                        break;
-                    case 'ArrowRight':
-                        showNext();
-                        e.preventDefault();
-                        break;
-                    case 'Tab':
+                    case 'Escape': closeLightbox(); break;
+                    case 'ArrowLeft': showPrev(); e.preventDefault(); break;
+                    case 'ArrowRight': showNext(); e.preventDefault(); break;
+                    case 'Tab': {
                         const focusable = lightbox.querySelectorAll('button');
                         if (focusable.length === 0) return;
                         const first = focusable[0];
                         const last = focusable[focusable.length - 1];
-                        if (e.shiftKey && document.activeElement === first) {
-                            last.focus();
-                            e.preventDefault();
-                        } else if (!e.shiftKey && document.activeElement === last) {
-                            first.focus();
-                            e.preventDefault();
-                        }
+                        if (e.shiftKey && document.activeElement === first) { last.focus(); e.preventDefault(); }
+                        else if (!e.shiftKey && document.activeElement === last) { first.focus(); e.preventDefault(); }
                         break;
+                    }
                 }
             });
 
-            // 点击背景关闭
-            lightbox.addEventListener('click', function(e) {
-                if (e.target === lightbox) closeLightbox();
-            });
+            lightbox.addEventListener('click', function(e) { if (e.target === lightbox) closeLightbox(); });
 
-            // 触摸滑动
             let touchStartX = 0;
-            lightbox.addEventListener('touchstart', function(e) {
-                touchStartX = e.changedTouches[0].screenX;
-            }, { passive: true });
-
+            lightbox.addEventListener('touchstart', function(e) { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
             lightbox.addEventListener('touchend', function(e) {
                 const touchEndX = e.changedTouches[0].screenX;
                 const diff = touchStartX - touchEndX;
-                if (Math.abs(diff) > 40) {
-                    if (diff > 0) showNext();
-                    else showPrev();
-                }
+                if (Math.abs(diff) > 40) { if (diff > 0) showNext(); else showPrev(); }
             }, { passive: true });
         })();
 
-        // ============================================================
-        // 2. 步骤滚动高亮导航 (IntersectionObserver)
-        // ============================================================
         (function() {
             const steps = document.querySelectorAll('.step-desc');
             if (steps.length === 0) return;
-
-            // 创建导航容器
             const nav = document.createElement('div');
             nav.className = 'step-nav';
             nav.id = 'stepNav';
             nav.setAttribute('role', 'navigation');
             nav.setAttribute('aria-label', '步骤导航');
-
             steps.forEach(function(step, index) {
                 const btn = document.createElement('button');
                 btn.className = 'nav-dot';
-                btn.setAttribute('aria-label', '跳转到第 ' + (index + 1) + ' 步：' + (step.dataset
-                .stepLabel || ''));
+                btn.setAttribute('aria-label', '跳转到第 ' + (index + 1) + ' 步：' + (step.dataset.stepLabel || ''));
                 const tooltip = document.createElement('span');
                 tooltip.className = 'tooltip';
                 tooltip.textContent = step.dataset.stepLabel || '步骤 ' + (index + 1);
                 btn.appendChild(tooltip);
-
-                btn.addEventListener('click', function() {
-                    step.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                });
-
+                btn.addEventListener('click', function() { step.scrollIntoView({ behavior: 'smooth', block: 'center' }); });
                 nav.appendChild(btn);
             });
-
             document.body.appendChild(nav);
             const navDots = nav.querySelectorAll('.nav-dot');
-
             const observer = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
                         const index = Array.from(steps).indexOf(entry.target);
-                        if (index !== -1) {
-                            setActiveStep(index);
-                        }
+                        if (index !== -1) setActiveStep(index);
                     }
                 });
-            }, {
-                root: null,
-                rootMargin: '-20% 0px -60% 0px',
-                threshold: 0
-            });
-
+            }, { root: null, rootMargin: '-20% 0px -60% 0px', threshold: 0 });
             steps.forEach(function(step) { observer.observe(step); });
-
             function setActiveStep(index) {
                 navDots.forEach(function(dot, i) {
                     dot.classList.toggle('active', i === index);
-                    if (i === index) {
-                        dot.setAttribute('aria-current', 'step');
-                    } else {
-                        dot.removeAttribute('aria-current');
-                    }
+                    if (i === index) dot.setAttribute('aria-current', 'step');
+                    else dot.removeAttribute('aria-current');
                 });
-                steps.forEach(function(step, i) {
-                    step.classList.toggle('highlight', i === index);
-                });
+                steps.forEach(function(step, i) { step.classList.toggle('highlight', i === index); });
             }
-
             if (steps.length > 0) setActiveStep(0);
         })();
 
-        // ============================================================
-        // 3. 阅读进度条
-        // ============================================================
         (function() {
             const progressBar = document.getElementById('readingProgress');
             window.addEventListener('scroll', function() {
@@ -1845,24 +1070,14 @@
             }, { passive: true });
         })();
 
-        // ============================================================
-        // 4. 返回顶部按钮
-        // ============================================================
         (function() {
             const backToTop = document.getElementById('backToTop');
             window.addEventListener('scroll', function() {
-                if (window.scrollY > 300) {
-                    backToTop.classList.add('visible');
-                } else {
-                    backToTop.classList.remove('visible');
-                }
+                if (window.scrollY > 300) backToTop.classList.add('visible');
+                else backToTop.classList.remove('visible');
             }, { passive: true });
-
-            backToTop.addEventListener('click', function() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
+            backToTop.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
         })();
     </script>
-
 </body>
 </html>
