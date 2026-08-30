@@ -10,9 +10,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
         /* ============================================================
-           CSS 变量 — 浅色 / 深色 自适应（含图片处理专用变量）
+           1. CSS 变量 — 浅色 / 深色自适应（含图片处理专用变量）
            ============================================================ */
         :root {
+            /* 背景与文字 */
             --bg-body: #eef3f8;
             --bg-container: rgba(255, 255, 255, 0.72);
             --bg-container-solid: #ffffff;
@@ -29,6 +30,8 @@
             --accent-green: #2a7f5a;
             --accent-purple: #8a6e9b;
             --accent-red: #c0392b;
+
+            /* 卡片与毛玻璃 */
             --bg-card: rgba(255, 255, 255, 0.55);
             --bg-toc: rgba(255, 255, 255, 0.40);
             --bg-step: rgba(255, 255, 255, 0.55);
@@ -39,17 +42,17 @@
             --bg-highlight: rgba(252, 248, 240, 0.60);
             --bg-code-inline: rgba(234, 241, 250, 0.55);
             --bg-nav-dot: rgba(220, 230, 242, 0.50);
+
+            /* 文字颜色 */
             --color-text-on-accent: white;
             --color-text-remark: #1d3a53;
             --color-text-note: #4d3a20;
-            --color-border-img: rgba(220, 230, 242, 0.30);
+
+            /* 图片专用变量 */
             --img-bg: #f8fafc;
-            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            --backdrop-blur: blur(16px) saturate(180%);
-            --transition-speed: 0.3s;
-            --card-radius: 20px;
-            --container-radius: 48px;
+            --color-border-img: rgba(220, 230, 242, 0.30);
             --img-radius: 14px;
+            --card-radius: 20px;
             --gap-grid: 1.8rem;
             --img-max-height-desktop: clamp(420px, 60vh, 760px);
             --img-max-height-tablet: clamp(320px, 50vh, 540px);
@@ -58,6 +61,14 @@
             --grid-col-min-desktop: 320px;
             --grid-col-min-tablet: 280px;
             --grid-col-min-large: 420px;
+
+            /* 字体与通用 */
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --backdrop-blur: blur(16px) saturate(180%);
+            --transition-speed: 0.3s;
+            --container-radius: 48px;
+
+            /* 文本尺寸 */
             --fs-h1: clamp(1.4rem, 4vw, 2rem);
             --fs-section: clamp(1.1rem, 3vw, 1.8rem);
             --fs-h3: clamp(0.95rem, 2.5vw, 1.35rem);
@@ -100,7 +111,9 @@
             }
         }
 
-        /* 全局重置 */
+        /* ============================================================
+           2. 全局重置
+           ============================================================ */
         *,
         *::before,
         *::after {
@@ -142,7 +155,9 @@
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
-        /* 头部 */
+        /* ============================================================
+           3. 头部
+           ============================================================ */
         .header {
             border-bottom: 1px solid var(--border-subtle);
             padding: clamp(0.6rem, 2vw, 1.5rem) clamp(0.8rem, 2vw, 2rem);
@@ -258,12 +273,10 @@
             gap: 6px;
             transition: color var(--transition-speed) ease;
         }
-
         .author-name i {
             color: var(--accent-light);
             font-size: 0.85rem;
         }
-
         .author-email {
             font-size: var(--fs-tiny);
             font-weight: 500;
@@ -274,7 +287,6 @@
             letter-spacing: 0.2px;
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
         }
-
         .badge-soft {
             background: rgba(220, 235, 250, 0.55);
             padding: 0.2rem 1rem;
@@ -288,7 +300,9 @@
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
         }
 
-        /* 目录 */
+        /* ============================================================
+           4. 目录
+           ============================================================ */
         .toc {
             background: var(--bg-toc);
             backdrop-filter: blur(12px);
@@ -306,7 +320,6 @@
             gap: 10px;
             margin-bottom: 10px;
         }
-
         .toc-title {
             font-weight: 700;
             font-size: clamp(0.85rem, 1.6vw, 1.05rem);
@@ -316,7 +329,6 @@
             gap: 8px;
             transition: color var(--transition-speed) ease;
         }
-
         .toc-title span {
             background: var(--accent);
             color: var(--color-text-on-accent);
@@ -334,7 +346,6 @@
             list-style: none;
             padding: 0;
         }
-
         .toc-grid li {
             font-weight: 500;
             font-size: var(--fs-small);
@@ -345,7 +356,6 @@
             align-items: center;
             gap: 6px;
         }
-
         .toc-grid li .step-num {
             display: inline-block;
             background: var(--bg-code-inline);
@@ -359,13 +369,11 @@
             text-align: center;
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
         }
-
         .toc-grid li .step-icon {
             font-size: 0.7rem;
             width: 18px;
             text-align: center;
         }
-
         .toc-grid li a {
             color: inherit;
             text-decoration: none;
@@ -374,7 +382,6 @@
             padding: 4px 0;
             display: inline-block;
         }
-
         .toc-grid li a::after {
             content: '';
             position: absolute;
@@ -385,7 +392,6 @@
             background: var(--text-link);
             transition: width 0.25s ease;
         }
-
         .toc-grid li a:hover,
         .toc-grid li a:focus-visible {
             color: var(--text-link);
@@ -395,11 +401,12 @@
             width: 100%;
         }
 
-        /* 章节 */
+        /* ============================================================
+           5. 章节与步骤
+           ============================================================ */
         .section {
             margin-bottom: clamp(1.2rem, 3vw, 2.8rem);
         }
-
         .section-title {
             font-size: var(--fs-section);
             font-weight: 700;
@@ -413,7 +420,6 @@
             gap: 12px;
             transition: color var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
-
         .section-title .num {
             background: linear-gradient(145deg, var(--accent), #0b2b4a);
             color: white;
@@ -430,7 +436,6 @@
             padding-left: 0.2rem;
             scroll-margin-top: 20px;
         }
-
         .subsection h3 {
             font-size: var(--fs-h3);
             font-weight: 600;
@@ -452,7 +457,6 @@
             border: 1px solid var(--border-subtle);
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
-
         .path-box .path-title {
             font-weight: 700;
             font-size: clamp(0.9rem, 1.5vw, 1rem);
@@ -461,7 +465,6 @@
             align-items: center;
             margin-bottom: 0.4rem;
         }
-
         .path-box .path-badge {
             font-size: 0.7rem;
             padding: 0.1rem 0.8rem;
@@ -470,7 +473,6 @@
             color: var(--text-link);
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
         }
-
         .path-box .path-desc code {
             background: var(--bg-code-inline);
             padding: 0.1rem 0.6rem;
@@ -481,7 +483,6 @@
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
         }
 
-        /* 步骤描述卡片 */
         .step-desc {
             background: var(--bg-step);
             backdrop-filter: blur(8px);
@@ -502,21 +503,18 @@
             align-items: center;
             gap: 0.5rem 1rem;
         }
-
         .step-desc:hover {
             transform: translateX(4px) scale(1.002);
             box-shadow: 0 8px 24px rgba(0, 20, 40, 0.06);
             border-color: var(--border-strong);
             background: var(--bg-step-hover);
         }
-
         .step-desc.highlight {
             border-left-color: var(--accent-gold) !important;
             background: var(--bg-highlight) !important;
             backdrop-filter: blur(8px);
             box-shadow: 0 0 0 2px rgba(217, 158, 74, 0.12);
         }
-
         .step-desc .code-inline {
             background: var(--bg-code-inline);
             backdrop-filter: blur(4px);
@@ -528,7 +526,6 @@
             font-size: var(--fs-small);
             border: 1px solid var(--border-subtle);
         }
-
         .step-desc .remark {
             display: inline-block;
             font-weight: 400;
@@ -540,16 +537,15 @@
             transition: background var(--transition-speed) ease;
             border: 1px solid var(--border-subtle);
         }
-
         .step-desc i {
             font-size: 1.1rem;
         }
 
         /* ============================================================
-           图片处理模块（统一标准）
+           6. 图片处理模块（核心）
            ============================================================ */
 
-        /* 图片网格 */
+        /* 6-A. 图片网格 */
         .img-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(var(--grid-col-min-desktop), 1fr));
@@ -557,7 +553,7 @@
             margin: 1.6rem 0 1.4rem 0;
         }
 
-        /* 单张图片 */
+        /* 单张图片居中收窄 */
         .img-grid:has(> .img-card:only-child) {
             grid-template-columns: 1fr;
             max-width: 88%;
@@ -565,7 +561,7 @@
             margin-right: auto;
         }
 
-        /* 堆叠单列 */
+        /* 堆叠单列（多张图上下排列） */
         .img-grid.stacked {
             grid-template-columns: 1fr !important;
             max-width: 88% !important;
@@ -573,13 +569,13 @@
             margin-right: auto !important;
         }
 
-        /* 大图网格 */
+        /* 大图网格（分缸等需要清晰显示的场景） */
         .img-grid.large-grid {
             grid-template-columns: repeat(auto-fill, minmax(var(--grid-col-min-large), 1fr));
             gap: 2rem;
         }
 
-        /* 图片卡片 */
+        /* 6-B. 图片卡片 */
         .img-card {
             background: var(--bg-img-card);
             backdrop-filter: blur(8px);
@@ -597,13 +593,13 @@
             contain-intrinsic-size: 300px;
             position: relative;
         }
-
         .img-card:hover {
             transform: translateY(-4px) scale(1.008);
             box-shadow: 0 16px 48px rgba(0, 20, 40, 0.08);
             border-color: var(--border-strong);
         }
 
+        /* 图片角标 */
         .img-card .img-badge {
             position: absolute;
             top: 12px;
@@ -621,6 +617,7 @@
             transition: opacity 0.3s;
         }
 
+        /* 图片包裹层 */
         .img-wrapper {
             position: relative;
             width: 100%;
@@ -635,6 +632,7 @@
             transition: background 0.3s ease;
         }
 
+        /* 占位动画 */
         .img-wrapper .img-placeholder {
             position: absolute;
             inset: 0;
@@ -646,12 +644,10 @@
             transition: opacity 0.4s ease;
             pointer-events: none;
         }
-
         .img-wrapper .img-placeholder.hidden {
             opacity: 0;
             pointer-events: none;
         }
-
         .img-wrapper .img-placeholder .spinner {
             width: 36px;
             height: 36px;
@@ -660,13 +656,13 @@
             border-top-color: var(--accent-light);
             animation: spin 0.8s linear infinite;
         }
-
         @keyframes spin {
             to {
                 transform: rotate(360deg);
             }
         }
 
+        /* 错误提示 */
         .img-wrapper .img-error {
             position: absolute;
             inset: 0;
@@ -683,17 +679,14 @@
             pointer-events: none;
             transition: opacity 0.4s ease;
         }
-
         .img-wrapper .img-error.visible {
             opacity: 1;
             pointer-events: auto;
         }
-
         .img-wrapper .img-error i {
             font-size: 2rem;
             color: var(--accent-red);
         }
-
         .img-wrapper .img-error .retry-btn {
             background: var(--accent);
             color: white;
@@ -710,7 +703,6 @@
             margin-top: 4px;
             touch-action: manipulation;
         }
-
         .img-wrapper .img-error .retry-btn:hover,
         .img-wrapper .img-error .retry-btn:focus-visible {
             background: var(--accent-light);
@@ -718,6 +710,7 @@
             outline-offset: 2px;
         }
 
+        /* 真实图片 */
         .img-card img {
             width: 100%;
             height: auto;
@@ -731,12 +724,10 @@
             opacity: 0;
             aspect-ratio: auto;
         }
-
         .img-card img.loaded {
             opacity: 1;
             animation: imgFadeIn 0.4s ease forwards;
         }
-
         @keyframes imgFadeIn {
             from {
                 opacity: 0;
@@ -747,11 +738,11 @@
                 transform: scale(1);
             }
         }
-
         .img-card:hover img.loaded {
             transform: scale(1.01);
         }
 
+        /* 图片提示与标签 */
         .img-card .img-hint {
             font-size: var(--fs-tiny);
             color: var(--text-secondary);
@@ -766,7 +757,6 @@
         .img-card:hover .img-hint {
             opacity: 0.9;
         }
-
         .img-card .img-caption {
             font-size: var(--fs-tiny);
             font-weight: 500;
@@ -780,7 +770,6 @@
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
             border: 1px solid var(--border-subtle);
         }
-
         .img-card .code-tag {
             font-family: 'Inter', monospace;
             background: var(--bg-code-inline);
@@ -795,7 +784,6 @@
             display: inline-block;
             margin-right: 6px;
         }
-
         .img-card .card-labels {
             display: flex;
             flex-wrap: wrap;
@@ -804,7 +792,9 @@
             margin-top: 2px;
         }
 
-        /* 页脚 */
+        /* ============================================================
+           7. 页脚
+           ============================================================ */
         .footer-note {
             margin-top: clamp(1.2rem, 3vw, 3.2rem);
             font-size: var(--fs-small);
@@ -823,7 +813,6 @@
             gap: 0.6rem 1.6rem;
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease, color var(--transition-speed) ease;
         }
-
         .footer-note .doc-badge {
             background: linear-gradient(145deg, var(--accent), #0b2b4a);
             color: white;
@@ -834,7 +823,9 @@
             box-shadow: 0 2px 8px rgba(31, 75, 110, 0.12);
         }
 
-        /* 侧边导航（桌面） */
+        /* ============================================================
+           8. 侧边导航（桌面）
+           ============================================================ */
         .step-nav {
             position: fixed;
             right: clamp(8px, 2vw, 24px);
@@ -852,13 +843,11 @@
             gap: 8px;
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
-
         @media (min-width: 1024px) {
             .step-nav {
                 display: flex;
             }
         }
-
         .step-nav .nav-dot {
             width: 10px;
             height: 10px;
@@ -877,7 +866,6 @@
             background-clip: content-box;
             padding: 6px;
         }
-
         .step-nav .nav-dot:hover,
         .step-nav .nav-dot:focus-visible {
             transform: scale(1.3);
@@ -885,12 +873,10 @@
             outline: none;
             box-shadow: 0 0 0 2px var(--accent-light);
         }
-
         .step-nav .nav-dot.active {
             background: var(--accent);
             box-shadow: 0 0 0 4px rgba(31, 75, 110, 0.08);
         }
-
         .step-nav .nav-dot .tooltip {
             position: absolute;
             right: 30px;
@@ -909,14 +895,15 @@
             font-weight: 500;
             z-index: 10;
         }
-
         .step-nav .nav-dot:hover .tooltip,
         .step-nav .nav-dot:focus-visible .tooltip {
             opacity: 1;
             right: 32px;
         }
 
-        /* Lightbox */
+        /* ============================================================
+           9. Lightbox 全屏放大
+           ============================================================ */
         .lightbox-overlay {
             position: fixed;
             top: 0;
@@ -932,11 +919,9 @@
             padding: 20px;
             animation: fadeIn 0.3s ease;
         }
-
         .lightbox-overlay.active {
             display: flex;
         }
-
         .lightbox-overlay img {
             max-width: 92%;
             max-height: 82%;
@@ -947,7 +932,6 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
             background: #fff;
         }
-
         .lightbox-close {
             position: fixed;
             top: clamp(12px, 3vw, 24px);
@@ -970,7 +954,6 @@
             -webkit-appearance: none;
             touch-action: manipulation;
         }
-
         .lightbox-close:hover,
         .lightbox-close:focus-visible {
             background: rgba(255, 255, 255, 0.18);
@@ -978,7 +961,6 @@
             outline: 2px solid white;
             outline-offset: 2px;
         }
-
         .lightbox-nav {
             position: fixed;
             top: 50%;
@@ -1000,21 +982,18 @@
             -webkit-appearance: none;
             touch-action: manipulation;
         }
-
         .lightbox-nav:hover,
         .lightbox-nav:focus-visible {
             background: rgba(255, 255, 255, 0.2);
             outline: 2px solid white;
             outline-offset: 2px;
         }
-
         .lightbox-prev {
             left: clamp(8px, 2vw, 16px);
         }
         .lightbox-next {
             right: clamp(8px, 2vw, 16px);
         }
-
         .lightbox-counter {
             position: fixed;
             bottom: clamp(12px, 3vw, 24px);
@@ -1029,7 +1008,6 @@
             pointer-events: none;
             letter-spacing: 0.5px;
         }
-
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -1049,7 +1027,9 @@
             }
         }
 
-        /* 阅读进度条 */
+        /* ============================================================
+           10. 阅读进度条 & 返回顶部
+           ============================================================ */
         .reading-progress {
             position: fixed;
             top: 0;
@@ -1061,8 +1041,6 @@
             transition: width 0.08s linear;
             border-radius: 0 2px 2px 0;
         }
-
-        /* 返回顶部按钮 */
         .back-to-top {
             position: fixed;
             bottom: clamp(60px, 12vh, 28px);
@@ -1085,11 +1063,9 @@
             -webkit-appearance: none;
             touch-action: manipulation;
         }
-
         .back-to-top.visible {
             display: flex;
         }
-
         .back-to-top:hover,
         .back-to-top:focus-visible {
             background: var(--accent-light);
@@ -1098,7 +1074,9 @@
             outline-offset: 2px;
         }
 
-        /* Focus-visible */
+        /* ============================================================
+           11. 无障碍 & 焦点
+           ============================================================ */
         a:focus-visible,
         button:focus-visible,
         [tabindex]:focus-visible {
@@ -1106,8 +1084,21 @@
             outline-offset: 2px;
             border-radius: 4px;
         }
+        .sr-only {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            border: 0 !important;
+            white-space: nowrap !important;
+        }
 
-        /* 响应式 */
+        /* ============================================================
+           12. 响应式
+           ============================================================ */
         @media (max-width: 1024px) {
             .container {
                 padding: 1.2rem 1.2rem;
@@ -1165,7 +1156,6 @@
                 padding: 0.3rem 1rem 0.3rem 1.2rem;
                 border-radius: 40px;
             }
-
             .toc {
                 padding: 0.6rem 0.8rem;
                 border-radius: 18px;
@@ -1184,19 +1174,16 @@
                 min-width: 22px;
                 padding: 0 6px;
             }
-
             .section-title {
                 gap: 8px;
                 margin-bottom: 1rem;
             }
-
             .subsection {
                 margin-top: 1.2rem;
             }
             .subsection h3 {
                 gap: 6px;
             }
-
             .step-desc {
                 padding: 0.6rem 0.9rem;
                 font-size: 0.82rem;
@@ -1210,7 +1197,6 @@
             .step-desc .code-inline {
                 font-size: 0.74rem;
             }
-
             .img-grid,
             .img-grid.large-grid {
                 grid-template-columns: 1fr;
@@ -1224,7 +1210,6 @@
             .img-card img {
                 max-height: var(--img-max-height-mobile);
             }
-
             .img-card {
                 padding: 0.35rem 0.35rem 0.5rem 0.35rem;
                 border-radius: 14px;
@@ -1243,7 +1228,6 @@
                 font-size: 0.55rem;
                 padding: 0.1rem 0.5rem;
             }
-
             .footer-note {
                 font-size: 0.7rem;
                 padding: 0.5rem 1rem;
@@ -1251,11 +1235,9 @@
                 gap: 0.3rem 1rem;
                 flex-direction: column;
             }
-
             .step-nav {
                 display: none !important;
             }
-
             .lightbox-overlay {
                 padding: 10px;
             }
@@ -1356,7 +1338,7 @@
         }
 
         /* ============================================================
-           打印样式（去掉页眉，页脚只保留页数）
+           13. 打印样式
            ============================================================ */
         @media print {
             @page {
@@ -1366,11 +1348,9 @@
                     content: "第 " counter(page) " 页";
                 }
             }
-
             html {
                 font-size: 10.5pt;
             }
-
             body {
                 background: white !important;
                 padding: 0 !important;
@@ -1379,7 +1359,6 @@
                 line-height: 1.5;
                 display: block !important;
             }
-
             .container {
                 max-width: 100% !important;
                 background: white !important;
@@ -1389,8 +1368,6 @@
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
             }
-
-            /* 隐藏所有交互元素 */
             .step-nav,
             .reading-progress,
             .back-to-top,
@@ -1402,7 +1379,6 @@
             .img-badge {
                 display: none !important;
             }
-
             .header {
                 background: #f0f4f8 !important;
                 border-radius: 6px !important;
@@ -1452,7 +1428,6 @@
                 border: 1px solid #ccc !important;
                 color: #1a4b70 !important;
             }
-
             .toc {
                 background: #f7f9fc !important;
                 border: 1px solid #ccc !important;
@@ -1481,7 +1456,6 @@
             .toc-grid li a::after {
                 display: none !important;
             }
-
             .section-title {
                 color: #0a1e33 !important;
                 border-bottom: 1.5px solid #999 !important;
@@ -1494,14 +1468,12 @@
                 color: white !important;
                 box-shadow: none !important;
             }
-
             .subsection h3 {
                 color: #0a1e33 !important;
                 font-size: 11pt !important;
                 break-after: avoid;
                 page-break-after: avoid;
             }
-
             .path-box {
                 background: #f7f9fc !important;
                 border: 1px solid #ccc !important;
@@ -1519,7 +1491,6 @@
                 background: #e8edf3 !important;
                 color: #004080 !important;
             }
-
             .step-desc {
                 background: #f7f9fc !important;
                 border: 1px solid #ccc !important;
@@ -1548,7 +1519,7 @@
                 border: 1px solid #ccc !important;
             }
 
-            /* 打印图片 */
+            /* 打印图片网格 */
             .img-grid,
             .img-grid.large-grid {
                 display: grid !important;
@@ -1558,19 +1529,16 @@
                 break-inside: avoid;
                 page-break-inside: avoid;
             }
-
             .img-grid:has(> .img-card:only-child) {
                 grid-template-columns: 1fr !important;
                 max-width: 70% !important;
                 margin-left: auto !important;
                 margin-right: auto !important;
             }
-
             .img-grid.stacked {
                 grid-template-columns: 1fr !important;
                 max-width: 75% !important;
             }
-
             .img-card {
                 background: white !important;
                 border: 1px solid #bbb !important;
@@ -1618,7 +1586,6 @@
                 border: none !important;
                 background: white !important;
             }
-
             .footer-note {
                 background: #f7f9fc !important;
                 border: 1px solid #ccc !important;
@@ -1638,7 +1605,6 @@
                 box-shadow: none !important;
                 font-size: 7pt !important;
             }
-
             .section {
                 break-inside: auto;
                 page-break-inside: auto;
@@ -1674,18 +1640,6 @@
                 page-break-inside: avoid;
             }
         }
-
-        .sr-only {
-            position: absolute !important;
-            width: 1px !important;
-            height: 1px !important;
-            padding: 0 !important;
-            margin: -1px !important;
-            overflow: hidden !important;
-            clip: rect(0, 0, 0, 0) !important;
-            border: 0 !important;
-            white-space: nowrap !important;
-        }
     </style>
 </head>
 <body>
@@ -1695,7 +1649,9 @@
 
     <div class="container">
 
-        <!-- 头部 -->
+        <!-- ============================================================
+        头部
+        ============================================================ -->
         <header class="header">
             <div class="header-brand">
                 <div class="logo-wrap">
@@ -1717,7 +1673,9 @@
             </div>
         </header>
 
-        <!-- 目录 -->
+        <!-- ============================================================
+        目录
+        ============================================================ -->
         <nav class="toc" aria-label="文档目录">
             <div class="toc-header">
                 <div class="toc-title"><i class="fas fa-list-ul" aria-hidden="true"></i> 目录 <span>7 步骤</span></div>
@@ -1733,11 +1691,14 @@
             </ul>
         </nav>
 
-        <!-- 主内容 -->
+        <!-- ============================================================
+        主内容
+        ============================================================ -->
         <main>
 
-            <!-- ============================================================ -->
-            <!-- 一、流程介绍 -->
+            <!-- ============================================================
+            一、流程介绍
+            ============================================================ -->
             <section class="section" id="step-1" aria-labelledby="sec-1-title">
                 <div class="section-title" id="sec-1-title"><span class="num">一</span> 经编单运作流程介绍</div>
 
@@ -1757,8 +1718,9 @@
                 </div>
             </section>
 
-            <!-- ============================================================ -->
-            <!-- 二、开单流程 -->
+            <!-- ============================================================
+            二、开单流程
+            ============================================================ -->
             <section class="section" aria-labelledby="sec-2-title">
                 <div class="section-title" id="sec-2-title" style="border-bottom-color: var(--accent-light);"><span class="num">二</span> 开单流程</div>
 
@@ -2162,7 +2124,9 @@
             </section>
         </main>
 
-        <!-- 页脚 -->
+        <!-- ============================================================
+        页脚
+        ============================================================ -->
         <footer class="footer-note" role="contentinfo">
             <span><i class="fas fa-check-circle" style="color:#1f6b4a;" aria-hidden="true"></i> TOPT 培训教材 · 内部使用</span>
             <span class="doc-badge"><i class="fas fa-file-alt" aria-hidden="true"></i> 版本 v1.0</span>
@@ -2171,7 +2135,9 @@
 
     </div>
 
-    <!-- Lightbox -->
+    <!-- ============================================================
+    Lightbox
+    ============================================================ -->
     <div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="图片放大预览" aria-hidden="true">
         <button class="lightbox-close" id="lightboxClose" aria-label="关闭预览">✕</button>
         <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="上一张图片">❮</button>
@@ -2180,9 +2146,12 @@
         <div class="lightbox-counter" id="lightboxCounter" aria-live="polite"></div>
     </div>
 
-    <!-- 返回顶部按钮 -->
+    <!-- 返回顶部 -->
     <button class="back-to-top" id="backToTop" aria-label="返回页面顶部"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
 
+    <!-- ============================================================
+    JavaScript — 图片加载管理 + Lightbox + 导航 + 进度
+    ============================================================ -->
     <script>
         (function() {
             'use strict';
@@ -2212,9 +2181,10 @@
                     img.classList.remove('loaded');
                     placeholder?.classList.remove('hidden');
                     errorDiv?.classList.remove('visible');
-                    const originalSrc = img.getAttribute('src');
-                    const newSrc = originalSrc.includes('?') ? originalSrc + '&retry=' + Date.now() :
-                        originalSrc + '?retry=' + Date.now();
+                    const originalSrc = img.getAttribute('src') || '';
+                    // 加时间戳防缓存
+                    const separator = originalSrc.includes('?') ? '&' : '?';
+                    const newSrc = originalSrc + separator + 'retry=' + Date.now();
                     img.src = newSrc;
                 }
 
@@ -2234,7 +2204,7 @@
             });
 
             // ============================================================
-            // 2. Lightbox 图片放大
+            // 2. Lightbox 全屏放大
             // ============================================================
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightboxImg');
@@ -2304,6 +2274,7 @@
                 }
             }
 
+            // 点击图片打开 Lightbox
             document.querySelector('.container').addEventListener('click', function(e) {
                 const img = e.target.closest('.img-card img');
                 if (img) {
@@ -2316,6 +2287,7 @@
             prevBtn.addEventListener('click', showPrev);
             nextBtn.addEventListener('click', showNext);
 
+            // 键盘事件
             lightbox.addEventListener('keydown', function(e) {
                 if (!lightbox.classList.contains('active')) return;
                 switch (e.key) {
@@ -2358,10 +2330,12 @@
                 }
             });
 
+            // 点击背景关闭
             lightbox.addEventListener('click', function(e) {
                 if (e.target === lightbox) closeLightbox();
             });
 
+            // 触摸滑动
             lightbox.addEventListener('touchstart', function(e) {
                 touchStartX = e.changedTouches[0].screenX;
                 touchStartY = e.changedTouches[0].screenY;
@@ -2379,7 +2353,7 @@
             }, { passive: true });
 
             // ============================================================
-            // 3. 步骤滚动高亮导航
+            // 3. 步骤滚动高亮 + 侧边导航
             // ============================================================
             const steps = Array.from(document.querySelectorAll('.step-desc'));
             let navDots = [];
@@ -2389,7 +2363,6 @@
             function setActiveStep(index) {
                 if (index < 0 || index >= steps.length) return;
                 currentStepIndex = index;
-
                 navDots.forEach((dot, i) => {
                     const isActive = i === index;
                     dot.classList.toggle('active', isActive);
@@ -2399,7 +2372,6 @@
                         dot.removeAttribute('aria-current');
                     }
                 });
-
                 steps.forEach((step, i) => {
                     step.classList.toggle('highlight', i === index);
                 });
@@ -2410,7 +2382,7 @@
                 steps[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
 
-            // 创建桌面端侧边导航
+            // 桌面端创建侧边导航
             if (steps.length > 0 && window.matchMedia('(min-width: 1024px)').matches) {
                 const nav = document.createElement('div');
                 nav.className = 'step-nav';
@@ -2429,11 +2401,9 @@
                     tooltip.textContent = step.dataset.stepLabel || '步骤 ' + (index + 1);
                     tooltip.setAttribute('aria-hidden', 'true');
                     btn.appendChild(tooltip);
-
                     btn.addEventListener('click', function() {
                         goToStep(index);
                     });
-
                     nav.appendChild(btn);
                 });
 
@@ -2489,7 +2459,7 @@
             updateProgress();
 
             // ============================================================
-            // 5. 返回顶部按钮
+            // 5. 返回顶部
             // ============================================================
             const backToTop = document.getElementById('backToTop');
             let backToTopTicking = false;
@@ -2517,7 +2487,7 @@
             updateBackToTop();
 
             // ============================================================
-            // 6. 键盘快捷键
+            // 6. 键盘快捷键（Alt+←/→ 切换步骤，Home 回顶）
             // ============================================================
             document.addEventListener('keydown', function(e) {
                 const tag = document.activeElement?.tagName?.toLowerCase();
@@ -2537,7 +2507,7 @@
             });
 
             // ============================================================
-            // 7. 打印前优化
+            // 7. 打印前强制所有图片显示
             // ============================================================
             window.addEventListener('beforeprint', function() {
                 images.forEach(img => {
@@ -2545,8 +2515,9 @@
                 });
             });
 
+            // 控制台提示
             console.log('%c📘 TOPT 培训教材 v1.0', 'font-size:16px;font-weight:700;color:#1f4b6e;');
-            console.log('%c提示：按 Alt+←/→ 快速切换步骤，按 Home 返回顶部', 'font-size:12px;color:#4a6a85;');
+            console.log('%c💡 快捷键：Alt+←/→ 切换步骤，Home 返回顶部', 'font-size:12px;color:#4a6a85;');
 
         })();
     </script>
