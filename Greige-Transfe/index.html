@@ -2,14 +2,17 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TOPT · 胚布抽用工单开单流程 · 培训教材</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+    <title>TOPT · 胚布抽用工单开单流程 · 培训教材 v1.1</title>
+    <meta name="description" content="TOPT 胚布抽用工单开单流程培训教材，涵盖6个核心步骤，含APO/ECC双方法，适配电脑、手机与打印。" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        /* ===== CSS 变量定义 ===== */
+        /* ============================================================
+           CSS 变量 — 优化排版与响应式
+           ============================================================ */
         :root {
             --bg-body: #f1f6fd;
             --bg-container: rgba(255, 255, 255, 0.70);
@@ -45,8 +48,23 @@
             --backdrop-blur: blur(16px) saturate(180%);
             --transition-speed: 0.3s;
             --header-gradient: linear-gradient(135deg, #d6eaf8 0%, #ebf5fb 100%);
+            /* 流式尺寸 */
+            --fs-h1: clamp(1.5rem, 4vw, 2.2rem);
+            --fs-section: clamp(1.2rem, 3vw, 2rem);
+            --fs-h3: clamp(1rem, 2.5vw, 1.5rem);
+            --fs-body: clamp(0.85rem, 1.8vw, 1rem);
+            --fs-small: clamp(0.75rem, 1.5vw, 0.9rem);
+            --fs-tiny: clamp(0.65rem, 1.2vw, 0.8rem);
+            --img-max-height-desktop: clamp(420px, 60vh, 760px);
+            --img-max-height-tablet: clamp(320px, 50vh, 540px);
+            --img-max-height-mobile: clamp(240px, 45vh, 420px);
+            --img-max-height-print: 280px;
+            --grid-col-min-desktop: 240px;
+            --grid-col-min-tablet: 220px;
+            --grid-col-min-large: 400px;
         }
 
+        /* 深色模式 */
         @media (prefers-color-scheme: dark) {
             :root {
                 --bg-body: #0d1b2a;
@@ -84,51 +102,60 @@
             }
         }
 
-        * {
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             font-family: var(--font-family);
             background: var(--bg-body);
             color: var(--text-primary);
-            padding: 2rem 1.5rem;
+            padding: clamp(0.5rem, 2vw, 2rem) clamp(0.5rem, 2vw, 1.5rem);
             line-height: 1.6;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+            font-size: var(--fs-body);
             position: relative;
         }
 
         .container {
             max-width: 1400px;
+            width: 100%;
             margin: 0 auto;
             background: var(--bg-container);
             backdrop-filter: var(--backdrop-blur);
             -webkit-backdrop-filter: var(--backdrop-blur);
-            border-radius: 56px;
+            border-radius: clamp(24px, 4vw, 56px);
             box-shadow: var(--shadow-card);
-            padding: 2.8rem 3.2rem;
+            padding: clamp(1rem, 3vw, 2.8rem);
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
-        /* ===== 头部 ===== */
+        /* 头部 */
         .header {
             border-bottom: 1px solid var(--border-subtle);
-            padding: 1.5rem 2rem;
-            margin-bottom: 2.6rem;
+            padding: clamp(0.8rem, 2vw, 1.8rem);
+            margin-bottom: clamp(1rem, 2.5vw, 2.6rem);
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            gap: 1.2rem;
-            position: relative;
+            gap: 1rem 1.8rem;
             background: var(--header-gradient);
-            border-radius: 32px;
+            border-radius: 28px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
@@ -136,59 +163,54 @@
         .header-brand {
             display: flex;
             align-items: center;
-            gap: 1.2rem;
+            gap: 1rem;
             flex-wrap: wrap;
         }
-
         .logo-wrap {
             background: var(--bg-card);
             border-radius: 60px;
-            padding: 0.4rem 0.8rem 0.4rem 0.4rem;
+            padding: 0.3rem 0.8rem 0.3rem 0.3rem;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.6rem;
             border: 1px solid var(--border-subtle);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
-
         .logo-wrap img {
-            height: 44px;
+            height: clamp(28px, 4vw, 44px);
             width: auto;
             display: block;
             border-radius: 30px;
             background: white;
             padding: 2px;
         }
-
         .logo-wrap .brand-text {
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: clamp(0.85rem, 1.5vw, 1.2rem);
             letter-spacing: -0.3px;
             color: var(--text-heading);
-            padding-right: 0.5rem;
+            padding-right: 0.4rem;
             transition: color var(--transition-speed) ease;
         }
-
         .header-left h1 {
-            font-size: 2.2rem;
+            font-size: var(--fs-h1);
             font-weight: 700;
             letter-spacing: -0.02em;
             background: linear-gradient(145deg, #0a1e33, #1a4b70);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 0.1rem;
+            margin-bottom: 0.05rem;
             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
         }
-
         .header-left .subhead {
-            font-size: 0.9rem;
+            font-size: var(--fs-small);
             font-weight: 500;
             color: var(--text-secondary);
             background: rgba(230, 242, 255, 0.6);
             display: inline-block;
-            padding: 0.2rem 1.4rem;
+            padding: 0.15rem 1.2rem;
             border-radius: 40px;
             letter-spacing: 0.2px;
             backdrop-filter: blur(4px);
@@ -200,118 +222,108 @@
         }
         .header-left .subhead::before {
             content: "📘";
-            font-size: 1em;
+            font-size: 0.9em;
         }
-
         .header-right {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 1rem 1.6rem;
+            gap: 0.8rem 1.4rem;
         }
-
         .author-block {
             display: flex;
             flex-direction: column;
             align-items: flex-end;
             background: var(--bg-card);
             backdrop-filter: blur(8px);
-            padding: 0.4rem 1.6rem 0.4rem 2rem;
+            padding: 0.3rem 1.4rem 0.3rem 1.8rem;
             border-radius: 60px;
             border: 1px solid var(--border-subtle);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
-
         .author-name {
             font-weight: 700;
-            font-size: 1rem;
+            font-size: clamp(0.8rem, 1.4vw, 1rem);
             color: var(--text-heading);
             display: flex;
             align-items: center;
             gap: 6px;
             transition: color var(--transition-speed) ease;
         }
-
         .author-name i {
             color: var(--accent-light);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
-
         .author-email {
-            font-size: 0.72rem;
+            font-size: var(--fs-tiny);
             font-weight: 500;
             color: #2a577b;
             background: var(--bg-card);
-            padding: 0 12px;
+            padding: 0 10px;
             border-radius: 30px;
             letter-spacing: 0.2px;
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
         }
 
-        /* ===== 目录 ===== */
+        /* 目录 */
         .toc {
             background: var(--bg-toc);
             backdrop-filter: blur(12px);
-            border-radius: 32px;
-            padding: 1.2rem 2.2rem;
-            margin-bottom: 3rem;
+            border-radius: 26px;
+            padding: clamp(0.6rem, 1.5vw, 1.4rem) clamp(0.8rem, 2vw, 2.2rem);
+            margin-bottom: clamp(1rem, 2.5vw, 2.6rem);
             border: 1px solid var(--border-subtle);
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
-
         .toc-header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 14px;
+            gap: 10px;
+            margin-bottom: 12px;
         }
-
         .toc-title {
             font-weight: 700;
-            font-size: 1.05rem;
+            font-size: clamp(0.85rem, 1.6vw, 1.05rem);
             color: #12344a;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             transition: color var(--transition-speed) ease;
         }
-
         .toc-title span {
             background: var(--accent);
             color: var(--color-text-on-accent);
-            padding: 0 16px;
+            padding: 0 14px;
             border-radius: 40px;
-            font-size: 0.7rem;
-            line-height: 1.9;
+            font-size: 0.65rem;
+            line-height: 1.8;
             font-weight: 600;
         }
-
         .toc-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 6px 20px;
+            gap: 4px 16px;
             list-style: none;
             padding: 0;
         }
-
         .toc-grid li {
             font-weight: 500;
-            font-size: 0.88rem;
+            font-size: var(--fs-small);
             color: #1a3c57;
-            padding: 4px 0;
+            padding: 3px 0;
             transition: color var(--transition-speed) ease;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            flex-wrap: wrap;
         }
-
         .toc-grid li .step-num {
             display: inline-block;
             background: var(--bg-code-inline);
             color: var(--text-link);
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             font-weight: 700;
             padding: 0 8px;
             border-radius: 20px;
@@ -320,38 +332,37 @@
             text-align: center;
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
         }
-
         .toc-grid li .step-icon {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             width: 18px;
             text-align: center;
         }
-
         .toc-grid li a {
             color: inherit;
             text-decoration: none;
             transition: color 0.2s ease;
             position: relative;
+            padding: 4px 0;
+            display: inline-block;
         }
-
         .toc-grid li a::after {
             content: '';
             position: absolute;
-            bottom: -2px;
+            bottom: 0;
             left: 0;
             width: 0;
             height: 1.5px;
             background: var(--text-link);
             transition: width 0.25s ease;
         }
-
-        .toc-grid li a:hover {
+        .toc-grid li a:hover,
+        .toc-grid li a:focus-visible {
             color: var(--text-link);
         }
-        .toc-grid li a:hover::after {
+        .toc-grid li a:hover::after,
+        .toc-grid li a:focus-visible::after {
             width: 100%;
         }
-
         .toc-grid .or-badge {
             font-size: 0.55rem;
             font-weight: 700;
@@ -362,47 +373,39 @@
             line-height: 1.6;
             margin-left: 2px;
             border: 1px solid rgba(217, 158, 74, 0.15);
+            white-space: nowrap;
         }
 
-        @media (max-width: 600px) {
-            .toc-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* ===== 章节标题 ===== */
+        /* 章节标题 */
         .section {
-            margin-bottom: 2.8rem;
+            margin-bottom: clamp(1.2rem, 3vw, 2.8rem);
         }
-
         .section-title {
-            font-size: 2rem;
+            font-size: var(--fs-section);
             font-weight: 700;
             letter-spacing: -0.01em;
             color: var(--text-heading);
-            padding-bottom: 0.5rem;
+            padding-bottom: 0.4rem;
             border-bottom: 2px solid var(--border-subtle);
-            margin-bottom: 2.2rem;
+            margin-bottom: clamp(0.8rem, 2vw, 1.8rem);
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
             transition: color var(--transition-speed) ease, border-color var(--transition-speed) ease;
             flex-wrap: wrap;
         }
-
         .section-title .num {
             background: linear-gradient(145deg, var(--accent), #0b2b4a);
             color: white;
-            font-size: 1.2rem;
+            font-size: clamp(0.75rem, 1.5vw, 1.2rem);
             font-weight: 600;
-            padding: 0.1rem 1.2rem;
+            padding: 0.05rem 1.2rem;
             border-radius: 40px;
             box-shadow: 0 4px 12px rgba(31, 75, 110, 0.15);
             flex-shrink: 0;
         }
-
         .section-title .method-tag {
-            font-size: 0.75rem;
+            font-size: var(--fs-small);
             font-weight: 600;
             padding: 0.1rem 1.2rem;
             border-radius: 40px;
@@ -412,104 +415,98 @@
             flex-shrink: 0;
         }
 
-        /* ===== 子章节 ===== */
+        /* 子章节 */
         .subsection {
-            margin-top: 2.6rem;
-            padding-left: 0.5rem;
+            margin-top: clamp(1rem, 2.5vw, 2.4rem);
+            padding-left: 0.2rem;
             scroll-margin-top: 20px;
         }
-
         .subsection h3 {
-            font-size: 1.5rem;
+            font-size: var(--fs-h3);
             font-weight: 600;
             color: #1d3d5c;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             transition: color var(--transition-speed) ease;
             flex-wrap: wrap;
         }
-
         .subsection h4 {
-            font-size: 1.1rem;
+            font-size: calc(var(--fs-h3) * 0.85);
             font-weight: 600;
             color: #2a4a6a;
             margin: 1.2rem 0 0.8rem 0;
             display: flex;
             align-items: center;
             gap: 10px;
-            transition: color var(--transition-speed) ease;
         }
 
-        /* ===== 方法选择提示 ===== */
+        /* 方法选择提示 */
         .method-or-divider {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin: 1.8rem 0 2.2rem 0;
-            padding: 0.8rem 2rem;
+            gap: 0.8rem;
+            margin: 1.5rem 0 1.8rem 0;
+            padding: 0.7rem 1.5rem;
             background: rgba(217, 158, 74, 0.06);
             border-radius: 60px;
             border: 1px dashed rgba(217, 158, 74, 0.25);
             justify-content: center;
             flex-wrap: wrap;
+            text-align: center;
         }
-
         .method-or-divider .or-icon {
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #b8860b;
             background: rgba(217, 158, 74, 0.12);
-            padding: 0.1rem 1.2rem;
+            padding: 0.1rem 1rem;
             border-radius: 40px;
             letter-spacing: 0.5px;
+            white-space: nowrap;
         }
-
         .method-or-divider .choice-hint {
             font-weight: 500;
             color: var(--text-secondary);
-            font-size: 0.95rem;
+            font-size: var(--fs-small);
         }
-
         .method-or-divider .choice-hint i {
             margin-right: 4px;
             color: var(--accent-gold);
         }
-
         .method-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
             font-weight: 600;
-            font-size: 0.8rem;
-            padding: 0.15rem 1.2rem;
+            font-size: var(--fs-small);
+            padding: 0.15rem 1rem;
             border-radius: 40px;
             background: var(--bg-code-inline);
             border: 1px solid var(--border-subtle);
             color: var(--text-heading);
+            white-space: nowrap;
         }
-
         .method-badge.apo {
             background: rgba(58, 122, 138, 0.10);
             color: #2a6a7a;
             border-color: rgba(58, 122, 138, 0.15);
         }
-
         .method-badge.ecc {
             background: rgba(138, 110, 155, 0.10);
             color: #6a4a7a;
             border-color: rgba(138, 110, 155, 0.15);
         }
 
-        /* ===== 步骤卡片 ===== */
+        /* 步骤卡片 */
         .step-desc {
             background: var(--bg-step);
             backdrop-filter: blur(8px);
-            padding: 1.2rem 2rem;
-            border-radius: 24px;
+            padding: clamp(0.6rem, 1.5vw, 1.2rem) clamp(0.8rem, 2vw, 2rem);
+            border-radius: 20px;
             border-left: 4px solid var(--accent-light);
-            margin: 0.8rem 0 1.5rem 0;
+            margin: 0.6rem 0 1.2rem 0;
             font-weight: 500;
             color: var(--color-text-remark);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
@@ -517,71 +514,73 @@
             cursor: default;
             scroll-margin-top: 80px;
             border: 1px solid var(--border-subtle);
+            font-size: var(--fs-body);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem 1rem;
         }
-
         .step-desc:hover {
-            transform: translateX(6px) scale(1.002);
+            transform: translateX(4px) scale(1.002);
             box-shadow: 0 8px 24px rgba(0, 20, 40, 0.06);
             border-color: var(--border-strong);
             background: var(--bg-step-hover);
         }
-
         .step-desc.highlight {
             border-left-color: var(--accent-gold) !important;
             background: var(--bg-highlight) !important;
             backdrop-filter: blur(8px);
             box-shadow: 0 0 0 2px rgba(217, 158, 74, 0.12);
         }
-
         .step-desc .remark {
             display: inline-block;
-            margin-top: 6px;
+            margin-top: 4px;
             font-weight: 400;
             background: var(--bg-code-inline);
             backdrop-filter: blur(4px);
-            padding: 4px 18px;
+            padding: 4px 16px;
             border-radius: 30px;
-            font-size: 0.9rem;
+            font-size: var(--fs-small);
             transition: background var(--transition-speed) ease;
             border: 1px solid var(--border-subtle);
         }
-
         .step-desc .code-inline {
             background: var(--bg-code-inline);
             backdrop-filter: blur(4px);
-            padding: 0.1rem 0.7rem;
+            padding: 0.05rem 0.7rem;
             border-radius: 30px;
             font-family: 'Inter', monospace;
             font-weight: 600;
             color: #004080;
-            font-size: 0.9rem;
+            font-size: var(--fs-small);
             border: 1px solid var(--border-subtle);
         }
-
         .step-desc .download-link {
             display: inline-flex;
             align-items: center;
             gap: 6px;
             background: linear-gradient(145deg, var(--accent), #0b2b4a);
             color: white;
-            padding: 0.25rem 1.2rem;
+            padding: 0.2rem 1.2rem;
             border-radius: 30px;
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.85rem;
+            font-size: var(--fs-small);
             transition: all 0.25s ease;
             box-shadow: 0 2px 8px rgba(31, 75, 110, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            min-height: 36px;
         }
-
-        .step-desc .download-link:hover {
+        .step-desc .download-link:hover,
+        .step-desc .download-link:focus-visible {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(31, 75, 110, 0.2);
             background: linear-gradient(145deg, #0b2b4a, #061a2e);
+            outline: 2px solid var(--accent-light);
+            outline-offset: 2px;
         }
-
         .step-desc .sub-operation {
-            margin-top: 8px;
+            margin-top: 6px;
             font-weight: 400;
             background: var(--bg-code-inline);
             backdrop-filter: blur(4px);
@@ -589,148 +588,273 @@
             border-radius: 30px;
             display: inline-block;
             border: 1px solid var(--border-subtle);
+            font-size: var(--fs-small);
+            width: 100%;
         }
-
         .step-desc .sub-operation i {
             margin-right: 6px;
         }
 
-        /* 方法卡片特殊样式 */
         .step-desc.method-apo {
             border-left-color: var(--accent-apo);
             background: rgba(58, 122, 138, 0.04);
         }
-
         .step-desc.method-apo:hover {
             background: rgba(58, 122, 138, 0.07);
         }
-
         .step-desc.method-ecc {
             border-left-color: var(--accent-ecc);
             background: rgba(138, 110, 155, 0.04);
         }
-
         .step-desc.method-ecc:hover {
             background: rgba(138, 110, 155, 0.07);
         }
-
         .step-desc.method-header {
             border-left-color: var(--accent-gold);
             background: rgba(217, 158, 74, 0.04);
             font-weight: 600;
         }
-
         .step-desc.method-header:hover {
             background: rgba(217, 158, 74, 0.07);
         }
 
-        /* ===== 注意事项 ===== */
+        /* 注意事项 */
         .note-box {
             background: var(--bg-note);
             backdrop-filter: blur(8px);
-            border-radius: 20px;
-            padding: 1.2rem 2rem;
-            margin: 1.5rem 0 2rem 0;
+            border-radius: 18px;
+            padding: clamp(0.6rem, 1.5vw, 1.2rem) clamp(0.8rem, 2vw, 2rem);
+            margin: 1.2rem 0 1.6rem 0;
             border-left: 4px solid var(--accent-gold);
             color: var(--color-text-note);
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
             border: 1px solid var(--border-subtle);
+            font-size: var(--fs-body);
         }
-
         .note-box strong {
             color: #a8692b;
         }
-
         .note-box .rule-list {
             list-style: none;
-            margin-top: 8px;
+            margin-top: 6px;
         }
-
         .note-box .rule-list li {
-            padding: 0.3rem 0 0.3rem 1.8rem;
+            padding: 0.2rem 0 0.2rem 1.6rem;
             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23d99e4a" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>') left center no-repeat;
-            background-size: 18px;
+            background-size: 16px;
             margin-bottom: 0.1rem;
         }
 
-        /* ===== 图片网格 ===== */
+        /* 图片网格 — 优化 */
         .img-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem 2rem;
-            margin: 1.8rem 0 1.5rem 0;
-            align-items: flex-start;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(var(--grid-col-min-desktop), 1fr));
+            gap: 1.5rem 1.8rem;
+            margin: 1.6rem 0 1.4rem 0;
         }
-
+        .img-grid:has(> .img-card:only-child) {
+            grid-template-columns: 1fr;
+            max-width: 75%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .img-grid.stacked {
+            grid-template-columns: 1fr !important;
+            max-width: 80% !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+        /* 大图网格用于分缸等多图场景 */
+        .img-grid.large-grid {
+            grid-template-columns: repeat(auto-fill, minmax(var(--grid-col-min-large), 1fr));
+            gap: 1.8rem 2rem;
+        }
         .img-card {
             background: var(--bg-img-card);
             backdrop-filter: blur(8px);
-            border-radius: 20px;
-            padding: 0.8rem 0.8rem 1rem 0.8rem;
+            border-radius: 16px;
+            padding: 0.5rem 0.5rem 0.8rem 0.5rem;
             box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
             border: 1px solid var(--border-subtle);
-            flex: 1 1 220px;
-            min-width: 180px;
             text-align: center;
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            content-visibility: auto;
+            contain-intrinsic-size: 250px;
         }
-
         .img-card:hover {
-            transform: translateY(-8px) scale(1.01);
+            transform: translateY(-6px) scale(1.005);
             box-shadow: 0 16px 40px rgba(0, 20, 40, 0.06);
             border-color: var(--border-strong);
         }
-
+        .img-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--img-bg);
+            border: 1px solid var(--color-border-img);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100px;
+            transition: background 0.3s ease;
+        }
+        .img-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--img-bg);
+            z-index: 2;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+        .img-placeholder.hidden {
+            opacity: 0;
+        }
+        .img-placeholder .spinner {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 4px solid var(--border-strong);
+            border-top-color: var(--accent-light);
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .img-error {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            background: var(--img-bg);
+            z-index: 3;
+            color: var(--text-secondary);
+            font-size: var(--fs-small);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        .img-error.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .img-error i {
+            font-size: 2rem;
+            color: #c0392b;
+        }
+        .img-error .retry-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: var(--fs-small);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 4px;
+            touch-action: manipulation;
+        }
+        .img-error .retry-btn:hover,
+        .img-error .retry-btn:focus-visible {
+            background: var(--accent-light);
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
         .img-card img {
             width: 100%;
             height: auto;
-            border-radius: 14px;
-            border: 1px solid var(--color-border-img);
+            max-height: var(--img-max-height-desktop);
+            object-fit: contain;
+            border-radius: 12px;
             background: var(--img-bg);
             transition: all 0.3s ease;
             cursor: pointer;
-            min-height: 100px;
-            object-fit: contain;
             display: block;
-            margin-bottom: 6px;
+            opacity: 0;
+            aspect-ratio: auto;
         }
-
+        .img-card img.loaded {
+            opacity: 1;
+            animation: imgFadeIn 0.4s ease forwards;
+        }
+        @keyframes imgFadeIn {
+            from { opacity: 0; transform: scale(0.97); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .img-card:hover img.loaded {
+            transform: scale(1.01);
+        }
+        .img-card .img-hint {
+            font-size: var(--fs-tiny);
+            color: var(--text-secondary);
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+            margin-top: 2px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.3px;
+        }
+        .img-card:hover .img-hint {
+            opacity: 0.9;
+        }
         .img-card .img-caption {
-            font-size: 0.8rem;
+            font-size: var(--fs-tiny);
             font-weight: 500;
             color: #1f4a6e;
             background: var(--bg-code-inline);
             backdrop-filter: blur(4px);
-            padding: 0.2rem 0.8rem;
+            padding: 0.15rem 0.8rem;
             border-radius: 40px;
             display: inline-block;
             margin-top: 4px;
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
             border: 1px solid var(--border-subtle);
         }
-
         .img-card .code-tag {
             font-family: 'Inter', monospace;
             background: var(--bg-code-inline);
             backdrop-filter: blur(4px);
-            padding: 0.1rem 0.8rem;
+            padding: 0.05rem 0.8rem;
             border-radius: 30px;
-            font-size: 0.7rem;
+            font-size: var(--fs-tiny);
             font-weight: 600;
             color: #004080;
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
             border: 1px solid var(--border-subtle);
+            display: inline-block;
             margin-right: 6px;
         }
+        .img-card .card-labels {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 4px 8px;
+            margin-top: 2px;
+        }
 
-        /* ===== 页脚 ===== */
+        /* 页脚 */
         .footer-note {
-            margin-top: 3.2rem;
-            font-size: 0.9rem;
+            margin-top: clamp(1.2rem, 3vw, 2.8rem);
+            font-size: var(--fs-small);
             color: var(--text-secondary);
             background: var(--bg-footer);
             backdrop-filter: blur(12px);
-            padding: 1rem 2.2rem;
+            padding: 0.8rem 2rem;
             border-radius: 60px;
             text-align: center;
             border: 1px solid var(--border-subtle);
@@ -739,45 +863,42 @@
             flex-wrap: wrap;
             align-items: center;
             justify-content: center;
-            gap: 0.8rem 1.8rem;
+            gap: 0.6rem 1.6rem;
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease, color var(--transition-speed) ease;
         }
-
         .footer-note .doc-badge {
             background: linear-gradient(145deg, var(--accent), #0b2b4a);
             color: white;
-            padding: 0.15rem 1.2rem;
+            padding: 0.1rem 1.2rem;
             border-radius: 40px;
-            font-size: 0.8rem;
+            font-size: var(--fs-tiny);
             font-weight: 600;
             box-shadow: 0 2px 8px rgba(31, 75, 110, 0.12);
         }
 
-        /* ===== 侧边导航 ===== */
+        /* 侧边导航 */
         .step-nav {
             position: fixed;
-            right: 30px;
+            right: clamp(8px, 2vw, 30px);
             top: 50%;
             transform: translateY(-50%);
             background: var(--bg-toc);
             backdrop-filter: blur(16px);
-            padding: 14px 10px;
+            padding: 12px 8px;
             border-radius: 40px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
             border: 1px solid var(--border-subtle);
             z-index: 100;
             display: none;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
-
         @media (min-width: 1024px) {
             .step-nav {
                 display: flex;
             }
         }
-
         .step-nav .nav-dot {
             width: 10px;
             height: 10px;
@@ -790,32 +911,34 @@
             padding: 0;
             appearance: none;
             -webkit-appearance: none;
+            flex-shrink: 0;
+            min-width: 24px;
+            min-height: 24px;
+            background-clip: content-box;
+            padding: 6px;
         }
-
         .step-nav .nav-dot:hover,
         .step-nav .nav-dot:focus-visible {
-            transform: scale(1.4);
+            transform: scale(1.3);
             background: var(--accent);
             outline: none;
             box-shadow: 0 0 0 2px var(--accent-light);
         }
-
         .step-nav .nav-dot.active {
             background: var(--accent);
             box-shadow: 0 0 0 4px rgba(31, 75, 110, 0.08);
         }
-
         .step-nav .nav-dot .tooltip {
             position: absolute;
-            right: 26px;
+            right: 30px;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(15, 30, 47, 0.85);
+            background: rgba(15, 30, 47, 0.88);
             backdrop-filter: blur(8px);
             color: white;
-            padding: 4px 14px;
+            padding: 3px 12px;
             border-radius: 20px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             white-space: nowrap;
             opacity: 0;
             pointer-events: none;
@@ -823,21 +946,89 @@
             font-weight: 500;
             z-index: 10;
         }
-
         .step-nav .nav-dot:hover .tooltip,
         .step-nav .nav-dot:focus-visible .tooltip {
             opacity: 1;
-            right: 30px;
+            right: 32px;
         }
 
-        /* ===== Lightbox ===== */
+        /* 移动端底部导航 */
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-mobile-nav, rgba(255, 255, 255, 0.92));
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-top: 1px solid var(--border-subtle);
+            padding: 8px 12px;
+            padding-bottom: max(8px, env(safe-area-inset-bottom));
+            z-index: 500;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
+            transition: background var(--transition-speed) ease;
+        }
+        @media (max-width: 1024px) {
+            .mobile-nav {
+                display: flex;
+            }
+            body {
+                padding-bottom: 70px;
+            }
+        }
+        .mobile-nav .mn-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-size: var(--fs-small);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            min-height: 40px;
+            appearance: none;
+            -webkit-appearance: none;
+            touch-action: manipulation;
+        }
+        .mobile-nav .mn-btn:hover,
+        .mobile-nav .mn-btn:focus-visible {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 4px 12px rgba(31, 75, 110, 0.2);
+        }
+        .mobile-nav .mn-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        .mobile-nav .mn-progress {
+            font-size: var(--fs-small);
+            font-weight: 700;
+            color: var(--text-heading);
+            text-align: center;
+            min-width: 60px;
+            letter-spacing: 0.5px;
+            transition: color var(--transition-speed) ease;
+        }
+
+        /* Lightbox */
         .lightbox-overlay {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(8, 18, 32, 0.88);
             backdrop-filter: blur(24px);
             display: none;
             justify-content: center;
@@ -846,32 +1037,29 @@
             padding: 20px;
             animation: fadeIn 0.3s ease;
         }
-
         .lightbox-overlay.active {
             display: flex;
         }
-
         .lightbox-overlay img {
-            max-width: 88%;
-            max-height: 85%;
+            max-width: 92%;
+            max-height: 82%;
             object-fit: contain;
             border-radius: 16px;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
             animation: zoomIn 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
-
         .lightbox-close {
             position: fixed;
-            top: 30px;
-            right: 40px;
+            top: clamp(12px, 3vw, 24px);
+            right: clamp(12px, 3vw, 32px);
             color: white;
-            font-size: 28px;
+            font-size: clamp(18px, 3vw, 26px);
             cursor: pointer;
             z-index: 10000;
             background: rgba(255, 255, 255, 0.08);
-            width: 48px;
-            height: 48px;
+            width: clamp(36px, 5vw, 44px);
+            height: clamp(36px, 5vw, 44px);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -881,18 +1069,15 @@
             backdrop-filter: blur(8px);
             appearance: none;
             -webkit-appearance: none;
+            touch-action: manipulation;
         }
-
-        .lightbox-close:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: rotate(90deg);
-        }
-
+        .lightbox-close:hover,
         .lightbox-close:focus-visible {
+            background: rgba(255, 255, 255, 0.18);
+            transform: rotate(90deg);
             outline: 2px solid white;
             outline-offset: 2px;
         }
-
         .lightbox-nav {
             position: fixed;
             top: 50%;
@@ -900,8 +1085,8 @@
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.12);
             color: white;
-            width: 48px;
-            height: 48px;
+            width: clamp(36px, 5vw, 44px);
+            height: clamp(36px, 5vw, 44px);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -909,81 +1094,66 @@
             cursor: pointer;
             z-index: 10001;
             transition: all 0.3s ease;
-            font-size: 20px;
+            font-size: clamp(16px, 2.5vw, 18px);
             appearance: none;
             -webkit-appearance: none;
+            touch-action: manipulation;
         }
-
-        .lightbox-nav:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
+        .lightbox-nav:hover,
         .lightbox-nav:focus-visible {
+            background: rgba(255, 255, 255, 0.2);
             outline: 2px solid white;
             outline-offset: 2px;
         }
-
         .lightbox-prev {
-            left: 20px;
+            left: clamp(8px, 2vw, 16px);
         }
-
         .lightbox-next {
-            right: 20px;
+            right: clamp(8px, 2vw, 16px);
         }
-
         .lightbox-counter {
             position: fixed;
-            bottom: 30px;
+            bottom: clamp(12px, 3vw, 24px);
             left: 50%;
             transform: translateX(-50%);
             color: white;
             background: rgba(0, 0, 0, 0.5);
-            padding: 4px 16px;
+            padding: 3px 14px;
             border-radius: 20px;
-            font-size: 0.9rem;
+            font-size: var(--fs-small);
             z-index: 10000;
             pointer-events: none;
+            letter-spacing: 0.5px;
         }
-
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-
         @keyframes zoomIn {
-            from {
-                transform: scale(0.92);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
+            from { transform: scale(0.92); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
-        /* ===== 阅读进度条 ===== */
+        /* 阅读进度条 */
         .reading-progress {
             position: fixed;
             top: 0;
             left: 0;
             height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            background: linear-gradient(90deg, var(--accent), var(--accent-light), var(--accent-gold));
             width: 0%;
             z-index: 9998;
-            transition: width 0.1s linear;
+            transition: width 0.08s linear;
+            border-radius: 0 2px 2px 0;
         }
 
-        /* ===== 返回顶部按钮 ===== */
+        /* 返回顶部按钮 */
         .back-to-top {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 48px;
-            height: 48px;
+            bottom: clamp(60px, 12vh, 28px);
+            right: clamp(12px, 2vw, 28px);
+            width: clamp(40px, 5vw, 48px);
+            height: clamp(40px, 5vw, 48px);
             border-radius: 50%;
             background: var(--accent);
             color: white;
@@ -998,18 +1168,150 @@
             transition: all 0.3s ease;
             appearance: none;
             -webkit-appearance: none;
+            touch-action: manipulation;
         }
-
         .back-to-top.visible {
             display: flex;
         }
-
-        .back-to-top:hover {
+        .back-to-top:hover,
+        .back-to-top:focus-visible {
             background: var(--accent-light);
             transform: translateY(-3px);
+            outline: 2px solid var(--accent-light);
+            outline-offset: 2px;
         }
 
-        /* ===== 毛玻璃降级 ===== */
+        /* Focus-visible */
+        a:focus-visible,
+        button:focus-visible,
+        [tabindex]:focus-visible {
+            outline: 2px solid var(--accent-light);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 1.2rem 1.2rem;
+                border-radius: 28px;
+            }
+            .img-grid,
+            .img-grid.large-grid {
+                grid-template-columns: repeat(auto-fill, minmax(var(--grid-col-min-tablet), 1fr));
+                gap: 1.2rem;
+            }
+            .img-grid:has(> .img-card:only-child),
+            .img-grid.stacked {
+                max-width: 85%;
+            }
+            .img-card img {
+                max-height: var(--img-max-height-tablet);
+            }
+            .step-nav {
+                right: 10px;
+            }
+        }
+        @media (max-width: 768px) {
+            body {
+                padding: 0.6rem 0.4rem;
+            }
+            .container {
+                padding: 0.8rem 0.7rem;
+                border-radius: 20px;
+            }
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.5rem;
+                padding: 0.7rem 0.8rem;
+                border-radius: 16px;
+            }
+            .header-brand {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .header-right {
+                justify-content: flex-start;
+            }
+            .toc {
+                padding: 0.6rem 0.8rem;
+                border-radius: 16px;
+            }
+            .toc-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2px;
+            }
+            .toc-grid li {
+                font-size: 0.72rem;
+            }
+            .section-title {
+                gap: 8px;
+            }
+            .subsection {
+                margin-top: 1.2rem;
+            }
+            .step-desc {
+                padding: 0.6rem 0.9rem;
+                font-size: 0.82rem;
+                border-radius: 14px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.3rem;
+            }
+            .img-grid,
+            .img-grid.large-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .img-grid:has(> .img-card:only-child),
+            .img-grid.stacked {
+                max-width: 100%;
+            }
+            .img-card img {
+                max-height: var(--img-max-height-mobile);
+            }
+            .img-card {
+                padding: 0.35rem 0.35rem 0.5rem 0.35rem;
+                border-radius: 12px;
+            }
+            .footer-note {
+                font-size: 0.7rem;
+                padding: 0.5rem 1rem;
+                border-radius: 30px;
+                gap: 0.3rem 1rem;
+                flex-direction: column;
+            }
+            .step-nav {
+                display: none !important;
+            }
+            .lightbox-overlay {
+                padding: 10px;
+            }
+            .lightbox-overlay img {
+                max-width: 96%;
+                max-height: 75%;
+            }
+            .method-or-divider {
+                padding: 0.5rem 1rem;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 0.6rem 0.45rem;
+                border-radius: 14px;
+            }
+            .toc-grid {
+                grid-template-columns: 1fr;
+            }
+            .img-card img {
+                max-height: 260px;
+            }
+        }
+
+        /* 毛玻璃降级 */
         @media (max-width: 768px),
         (prefers-reduced-motion: reduce) {
             .container,
@@ -1019,176 +1321,306 @@
             .img-card,
             .author-block,
             .footer-note,
-            .logo-wrap {
-                backdrop-filter: none;
-                -webkit-backdrop-filter: none;
-                background: var(--bg-container-solid);
+            .logo-wrap,
+            .header-left .subhead,
+            .step-desc .remark,
+            .step-desc .code-inline,
+            .step-desc .sub-operation,
+            .mobile-nav {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                background: var(--bg-container-solid) !important;
             }
             .step-desc:hover,
             .img-card:hover {
-                transform: none;
+                transform: none !important;
             }
             .container {
-                background: var(--bg-container-solid);
-            }
-            .header-left .subhead {
-                backdrop-filter: none;
-            }
-            .step-desc .remark,
-            .step-desc .code-inline,
-            .step-desc .sub-operation {
-                backdrop-filter: none;
-            }
-        }
-
-        /* ===== 移动端 ===== */
-        @media (max-width: 768px) {
-            .container {
-                padding: 1.5rem;
-                border-radius: 32px;
+                background: var(--bg-container-solid) !important;
             }
             .header {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 0.8rem;
-                padding: 1rem;
+                background: var(--bg-container-solid) !important;
             }
-            .header-right {
-                justify-content: flex-start;
+            .step-desc.highlight {
+                background: var(--bg-highlight) !important;
             }
-            .author-block {
-                align-items: flex-start;
-            }
-            .header-left h1 {
-                font-size: 1.8rem;
+            .img-card {
+                background: var(--bg-container-solid) !important;
             }
             .toc {
-                padding: 1rem 1.5rem;
+                background: var(--bg-container-solid) !important;
             }
-            .toc-grid {
-                grid-template-columns: 1fr;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
             }
-            .img-grid {
-                flex-direction: column;
-                align-items: center;
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
-            .section-title {
-                font-size: 1.5rem;
-            }
-            .subsection h3 {
-                font-size: 1.2rem;
-                flex-wrap: wrap;
-            }
-            .step-nav {
-                right: 10px;
-                padding: 10px 6px;
-            }
-            .step-nav .nav-dot {
-                width: 8px;
-                height: 8px;
-            }
-            .step-nav .nav-dot .tooltip {
-                display: none;
-            }
-            .lightbox-close {
-                top: 20px;
-                right: 20px;
-                width: 40px;
-                height: 40px;
-                font-size: 20px;
-            }
-            .lightbox-nav {
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
-            }
-            .lightbox-prev {
-                left: 10px;
-            }
-            .lightbox-next {
-                right: 10px;
-            }
-            .back-to-top {
-                bottom: 20px;
-                right: 20px;
-                width: 44px;
-                height: 44px;
-            }
-            .method-or-divider {
-                padding: 0.6rem 1rem;
-                flex-direction: column;
-                gap: 0.4rem;
+            .img-card img.loaded {
+                animation: none !important;
+                opacity: 1 !important;
             }
         }
 
-        @media (max-width: 480px) {
-            body {
-                padding: 0.8rem;
-            }
-            .container {
-                padding: 1rem;
-                border-radius: 24px;
-            }
-            .logo-wrap .brand-text {
-                display: none;
-            }
-        }
-
-        /* ===== 打印 ===== */
+        /* 打印 */
         @media print {
-            .step-nav,
-            .lightbox-overlay,
-            .reading-progress,
-            .back-to-top,
-            .lightbox-nav,
-            .lightbox-counter {
-                display: none !important;
+            @page {
+                margin: 18mm 15mm 20mm 15mm;
+                size: A4 portrait;
             }
-            .container {
-                box-shadow: none !important;
-                border-radius: 0 !important;
-                padding: 20px !important;
-                background: white !important;
-                backdrop-filter: none !important;
+            html {
+                font-size: 10.5pt;
             }
             body {
                 background: white !important;
                 padding: 0 !important;
+                color: #000 !important;
+                font-size: 10.5pt;
+                line-height: 1.5;
+                display: block !important;
             }
-            .img-card {
+            .container {
+                max-width: 100% !important;
+                background: white !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                padding: 8px 4px !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+            }
+            .header,
+            .toc,
+            .step-desc,
+            .note-box,
+            .img-card,
+            .footer-note {
+                background: #f7f9fc !important;
+                border: 1px solid #ccc !important;
+                border-radius: 6px !important;
+                box-shadow: none !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
                 break-inside: avoid;
                 page-break-inside: avoid;
+            }
+            .header {
+                padding: 8px 14px !important;
+                margin-bottom: 12px !important;
+            }
+            .header-left h1 {
+                -webkit-text-fill-color: #0a1e33 !important;
+                background: none !important;
+                color: #0a1e33 !important;
+                filter: none !important;
+                font-size: 16pt !important;
+            }
+            .header-left .subhead {
+                background: #eef2f6 !important;
+                border: 1px solid #ccc !important;
+                -webkit-text-fill-color: #333 !important;
+                color: #333 !important;
+            }
+            .logo-wrap {
+                background: white !important;
+                border: 1px solid #ccc !important;
+            }
+            .logo-wrap img {
+                background: white !important;
+            }
+            .author-block {
+                background: white !important;
+                border: 1px solid #ccc !important;
+            }
+            .toc {
+                padding: 8px 14px !important;
+                margin-bottom: 12px !important;
+            }
+            .toc-title {
+                color: #0a1e33 !important;
+            }
+            .toc-title span {
+                background: #1f4b6e !important;
+                color: white !important;
+            }
+            .toc-grid li {
+                color: #1a3c57 !important;
+            }
+            .toc-grid li .step-num {
+                background: #e8edf3 !important;
+                color: #1f4b6e !important;
+            }
+            .section-title {
+                color: #0a1e33 !important;
+                border-bottom: 1.5px solid #999 !important;
+                font-size: 13pt !important;
+                break-after: avoid;
+                page-break-after: avoid;
+            }
+            .section-title .num {
+                background: #1f4b6e !important;
+                color: white !important;
+                box-shadow: none !important;
+            }
+            .subsection h3 {
+                color: #0a1e33 !important;
+                font-size: 11pt !important;
+                break-after: avoid;
+                page-break-after: avoid;
             }
             .step-desc {
+                padding: 5px 10px !important;
+                margin: 3px 0 8px 0 !important;
+                color: #000 !important;
+                font-size: 9.5pt !important;
+                break-inside: avoid;
+                page-break-inside: avoid;
+                orphans: 2;
+                widows: 2;
+            }
+            .step-desc .code-inline {
+                background: #e8edf3 !important;
+                border: 1px solid #ccc !important;
+                color: #004080 !important;
+            }
+            .step-desc .remark {
+                background: #e8edf3 !important;
+                border: 1px solid #ccc !important;
+            }
+            .step-desc .sub-operation {
+                background: #e8edf3 !important;
+                border: 1px solid #ccc !important;
+                font-size: 8.5pt !important;
+            }
+            .step-desc.highlight {
+                border-left-color: #b8860b !important;
+                background: #fcf8f0 !important;
+            }
+            .note-box {
+                padding: 6px 12px !important;
+                font-size: 9pt !important;
                 break-inside: avoid;
                 page-break-inside: avoid;
             }
-            .section {
+            .note-box .rule-list li {
+                padding-left: 1.4rem !important;
+                background-size: 14px !important;
+            }
+            .img-grid,
+            .img-grid.large-grid {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 8px 14px !important;
+                margin: 8px 0 !important;
                 break-inside: avoid;
                 page-break-inside: avoid;
+            }
+            .img-grid:has(> .img-card:only-child) {
+                grid-template-columns: 1fr !important;
+                max-width: 70% !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+            .img-grid.stacked {
+                grid-template-columns: 1fr !important;
+                max-width: 75% !important;
+            }
+            .img-card {
+                background: white !important;
+                border: 1px solid #bbb !important;
+                border-radius: 4px !important;
+                padding: 4px !important;
+                box-shadow: none !important;
+                transform: none !important;
+                break-inside: avoid;
+                page-break-inside: avoid;
+                content-visibility: visible !important;
+                contain-intrinsic-size: none !important;
             }
             .img-card img {
-                object-fit: contain;
+                max-height: var(--img-max-height-print) !important;
+                border: 1px solid #ccc !important;
+                background: white !important;
+                border-radius: 3px !important;
+                cursor: default !important;
+                max-width: 100% !important;
+                opacity: 1 !important;
+                animation: none !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
+            .img-card .img-caption {
+                background: #f0f4f8 !important;
+                border: 1px solid #ddd !important;
+                color: #1a3c57 !important;
+                font-size: 7pt !important;
+            }
+            .img-card .code-tag {
+                background: #f0f4f8 !important;
+                border: 1px solid #ddd !important;
+                color: #004080 !important;
+                font-size: 6.5pt !important;
+            }
+            .img-card .img-hint {
+                display: none !important;
+            }
+            .img-wrapper .img-placeholder,
+            .img-wrapper .img-error {
+                display: none !important;
+            }
+            .footer-note {
+                padding: 5px 12px !important;
+                margin-top: 12px !important;
+                font-size: 8pt !important;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .footer-note .doc-badge {
+                background: #1f4b6e !important;
+                color: white !important;
+                box-shadow: none !important;
+                font-size: 7pt !important;
+            }
+            .step-nav,
+            .reading-progress,
+            .back-to-top,
+            .lightbox-overlay,
+            .mobile-nav {
+                display: none !important;
+            }
+        }
+        .sr-only {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            border: 0 !important;
+            white-space: nowrap !important;
         }
     </style>
 </head>
 <body>
-    <!-- 阅读进度条 -->
     <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
-
     <div class="container">
 
-        <!-- ===== 头部 ===== -->
-        <div class="header">
+        <!-- 头部 -->
+        <header class="header">
             <div class="header-brand">
                 <div class="logo-wrap">
-                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/Logo.png?raw=true" alt="TOPT Logo" />
+                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/Logo.png?raw=true" alt="TOPT Logo" loading="eager" fetchpriority="high" />
                     <span class="brand-text">TOPT</span>
                 </div>
                 <div class="header-left">
                     <h1>🏷️ 胚布抽用工单开单流程</h1>
-                    <div class="subhead">操作指引 · 培训教材 v1.0</div>
+                    <div class="subhead" role="doc-subtitle">操作指引 · 培训教材 v1.1</div>
                 </div>
             </div>
             <div class="header-right">
@@ -1197,10 +1629,10 @@
                     <span class="author-email"><i class="far fa-envelope" aria-hidden="true"></i> liu-yang@top-textiles.vn</span>
                 </div>
             </div>
-        </div>
+        </header>
 
-        <!-- ===== 目录 ===== -->
-        <div class="toc">
+        <!-- 目录 -->
+        <nav class="toc" aria-label="文档目录">
             <div class="toc-header">
                 <div class="toc-title"><i class="fas fa-list-ul" aria-hidden="true"></i> 目录 <span>6 步骤</span></div>
             </div>
@@ -1216,319 +1648,452 @@
                 <li><span class="step-num">05</span><span class="step-icon">🔒</span><a href="#step-5">锁胚 · 报工 · 发单</a></li>
                 <li><span class="step-num">06</span><span class="step-icon">📦</span><a href="#step-6">工单投料</a></li>
             </ul>
-        </div>
+        </nav>
 
-        <!-- ============================================================ -->
-        <!-- 第一步 -->
-        <div class="section" id="step-1">
-            <div class="section-title"><span class="num">一</span> 胚布抽用通知</div>
-
-            <div class="step-desc" data-step-label="胚布抽用通知">
-                <i class="fas fa-envelope" style="color:var(--accent-light);" aria-hidden="true"></i>
-                生产部门通过邮件发出胚布抽用通知
-            </div>
-            <div class="img-grid">
-                <div class="img-card">
-                    <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-1.png" alt="1-1 胚布抽用通知" loading="lazy" decoding="async" />
-                    <div><span class="code-tag">邮件通知</span><span class="img-caption">图 1-1 胚布抽用通知</span></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ============================================================ -->
-        <!-- 第二步 -->
-        <div class="section" id="step-2">
-            <div class="section-title"><span class="num">二</span> 确认收货</div>
-
-            <div class="step-desc" data-step-label="确认收货">
-                <i class="fas fa-check-circle" style="color:#2b5f8a;" aria-hidden="true"></i>
-                先确认该工单已完成收货。若尚未收货，需先行完成收货操作。
-                <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">ZSOHPP190</span></span>
-            </div>
-            <div class="img-grid">
-                <div class="img-card">
-                    <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-2.png" alt="1-2 ZSOHPP190" loading="lazy" decoding="async" />
-                    <div><span class="code-tag">ZSOHPP190</span><span class="img-caption">图 1-2 收货操作</span></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ============================================================ -->
-        <!-- 第三步 -->
-        <div class="section" id="step-3">
-            <div class="section-title"><span class="num">三</span> 储存地点转销售订单</div>
-
-            <div class="step-desc" data-step-label="转销售订单">
-                <i class="fas fa-arrow-right-arrow-left" style="color:#3a6b8f;" aria-hidden="true"></i>
-                操作 TF 儲存地點至銷售訂單（413 E 移动类型）
-                <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">ZSOHWM002</span></span>
-            </div>
-            <div class="img-grid">
-                <div class="img-card">
-                    <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-3.png" alt="1-3 ZSOHWM002" loading="lazy" decoding="async" />
-                    <div><span class="code-tag">ZSOHWM002</span><span class="img-caption">图 1-3 转销售订单</span></div>
-                </div>
-                <div class="img-card">
-                    <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-4.png" alt="1-4 ZSOHWM002" loading="lazy" decoding="async" />
-                    <div><span class="code-tag">ZSOHWM002</span><span class="img-caption">图 1-4 转销售订单</span></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ============================================================ -->
-        <!-- 第四步：创建工单（APO / ECC 二选一） -->
-        <div class="section" id="step-4">
-            <div class="section-title">
-                <span class="num">四</span>
-                创建工单
-                <span class="method-tag"><i class="fas fa-code-branch" aria-hidden="true"></i> APO / ECC 二选一</span>
-            </div>
-
-            <!-- ===== 二选一提示 ===== -->
-            <div class="method-or-divider">
-                <span class="choice-hint"><i class="fas fa-info-circle" aria-hidden="true"></i> 根据业务类型选择以下其中一种方法</span>
-                <span class="or-icon">或</span>
-                <span style="display:flex; gap:0.8rem; flex-wrap:wrap;">
-                    <span class="method-badge apo"><i class="fas fa-server"></i> APO 系统 · 大货单</span>
-                    <span class="method-badge ecc"><i class="fas fa-database"></i> ECC 系统 · 办单</span>
-                </span>
-            </div>
-
-            <!-- ========================================================== -->
-            <!-- 方法一：APO 系统 -->
-            <div class="subsection">
-                <h3>
-                    <span class="method-badge apo"><i class="fas fa-server"></i> 方法一：APO 系统</span>
-                    <span style="font-size:0.85rem; font-weight:400; color:var(--text-secondary);">适用于大货单</span>
-                </h3>
-
-                <div class="step-desc method-apo" data-step-label="APO方法说明">
-                    <i class="fas fa-info-circle" style="color:var(--accent-apo);" aria-hidden="true"></i>
-                    在 APO 系统，通过复制生产部要求颜色对应的工单，创建计划单。
-                    <span class="remark">适用于大货单</span>
-                </div>
-
-                <!-- 4-1-1 -->
-                <div class="step-desc method-apo" data-step-label="APO-1 ZSOH_SE06">
-                    <i class="fas fa-1" style="color:var(--accent-apo);" aria-hidden="true"></i>
-                    <strong>4-1-1：</strong>操作功能代码：<span class="code-inline">ZSOH_SE06</span>
+        <!-- 主内容 -->
+        <main>
+            <!-- 第一步 -->
+            <section class="section" id="step-1" aria-labelledby="step1-title">
+                <div class="section-title" id="step1-title"><span class="num">一</span> 胚布抽用通知</div>
+                <div class="step-desc" data-step-label="胚布抽用通知" tabindex="0">
+                    <i class="fas fa-envelope" style="color:var(--accent-light);" aria-hidden="true"></i>
+                    生产部门通过邮件发出胚布抽用通知
                 </div>
                 <div class="img-grid">
                     <div class="img-card">
-                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-5.png" alt="1-5 ZSOH_SE06" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">ZSOH_SE06</span><span class="img-caption">图 1-5 APO 操作</span></div>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                            <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-1.png"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
+                            <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-1.png" alt="1-1 胚布抽用通知邮件示例" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="card-labels">
+                            <span class="code-tag">邮件通知</span>
+                            <span class="img-caption">图 1-1 胚布抽用通知</span>
+                        </div>
+                        <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 第二步 -->
+            <section class="section" id="step-2" aria-labelledby="step2-title">
+                <div class="section-title" id="step2-title"><span class="num">二</span> 确认收货</div>
+                <div class="step-desc" data-step-label="确认收货" tabindex="0">
+                    <i class="fas fa-check-circle" style="color:#2b5f8a;" aria-hidden="true"></i>
+                    先确认该工单已完成收货。若尚未收货，需先行完成收货操作。
+                    <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">ZSOHPP190</span></span>
+                </div>
+                <div class="img-grid">
+                    <div class="img-card">
+                        <div class="img-wrapper">
+                            <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                            <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-2.png"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
+                            <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-2.png" alt="1-2 ZSOHPP190 收货操作界面" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="card-labels">
+                            <span class="code-tag">ZSOHPP190</span>
+                            <span class="img-caption">图 1-2 收货操作</span>
+                        </div>
+                        <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 第三步 -->
+            <section class="section" id="step-3" aria-labelledby="step3-title">
+                <div class="section-title" id="step3-title"><span class="num">三</span> 储存地点转销售订单</div>
+                <div class="step-desc" data-step-label="转销售订单" tabindex="0">
+                    <i class="fas fa-arrow-right-arrow-left" style="color:#3a6b8f;" aria-hidden="true"></i>
+                    操作 TF 儲存地點至銷售訂單（413 E 移动类型）
+                    <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">ZSOHWM002</span></span>
+                </div>
+                <div class="img-grid">
+                    <div class="img-card">
+                        <div class="img-wrapper">
+                            <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                            <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-3.png"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
+                            <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-3.png" alt="1-3 ZSOHWM002 转销售订单操作" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="card-labels">
+                            <span class="code-tag">ZSOHWM002</span>
+                            <span class="img-caption">图 1-3 转销售订单</span>
+                        </div>
+                        <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                    </div>
+                    <div class="img-card">
+                        <div class="img-wrapper">
+                            <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                            <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-4.png"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
+                            <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-4.png" alt="1-4 ZSOHWM002 补充操作" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="card-labels">
+                            <span class="code-tag">ZSOHWM002</span>
+                            <span class="img-caption">图 1-4 转销售订单</span>
+                        </div>
+                        <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 第四步：创建工单（APO/ECC 二选一） -->
+            <section class="section" id="step-4" aria-labelledby="step4-title">
+                <div class="section-title" id="step4-title">
+                    <span class="num">四</span>
+                    创建工单
+                    <span class="method-tag"><i class="fas fa-code-branch" aria-hidden="true"></i> APO / ECC 二选一</span>
+                </div>
+
+                <div class="method-or-divider">
+                    <span class="choice-hint"><i class="fas fa-info-circle" aria-hidden="true"></i> 根据业务类型选择其中一种方法</span>
+                    <span class="or-icon">或</span>
+                    <span style="display:flex; gap:0.8rem; flex-wrap:wrap;">
+                        <span class="method-badge apo"><i class="fas fa-server"></i> APO 系统 · 大货单</span>
+                        <span class="method-badge ecc"><i class="fas fa-database"></i> ECC 系统 · 办单</span>
+                    </span>
+                </div>
+
+                <!-- 方法一：APO -->
+                <div class="subsection">
+                    <h3><span class="method-badge apo"><i class="fas fa-server"></i> 方法一：APO 系统</span> <span style="font-size:0.85rem; font-weight:400; color:var(--text-secondary);">适用于大货单</span></h3>
+
+                    <div class="step-desc method-apo" data-step-label="APO方法说明" tabindex="0">
+                        <i class="fas fa-info-circle" style="color:var(--accent-apo);" aria-hidden="true"></i>
+                        在 APO 系统，通过复制生产部要求颜色对应的工单，创建计划单。
+                        <span class="remark">适用于大货单</span>
+                    </div>
+
+                    <div class="step-desc method-apo" data-step-label="APO-1 ZSOH_SE06" tabindex="0">
+                        <i class="fas fa-1" style="color:var(--accent-apo);" aria-hidden="true"></i>
+                        <strong>4-1-1：</strong>操作功能代码：<span class="code-inline">ZSOH_SE06</span>
+                    </div>
+                    <div class="img-grid">
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-5.png"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
+                                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-5.png" alt="1-5 ZSOH_SE06 APO 操作" loading="lazy" decoding="async" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag">ZSOH_SE06</span>
+                                <span class="img-caption">图 1-5 APO 操作</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        </div>
+                    </div>
+
+                    <div class="step-desc method-apo" data-step-label="APO-2 ZSOH_SE17" tabindex="0">
+                        <i class="fas fa-2" style="color:var(--accent-apo);" aria-hidden="true"></i>
+                        <strong>4-1-2：</strong>操作功能代码：<span class="code-inline">ZSOH_SE17</span>
+                        <div class="sub-operation">
+                            <i class="fas fa-edit" aria-hidden="true"></i> ① 删除 SF0251（補布原因）特性值；② 更改 PG0886（分紗ID）特性值为“F”开头；③ 更改 PF0621（是否已鎖胚）特性值为“Z”
+                        </div>
+                    </div>
+                    <div class="img-grid">
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-6.png"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
+                                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-6.png" alt="1-6 ZSOH_SE17 特性值修改" loading="lazy" decoding="async" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag">ZSOH_SE17</span>
+                                <span class="img-caption">图 1-6 特性值修改</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        </div>
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-7.png"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
+                                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-7.png" alt="1-7 特性值详情" loading="lazy" decoding="async" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag">特性值</span>
+                                <span class="img-caption">图 1-7 特性值详情</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        </div>
+                    </div>
+
+                    <div class="step-desc method-apo" data-step-label="APO-3 分缸" tabindex="0">
+                        <i class="fas fa-3" style="color:var(--accent-apo);" aria-hidden="true"></i>
+                        <strong>4-1-3：</strong>操作功能代码：<span class="code-inline">ZTRIM_XS___START</span>
+                        <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作：分缸</span>
+                    </div>
+                    <div class="img-grid large-grid">
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-8.png"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
+                                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-8.png" alt="1-8 分缸操作第一步" loading="lazy" decoding="async" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag">分缸</span>
+                                <span class="img-caption">图 1-8</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        </div>
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-9.png"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
+                                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-9.png" alt="1-9 分缸操作第二步" loading="lazy" decoding="async" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag">分缸</span>
+                                <span class="img-caption">图 1-9</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        </div>
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-10.png"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
+                                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-10.png" alt="1-10 分缸操作第三步" loading="lazy" decoding="async" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag">分缸</span>
+                                <span class="img-caption">图 1-10</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        </div>
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-11.png"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
+                                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-11.png" alt="1-11 分缸操作第四步" loading="lazy" decoding="async" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag">分缸</span>
+                                <span class="img-caption">图 1-11</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        </div>
+                    </div>
+
+                    <div class="step-desc method-apo" data-step-label="APO-4 锁胚" tabindex="0">
+                        <i class="fas fa-4" style="color:var(--accent-apo);" aria-hidden="true"></i>
+                        <strong>4-1-4：</strong>操作功能代码：<span class="code-inline">ZSOH_SE17</span>
+                        <div class="sub-operation"><i class="fas fa-edit" aria-hidden="true"></i> 更改 PF0621（是否已鎖胚）特性值为“Y”</div>
+                    </div>
+                    <div class="img-grid">
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-12.png"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
+                                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-12.png" alt="1-12 锁胚操作" loading="lazy" decoding="async" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag">锁胚</span>
+                                <span class="img-caption">图 1-12 锁胚操作</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        </div>
+                    </div>
+
+                    <div class="step-desc method-apo" data-step-label="APO-5 转工单" tabindex="0">
+                        <i class="fas fa-5" style="color:var(--accent-apo);" aria-hidden="true"></i>
+                        <strong>4-1-5：</strong>手动转工单：<span class="code-inline">/SAPAPO/RRP3</span>
+                    </div>
+                    <div class="img-grid">
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-13.png"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
+                                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-13.png" alt="1-13 手动转工单" loading="lazy" decoding="async" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag">/SAPAPO/RRP3</span>
+                                <span class="img-caption">图 1-13 手动转工单</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- 4-1-2 -->
-                <div class="step-desc method-apo" data-step-label="APO-2 ZSOH_SE17">
-                    <i class="fas fa-2" style="color:var(--accent-apo);" aria-hidden="true"></i>
-                    <strong>4-1-2：</strong>操作功能代码：<span class="code-inline">ZSOH_SE17</span>
+                <!-- 方法二：ECC -->
+                <div class="method-or-divider" style="margin:1.2rem 0 1.8rem 0;">
+                    <span class="or-icon"><i class="fas fa-circle-notch" style="font-size:0.9rem;"></i> 或</span>
+                    <span class="choice-hint">选择另一种方式</span>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="method-badge ecc"><i class="fas fa-database"></i> 方法二：ECC 系统</span> <span style="font-size:0.85rem; font-weight:400; color:var(--text-secondary);">适用于办单</span></h3>
+
+                    <div class="step-desc method-ecc" data-step-label="ECC方法说明" tabindex="0">
+                        <i class="fas fa-info-circle" style="color:var(--accent-ecc);" aria-hidden="true"></i>
+                        在 ECC 系统，通过复制生产部要求颜色对应的工单，复制创建工单。
+                        <span class="remark">适用于办单</span>
+                    </div>
+
+                    <div class="step-desc method-ecc" data-step-label="ECC-1 CO01" tabindex="0">
+                        <i class="fas fa-1" style="color:var(--accent-ecc);" aria-hidden="true"></i>
+                        <strong>4-2-1：</strong>操作功能代码：<span class="code-inline">CO01</span>
+                        <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作：复制创建工单</span>
+                    </div>
+                    <div class="img-grid">
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-14.png"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
+                                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-14.png" alt="1-14 CO01 复制创建工单" loading="lazy" decoding="async" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag">CO01</span>
+                                <span class="img-caption">图 1-14 复制创建工单</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        </div>
+                    </div>
+
+                    <div class="step-desc method-ecc" data-step-label="ECC-2 重读数据" tabindex="0">
+                        <i class="fas fa-2" style="color:var(--accent-ecc);" aria-hidden="true"></i>
+                        <strong>4-2-2：</strong>重读数据
+                    </div>
+                    <div class="img-grid">
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-15.png"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
+                                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-15.png" alt="1-15 重读数据" loading="lazy" decoding="async" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag">重读数据</span>
+                                <span class="img-caption">图 1-15 重读数据</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        </div>
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-16.png"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
+                                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-16.png" alt="1-16 重读数据" loading="lazy" decoding="async" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag">重读数据</span>
+                                <span class="img-caption">图 1-16 重读数据</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        </div>
+                    </div>
+
+                    <div class="step-desc method-ecc" data-step-label="ECC-3 删B物料" tabindex="0">
+                        <i class="fas fa-3" style="color:var(--accent-ecc);" aria-hidden="true"></i>
+                        <strong>4-2-3：</strong>在 Components（工单元件）界面，删除“B”开头的物料数据。
+                    </div>
+                    <div class="img-grid">
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-17.png"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
+                                <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-17.png" alt="1-17 删除B物料" loading="lazy" decoding="async" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag">Components</span>
+                                <span class="img-caption">图 1-17 删除B物料</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="note-box" style="margin-top:1.8rem;">
+                    <i class="fas fa-lightbulb" style="color:var(--accent-gold); margin-right:8px;" aria-hidden="true"></i>
+                    <strong>选择指引：</strong>方法一（APO）适用于<strong>大货单</strong>，方法二（ECC）适用于<strong>办单</strong>。请根据实际业务类型选择其中一种方式执行，<strong>无需两种都做</strong>。
+                </div>
+            </section>
+
+            <!-- 第五步 -->
+            <section class="section" id="step-5" aria-labelledby="step5-title">
+                <div class="section-title" id="step5-title"><span class="num">五</span> 锁胚 · 报工 · 发单</div>
+                <div class="step-desc" data-step-label="ZSOHPP159" tabindex="0">
+                    <i class="fas fa-lock" style="color:#b8860b;" aria-hidden="true"></i>
+                    工单锁胚-报工-发单
+                    <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">ZSOHPP159</span></span>
                     <div class="sub-operation">
-                        <i class="fas fa-edit" aria-hidden="true"></i> ① 删除 SF0251（補布原因）特性值；② 更改 PG0886（分紗ID）特性值为“F”开头；③ 更改 PF0621（是否已鎖胚）特性值为“Z”
+                        <i class="fas fa-edit" aria-hidden="true"></i> ① 删除不需要的工序；② 抽胚异常栏位注明抽布缸号胚布染色；③ 填写差异原因：<strong>RDD5 胚布抽用</strong>
                     </div>
                 </div>
                 <div class="img-grid">
                     <div class="img-card">
-                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-6.png" alt="1-6 ZSOH_SE17" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">ZSOH_SE17</span><span class="img-caption">图 1-6 特性值修改</span></div>
-                    </div>
-                    <div class="img-card">
-                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-7.png" alt="1-7 特性值详情" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">特性值</span><span class="img-caption">图 1-7 特性值详情</span></div>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                            <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-18.png"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
+                            <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-18.png" alt="1-18 ZSOHPP159 锁胚报工" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="card-labels">
+                            <span class="code-tag">ZSOHPP159</span>
+                            <span class="img-caption">图 1-18 锁胚报工</span>
+                        </div>
+                        <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
                     </div>
                 </div>
 
-                <!-- 4-1-3 -->
-                <div class="step-desc method-apo" data-step-label="APO-3 分缸">
-                    <i class="fas fa-3" style="color:var(--accent-apo);" aria-hidden="true"></i>
-                    <strong>4-1-3：</strong>操作功能代码：<span class="code-inline">ZTRIM_XS___START</span>
-                    <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作：分缸</span>
+                <div class="step-desc" data-step-label="Components锁胚" tabindex="0">
+                    <i class="fas fa-arrow-right" style="color:#b8860b;" aria-hidden="true"></i>
+                    双击工单号码，进入 Components（工单元件）界面，进行锁胚。
                 </div>
                 <div class="img-grid">
                     <div class="img-card">
-                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-8.png" alt="1-8 分缸" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">分缸</span><span class="img-caption">图 1-8 分缸操作</span></div>
-                    </div>
-                    <div class="img-card">
-                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-9.png" alt="1-9 分缸" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">分缸</span><span class="img-caption">图 1-9 分缸操作</span></div>
-                    </div>
-                    <div class="img-card">
-                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-10.png" alt="1-10 分缸" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">分缸</span><span class="img-caption">图 1-10 分缸操作</span></div>
-                    </div>
-                    <div class="img-card">
-                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-11.png" alt="1-11 分缸" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">分缸</span><span class="img-caption">图 1-11 分缸操作</span></div>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                            <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-19.png"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
+                            <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-19.png" alt="1-19 Components 锁胚" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="card-labels">
+                            <span class="code-tag">锁胚</span>
+                            <span class="img-caption">图 1-19 Components 锁胚</span>
+                        </div>
+                        <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
                     </div>
                 </div>
+            </section>
 
-                <!-- 4-1-4 -->
-                <div class="step-desc method-apo" data-step-label="APO-4 锁胚">
-                    <i class="fas fa-4" style="color:var(--accent-apo);" aria-hidden="true"></i>
-                    <strong>4-1-4：</strong>操作功能代码：<span class="code-inline">ZSOH_SE17</span>
-                    <div class="sub-operation">
-                        <i class="fas fa-edit" aria-hidden="true"></i> 更改 PF0621（是否已鎖胚）特性值为“Y”
-                    </div>
+            <!-- 第六步 -->
+            <section class="section" id="step-6" aria-labelledby="step6-title">
+                <div class="section-title" id="step6-title"><span class="num">六</span> 工单投料</div>
+                <div class="step-desc" data-step-label="MIGO投料" tabindex="0">
+                    <i class="fas fa-boxes" style="color:#3a6b8f;" aria-hidden="true"></i>
+                    工单投料
+                    <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">MIGO</span>（收货批次在线边仓则直接投料，收货批次在成品仓则正常流程从成品仓提布）</span>
                 </div>
                 <div class="img-grid">
                     <div class="img-card">
-                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-12.png" alt="1-12 锁胚" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">锁胚</span><span class="img-caption">图 1-12 锁胚操作</span></div>
+                        <div class="img-wrapper">
+                            <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                            <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败 <button class="retry-btn" data-src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-20.png"><i class="fas fa-redo" aria-hidden="true"></i> 重试</button></div>
+                            <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-20.png" alt="1-20 MIGO 工单投料" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="card-labels">
+                            <span class="code-tag">MIGO</span>
+                            <span class="img-caption">图 1-20 工单投料</span>
+                        </div>
+                        <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
                     </div>
                 </div>
-
-                <!-- 4-1-5 -->
-                <div class="step-desc method-apo" data-step-label="APO-5 转工单">
-                    <i class="fas fa-5" style="color:var(--accent-apo);" aria-hidden="true"></i>
-                    <strong>4-1-5：</strong>手动转工单：<span class="code-inline">/SAPAPO/RRP3</span>
+                <div class="step-desc" style="border-left-color: #6b8fb0; background: rgba(238,246,252,0.5); margin-top:1.5rem;" data-step-label="流程结束" tabindex="0">
+                    <i class="fas fa-flag-checkered" style="color:#1f6b4a;" aria-hidden="true"></i> 胚布抽用工单开单流程结束。
                 </div>
-                <div class="img-grid">
-                    <div class="img-card">
-                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-13.png" alt="1-13 手动转工单" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">/SAPAPO/RRP3</span><span class="img-caption">图 1-13 手动转工单</span></div>
-                    </div>
-                </div>
-            </div>
+            </section>
+        </main>
 
-            <!-- ===== 方法分隔线 ===== -->
-            <div class="method-or-divider" style="margin:1.2rem 0 1.8rem 0;">
-                <span class="or-icon"><i class="fas fa-circle-notch" style="font-size:0.9rem;"></i> 或</span>
-                <span class="choice-hint">选择另一种方式</span>
-            </div>
-
-            <!-- ========================================================== -->
-            <!-- 方法二：ECC 系统 -->
-            <div class="subsection">
-                <h3>
-                    <span class="method-badge ecc"><i class="fas fa-database"></i> 方法二：ECC 系统</span>
-                    <span style="font-size:0.85rem; font-weight:400; color:var(--text-secondary);">适用于办单</span>
-                </h3>
-
-                <div class="step-desc method-ecc" data-step-label="ECC方法说明">
-                    <i class="fas fa-info-circle" style="color:var(--accent-ecc);" aria-hidden="true"></i>
-                    在 ECC 系统，通过复制生产部要求颜色对应的工单，复制创建工单。
-                    <span class="remark">适用于办单</span>
-                </div>
-
-                <!-- 4-2-1 -->
-                <div class="step-desc method-ecc" data-step-label="ECC-1 CO01">
-                    <i class="fas fa-1" style="color:var(--accent-ecc);" aria-hidden="true"></i>
-                    <strong>4-2-1：</strong>操作功能代码：<span class="code-inline">CO01</span>
-                    <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作：复制创建工单</span>
-                </div>
-                <div class="img-grid">
-                    <div class="img-card">
-                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-14.png" alt="1-14 CO01" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">CO01</span><span class="img-caption">图 1-14 复制创建工单</span></div>
-                    </div>
-                </div>
-
-                <!-- 4-2-2 -->
-                <div class="step-desc method-ecc" data-step-label="ECC-2 重读数据">
-                    <i class="fas fa-2" style="color:var(--accent-ecc);" aria-hidden="true"></i>
-                    <strong>4-2-2：</strong>重读数据
-                </div>
-                <div class="img-grid">
-                    <div class="img-card">
-                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-15.png" alt="1-15 重读数据" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">重读数据</span><span class="img-caption">图 1-15 重读数据</span></div>
-                    </div>
-                    <div class="img-card">
-                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-16.png" alt="1-16 重读数据" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">重读数据</span><span class="img-caption">图 1-16 重读数据</span></div>
-                    </div>
-                </div>
-
-                <!-- 4-2-3 -->
-                <div class="step-desc method-ecc" data-step-label="ECC-3 删B物料">
-                    <i class="fas fa-3" style="color:var(--accent-ecc);" aria-hidden="true"></i>
-                    <strong>4-2-3：</strong>在 Components（工单元件）界面，删除“B”开头的物料数据。
-                </div>
-                <div class="img-grid">
-                    <div class="img-card">
-                        <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-17.png" alt="1-17 删除B物料" loading="lazy" decoding="async" />
-                        <div><span class="code-tag">Components</span><span class="img-caption">图 1-17 删除B物料</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 方法选择总结 -->
-            <div class="note-box" style="margin-top:1.8rem;">
-                <i class="fas fa-lightbulb" style="color:var(--accent-gold); margin-right:8px;" aria-hidden="true"></i>
-                <strong>选择指引：</strong>
-                方法一（APO）适用于<strong>大货单</strong>，方法二（ECC）适用于<strong>办单</strong>。
-                请根据实际业务类型选择其中一种方式执行，<strong>无需两种都做</strong>。
-            </div>
-        </div>
-
-        <!-- ============================================================ -->
-        <!-- 第五步（原第六步） -->
-        <div class="section" id="step-5">
-            <div class="section-title"><span class="num">五</span> 锁胚 · 报工 · 发单</div>
-
-            <div class="step-desc" data-step-label="ZSOHPP159">
-                <i class="fas fa-lock" style="color:#b8860b;" aria-hidden="true"></i>
-                工单锁胚-报工-发单
-                <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">ZSOHPP159</span></span>
-                <div class="sub-operation">
-                    <i class="fas fa-edit" aria-hidden="true"></i> ① 删除不需要的工序；② 抽胚异常栏位注明抽布缸号胚布染色；③ 填写差异原因：<strong>RDD5 胚布抽用</strong>
-                </div>
-            </div>
-            <div class="img-grid">
-                <div class="img-card">
-                    <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-18.png" alt="1-18 ZSOHPP159" loading="lazy" decoding="async" />
-                    <div><span class="code-tag">ZSOHPP159</span><span class="img-caption">图 1-18 锁胚报工</span></div>
-                </div>
-            </div>
-
-            <div class="step-desc" data-step-label="Components锁胚">
-                <i class="fas fa-arrow-right" style="color:#b8860b;" aria-hidden="true"></i>
-                双击工单号码，进入 Components（工单元件）界面，进行锁胚。
-            </div>
-            <div class="img-grid">
-                <div class="img-card">
-                    <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-19.png" alt="1-19 Components锁胚" loading="lazy" decoding="async" />
-                    <div><span class="code-tag">锁胚</span><span class="img-caption">图 1-19 Components 锁胚</span></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ============================================================ -->
-        <!-- 第六步（原第七步） -->
-        <div class="section" id="step-6">
-            <div class="section-title"><span class="num">六</span> 工单投料</div>
-
-            <div class="step-desc" data-step-label="MIGO投料">
-                <i class="fas fa-boxes" style="color:#3a6b8f;" aria-hidden="true"></i>
-                工单投料
-                <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">MIGO</span>（收货批次在线边仓则直接投料，收货批次在成品仓则正常流程从成品仓提布）</span>
-            </div>
-            <div class="img-grid">
-                <div class="img-card">
-                    <img src="https://raw.githubusercontent.com/liuyang042/Production-Order-Create/main/Greige-Transfe/1-20.png" alt="1-20 MIGO投料" loading="lazy" decoding="async" />
-                    <div><span class="code-tag">MIGO</span><span class="img-caption">图 1-20 工单投料</span></div>
-                </div>
-            </div>
-
-            <div class="step-desc" data-step-label="流程结束" style="border-left-color: #6b8fb0; background: rgba(238, 246, 252, 0.5); margin-top: 1.5rem;">
-                <i class="fas fa-flag-checkered" style="color:#1f6b4a;" aria-hidden="true"></i>
-                胚布抽用工单开单流程结束。
-            </div>
-        </div>
-
-        <!-- ===== 页脚 ===== -->
-        <div class="footer-note">
+        <!-- 页脚 -->
+        <footer class="footer-note" role="contentinfo">
             <span><i class="fas fa-check-circle" style="color:#1f6b4a;" aria-hidden="true"></i> TOPT 培训教材 · 内部使用</span>
-            <span class="doc-badge"><i class="fas fa-file-alt" aria-hidden="true"></i> 版本 v1.0</span>
+            <span class="doc-badge"><i class="fas fa-file-alt" aria-hidden="true"></i> 版本 v1.1</span>
             <span><i class="far fa-copyright" aria-hidden="true"></i> 刘洋 · liu-yang@top-textiles.vn</span>
-        </div>
-
+        </footer>
     </div>
 
-    <!-- ===== Lightbox ===== -->
-    <div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="图片放大预览">
+    <!-- 移动端底部导航 -->
+    <nav class="mobile-nav" id="mobileNav" aria-label="移动端步骤导航">
+        <button class="mn-btn" id="mnPrev" aria-label="上一步"><i class="fas fa-chevron-left" aria-hidden="true"></i> 上一步</button>
+        <span class="mn-progress" id="mnProgress" aria-live="polite">1 / 6</span>
+        <button class="mn-btn" id="mnNext" aria-label="下一步">下一步 <i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+    </nav>
+
+    <!-- Lightbox -->
+    <div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="图片放大预览" aria-hidden="true">
         <button class="lightbox-close" id="lightboxClose" aria-label="关闭预览">✕</button>
         <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="上一张图片">❮</button>
         <img id="lightboxImg" src="" alt="放大图片" />
@@ -1537,14 +2102,58 @@
     </div>
 
     <!-- 返回顶部按钮 -->
-    <button class="back-to-top" id="backToTop" aria-label="返回顶部"><i class="fas fa-arrow-up"></i></button>
+    <button class="back-to-top" id="backToTop" aria-label="返回顶部"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
 
     <script>
-        // ============================================
-        // 1. 图片放大 (Lightbox) 增强
-        // ============================================
         (function() {
+            'use strict';
+
+            // ========== 图片加载管理（含重试） ==========
             const images = Array.from(document.querySelectorAll('.img-card img'));
+
+            images.forEach(img => {
+                const wrapper = img.closest('.img-wrapper');
+                const placeholder = wrapper?.querySelector('.img-placeholder');
+                const errorDiv = wrapper?.querySelector('.img-error');
+                const retryBtn = errorDiv?.querySelector('.retry-btn');
+
+                function markLoaded() {
+                    img.classList.add('loaded');
+                    placeholder?.classList.add('hidden');
+                    errorDiv?.classList.remove('visible');
+                }
+
+                function markError() {
+                    placeholder?.classList.add('hidden');
+                    errorDiv?.classList.add('visible');
+                }
+
+                function resetImage() {
+                    img.classList.remove('loaded');
+                    placeholder?.classList.remove('hidden');
+                    errorDiv?.classList.remove('visible');
+                    const originalSrc = img.getAttribute('src');
+                    const newSrc = originalSrc.includes('?') ? originalSrc + '&retry=' + Date.now() :
+                        originalSrc + '?retry=' + Date.now();
+                    img.src = newSrc;
+                }
+
+                if (img.complete && img.naturalWidth > 0) {
+                    markLoaded();
+                } else {
+                    img.addEventListener('load', markLoaded, { once: true });
+                    img.addEventListener('error', markError, { once: true });
+                }
+
+                if (retryBtn) {
+                    retryBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        resetImage();
+                    });
+                }
+            });
+
+            // ========== Lightbox ==========
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightboxImg');
             const closeBtn = document.getElementById('lightboxClose');
@@ -1552,24 +2161,40 @@
             const nextBtn = document.getElementById('lightboxNext');
             const counter = document.getElementById('lightboxCounter');
             let currentIndex = -1;
+            let lastFocusedElement = null;
+            let touchStartX = 0;
+            let touchStartY = 0;
+
+            function preloadAdjacent(index) {
+                if (index > 0) {
+                    const prevImg = new Image();
+                    prevImg.src = images[index - 1].src;
+                }
+                if (index < images.length - 1) {
+                    const nextImg = new Image();
+                    nextImg.src = images[index + 1].src;
+                }
+            }
 
             function openLightbox(index) {
-                if (index < 0 || index >= images.length) return;
+                if (index < 0 || index >= images.length || images.length === 0) return;
+                lastFocusedElement = document.activeElement;
                 currentIndex = index;
                 updateLightboxImage();
                 lightbox.classList.add('active');
+                lightbox.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden';
                 closeBtn.focus();
+                preloadAdjacent(index);
             }
 
             function closeLightbox() {
                 lightbox.classList.remove('active');
+                lightbox.setAttribute('aria-hidden', 'true');
                 document.body.style.overflow = '';
-                if (currentIndex >= 0) {
-                    images[currentIndex].focus({ preventScroll: true });
-                    if (document.activeElement === images[currentIndex]) return;
+                if (lastFocusedElement && lastFocusedElement.focus) {
+                    lastFocusedElement.focus({ preventScroll: true });
                 }
-                document.body.focus();
                 currentIndex = -1;
             }
 
@@ -1578,13 +2203,14 @@
                 const img = images[currentIndex];
                 lightboxImg.src = img.src;
                 lightboxImg.alt = img.alt || '放大图片';
-                counter.textContent = `${currentIndex + 1} / ${images.length}`;
+                counter.textContent = (currentIndex + 1) + ' / ' + images.length;
             }
 
             function showPrev() {
                 if (currentIndex > 0) {
                     currentIndex--;
                     updateLightboxImage();
+                    preloadAdjacent(currentIndex);
                 }
             }
 
@@ -1592,6 +2218,7 @@
                 if (currentIndex < images.length - 1) {
                     currentIndex++;
                     updateLightboxImage();
+                    preloadAdjacent(currentIndex);
                 }
             }
 
@@ -1612,6 +2239,7 @@
                 switch (e.key) {
                     case 'Escape':
                         closeLightbox();
+                        e.preventDefault();
                         break;
                     case 'ArrowLeft':
                         showPrev();
@@ -1634,6 +2262,14 @@
                             e.preventDefault();
                         }
                         break;
+                    case 'Home':
+                        if (images.length > 0) { currentIndex = 0; updateLightboxImage(); }
+                        e.preventDefault();
+                        break;
+                    case 'End':
+                        if (images.length > 0) { currentIndex = images.length - 1; updateLightboxImage(); }
+                        e.preventDefault();
+                        break;
                 }
             });
 
@@ -1641,119 +2277,194 @@
                 if (e.target === lightbox) closeLightbox();
             });
 
-            let touchStartX = 0;
             lightbox.addEventListener('touchstart', (e) => {
                 touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
             }, { passive: true });
 
             lightbox.addEventListener('touchend', (e) => {
                 const touchEndX = e.changedTouches[0].screenX;
-                const diff = touchStartX - touchEndX;
-                if (Math.abs(diff) > 50) {
-                    if (diff > 0) showNext();
+                const touchEndY = e.changedTouches[0].screenY;
+                const diffX = touchStartX - touchEndX;
+                const diffY = touchStartY - touchEndY;
+                if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY) * 1.5) {
+                    if (diffX > 0) showNext();
                     else showPrev();
                 }
             }, { passive: true });
-        })();
 
-        // ============================================
-        // 2. 步骤滚动高亮导航（IntersectionObserver）
-        // ============================================
-        (function() {
-            const steps = document.querySelectorAll('.step-desc');
-            if (steps.length === 0) return;
+            // ========== 步骤导航 ==========
+            const steps = Array.from(document.querySelectorAll('.step-desc'));
+            let navDots = [];
+            let observer = null;
 
-            const nav = document.createElement('div');
-            nav.className = 'step-nav';
-            nav.id = 'stepNav';
-            nav.setAttribute('role', 'navigation');
-            nav.setAttribute('aria-label', '步骤导航');
-
-            steps.forEach((step, index) => {
-                const btn = document.createElement('button');
-                btn.className = 'nav-dot';
-                btn.setAttribute('aria-label', `跳转到第 ${index+1} 步：${step.dataset.stepLabel || ''}`);
-                const tooltip = document.createElement('span');
-                tooltip.className = 'tooltip';
-                tooltip.textContent = step.dataset.stepLabel || `步骤 ${index + 1}`;
-                btn.appendChild(tooltip);
-
-                btn.addEventListener('click', () => {
-                    step.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                });
-
-                nav.appendChild(btn);
-            });
-
-            document.body.appendChild(nav);
-
-            const navDots = nav.querySelectorAll('.nav-dot');
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const index = Array.from(steps).indexOf(entry.target);
-                        if (index !== -1) {
-                            setActiveStep(index);
-                        }
-                    }
-                });
-            }, {
-                root: null,
-                rootMargin: '-20% 0px -60% 0px',
-                threshold: 0
-            });
-
-            steps.forEach(step => observer.observe(step));
+            const mobileNav = document.getElementById('mobileNav');
+            const mnPrev = document.getElementById('mnPrev');
+            const mnNext = document.getElementById('mnNext');
+            const mnProgress = document.getElementById('mnProgress');
+            let currentStepIndex = 0;
 
             function setActiveStep(index) {
+                if (index < 0 || index >= steps.length) return;
+                currentStepIndex = index;
+
                 navDots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === index);
-                    if (i === index) {
+                    const isActive = i === index;
+                    dot.classList.toggle('active', isActive);
+                    if (isActive) {
                         dot.setAttribute('aria-current', 'step');
                     } else {
                         dot.removeAttribute('aria-current');
                     }
                 });
+
                 steps.forEach((step, i) => {
                     step.classList.toggle('highlight', i === index);
                 });
+
+                if (mnProgress) {
+                    mnProgress.textContent = (index + 1) + ' / ' + steps.length;
+                }
+                if (mnPrev) {
+                    mnPrev.disabled = index === 0;
+                }
+                if (mnNext) {
+                    mnNext.disabled = index === steps.length - 1;
+                }
             }
 
-            if (steps.length > 0) setActiveStep(0);
-        })();
+            function goToStep(index) {
+                if (index < 0 || index >= steps.length) return;
+                steps[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
 
-        // ============================================
-        // 3. 阅读进度条
-        // ============================================
-        (function() {
+            if (steps.length > 0 && window.matchMedia('(min-width: 1024px)').matches) {
+                const nav = document.createElement('div');
+                nav.className = 'step-nav';
+                nav.id = 'stepNav';
+                nav.setAttribute('role', 'navigation');
+                nav.setAttribute('aria-label', '步骤快速导航');
+
+                steps.forEach((step, index) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'nav-dot';
+                    btn.setAttribute('aria-label', '跳转到第 ' + (index + 1) + ' 步：' + (step.dataset
+                        .stepLabel || '步骤 ' + (index + 1)));
+                    btn.setAttribute('data-index', index);
+                    const tooltip = document.createElement('span');
+                    tooltip.className = 'tooltip';
+                    tooltip.textContent = step.dataset.stepLabel || '步骤 ' + (index + 1);
+                    tooltip.setAttribute('aria-hidden', 'true');
+                    btn.appendChild(tooltip);
+
+                    btn.addEventListener('click', () => goToStep(index));
+                    nav.appendChild(btn);
+                });
+
+                document.body.appendChild(nav);
+                navDots = Array.from(nav.querySelectorAll('.nav-dot'));
+            }
+
+            if ('IntersectionObserver' in window && steps.length > 0) {
+                observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const index = steps.indexOf(entry.target);
+                            if (index !== -1) setActiveStep(index);
+                        }
+                    });
+                }, {
+                    root: null,
+                    rootMargin: '-15% 0px -55% 0px',
+                    threshold: 0.05
+                });
+                steps.forEach(step => observer.observe(step));
+                setActiveStep(0);
+            }
+
+            if (mnPrev && mnNext) {
+                mnPrev.addEventListener('click', () => {
+                    if (currentStepIndex > 0) goToStep(currentStepIndex - 1);
+                });
+                mnNext.addEventListener('click', () => {
+                    if (currentStepIndex < steps.length - 1) goToStep(currentStepIndex + 1);
+                });
+            }
+
+            // ========== 阅读进度条 ==========
             const progressBar = document.getElementById('readingProgress');
-            window.addEventListener('scroll', () => {
+            let progressTicking = false;
+
+            function updateProgress() {
                 const scrollTop = window.scrollY;
                 const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                const progress = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) :
+                    0;
                 progressBar.style.width = progress + '%';
-            }, { passive: true });
-        })();
+                progressTicking = false;
+            }
 
-        // ============================================
-        // 4. 返回顶部按钮
-        // ============================================
-        (function() {
+            function requestProgressUpdate() {
+                if (!progressTicking) {
+                    progressTicking = true;
+                    window.requestAnimationFrame(updateProgress);
+                }
+            }
+            window.addEventListener('scroll', requestProgressUpdate, { passive: true });
+            window.addEventListener('resize', requestProgressUpdate, { passive: true });
+            updateProgress();
+
+            // ========== 返回顶部 ==========
             const backToTop = document.getElementById('backToTop');
-            window.addEventListener('scroll', () => {
+            let backToTopTicking = false;
+
+            function updateBackToTop() {
                 if (window.scrollY > 300) {
                     backToTop.classList.add('visible');
                 } else {
                     backToTop.classList.remove('visible');
                 }
-            }, { passive: true });
+                backToTopTicking = false;
+            }
 
+            function requestBackToTopUpdate() {
+                if (!backToTopTicking) {
+                    backToTopTicking = true;
+                    window.requestAnimationFrame(updateBackToTop);
+                }
+            }
+            window.addEventListener('scroll', requestBackToTopUpdate, { passive: true });
             backToTop.addEventListener('click', () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
+            updateBackToTop();
+
+            // ========== 键盘快捷键 ==========
+            document.addEventListener('keydown', (e) => {
+                const tag = document.activeElement?.tagName?.toLowerCase();
+                const isInput = tag === 'input' || tag === 'textarea' || tag === 'select';
+                if (isInput || lightbox.classList.contains('active')) return;
+
+                if (e.altKey && e.key === 'ArrowRight' && steps.length > 0) {
+                    if (currentStepIndex < steps.length - 1) goToStep(currentStepIndex + 1);
+                    e.preventDefault();
+                } else if (e.altKey && e.key === 'ArrowLeft' && steps.length > 0) {
+                    if (currentStepIndex > 0) goToStep(currentStepIndex - 1);
+                    e.preventDefault();
+                } else if (e.key === 'Home' && !e.ctrlKey && !e.metaKey) {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    e.preventDefault();
+                }
+            });
+
+            // ========== 打印前优化 ==========
+            window.addEventListener('beforeprint', () => {
+                images.forEach(img => img.classList.add('loaded'));
+            });
+
+            console.log('%c📘 TOPT 培训教材 v1.1', 'font-size:16px;font-weight:700;color:#1f4b6e;');
+            console.log('%c提示：按 Alt+←/→ 快速切换步骤，按 Home 返回顶部', 'font-size:12px;color:#4a6a85;');
         })();
     </script>
-
 </body>
 </html>
