@@ -31,7 +31,6 @@
             --bg-step: rgba(255, 255, 255, 0.55);
             --bg-step-hover: rgba(255, 255, 255, 0.70);
             --bg-img-card: rgba(255, 255, 255, 0.40);
-            --bg-note: rgba(252, 244, 232, 0.50);
             --bg-footer: rgba(255, 255, 255, 0.30);
             --bg-highlight: rgba(252, 248, 240, 0.60);
             --bg-code-inline: rgba(234, 241, 250, 0.55);
@@ -49,8 +48,9 @@
             --container-radius: 48px;
             --img-radius: 14px;
             --gap-grid: 1.5rem;
+            /* 图片展示策略：不固定比例，只限制最大宽度和最大高度（桌面） */
             --max-img-width: 100%;
-            --max-img-height-desktop: 80vh; /* 桌面端最大高度为视口高度的80% */
+            --max-img-height-desktop: 80vh; /* 桌面端最大高度，防止超长图片 */
         }
 
         /* 深色模式 */
@@ -73,7 +73,6 @@
                 --bg-step: rgba(255, 255, 255, 0.03);
                 --bg-step-hover: rgba(255, 255, 255, 0.05);
                 --bg-img-card: rgba(255, 255, 255, 0.03);
-                --bg-note: rgba(42, 37, 24, 0.25);
                 --bg-footer: rgba(255, 255, 255, 0.02);
                 --bg-highlight: rgba(252, 248, 240, 0.04);
                 --bg-code-inline: rgba(255, 255, 255, 0.04);
@@ -125,7 +124,9 @@
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
-        /* 头部 */
+        /* ============================================================
+           头部
+           ============================================================ */
         .header {
             border-bottom: 1px solid var(--border-subtle);
             padding: 1.2rem 1.8rem;
@@ -245,7 +246,9 @@
             border-radius: 30px;
         }
 
-        /* 目录 */
+        /* ============================================================
+           目录
+           ============================================================ */
         .toc {
             background: var(--bg-toc);
             backdrop-filter: blur(12px);
@@ -332,7 +335,9 @@
             width: 100%;
         }
 
-        /* 章节 */
+        /* ============================================================
+           章节
+           ============================================================ */
         .section {
             margin-bottom: 2.6rem;
         }
@@ -372,7 +377,9 @@
             gap: 10px;
         }
 
-        /* 步骤描述 */
+        /* ============================================================
+           步骤描述卡片
+           ============================================================ */
         .step-desc {
             background: var(--bg-step);
             backdrop-filter: blur(8px);
@@ -422,7 +429,9 @@
             margin-right: 6px;
         }
 
-        /* 图片网格 —— 核心优化：桌面更大，手机不受限 */
+        /* ============================================================
+           图片网格 — 核心优化：移除固定比例，图片自适应
+           ============================================================ */
         .img-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -450,10 +459,11 @@
             border-color: var(--border-strong);
         }
 
+        /* 图片样式：宽度100%，高度自动，完全按照原始比例显示 */
         .img-card img {
             width: 100%;
             height: auto;
-            max-height: var(--max-img-height-desktop); /* 桌面端限制高度，但足够大 */
+            max-height: var(--max-img-height-desktop); /* 桌面端限制高度，避免过长 */
             object-fit: contain;
             border-radius: var(--img-radius);
             border: 1px solid var(--color-border-img);
@@ -492,7 +502,9 @@
             margin-top: 2px;
         }
 
-        /* 页脚 */
+        /* ============================================================
+           页脚
+           ============================================================ */
         .footer-note {
             margin-top: 2.8rem;
             font-size: 0.85rem;
@@ -520,7 +532,9 @@
             box-shadow: 0 2px 8px rgba(31, 75, 110, 0.12);
         }
 
-        /* 侧边导航 */
+        /* ============================================================
+           侧边导航
+           ============================================================ */
         .step-nav {
             position: fixed;
             right: 24px;
@@ -577,7 +591,9 @@
             right: 28px;
         }
 
-        /* Lightbox */
+        /* ============================================================
+           Lightbox
+           ============================================================ */
         .lightbox-overlay {
             position: fixed;
             top: 0;
@@ -713,8 +729,9 @@
             .step-desc { padding: 0.7rem 1.2rem; font-size: 0.88rem; flex-direction: column; align-items: flex-start; }
             .img-grid { grid-template-columns: 1fr; gap: 1rem; margin: 1rem 0 0.8rem 0; }
             .img-card { padding: 0.5rem 0.5rem 0.7rem 0.5rem; border-radius: 16px; }
+            /* 手机端：移除最大高度限制，完全展示原始尺寸 */
             .img-card img {
-                max-height: none; /* 手机端移除高度限制，完全显示图片实际大小 */
+                max-height: none;
             }
             .footer-note { font-size: 0.75rem; padding: 0.6rem 1.2rem; flex-direction: column; }
             .back-to-top { bottom: 16px; right: 16px; width: 40px; height: 40px; }
@@ -726,6 +743,7 @@
             .section-title { font-size: 1.1rem; }
             .subsection h3 { font-size: 0.95rem; }
             .step-desc { font-size: 0.8rem; padding: 0.5rem 0.9rem; }
+            /* 图片继续无最大高度限制 */
             .img-card img { max-height: none; }
         }
 
@@ -760,8 +778,9 @@
             .step-desc { background: #f7f9fc !important; border: 1px solid #ccc !important; border-left: 4px solid #1f4b6e !important; color: #000 !important; box-shadow: none !important; transform: none !important; }
             .img-grid { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; gap: 12px 16px !important; }
             .img-card { background: white !important; border: 1px solid #ccc !important; box-shadow: none !important; transform: none !important; }
+            /* 打印时完全展示原始图片尺寸，不限制高度 */
             .img-card img {
-                max-height: none !important; /* 打印时完全显示，不限制高度 */
+                max-height: none !important;
                 border: 1px solid #ddd !important;
                 background: white !important;
                 border-radius: 4px !important;
