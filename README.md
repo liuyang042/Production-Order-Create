@@ -12,3 +12,5 @@
 🔗 **在线演示**: [https://liuyang042.github.io/Production-Order-Create/Black-Over/](https://liuyang042.github.io/Production-Order-Create/Black-Over/)
 
 **复方AT单开单流程（Recipe-AT Production Order Creation）**
+
+🔗 **在线演示**: [https://liuyang042.github.io/Production-Order-Create/Recipe-AT/](https://liuyang042.github.io/Production-Order-Create/Recipe-AT/)
