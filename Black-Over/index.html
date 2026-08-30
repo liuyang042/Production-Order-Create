@@ -2,15 +2,16 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-    <title>TOPT · 盖黑工单开单流程 · 培训教材</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+    <title>TOPT · 盖黑工单开单流程 · 培训教材 v1.1</title>
+    <meta name="description" content="TOPT 盖黑工单开单流程培训教材，涵盖7个核心步骤，适配电脑、手机与打印。" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
         /* ============================================================
-           CSS 变量 — 浅色 / 深色 自适应
+           CSS 变量 — 浅色 / 深色 自适应（优化：增加流畅排版变量）
            ============================================================ */
         :root {
             --bg-body: #f0f5fc;
@@ -22,7 +23,7 @@
             --text-link: #1f4b6e;
             --border-subtle: rgba(0, 20, 40, 0.06);
             --border-strong: rgba(0, 20, 40, 0.12);
-            --shadow-card: 0 40px 80px -20px rgba(0, 20, 40, 0.30), 0 0 0 1px rgba(255,255,255,0.5) inset;
+            --shadow-card: 0 40px 80px -20px rgba(0, 20, 40, 0.30), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
             --accent: #1f4b6e;
             --accent-light: #3875ac;
             --accent-gold: #d99e4a;
@@ -36,6 +37,7 @@
             --bg-highlight: rgba(252, 248, 240, 0.60);
             --bg-code-inline: rgba(234, 241, 250, 0.55);
             --bg-nav-dot: rgba(220, 230, 242, 0.50);
+            --bg-mobile-nav: rgba(255, 255, 255, 0.92);
             --color-text-on-accent: white;
             --color-text-remark: #1d3a53;
             --color-text-note: #4d3a20;
@@ -50,12 +52,20 @@
             --img-radius: 14px;
             --gap-grid: 1.8rem;
             --max-img-width: 100%;
-            --img-max-height-desktop: 760px;
-            --img-max-height-tablet: 540px;
-            --img-max-height-mobile: 420px;
-            --img-max-height-print: 320px;
+            /* 流式图片高度（优化） */
+            --img-max-height-desktop: clamp(420px, 60vh, 760px);
+            --img-max-height-tablet: clamp(320px, 50vh, 540px);
+            --img-max-height-mobile: clamp(240px, 45vh, 420px);
+            --img-max-height-print: 280px;
             --grid-col-min-desktop: 320px;
             --grid-col-min-tablet: 280px;
+            /* 流式排版 */
+            --fs-h1: clamp(1.4rem, 4vw, 2rem);
+            --fs-section: clamp(1.1rem, 3vw, 1.8rem);
+            --fs-h3: clamp(0.95rem, 2.5vw, 1.35rem);
+            --fs-body: clamp(0.8rem, 1.8vw, 0.98rem);
+            --fs-small: clamp(0.65rem, 1.5vw, 0.85rem);
+            --fs-tiny: clamp(0.55rem, 1.2vw, 0.68rem);
         }
 
         /* 深色模式 */
@@ -70,7 +80,7 @@
                 --text-link: #8ab0d8;
                 --border-subtle: rgba(255, 255, 255, 0.04);
                 --border-strong: rgba(255, 255, 255, 0.08);
-                --shadow-card: 0 40px 80px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04) inset;
+                --shadow-card: 0 40px 80px -20px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
                 --accent: #2a5a7a;
                 --accent-light: #4a7aad;
                 --bg-card: rgba(255, 255, 255, 0.03);
@@ -83,6 +93,7 @@
                 --bg-highlight: rgba(252, 248, 240, 0.04);
                 --bg-code-inline: rgba(255, 255, 255, 0.04);
                 --bg-nav-dot: rgba(255, 255, 255, 0.06);
+                --bg-mobile-nav: rgba(20, 30, 45, 0.92);
                 --color-text-on-accent: white;
                 --color-text-remark: #dce6f2;
                 --color-text-note: #e8d8b8;
@@ -96,23 +107,32 @@
         /* ============================================================
            全局重置 & 基础
            ============================================================ */
-        * {
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             font-family: var(--font-family);
             background: var(--bg-body);
             color: var(--text-primary);
-            padding: 2rem 1.5rem;
+            padding: clamp(0.5rem, 2vw, 2rem) clamp(0.5rem, 2vw, 1.5rem);
             line-height: 1.6;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+            font-size: var(--fs-body);
         }
 
         .container {
@@ -124,7 +144,7 @@
             -webkit-backdrop-filter: var(--backdrop-blur);
             border-radius: var(--container-radius);
             box-shadow: var(--shadow-card);
-            padding: 2.4rem 2.8rem;
+            padding: clamp(1rem, 3vw, 2.8rem);
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
@@ -133,8 +153,8 @@
            ============================================================ */
         .header {
             border-bottom: 1px solid var(--border-subtle);
-            padding: 1.2rem 1.8rem;
-            margin-bottom: 2.4rem;
+            padding: clamp(0.6rem, 2vw, 1.8rem);
+            margin-bottom: clamp(1rem, 2.5vw, 2.4rem);
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
@@ -142,7 +162,7 @@
             gap: 1rem 1.8rem;
             background: var(--header-gradient);
             border-radius: 32px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
@@ -161,12 +181,12 @@
             align-items: center;
             gap: 0.6rem;
             border: 1px solid var(--border-subtle);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
         .logo-wrap img {
-            height: 40px;
+            height: clamp(28px, 4vw, 40px);
             width: auto;
             display: block;
             border-radius: 30px;
@@ -176,7 +196,7 @@
 
         .logo-wrap .brand-text {
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: clamp(0.8rem, 1.5vw, 1.1rem);
             letter-spacing: -0.3px;
             color: var(--text-heading);
             padding-right: 0.4rem;
@@ -184,7 +204,7 @@
         }
 
         .header-left h1 {
-            font-size: 2rem;
+            font-size: var(--fs-h1);
             font-weight: 700;
             letter-spacing: -0.02em;
             background: linear-gradient(145deg, #0a1e33, #1a4b70);
@@ -192,12 +212,12 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 0.05rem;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
             line-height: 1.2;
         }
 
         .header-left .subhead {
-            font-size: 0.85rem;
+            font-size: var(--fs-small);
             font-weight: 500;
             color: var(--text-secondary);
             background: rgba(230, 242, 255, 0.55);
@@ -206,7 +226,7 @@
             border-radius: 40px;
             letter-spacing: 0.2px;
             backdrop-filter: blur(4px);
-            border: 1px solid rgba(255,255,255,0.4);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
             display: inline-flex;
             align-items: center;
@@ -233,13 +253,13 @@
             padding: 0.3rem 1.4rem 0.3rem 1.8rem;
             border-radius: 60px;
             border: 1px solid var(--border-subtle);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
         .author-name {
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: clamp(0.8rem, 1.4vw, 0.95rem);
             color: var(--text-heading);
             display: flex;
             align-items: center;
@@ -253,7 +273,7 @@
         }
 
         .author-email {
-            font-size: 0.68rem;
+            font-size: var(--fs-tiny);
             font-weight: 500;
             color: #2a577b;
             background: var(--bg-card);
@@ -270,10 +290,10 @@
             background: var(--bg-toc);
             backdrop-filter: blur(12px);
             border-radius: 28px;
-            padding: 1rem 2rem;
-            margin-bottom: 2.6rem;
+            padding: clamp(0.6rem, 1.5vw, 1.4rem) clamp(0.8rem, 2vw, 2rem);
+            margin-bottom: clamp(1rem, 2.5vw, 2.6rem);
             border: 1px solid var(--border-subtle);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
             transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
 
@@ -286,7 +306,7 @@
 
         .toc-title {
             font-weight: 700;
-            font-size: 1rem;
+            font-size: clamp(0.85rem, 1.6vw, 1rem);
             color: #12344a;
             display: flex;
             align-items: center;
@@ -314,7 +334,7 @@
 
         .toc-grid li {
             font-weight: 500;
-            font-size: 0.85rem;
+            font-size: var(--fs-small);
             color: #1a3c57;
             padding: 3px 0;
             transition: color var(--transition-speed) ease;
@@ -348,6 +368,9 @@
             text-decoration: none;
             transition: color 0.2s ease;
             position: relative;
+            /* 确保触摸目标足够大 */
+            padding: 4px 0;
+            display: inline-block;
         }
 
         .toc-grid li a::after {
@@ -361,10 +384,12 @@
             transition: width 0.25s ease;
         }
 
-        .toc-grid li a:hover {
+        .toc-grid li a:hover,
+        .toc-grid li a:focus-visible {
             color: var(--text-link);
         }
-        .toc-grid li a:hover::after {
+        .toc-grid li a:hover::after,
+        .toc-grid li a:focus-visible::after {
             width: 100%;
         }
 
@@ -372,17 +397,17 @@
            章节标题
            ============================================================ */
         .section {
-            margin-bottom: 2.6rem;
+            margin-bottom: clamp(1.2rem, 3vw, 2.6rem);
         }
 
         .section-title {
-            font-size: 1.8rem;
+            font-size: var(--fs-section);
             font-weight: 700;
             letter-spacing: -0.01em;
             color: var(--text-heading);
             padding-bottom: 0.4rem;
             border-bottom: 2px solid var(--border-subtle);
-            margin-bottom: 1.8rem;
+            margin-bottom: clamp(0.8rem, 2vw, 1.8rem);
             display: flex;
             align-items: center;
             gap: 12px;
@@ -392,7 +417,7 @@
         .section-title .num {
             background: linear-gradient(145deg, var(--accent), #0b2b4a);
             color: white;
-            font-size: 1.1rem;
+            font-size: clamp(0.75rem, 1.5vw, 1.1rem);
             font-weight: 600;
             padding: 0.05rem 1.2rem;
             border-radius: 40px;
@@ -404,13 +429,13 @@
            子章节
            ============================================================ */
         .subsection {
-            margin-top: 2.2rem;
+            margin-top: clamp(1rem, 2.5vw, 2.2rem);
             padding-left: 0.2rem;
             scroll-margin-top: 20px;
         }
 
         .subsection h3 {
-            font-size: 1.35rem;
+            font-size: var(--fs-h3);
             font-weight: 600;
             color: #1d3d5c;
             margin-bottom: 0.8rem;
@@ -427,18 +452,18 @@
         .step-desc {
             background: var(--bg-step);
             backdrop-filter: blur(8px);
-            padding: 0.9rem 1.6rem;
+            padding: clamp(0.5rem, 1.5vw, 1rem) clamp(0.8rem, 2vw, 1.6rem);
             border-radius: 20px;
             border-left: 4px solid var(--accent-light);
             margin: 0.6rem 0 1.2rem 0;
             font-weight: 500;
             color: var(--color-text-remark);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
             transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             cursor: default;
             scroll-margin-top: 80px;
             border: 1px solid var(--border-subtle);
-            font-size: 0.98rem;
+            font-size: var(--fs-body);
             display: flex;
             flex-wrap: wrap;
             align-items: center;
@@ -466,7 +491,7 @@
             backdrop-filter: blur(4px);
             padding: 2px 16px;
             border-radius: 30px;
-            font-size: 0.85rem;
+            font-size: var(--fs-small);
             transition: background var(--transition-speed) ease;
             border: 1px solid var(--border-subtle);
         }
@@ -479,7 +504,7 @@
             font-family: 'Inter', monospace;
             font-weight: 600;
             color: #004080;
-            font-size: 0.85rem;
+            font-size: var(--fs-small);
             border: 1px solid var(--border-subtle);
         }
 
@@ -491,7 +516,9 @@
             border-radius: 30px;
             display: inline-block;
             border: 1px solid var(--border-subtle);
-            font-size: 0.85rem;
+            font-size: var(--fs-small);
+            width: 100%;
+            margin-top: 4px;
         }
 
         .step-desc .sub-operation i {
@@ -508,16 +535,20 @@
             border-radius: 30px;
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.85rem;
+            font-size: var(--fs-small);
             transition: all 0.25s ease;
             box-shadow: 0 2px 8px rgba(31, 75, 110, 0.15);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-height: 36px;
         }
 
-        .step-desc .download-link:hover {
+        .step-desc .download-link:hover,
+        .step-desc .download-link:focus-visible {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(31, 75, 110, 0.2);
             background: linear-gradient(145deg, #0b2b4a, #061a2e);
+            outline: 2px solid var(--accent-light);
+            outline-offset: 2px;
         }
 
         .step-desc i {
@@ -531,12 +562,13 @@
             background: var(--bg-note);
             backdrop-filter: blur(8px);
             border-radius: 20px;
-            padding: 1rem 1.8rem;
+            padding: clamp(0.6rem, 1.5vw, 1rem) clamp(0.8rem, 2vw, 1.8rem);
             margin: 1.2rem 0 1.8rem 0;
             border-left: 4px solid var(--accent-gold);
             color: var(--color-text-note);
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
             border: 1px solid var(--border-subtle);
+            font-size: var(--fs-body);
         }
 
         .note-box strong {
@@ -574,7 +606,7 @@
             margin-right: auto;
         }
 
-        /* 强制单列堆叠（用于双图不并排场景） */
+        /* 强制单列堆叠 */
         .img-grid.stacked {
             grid-template-columns: 1fr !important;
             max-width: 88% !important;
@@ -588,7 +620,7 @@
             backdrop-filter: blur(8px);
             border-radius: var(--card-radius);
             padding: 0.5rem 0.5rem 0.7rem 0.5rem;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
             border: 1px solid var(--border-subtle);
             text-align: center;
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -596,6 +628,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
+            /* 性能优化：延迟渲染视口外内容 */
+            content-visibility: auto;
+            contain-intrinsic-size: 300px;
         }
 
         .img-card:hover {
@@ -604,7 +639,7 @@
             border-color: var(--border-strong);
         }
 
-        /* ---- 图片包装器（含占位/错误） ---- */
+        /* 图片包装器 */
         .img-wrapper {
             position: relative;
             width: 100%;
@@ -645,7 +680,9 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .img-wrapper .img-error {
@@ -659,7 +696,7 @@
             background: var(--img-bg);
             z-index: 2;
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: var(--fs-small);
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.4s ease;
@@ -671,7 +708,7 @@
 
         .img-wrapper .img-error i {
             font-size: 2rem;
-            color: var(--accent-red, #c0392b);
+            color: #c0392b;
         }
 
         .img-card img {
@@ -684,8 +721,8 @@
             transition: all 0.3s ease;
             cursor: pointer;
             display: block;
-            aspect-ratio: auto;
             opacity: 0;
+            aspect-ratio: auto;
         }
 
         .img-card img.loaded {
@@ -694,17 +731,22 @@
         }
 
         @keyframes imgFadeIn {
-            from { opacity: 0; transform: scale(0.97); }
-            to { opacity: 1; transform: scale(1); }
+            from {
+                opacity: 0;
+                transform: scale(0.97);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .img-card:hover img.loaded {
             transform: scale(1.01);
         }
 
-        /* 图片悬停提示 */
         .img-card .img-hint {
-            font-size: 0.65rem;
+            font-size: var(--fs-tiny);
             color: var(--text-secondary);
             opacity: 0.5;
             transition: opacity 0.3s ease;
@@ -719,7 +761,7 @@
         }
 
         .img-card .img-caption {
-            font-size: 0.78rem;
+            font-size: var(--fs-tiny);
             font-weight: 500;
             color: #1f4a6e;
             background: var(--bg-code-inline);
@@ -738,7 +780,7 @@
             backdrop-filter: blur(4px);
             padding: 0.05rem 0.8rem;
             border-radius: 30px;
-            font-size: 0.68rem;
+            font-size: var(--fs-tiny);
             font-weight: 600;
             color: #004080;
             transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
@@ -759,8 +801,8 @@
            页脚
            ============================================================ */
         .footer-note {
-            margin-top: 2.8rem;
-            font-size: 0.85rem;
+            margin-top: clamp(1.2rem, 3vw, 2.8rem);
+            font-size: var(--fs-small);
             color: var(--text-secondary);
             background: var(--bg-footer);
             backdrop-filter: blur(12px);
@@ -782,7 +824,7 @@
             color: white;
             padding: 0.1rem 1.2rem;
             border-radius: 40px;
-            font-size: 0.75rem;
+            font-size: var(--fs-tiny);
             font-weight: 600;
             box-shadow: 0 2px 8px rgba(31, 75, 110, 0.12);
         }
@@ -792,14 +834,14 @@
            ============================================================ */
         .step-nav {
             position: fixed;
-            right: 24px;
+            right: clamp(8px, 2vw, 24px);
             top: 50%;
             transform: translateY(-50%);
             background: var(--bg-toc);
             backdrop-filter: blur(16px);
             padding: 12px 8px;
             border-radius: 40px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.04);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
             border: 1px solid var(--border-subtle);
             z-index: 100;
             display: none;
@@ -827,11 +869,16 @@
             appearance: none;
             -webkit-appearance: none;
             flex-shrink: 0;
+            /* 触摸目标放大 */
+            min-width: 24px;
+            min-height: 24px;
+            background-clip: content-box;
+            padding: 6px;
         }
 
         .step-nav .nav-dot:hover,
         .step-nav .nav-dot:focus-visible {
-            transform: scale(1.4);
+            transform: scale(1.3);
             background: var(--accent);
             outline: none;
             box-shadow: 0 0 0 2px var(--accent-light);
@@ -844,10 +891,10 @@
 
         .step-nav .nav-dot .tooltip {
             position: absolute;
-            right: 26px;
+            right: 30px;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(15, 30, 47, 0.85);
+            background: rgba(15, 30, 47, 0.88);
             backdrop-filter: blur(8px);
             color: white;
             padding: 3px 12px;
@@ -864,7 +911,83 @@
         .step-nav .nav-dot:hover .tooltip,
         .step-nav .nav-dot:focus-visible .tooltip {
             opacity: 1;
-            right: 28px;
+            right: 32px;
+        }
+
+        /* ============================================================
+           移动端底部导航
+           ============================================================ */
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-mobile-nav);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-top: 1px solid var(--border-subtle);
+            padding: 8px 12px;
+            padding-bottom: max(8px, env(safe-area-inset-bottom));
+            z-index: 500;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
+            transition: background var(--transition-speed) ease;
+        }
+
+        @media (max-width: 1024px) {
+            .mobile-nav {
+                display: flex;
+            }
+            body {
+                padding-bottom: 70px;
+            }
+        }
+
+        .mobile-nav .mn-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-size: var(--fs-small);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            min-height: 40px;
+            appearance: none;
+            -webkit-appearance: none;
+            touch-action: manipulation;
+        }
+
+        .mobile-nav .mn-btn:hover,
+        .mobile-nav .mn-btn:focus-visible {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 4px 12px rgba(31, 75, 110, 0.2);
+        }
+
+        .mobile-nav .mn-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .mobile-nav .mn-progress {
+            font-size: var(--fs-small);
+            font-weight: 700;
+            color: var(--text-heading);
+            text-align: center;
+            min-width: 60px;
+            letter-spacing: 0.5px;
+            transition: color var(--transition-speed) ease;
         }
 
         /* ============================================================
@@ -876,7 +999,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(8, 18, 32, 0.85);
+            background: rgba(8, 18, 32, 0.88);
             backdrop-filter: blur(24px);
             display: none;
             justify-content: center;
@@ -892,42 +1015,41 @@
 
         .lightbox-overlay img {
             max-width: 92%;
-            max-height: 85%;
+            max-height: 82%;
             object-fit: contain;
             border-radius: 16px;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
             animation: zoomIn 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .lightbox-close {
             position: fixed;
-            top: 24px;
-            right: 32px;
+            top: clamp(12px, 3vw, 24px);
+            right: clamp(12px, 3vw, 32px);
             color: white;
-            font-size: 26px;
+            font-size: clamp(18px, 3vw, 26px);
             cursor: pointer;
             z-index: 10000;
-            background: rgba(255,255,255,0.08);
-            width: 44px;
-            height: 44px;
+            background: rgba(255, 255, 255, 0.08);
+            width: clamp(36px, 5vw, 44px);
+            height: clamp(36px, 5vw, 44px);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.12);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(8px);
             appearance: none;
             -webkit-appearance: none;
+            touch-action: manipulation;
         }
 
-        .lightbox-close:hover {
-            background: rgba(255,255,255,0.18);
-            transform: rotate(90deg);
-        }
-
+        .lightbox-close:hover,
         .lightbox-close:focus-visible {
+            background: rgba(255, 255, 255, 0.18);
+            transform: rotate(90deg);
             outline: 2px solid white;
             outline-offset: 2px;
         }
@@ -936,11 +1058,11 @@
             position: fixed;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             color: white;
-            width: 44px;
-            height: 44px;
+            width: clamp(36px, 5vw, 44px);
+            height: clamp(36px, 5vw, 44px);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -948,48 +1070,58 @@
             cursor: pointer;
             z-index: 10001;
             transition: all 0.3s ease;
-            font-size: 18px;
+            font-size: clamp(16px, 2.5vw, 18px);
             appearance: none;
             -webkit-appearance: none;
+            touch-action: manipulation;
         }
 
-        .lightbox-nav:hover {
-            background: rgba(255,255,255,0.2);
-        }
-
+        .lightbox-nav:hover,
         .lightbox-nav:focus-visible {
+            background: rgba(255, 255, 255, 0.2);
             outline: 2px solid white;
             outline-offset: 2px;
         }
 
         .lightbox-prev {
-            left: 16px;
+            left: clamp(8px, 2vw, 16px);
         }
         .lightbox-next {
-            right: 16px;
+            right: clamp(8px, 2vw, 16px);
         }
 
         .lightbox-counter {
             position: fixed;
-            bottom: 24px;
+            bottom: clamp(12px, 3vw, 24px);
             left: 50%;
             transform: translateX(-50%);
             color: white;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             padding: 3px 14px;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: var(--fs-small);
             z-index: 10000;
             pointer-events: none;
+            letter-spacing: 0.5px;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
         @keyframes zoomIn {
-            from { transform: scale(0.92); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+            from {
+                transform: scale(0.92);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         /* ============================================================
@@ -1000,10 +1132,11 @@
             top: 0;
             left: 0;
             height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            background: linear-gradient(90deg, var(--accent), var(--accent-light), var(--accent-gold));
             width: 0%;
             z-index: 9998;
             transition: width 0.08s linear;
+            border-radius: 0 2px 2px 0;
         }
 
         /* ============================================================
@@ -1011,15 +1144,15 @@
            ============================================================ */
         .back-to-top {
             position: fixed;
-            bottom: 28px;
-            right: 28px;
-            width: 44px;
-            height: 44px;
+            bottom: clamp(60px, 12vh, 28px);
+            right: clamp(12px, 2vw, 28px);
+            width: clamp(40px, 5vw, 44px);
+            height: clamp(40px, 5vw, 44px);
             border-radius: 50%;
             background: var(--accent);
             color: white;
             border: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             cursor: pointer;
             z-index: 900;
             display: none;
@@ -1029,36 +1162,46 @@
             transition: all 0.3s ease;
             appearance: none;
             -webkit-appearance: none;
+            touch-action: manipulation;
         }
 
         .back-to-top.visible {
             display: flex;
         }
 
-        .back-to-top:hover {
+        .back-to-top:hover,
+        .back-to-top:focus-visible {
             background: var(--accent-light);
             transform: translateY(-3px);
+            outline: 2px solid var(--accent-light);
+            outline-offset: 2px;
+        }
+
+        /* ============================================================
+           Focus-visible 全局样式
+           ============================================================ */
+        a:focus-visible,
+        button:focus-visible,
+        [tabindex]:focus-visible {
+            outline: 2px solid var(--accent-light);
+            outline-offset: 2px;
+            border-radius: 4px;
         }
 
         /* ============================================================
            响应式：平板 & 手机
            ============================================================ */
-
-        /* 平板 (768–1024) */
         @media (max-width: 1024px) {
             .container {
-                padding: 1.8rem 2rem;
-                border-radius: 36px;
+                padding: 1.2rem 1.2rem;
+                border-radius: 32px;
             }
             .header {
-                padding: 1rem 1.4rem;
-            }
-            .header-left h1 {
-                font-size: 1.7rem;
+                padding: 0.8rem 1rem;
             }
             .img-grid {
                 grid-template-columns: repeat(auto-fill, minmax(var(--grid-col-min-tablet), 1fr));
-                gap: 1.4rem;
+                gap: 1.2rem;
             }
             .img-grid:has(> .img-card:only-child),
             .img-grid.stacked {
@@ -1068,33 +1211,28 @@
                 max-height: var(--img-max-height-tablet);
             }
             .step-nav {
-                right: 14px;
+                right: 10px;
                 padding: 10px 6px;
-            }
-            .step-nav .nav-dot {
-                width: 8px;
-                height: 8px;
             }
             .step-nav .nav-dot .tooltip {
                 display: none;
             }
         }
 
-        /* 手机 (≤768) */
         @media (max-width: 768px) {
             body {
-                padding: 0.8rem 0.5rem;
+                padding: 0.6rem 0.4rem;
             }
             .container {
-                padding: 1.2rem 1rem;
-                border-radius: 28px;
+                padding: 0.8rem 0.7rem;
+                border-radius: 24px;
             }
             .header {
                 flex-direction: column;
                 align-items: stretch;
-                gap: 0.6rem;
-                padding: 0.8rem 1rem;
-                border-radius: 24px;
+                gap: 0.5rem;
+                padding: 0.7rem 0.8rem;
+                border-radius: 20px;
             }
             .header-brand {
                 flex-direction: column;
@@ -1107,57 +1245,45 @@
             .author-block {
                 align-items: flex-start;
                 padding: 0.3rem 1rem 0.3rem 1.2rem;
-            }
-            .header-left h1 {
-                font-size: 1.5rem;
-            }
-            .header-left .subhead {
-                font-size: 0.75rem;
-                padding: 0.1rem 1rem;
-            }
-            .logo-wrap img {
-                height: 34px;
-            }
-            .logo-wrap .brand-text {
-                font-size: 0.95rem;
+                border-radius: 40px;
             }
 
             .toc {
-                padding: 0.8rem 1.2rem;
-                border-radius: 20px;
-                margin-bottom: 1.8rem;
+                padding: 0.6rem 0.8rem;
+                border-radius: 18px;
+                margin-bottom: 1.2rem;
             }
             .toc-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
                 gap: 2px;
             }
             .toc-grid li {
-                font-size: 0.8rem;
+                font-size: 0.72rem;
+                gap: 4px;
+            }
+            .toc-grid li .step-num {
+                font-size: 0.5rem;
+                min-width: 22px;
+                padding: 0 6px;
             }
 
             .section-title {
-                font-size: 1.4rem;
                 gap: 8px;
-                margin-bottom: 1.2rem;
-            }
-            .section-title .num {
-                font-size: 0.9rem;
-                padding: 0.05rem 1rem;
+                margin-bottom: 1rem;
             }
 
             .subsection {
-                margin-top: 1.6rem;
+                margin-top: 1.2rem;
             }
             .subsection h3 {
-                font-size: 1.1rem;
                 gap: 6px;
             }
 
             .step-desc {
-                padding: 0.7rem 1.2rem;
-                font-size: 0.88rem;
-                border-radius: 16px;
-                margin: 0.4rem 0 0.8rem 0;
+                padding: 0.6rem 0.9rem;
+                font-size: 0.82rem;
+                border-radius: 14px;
+                margin: 0.4rem 0 0.7rem 0;
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 0.3rem;
@@ -1165,13 +1291,13 @@
             .step-desc .remark,
             .step-desc .code-inline,
             .step-desc .sub-operation {
-                font-size: 0.78rem;
+                font-size: 0.74rem;
             }
 
             .img-grid {
                 grid-template-columns: 1fr;
-                gap: 1.2rem;
-                margin: 1.2rem 0 1rem 0;
+                gap: 1rem;
+                margin: 1rem 0 0.8rem 0;
             }
             .img-grid:has(> .img-card:only-child),
             .img-grid.stacked {
@@ -1182,149 +1308,69 @@
             }
 
             .img-card {
-                padding: 0.4rem 0.4rem 0.6rem 0.4rem;
-                border-radius: 16px;
+                padding: 0.35rem 0.35rem 0.5rem 0.35rem;
+                border-radius: 14px;
             }
             .img-card .img-caption {
-                font-size: 0.72rem;
+                font-size: 0.68rem;
                 padding: 0.1rem 0.7rem;
             }
             .img-card .code-tag {
-                font-size: 0.62rem;
+                font-size: 0.6rem;
                 padding: 0.05rem 0.6rem;
-            }
-            .img-card .img-hint {
-                font-size: 0.55rem;
             }
 
             .footer-note {
-                font-size: 0.75rem;
-                padding: 0.6rem 1.2rem;
-                border-radius: 40px;
-                gap: 0.4rem 1.2rem;
-                flex-direction: column;
-            }
-            .footer-note .doc-badge {
                 font-size: 0.7rem;
-                padding: 0.05rem 1rem;
+                padding: 0.5rem 1rem;
+                border-radius: 30px;
+                gap: 0.3rem 1rem;
+                flex-direction: column;
             }
 
             .step-nav {
-                right: 8px;
-                padding: 8px 5px;
-                border-radius: 30px;
-                gap: 6px;
-            }
-            .step-nav .nav-dot {
-                width: 7px;
-                height: 7px;
+                display: none !important;
             }
 
-            .lightbox-close {
-                top: 16px;
-                right: 16px;
-                width: 36px;
-                height: 36px;
-                font-size: 18px;
-            }
-            .lightbox-nav {
-                width: 36px;
-                height: 36px;
-                font-size: 16px;
-            }
-            .lightbox-prev { left: 8px; }
-            .lightbox-next { right: 8px; }
-            .lightbox-counter {
-                font-size: 0.75rem;
-                bottom: 16px;
-                padding: 2px 12px;
+            .lightbox-overlay {
+                padding: 10px;
             }
             .lightbox-overlay img {
                 max-width: 96%;
-                max-height: 78%;
-            }
-
-            .back-to-top {
-                bottom: 16px;
-                right: 16px;
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
+                max-height: 75%;
             }
         }
 
-        /* 小屏手机 (≤480) */
         @media (max-width: 480px) {
             .container {
-                padding: 0.8rem 0.6rem;
-                border-radius: 20px;
+                padding: 0.6rem 0.45rem;
+                border-radius: 16px;
             }
             .header {
-                padding: 0.6rem 0.8rem;
+                padding: 0.5rem 0.6rem;
+                border-radius: 14px;
             }
-            .header-left h1 {
-                font-size: 1.2rem;
-            }
-            .header-left .subhead {
-                font-size: 0.65rem;
-                padding: 0.05rem 0.8rem;
-            }
-            .logo-wrap img {
-                height: 28px;
-            }
-            .logo-wrap .brand-text {
-                font-size: 0.8rem;
-            }
-            .author-name {
-                font-size: 0.8rem;
-            }
-            .author-email {
-                font-size: 0.6rem;
-            }
-
-            .section-title {
-                font-size: 1.1rem;
-            }
-            .section-title .num {
-                font-size: 0.75rem;
-                padding: 0.05rem 0.8rem;
-            }
-
-            .subsection h3 {
-                font-size: 0.95rem;
-            }
-
-            .step-desc {
-                font-size: 0.8rem;
-                padding: 0.5rem 0.9rem;
-            }
-
-            .img-card img {
-                max-height: 280px;
-            }
-            .img-grid {
-                gap: 1rem;
-            }
-
-            .toc {
-                padding: 0.5rem 0.8rem;
+            .toc-grid {
+                grid-template-columns: 1fr;
             }
             .toc-grid li {
                 font-size: 0.7rem;
             }
-            .toc-grid li .step-num {
-                font-size: 0.5rem;
-                min-width: 22px;
+            .img-card img {
+                max-height: 260px;
             }
-
+            .img-grid {
+                gap: 0.8rem;
+            }
             .footer-note {
-                font-size: 0.65rem;
-                padding: 0.4rem 0.8rem;
+                font-size: 0.6rem;
+                padding: 0.35rem 0.6rem;
+                border-radius: 20px;
             }
         }
 
         /* ============================================================
-           毛玻璃降级（减少动效 / 低性能）
+           毛玻璃降级
            ============================================================ */
         @media (max-width: 768px),
         (prefers-reduced-motion: reduce) {
@@ -1339,7 +1385,8 @@
             .header-left .subhead,
             .step-desc .remark,
             .step-desc .code-inline,
-            .step-desc .sub-operation {
+            .step-desc .sub-operation,
+            .mobile-nav {
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
                 background: var(--bg-container-solid) !important;
@@ -1363,22 +1410,46 @@
             .toc {
                 background: var(--bg-container-solid) !important;
             }
-            .step-nav {
-                backdrop-filter: none !important;
-                background: var(--bg-container-solid) !important;
+        }
+
+        /* 减少动效偏好 */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .img-card img.loaded {
+                animation: none !important;
+                opacity: 1 !important;
             }
         }
 
         /* ============================================================
-           打印样式 — 优化图片展示
+           打印样式 — 优化图片展示与分页
            ============================================================ */
         @media print {
+            @page {
+                margin: 18mm 15mm 20mm 15mm;
+                size: A4 portrait;
+            }
+
+            html {
+                font-size: 10.5pt;
+            }
+
             body {
                 background: white !important;
                 padding: 0 !important;
                 color: #000 !important;
-                font-size: 11pt;
+                font-size: 10.5pt;
                 line-height: 1.5;
+                display: block !important;
             }
 
             .container {
@@ -1386,34 +1457,33 @@
                 background: white !important;
                 box-shadow: none !important;
                 border-radius: 0 !important;
-                padding: 16px 20px !important;
+                padding: 8px 4px !important;
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
             }
 
             .header {
                 background: #f0f4f8 !important;
-                border-radius: 8px !important;
-                padding: 10px 16px !important;
-                margin-bottom: 16px !important;
+                border-radius: 6px !important;
+                padding: 8px 14px !important;
+                margin-bottom: 12px !important;
                 box-shadow: none !important;
-                border: 1px solid #ddd !important;
+                border: 1px solid #ccc !important;
+                break-inside: avoid;
+                page-break-inside: avoid;
             }
             .header-left h1 {
                 -webkit-text-fill-color: #0a1e33 !important;
                 background: none !important;
                 color: #0a1e33 !important;
                 filter: none !important;
-                font-size: 18pt !important;
+                font-size: 16pt !important;
             }
             .header-left .subhead {
                 background: #eef2f6 !important;
                 border: 1px solid #ccc !important;
                 -webkit-text-fill-color: #333 !important;
                 color: #333 !important;
-            }
-            .header-left .subhead::before {
-                content: "📘" !important;
             }
             .logo-wrap {
                 background: white !important;
@@ -1440,11 +1510,13 @@
             .toc {
                 background: #f7f9fc !important;
                 border: 1px solid #ccc !important;
-                border-radius: 8px !important;
-                padding: 10px 16px !important;
-                margin-bottom: 16px !important;
+                border-radius: 6px !important;
+                padding: 8px 14px !important;
+                margin-bottom: 12px !important;
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
+                break-inside: avoid;
+                page-break-inside: avoid;
             }
             .toc-title {
                 color: #0a1e33 !important;
@@ -1466,7 +1538,10 @@
 
             .section-title {
                 color: #0a1e33 !important;
-                border-bottom: 2px solid #ccc !important;
+                border-bottom: 1.5px solid #999 !important;
+                font-size: 13pt !important;
+                break-after: avoid;
+                page-break-after: avoid;
             }
             .section-title .num {
                 background: #1f4b6e !important;
@@ -1476,22 +1551,28 @@
 
             .subsection h3 {
                 color: #0a1e33 !important;
+                font-size: 11pt !important;
+                break-after: avoid;
+                page-break-after: avoid;
             }
 
             .step-desc {
                 background: #f7f9fc !important;
                 border: 1px solid #ccc !important;
                 border-left: 4px solid #1f4b6e !important;
-                border-radius: 6px !important;
-                padding: 6px 12px !important;
-                margin: 4px 0 10px 0 !important;
+                border-radius: 4px !important;
+                padding: 5px 10px !important;
+                margin: 3px 0 8px 0 !important;
                 color: #000 !important;
                 box-shadow: none !important;
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
                 transform: none !important;
+                font-size: 9.5pt !important;
                 break-inside: avoid;
                 page-break-inside: avoid;
+                orphans: 3;
+                widows: 3;
             }
             .step-desc .code-inline {
                 background: #e8edf3 !important;
@@ -1505,6 +1586,7 @@
             .step-desc .sub-operation {
                 background: #e8edf3 !important;
                 border: 1px solid #ccc !important;
+                font-size: 8.5pt !important;
             }
             .step-desc.highlight {
                 border-left-color: #b8860b !important;
@@ -1513,6 +1595,9 @@
             .step-desc .download-link {
                 background: #1f4b6e !important;
                 color: white !important;
+                font-size: 8pt !important;
+                padding: 2px 10px !important;
+                min-height: auto !important;
             }
 
             .note-box {
@@ -1520,62 +1605,75 @@
                 border: 1px solid #ccc !important;
                 border-left: 4px solid #b8860b !important;
                 color: #333 !important;
+                font-size: 9pt !important;
+                break-inside: avoid;
+                page-break-inside: avoid;
+                padding: 6px 12px !important;
+            }
+            .note-box .rule-list li {
+                padding-left: 1.4rem !important;
+                background-size: 14px !important;
             }
 
-            /* ===== 打印：图片展示优化 ===== */
+            /* 打印：图片展示优化 */
             .img-grid {
                 display: grid !important;
                 grid-template-columns: repeat(2, 1fr) !important;
-                gap: 14px 20px !important;
-                margin: 14px 0 !important;
+                gap: 10px 16px !important;
+                margin: 8px 0 !important;
                 break-inside: avoid;
                 page-break-inside: avoid;
             }
 
             .img-grid:has(> .img-card:only-child) {
                 grid-template-columns: 1fr !important;
-                max-width: 75% !important;
+                max-width: 70% !important;
                 margin-left: auto !important;
                 margin-right: auto !important;
             }
 
             .img-grid.stacked {
                 grid-template-columns: 1fr !important;
-                max-width: 80% !important;
+                max-width: 75% !important;
             }
 
             .img-card {
                 background: white !important;
-                border: 1px solid #ccc !important;
-                border-radius: 6px !important;
-                padding: 6px !important;
+                border: 1px solid #bbb !important;
+                border-radius: 4px !important;
+                padding: 4px !important;
                 box-shadow: none !important;
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
                 transform: none !important;
                 break-inside: avoid;
                 page-break-inside: avoid;
+                content-visibility: visible !important;
+                contain-intrinsic-size: none !important;
             }
             .img-card img {
                 max-height: var(--img-max-height-print) !important;
-                border: 1px solid #ddd !important;
+                border: 1px solid #ccc !important;
                 background: white !important;
-                border-radius: 4px !important;
+                border-radius: 3px !important;
                 cursor: default !important;
                 max-width: 100% !important;
                 opacity: 1 !important;
+                animation: none !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
             .img-card .img-caption {
                 background: #f0f4f8 !important;
                 border: 1px solid #ddd !important;
                 color: #1a3c57 !important;
-                font-size: 8pt !important;
+                font-size: 7pt !important;
             }
             .img-card .code-tag {
                 background: #f0f4f8 !important;
                 border: 1px solid #ddd !important;
                 color: #004080 !important;
-                font-size: 7pt !important;
+                font-size: 6.5pt !important;
             }
             .img-card .img-hint {
                 display: none !important;
@@ -1584,22 +1682,30 @@
             .img-wrapper .img-error {
                 display: none !important;
             }
+            .img-wrapper {
+                min-height: auto !important;
+                border: none !important;
+                background: white !important;
+            }
 
             .footer-note {
                 background: #f7f9fc !important;
                 border: 1px solid #ccc !important;
-                border-radius: 8px !important;
-                padding: 6px 16px !important;
-                margin-top: 16px !important;
+                border-radius: 6px !important;
+                padding: 5px 12px !important;
+                margin-top: 12px !important;
                 color: #333 !important;
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
-                font-size: 9pt !important;
+                font-size: 8pt !important;
+                break-inside: avoid;
+                page-break-inside: avoid;
             }
             .footer-note .doc-badge {
                 background: #1f4b6e !important;
                 color: white !important;
                 box-shadow: none !important;
+                font-size: 7pt !important;
             }
 
             /* 隐藏交互元素 */
@@ -1609,28 +1715,46 @@
             .lightbox-overlay,
             .lightbox-nav,
             .lightbox-counter,
-            .lightbox-close {
+            .lightbox-close,
+            .mobile-nav {
                 display: none !important;
             }
 
             /* 分页控制 */
             .section {
-                break-inside: avoid;
-                page-break-inside: avoid;
+                break-inside: auto;
+                page-break-inside: auto;
             }
             .subsection {
-                break-inside: avoid;
-                page-break-inside: avoid;
+                break-inside: auto;
+                page-break-inside: auto;
             }
-            .img-card {
-                break-inside: avoid;
-                page-break-inside: avoid;
+            .subsection h3 {
+                break-after: avoid;
+                page-break-after: avoid;
             }
             .step-desc {
                 break-inside: avoid;
                 page-break-inside: avoid;
+                orphans: 2;
+                widows: 2;
             }
             .img-grid .img-card {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+            /* 图片不跨页 */
+            .img-grid {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            /* 如果图片网格太大，允许分开 */
+            .img-grid.stacked {
+                break-inside: auto;
+                page-break-inside: auto;
+            }
+            .img-grid.stacked .img-card {
+                break-inside: avoid;
                 page-break-inside: avoid;
             }
         }
@@ -1647,6 +1771,7 @@
             overflow: hidden !important;
             clip: rect(0, 0, 0, 0) !important;
             border: 0 !important;
+            white-space: nowrap !important;
         }
     </style>
 </head>
@@ -1657,18 +1782,16 @@
 
     <div class="container">
 
-        <!-- ==========================================================
-        头部
-        ========================================================== -->
+        <!-- 头部 -->
         <header class="header">
             <div class="header-brand">
                 <div class="logo-wrap">
-                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/Logo.png?raw=true" alt="TOPT Logo" width="40" height="40" />
+                    <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/Logo.png?raw=true" alt="TOPT 公司标志" width="40" height="40" loading="eager" fetchpriority="high" />
                     <span class="brand-text">TOPT</span>
                 </div>
                 <div class="header-left">
                     <h1>🧵 盖黑工单开单流程</h1>
-                    <div class="subhead">操作指引 · 培训教材 v1.0</div>
+                    <div class="subhead" role="doc-subtitle">操作指引 · 培训教材 v1.1</div>
                 </div>
             </div>
             <div class="header-right">
@@ -1679,370 +1802,371 @@
             </div>
         </header>
 
-        <!-- ==========================================================
-        目录
-        ========================================================== -->
-        <nav class="toc" aria-label="目录">
+        <!-- 目录 -->
+        <nav class="toc" aria-label="文档目录">
             <div class="toc-header">
                 <div class="toc-title"><i class="fas fa-list-ul" aria-hidden="true"></i> 目录 <span>7 步骤</span></div>
             </div>
             <ul class="toc-grid">
-                <li><span class="step-num">01</span><span class="step-icon">✅</span><a href="#step-1">启动前确认收货</a></li>
-                <li><span class="step-num">02</span><span class="step-icon">📋</span><a href="#step-2">提交盖黑需求申请</a></li>
-                <li><span class="step-num">03</span><span class="step-icon">🏷️</span><a href="#step-3">获取黑色销售订单</a></li>
-                <li><span class="step-num">04</span><span class="step-icon">🔄</span><a href="#step-4">储存地点转销售订单</a></li>
-                <li><span class="step-num">05</span><span class="step-icon">⚙️</span><a href="#step-5">APO 创建黑色工单</a></li>
-                <li><span class="step-num">06</span><span class="step-icon">🔒</span><a href="#step-6">锁胚 · 报工 · 发单</a></li>
-                <li><span class="step-num">07</span><span class="step-icon">📦</span><a href="#step-7">工单投料 & 结束</a></li>
+                <li><span class="step-num">01</span><span class="step-icon" aria-hidden="true">✅</span><a href="#step-1">启动前确认收货</a></li>
+                <li><span class="step-num">02</span><span class="step-icon" aria-hidden="true">📋</span><a href="#step-2">提交盖黑需求申请</a></li>
+                <li><span class="step-num">03</span><span class="step-icon" aria-hidden="true">🏷️</span><a href="#step-3">获取黑色销售订单</a></li>
+                <li><span class="step-num">04</span><span class="step-icon" aria-hidden="true">🔄</span><a href="#step-4">储存地点转销售订单</a></li>
+                <li><span class="step-num">05</span><span class="step-icon" aria-hidden="true">⚙️</span><a href="#step-5">APO 创建黑色工单</a></li>
+                <li><span class="step-num">06</span><span class="step-icon" aria-hidden="true">🔒</span><a href="#step-6">锁胚 · 报工 · 发单</a></li>
+                <li><span class="step-num">07</span><span class="step-icon" aria-hidden="true">📦</span><a href="#step-7">工单投料 & 结束</a></li>
             </ul>
         </nav>
 
-        <!-- ==========================================================
-        一、内容
-        ========================================================== -->
-        <section class="section">
-            <div class="section-title"><span class="num">一</span> 盖黑工单开单流程</div>
+        <!-- 主内容 -->
+        <main>
+            <section class="section" aria-labelledby="main-title">
+                <div class="section-title" id="main-title"><span class="num">一</span> 盖黑工单开单流程</div>
 
-            <!-- 第一步 -->
-            <div class="subsection" id="step-1">
-                <h3><i class="fas fa-check-circle" style="color:#2b5f8a;" aria-hidden="true"></i> 第一步：启动前确认收货</h3>
-                <div class="step-desc" data-step-label="确认收货">
-                    <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
-                    启动盖黑（或深色）流程前，须先确认该工单已完成收货。若尚未收货，需先行完成收货操作。
-                    <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 收货操作功能代码：<span class="code-inline">ZSOHPP090</span></span>
-                </div>
-                <div class="img-grid">
-                    <div class="img-card">
-                        <div class="img-wrapper">
-                            <div class="img-placeholder"><div class="spinner"></div></div>
-                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
-                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-2.png?raw=true" alt="1-2 收货界面" loading="lazy" decoding="async" />
-                        </div>
-                        <div class="card-labels">
-                            <span class="code-tag"><i class="fas fa-warehouse" aria-hidden="true"></i> ZSOHPP090</span>
-                            <span class="img-caption">图 1-2 收货操作</span>
-                        </div>
-                        <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                <!-- 第一步 -->
+                <div class="subsection" id="step-1" role="article" aria-label="第一步：启动前确认收货">
+                    <h3><i class="fas fa-check-circle" style="color:#2b5f8a;" aria-hidden="true"></i> 第一步：启动前确认收货</h3>
+                    <div class="step-desc" data-step-label="确认收货" tabindex="0">
+                        <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
+                        启动盖黑（或深色）流程前，须先确认该工单已完成收货。若尚未收货，需先行完成收货操作。
+                        <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 收货操作功能代码：<span class="code-inline">ZSOHPP090</span></span>
                     </div>
-                </div>
-            </div>
-
-            <!-- 第二步 -->
-            <div class="subsection" id="step-2">
-                <h3><i class="fas fa-file-signature" style="color:#8a6e9b;" aria-hidden="true"></i> 第二步：提交盖黑需求申请</h3>
-                <div class="step-desc" data-step-label="提交需求">
-                    <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
-                    确认收货后，由需求部门填写盖黑需求表，并向 PPC 正式提交盖黑申请。
-                    <span class="remark">
-                        <i class="far fa-comment-dots" aria-hidden="true"></i>
-                        EXCEL 附件下载：
-                        <a href="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/Black-Over_Request_Form.xlsx?raw=true" class="download-link" download>
-                            <i class="fas fa-file-excel" aria-hidden="true"></i> 盖黑需求表.xlsx
-                        </a>
-                    </span>
-                </div>
-                <div class="img-grid">
-                    <div class="img-card">
-                        <div class="img-wrapper">
-                            <div class="img-placeholder"><div class="spinner"></div></div>
-                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
-                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-1.png?raw=true" alt="1-1 盖黑需求表" loading="lazy" decoding="async" />
+                    <div class="img-grid">
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-2.png?raw=true" alt="1-2 收货操作界面截图，展示 ZSOHPP090 功能代码的使用" loading="lazy" decoding="async" fetchpriority="low" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag"><i class="fas fa-warehouse" aria-hidden="true"></i> ZSOHPP090</span>
+                                <span class="img-caption">图 1-2 收货操作</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
                         </div>
-                        <div class="card-labels">
-                            <span class="code-tag"><i class="fas fa-table" aria-hidden="true"></i> 需求表</span>
-                            <span class="img-caption">图 1-1 盖黑需求表</span>
-                        </div>
-                        <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 第三步 -->
-            <div class="subsection" id="step-3">
-                <h3><i class="fas fa-tag" style="color:#d99e4a;" aria-hidden="true"></i> 第三步：获取黑色销售订单</h3>
-                <div class="step-desc" data-step-label="销售订单">
-                    <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
-                    PPC 提供黑色的销售订单号码，且确认是否需要补开单。
-                </div>
-            </div>
-
-            <!-- 第四步 -->
-            <div class="subsection" id="step-4">
-                <h3><i class="fas fa-arrow-right-arrow-left" style="color:#3a6b8f;" aria-hidden="true"></i> 第四步：储存地点转销售订单</h3>
-                <div class="step-desc" data-step-label="转销售订单">
-                    <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
-                    操作 TF 儲存地點至銷售訂單（413 E 移动类型）
-                    <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">ZSOHWM002</span></span>
-                </div>
-                <div class="img-grid stacked">
-                    <div class="img-card">
-                        <div class="img-wrapper">
-                            <div class="img-placeholder"><div class="spinner"></div></div>
-                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
-                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-3.png?raw=true" alt="1-3 ZSOHWM002" loading="lazy" decoding="async" />
-                        </div>
-                        <div class="card-labels">
-                            <span class="code-tag"><i class="fas fa-exchange-alt" aria-hidden="true"></i> ZSOHWM002</span>
-                            <span class="img-caption">图 1-3 储存地点转销售订单</span>
-                        </div>
-                        <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                    </div>
-                    <div class="img-card">
-                        <div class="img-wrapper">
-                            <div class="img-placeholder"><div class="spinner"></div></div>
-                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
-                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-16.png?raw=true" alt="1-16 储存地点转销售订单补充" loading="lazy" decoding="async" />
-                        </div>
-                        <div class="card-labels">
-                            <span class="code-tag"><i class="fas fa-exchange-alt" aria-hidden="true"></i> ZSOHWM002</span>
-                            <span class="img-caption">图 1-16</span>
-                        </div>
-                        <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 第五步 -->
-            <div class="subsection" id="step-5">
-                <h3><i class="fas fa-cogs" style="color:#2b5f8a;" aria-hidden="true"></i> 第五步：APO 系统创建黑色工单</h3>
-
-                <div class="step-desc" data-step-label="APO创建工单">
-                    <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
-                    <strong>5-1：</strong>操作功能代码：<span class="code-inline">ZSOH_SE06</span>
-                </div>
-                <div class="img-grid">
-                    <div class="img-card">
-                        <div class="img-wrapper">
-                            <div class="img-placeholder"><div class="spinner"></div></div>
-                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
-                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-4.png?raw=true" alt="1-4 ZSOH_SE06" loading="lazy" decoding="async" />
-                        </div>
-                        <div class="card-labels">
-                            <span class="code-tag"><i class="fas fa-search" aria-hidden="true"></i> ZSOH_SE06</span>
-                            <span class="img-caption">图 1-4 APO 操作</span>
-                        </div>
-                        <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
                     </div>
                 </div>
 
-                <div class="step-desc" data-step-label="特性值修改">
-                    <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
-                    <strong>5-2：</strong>操作功能代码：<span class="code-inline">ZSOH_SE17</span>
-                    <div class="sub-operation">
-                        <i class="fas fa-edit" aria-hidden="true"></i> ① 删除 SF0251（補布原因）特性值；② 更改 PG0886（分紗ID）特性值为“F”开头；③ 更改 PF0621（是否已鎖胚）特性值为“Z”
+                <!-- 第二步 -->
+                <div class="subsection" id="step-2" role="article" aria-label="第二步：提交盖黑需求申请">
+                    <h3><i class="fas fa-file-signature" style="color:#8a6e9b;" aria-hidden="true"></i> 第二步：提交盖黑需求申请</h3>
+                    <div class="step-desc" data-step-label="提交需求" tabindex="0">
+                        <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
+                        确认收货后，由需求部门填写盖黑需求表，并向 PPC 正式提交盖黑申请。
+                        <span class="remark">
+                            <i class="far fa-comment-dots" aria-hidden="true"></i>
+                            EXCEL 附件下载：
+                            <a href="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/Black-Over_Request_Form.xlsx?raw=true" class="download-link" download aria-label="下载盖黑需求表 Excel 文件">
+                                <i class="fas fa-file-excel" aria-hidden="true"></i> 盖黑需求表.xlsx
+                            </a>
+                        </span>
                     </div>
-                </div>
-                <div class="img-grid stacked">
-                    <div class="img-card">
-                        <div class="img-wrapper">
-                            <div class="img-placeholder"><div class="spinner"></div></div>
-                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
-                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-5.png?raw=true" alt="1-5 ZSOH_SE17 第一步" loading="lazy" decoding="async" />
+                    <div class="img-grid">
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-1.png?raw=true" alt="1-1 盖黑需求表格式示例" loading="lazy" decoding="async" fetchpriority="low" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag"><i class="fas fa-table" aria-hidden="true"></i> 需求表</span>
+                                <span class="img-caption">图 1-1 盖黑需求表</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
                         </div>
-                        <div class="card-labels">
-                            <span class="code-tag"><i class="fas fa-edit" aria-hidden="true"></i> ZSOH_SE17</span>
-                            <span class="img-caption">图 1-5 特性值修改</span>
-                        </div>
-                        <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                    </div>
-                    <div class="img-card">
-                        <div class="img-wrapper">
-                            <div class="img-placeholder"><div class="spinner"></div></div>
-                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
-                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-6.png?raw=true" alt="1-6 特性值详情" loading="lazy" decoding="async" />
-                        </div>
-                        <div class="card-labels">
-                            <span class="code-tag"><i class="fas fa-list-ul" aria-hidden="true"></i> 特性值</span>
-                            <span class="img-caption">图 1-6 详情</span>
-                        </div>
-                        <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
                     </div>
                 </div>
 
-                <div class="step-desc" data-step-label="分缸">
-                    <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
-                    <strong>5-3：</strong>操作功能代码：<span class="code-inline">ZTRIM_XS___START</span>
-                    <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作：分缸</span>
-                </div>
-                <div class="img-grid">
-                    <div class="img-card">
-                        <div class="img-wrapper">
-                            <div class="img-placeholder"><div class="spinner"></div></div>
-                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
-                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-7.png?raw=true" alt="1-7 分缸1" loading="lazy" decoding="async" />
-                        </div>
-                        <div class="card-labels">
-                            <span class="code-tag"><i class="fas fa-flask" aria-hidden="true"></i> 分缸</span>
-                            <span class="img-caption">图 1-7</span>
-                        </div>
-                        <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                    </div>
-                    <div class="img-card">
-                        <div class="img-wrapper">
-                            <div class="img-placeholder"><div class="spinner"></div></div>
-                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
-                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-8.png?raw=true" alt="1-8 分缸2" loading="lazy" decoding="async" />
-                        </div>
-                        <div class="card-labels">
-                            <span class="code-tag"><i class="fas fa-flask" aria-hidden="true"></i> 分缸</span>
-                            <span class="img-caption">图 1-8</span>
-                        </div>
-                        <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                    </div>
-                    <div class="img-card">
-                        <div class="img-wrapper">
-                            <div class="img-placeholder"><div class="spinner"></div></div>
-                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
-                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-9.png?raw=true" alt="1-9 分缸3" loading="lazy" decoding="async" />
-                        </div>
-                        <div class="card-labels">
-                            <span class="code-tag"><i class="fas fa-flask" aria-hidden="true"></i> 分缸</span>
-                            <span class="img-caption">图 1-9</span>
-                        </div>
-                        <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                    </div>
-                    <div class="img-card">
-                        <div class="img-wrapper">
-                            <div class="img-placeholder"><div class="spinner"></div></div>
-                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
-                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-10.png?raw=true" alt="1-10 分缸4" loading="lazy" decoding="async" />
-                        </div>
-                        <div class="card-labels">
-                            <span class="code-tag"><i class="fas fa-flask" aria-hidden="true"></i> 分缸</span>
-                            <span class="img-caption">图 1-10</span>
-                        </div>
-                        <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                <!-- 第三步 -->
+                <div class="subsection" id="step-3" role="article" aria-label="第三步：获取黑色销售订单">
+                    <h3><i class="fas fa-tag" style="color:#d99e4a;" aria-hidden="true"></i> 第三步：获取黑色销售订单</h3>
+                    <div class="step-desc" data-step-label="销售订单" tabindex="0">
+                        <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
+                        PPC 提供黑色的销售订单号码，且确认是否需要补开单。
                     </div>
                 </div>
 
-                <div class="step-desc" data-step-label="锁胚">
-                    <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
-                    <strong>5-4：</strong>操作功能代码：<span class="code-inline">ZSOH_SE17</span>
-                    <div class="sub-operation"><i class="fas fa-edit" aria-hidden="true"></i> 更改 PF0621（是否已鎖胚）特性值为“Y”</div>
-                </div>
-                <div class="img-grid">
-                    <div class="img-card">
-                        <div class="img-wrapper">
-                            <div class="img-placeholder"><div class="spinner"></div></div>
-                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
-                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-11.png?raw=true" alt="1-11 锁定胚" loading="lazy" decoding="async" />
+                <!-- 第四步 -->
+                <div class="subsection" id="step-4" role="article" aria-label="第四步：储存地点转销售订单">
+                    <h3><i class="fas fa-arrow-right-arrow-left" style="color:#3a6b8f;" aria-hidden="true"></i> 第四步：储存地点转销售订单</h3>
+                    <div class="step-desc" data-step-label="转销售订单" tabindex="0">
+                        <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
+                        操作 TF 储存地点至销售订单（413 E 移动类型）
+                        <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">ZSOHWM002</span></span>
+                    </div>
+                    <div class="img-grid stacked">
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-3.png?raw=true" alt="1-3 ZSOHWM002 储存地点转销售订单操作界面" loading="lazy" decoding="async" fetchpriority="low" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag"><i class="fas fa-exchange-alt" aria-hidden="true"></i> ZSOHWM002</span>
+                                <span class="img-caption">图 1-3 储存地点转销售订单</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
                         </div>
-                        <div class="card-labels">
-                            <span class="code-tag"><i class="fas fa-lock" aria-hidden="true"></i> 锁胚</span>
-                            <span class="img-caption">图 1-11 锁胚</span>
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-16.png?raw=true" alt="1-16 ZSOHWM002 补充操作细节" loading="lazy" decoding="async" fetchpriority="low" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag"><i class="fas fa-exchange-alt" aria-hidden="true"></i> ZSOHWM002</span>
+                                <span class="img-caption">图 1-16</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
                         </div>
-                        <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
                     </div>
                 </div>
 
-                <div class="step-desc" data-step-label="手动转工单">
-                    <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
-                    <strong>5-5：</strong>手动转工单：<span class="code-inline">/SAPAPO/RRP3</span>
-                </div>
-                <div class="img-grid">
-                    <div class="img-card">
-                        <div class="img-wrapper">
-                            <div class="img-placeholder"><div class="spinner"></div></div>
-                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
-                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-12.png?raw=true" alt="1-12 手动转工单" loading="lazy" decoding="async" />
-                        </div>
-                        <div class="card-labels">
-                            <span class="code-tag"><i class="fas fa-exchange-alt" aria-hidden="true"></i> /SAPAPO/RRP3</span>
-                            <span class="img-caption">图 1-12 手动转工单</span>
-                        </div>
-                        <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
-                    </div>
-                </div>
-            </div>
+                <!-- 第五步 -->
+                <div class="subsection" id="step-5" role="article" aria-label="第五步：APO 系统创建黑色工单">
+                    <h3><i class="fas fa-cogs" style="color:#2b5f8a;" aria-hidden="true"></i> 第五步：APO 系统创建黑色工单</h3>
 
-            <!-- 第六步 -->
-            <div class="subsection" id="step-6">
-                <h3><i class="fas fa-lock" style="color:#b8860b;" aria-hidden="true"></i> 第六步：锁胚 · 报工 · 发单</h3>
-                <div class="step-desc" data-step-label="锁胚报工">
-                    <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
-                    黑色工单锁胚-报工-发单
-                    <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">ZSOHPP159</span></span>
-                </div>
-                <div class="note-box">
-                    <strong><i class="fas fa-lightbulb" style="color:#d99e4a;" aria-hidden="true"></i> 注意事项：</strong>
-                    <ul class="rule-list">
-                        <li>抽胚异常栏位注明抽布缸号已染色布盖黑，责任部门。</li>
-                        <li>抽已染色布盖色：<strong>Y</strong></li>
-                        <li>差异原因：织厂-RDK1，染厂-RDD7，整理厂-RDF1，PPC-RDS1</li>
-                    </ul>
-                </div>
-                <div class="img-grid stacked">
-                    <div class="img-card">
-                        <div class="img-wrapper">
-                            <div class="img-placeholder"><div class="spinner"></div></div>
-                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
-                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-13.png?raw=true" alt="1-13 ZSOHPP159" loading="lazy" decoding="async" />
-                        </div>
-                        <div class="card-labels">
-                            <span class="code-tag"><i class="fas fa-print" aria-hidden="true"></i> ZSOHPP159</span>
-                            <span class="img-caption">图 1-13</span>
-                        </div>
-                        <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                    <div class="step-desc" data-step-label="APO创建工单" tabindex="0">
+                        <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
+                        <strong>5-1：</strong>操作功能代码：<span class="code-inline">ZSOH_SE06</span>
                     </div>
-                    <div class="img-card">
-                        <div class="img-wrapper">
-                            <div class="img-placeholder"><div class="spinner"></div></div>
-                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
-                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-14.png?raw=true" alt="1-14 锁胚报工详情" loading="lazy" decoding="async" />
+                    <div class="img-grid">
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-4.png?raw=true" alt="1-4 ZSOH_SE06 APO 创建工单操作界面" loading="lazy" decoding="async" fetchpriority="low" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag"><i class="fas fa-search" aria-hidden="true"></i> ZSOH_SE06</span>
+                                <span class="img-caption">图 1-4 APO 操作</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
                         </div>
-                        <div class="card-labels">
-                            <span class="code-tag"><i class="fas fa-print" aria-hidden="true"></i> ZSOHPP159</span>
-                            <span class="img-caption">图 1-14</span>
-                        </div>
-                        <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
                     </div>
-                </div>
-            </div>
 
-            <!-- 第七步 -->
-            <div class="subsection" id="step-7">
-                <h3><i class="fas fa-boxes" style="color:#3a6b8f;" aria-hidden="true"></i> 第七步：工单投料 & 结束</h3>
-                <div class="step-desc" data-step-label="投料结束">
-                    <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
-                    工单投料
-                    <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">MIGO</span>（收货批次在线边仓则直接投料，收货批次在成品仓则正常流程从成品仓提布）</span>
-                </div>
-                <div class="img-grid">
-                    <div class="img-card">
-                        <div class="img-wrapper">
-                            <div class="img-placeholder"><div class="spinner"></div></div>
-                            <div class="img-error"><i class="fas fa-image"></i> 图片加载失败</div>
-                            <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-15.png?raw=true" alt="1-15 MIGO 投料" loading="lazy" decoding="async" />
+                    <div class="step-desc" data-step-label="特性值修改" tabindex="0">
+                        <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
+                        <strong>5-2：</strong>操作功能代码：<span class="code-inline">ZSOH_SE17</span>
+                        <div class="sub-operation">
+                            <i class="fas fa-edit" aria-hidden="true"></i> ① 删除 SF0251（补布原因）特性值；② 更改 PG0886（分纱ID）特性值为"F"开头；③ 更改 PF0621（是否已锁胚）特性值为"Z"
                         </div>
-                        <div class="card-labels">
-                            <span class="code-tag"><i class="fas fa-truck" aria-hidden="true"></i> MIGO</span>
-                            <span class="img-caption">图 1-15 投料</span>
+                    </div>
+                    <div class="img-grid stacked">
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-5.png?raw=true" alt="1-5 ZSOH_SE17 特性值修改第一步操作" loading="lazy" decoding="async" fetchpriority="low" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag"><i class="fas fa-edit" aria-hidden="true"></i> ZSOH_SE17</span>
+                                <span class="img-caption">图 1-5 特性值修改</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
                         </div>
-                        <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-6.png?raw=true" alt="1-6 特性值详情页面" loading="lazy" decoding="async" fetchpriority="low" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag"><i class="fas fa-list-ul" aria-hidden="true"></i> 特性值</span>
+                                <span class="img-caption">图 1-6 详情</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        </div>
+                    </div>
+
+                    <div class="step-desc" data-step-label="分缸" tabindex="0">
+                        <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
+                        <strong>5-3：</strong>操作功能代码：<span class="code-inline">ZTRIM_XS___START</span>
+                        <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作：分缸</span>
+                    </div>
+                    <div class="img-grid">
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-7.png?raw=true" alt="1-7 分缸操作第一步" loading="lazy" decoding="async" fetchpriority="low" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag"><i class="fas fa-flask" aria-hidden="true"></i> 分缸</span>
+                                <span class="img-caption">图 1-7</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        </div>
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-8.png?raw=true" alt="1-8 分缸操作第二步" loading="lazy" decoding="async" fetchpriority="low" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag"><i class="fas fa-flask" aria-hidden="true"></i> 分缸</span>
+                                <span class="img-caption">图 1-8</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        </div>
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-9.png?raw=true" alt="1-9 分缸操作第三步" loading="lazy" decoding="async" fetchpriority="low" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag"><i class="fas fa-flask" aria-hidden="true"></i> 分缸</span>
+                                <span class="img-caption">图 1-9</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        </div>
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-10.png?raw=true" alt="1-10 分缸操作第四步" loading="lazy" decoding="async" fetchpriority="low" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag"><i class="fas fa-flask" aria-hidden="true"></i> 分缸</span>
+                                <span class="img-caption">图 1-10</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        </div>
+                    </div>
+
+                    <div class="step-desc" data-step-label="锁胚" tabindex="0">
+                        <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
+                        <strong>5-4：</strong>操作功能代码：<span class="code-inline">ZSOH_SE17</span>
+                        <div class="sub-operation"><i class="fas fa-edit" aria-hidden="true"></i> 更改 PF0621（是否已锁胚）特性值为"Y"</div>
+                    </div>
+                    <div class="img-grid">
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-11.png?raw=true" alt="1-11 锁胚操作界面" loading="lazy" decoding="async" fetchpriority="low" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag"><i class="fas fa-lock" aria-hidden="true"></i> 锁胚</span>
+                                <span class="img-caption">图 1-11 锁胚</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        </div>
+                    </div>
+
+                    <div class="step-desc" data-step-label="手动转工单" tabindex="0">
+                        <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
+                        <strong>5-5：</strong>手动转工单：<span class="code-inline">/SAPAPO/RRP3</span>
+                    </div>
+                    <div class="img-grid">
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-12.png?raw=true" alt="1-12 手动转工单操作界面" loading="lazy" decoding="async" fetchpriority="low" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag"><i class="fas fa-exchange-alt" aria-hidden="true"></i> /SAPAPO/RRP3</span>
+                                <span class="img-caption">图 1-12 手动转工单</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        </div>
                     </div>
                 </div>
-                <div class="step-desc" style="border-left-color: #6b8fb0; background: rgba(235, 245, 255, 0.4); margin-top: 1.5rem;">
-                    <i class="fas fa-flag-checkered" style="color:#1f4b6e;" aria-hidden="true"></i>
-                    <strong>最后确认：</strong>新单补开或不需要补开后，盖黑流程结束。
-                </div>
-            </div>
-        </section>
 
-        <!-- ==========================================================
-        页脚
-        ========================================================== -->
-        <footer class="footer-note">
+                <!-- 第六步 -->
+                <div class="subsection" id="step-6" role="article" aria-label="第六步：锁胚 报工 发单">
+                    <h3><i class="fas fa-lock" style="color:#b8860b;" aria-hidden="true"></i> 第六步：锁胚 · 报工 · 发单</h3>
+                    <div class="step-desc" data-step-label="锁胚报工" tabindex="0">
+                        <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
+                        黑色工单锁胚-报工-发单
+                        <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">ZSOHPP159</span></span>
+                    </div>
+                    <div class="note-box" role="note">
+                        <strong><i class="fas fa-lightbulb" style="color:#d99e4a;" aria-hidden="true"></i> 注意事项：</strong>
+                        <ul class="rule-list">
+                            <li>抽胚异常栏位注明抽布缸号已染色布盖黑，责任部门。</li>
+                            <li>抽已染色布盖色：<strong>Y</strong></li>
+                            <li>差异原因：织厂-RDK1，染厂-RDD7，整理厂-RDF1，PPC-RDS1</li>
+                        </ul>
+                    </div>
+                    <div class="img-grid stacked">
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-13.png?raw=true" alt="1-13 ZSOHPP159 锁胚报工发单操作界面" loading="lazy" decoding="async" fetchpriority="low" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag"><i class="fas fa-print" aria-hidden="true"></i> ZSOHPP159</span>
+                                <span class="img-caption">图 1-13</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        </div>
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-14.png?raw=true" alt="1-14 锁胚报工详情页面" loading="lazy" decoding="async" fetchpriority="low" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag"><i class="fas fa-print" aria-hidden="true"></i> ZSOHPP159</span>
+                                <span class="img-caption">图 1-14</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第七步 -->
+                <div class="subsection" id="step-7" role="article" aria-label="第七步：工单投料与结束">
+                    <h3><i class="fas fa-boxes" style="color:#3a6b8f;" aria-hidden="true"></i> 第七步：工单投料 & 结束</h3>
+                    <div class="step-desc" data-step-label="投料结束" tabindex="0">
+                        <i class="fas fa-bolt" style="color:var(--accent-light);" aria-hidden="true"></i>
+                        工单投料
+                        <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">MIGO</span>（收货批次在线边仓则直接投料，收货批次在成品仓则正常流程从成品仓提布）</span>
+                    </div>
+                    <div class="img-grid">
+                        <div class="img-card">
+                            <div class="img-wrapper">
+                                <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
+                                <div class="img-error" role="alert"><i class="fas fa-image" aria-hidden="true"></i> 图片加载失败</div>
+                                <img src="https://github.com/liuyang042/Production-Order-Create/blob/main/Black-Over/1-15.png?raw=true" alt="1-15 MIGO 工单投料操作界面" loading="lazy" decoding="async" fetchpriority="low" />
+                            </div>
+                            <div class="card-labels">
+                                <span class="code-tag"><i class="fas fa-truck" aria-hidden="true"></i> MIGO</span>
+                                <span class="img-caption">图 1-15 投料</span>
+                            </div>
+                            <div class="img-hint"><i class="fas fa-search-plus" aria-hidden="true"></i> 点击放大</div>
+                        </div>
+                    </div>
+                    <div class="step-desc" style="border-left-color: #6b8fb0; background: rgba(235,245,255,0.4); margin-top: 1.5rem;" data-step-label="最后确认" tabindex="0">
+                        <i class="fas fa-flag-checkered" style="color:#1f4b6e;" aria-hidden="true"></i>
+                        <strong>最后确认：</strong>新单补开或不需要补开后，盖黑流程结束。
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="footer-note" role="contentinfo">
             <span><i class="fas fa-check-circle" style="color:#1f6b4a;" aria-hidden="true"></i> TOPT 培训教材 · 内部使用</span>
-            <span class="doc-badge"><i class="fas fa-file-alt" aria-hidden="true"></i> 版本 v1.0</span>
+            <span class="doc-badge"><i class="fas fa-file-alt" aria-hidden="true"></i> 版本 v1.1</span>
             <span><i class="far fa-copyright" aria-hidden="true"></i> 刘洋 · liu-yang@top-textiles.vn</span>
         </footer>
 
     </div>
 
-    <!-- ==========================================================
-    Lightbox
-    ========================================================== -->
-    <div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="图片放大预览">
+    <!-- 移动端底部导航 -->
+    <nav class="mobile-nav" id="mobileNav" aria-label="移动端步骤导航">
+        <button class="mn-btn" id="mnPrev" aria-label="上一步"><i class="fas fa-chevron-left" aria-hidden="true"></i> 上一步</button>
+        <span class="mn-progress" id="mnProgress" aria-live="polite">1 / 7</span>
+        <button class="mn-btn" id="mnNext" aria-label="下一步">下一步 <i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+    </nav>
+
+    <!-- Lightbox -->
+    <div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="图片放大预览" aria-hidden="true">
         <button class="lightbox-close" id="lightboxClose" aria-label="关闭预览">✕</button>
         <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="上一张图片">❮</button>
         <img id="lightboxImg" src="" alt="放大图片" />
@@ -2051,46 +2175,63 @@
     </div>
 
     <!-- 返回顶部按钮 -->
-    <button class="back-to-top" id="backToTop" aria-label="返回顶部"><i class="fas fa-arrow-up"></i></button>
+    <button class="back-to-top" id="backToTop" aria-label="返回页面顶部"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
 
     <script>
-        // ============================================================
-        // 1. 图片加载状态管理
-        // ============================================================
         (function() {
-            const images = document.querySelectorAll('.img-card img');
+            'use strict';
+
+            // ============================================================
+            // 工具函数：防抖
+            // ============================================================
+            function debounce(fn, delay) {
+                let timer = null;
+                return function(...args) {
+                    if (timer) clearTimeout(timer);
+                    timer = setTimeout(() => fn.apply(this, args), delay);
+                };
+            }
+
+            // ============================================================
+            // 1. 图片加载状态管理（优化：使用事件委托 + 超时处理）
+            // ============================================================
+            const images = Array.from(document.querySelectorAll('.img-card img'));
+            const imageLoadTimeout = 12000; // 12秒超时
+
             images.forEach(img => {
                 const wrapper = img.closest('.img-wrapper');
                 const placeholder = wrapper?.querySelector('.img-placeholder');
                 const errorDiv = wrapper?.querySelector('.img-error');
+                let timeoutId = null;
 
-                if (img.complete && img.naturalWidth > 0) {
+                function markLoaded() {
                     img.classList.add('loaded');
                     placeholder?.classList.add('hidden');
+                    if (timeoutId) clearTimeout(timeoutId);
+                }
+
+                function markError() {
+                    placeholder?.classList.add('hidden');
+                    errorDiv?.classList.add('visible');
+                    if (timeoutId) clearTimeout(timeoutId);
+                }
+
+                if (img.complete && img.naturalWidth > 0) {
+                    markLoaded();
                 } else {
-                    img.addEventListener('load', () => {
-                        img.classList.add('loaded');
-                        placeholder?.classList.add('hidden');
-                    });
-                    img.addEventListener('error', () => {
-                        placeholder?.classList.add('hidden');
-                        errorDiv?.classList.add('visible');
-                    });
-                    setTimeout(() => {
-                        if (!img.classList.contains('loaded') && !img.complete) {
-                            placeholder?.classList.add('hidden');
-                            errorDiv?.classList.add('visible');
+                    img.addEventListener('load', markLoaded, { once: true });
+                    img.addEventListener('error', markError, { once: true });
+                    timeoutId = setTimeout(() => {
+                        if (!img.classList.contains('loaded')) {
+                            markError();
                         }
-                    }, 10000);
+                    }, imageLoadTimeout);
                 }
             });
-        })();
 
-        // ============================================================
-        // 2. Lightbox 图片放大
-        // ============================================================
-        (function() {
-            const images = Array.from(document.querySelectorAll('.img-card img'));
+            // ============================================================
+            // 2. Lightbox 图片放大（优化：焦点陷阱 + 触摸滑动 + 预加载）
+            // ============================================================
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightboxImg');
             const closeBtn = document.getElementById('lightboxClose');
@@ -2098,21 +2239,39 @@
             const nextBtn = document.getElementById('lightboxNext');
             const counter = document.getElementById('lightboxCounter');
             let currentIndex = -1;
+            let lastFocusedElement = null;
+            let touchStartX = 0;
+            let touchStartY = 0;
+
+            function preloadAdjacent(index) {
+                if (index > 0) {
+                    const prevImg = new Image();
+                    prevImg.src = images[index - 1].src;
+                }
+                if (index < images.length - 1) {
+                    const nextImg = new Image();
+                    nextImg.src = images[index + 1].src;
+                }
+            }
 
             function openLightbox(index) {
-                if (index < 0 || index >= images.length) return;
+                if (index < 0 || index >= images.length || images.length === 0) return;
+                lastFocusedElement = document.activeElement;
                 currentIndex = index;
                 updateLightboxImage();
                 lightbox.classList.add('active');
+                lightbox.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden';
                 closeBtn.focus();
+                preloadAdjacent(index);
             }
 
             function closeLightbox() {
                 lightbox.classList.remove('active');
+                lightbox.setAttribute('aria-hidden', 'true');
                 document.body.style.overflow = '';
-                if (currentIndex >= 0 && images[currentIndex]) {
-                    images[currentIndex].focus({ preventScroll: true });
+                if (lastFocusedElement && lastFocusedElement.focus) {
+                    lastFocusedElement.focus({ preventScroll: true });
                 }
                 currentIndex = -1;
             }
@@ -2122,20 +2281,26 @@
                 const img = images[currentIndex];
                 lightboxImg.src = img.src;
                 lightboxImg.alt = img.alt || '放大图片';
-                counter.textContent = currentIndex + 1 + ' / ' + images.length;
+                counter.textContent = (currentIndex + 1) + ' / ' + images.length;
             }
 
             function showPrev() {
-                if (currentIndex > 0) { currentIndex--;
-                    updateLightboxImage(); }
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateLightboxImage();
+                    preloadAdjacent(currentIndex);
+                }
             }
 
             function showNext() {
-                if (currentIndex < images.length - 1) { currentIndex++;
-                    updateLightboxImage(); }
+                if (currentIndex < images.length - 1) {
+                    currentIndex++;
+                    updateLightboxImage();
+                    preloadAdjacent(currentIndex);
+                }
             }
 
-            // 点击图片打开
+            // 使用事件委托监听图片点击
             document.querySelector('.container').addEventListener('click', function(e) {
                 const img = e.target.closest('.img-card img');
                 if (img) {
@@ -2148,12 +2313,13 @@
             prevBtn.addEventListener('click', showPrev);
             nextBtn.addEventListener('click', showNext);
 
-            // 键盘控制
+            // 键盘控制（焦点陷阱）
             lightbox.addEventListener('keydown', function(e) {
                 if (!lightbox.classList.contains('active')) return;
                 switch (e.key) {
                     case 'Escape':
                         closeLightbox();
+                        e.preventDefault();
                         break;
                     case 'ArrowLeft':
                         showPrev();
@@ -2176,6 +2342,16 @@
                             e.preventDefault();
                         }
                         break;
+                    case 'Home':
+                        if (images.length > 0) { currentIndex = 0;
+                            updateLightboxImage(); }
+                        e.preventDefault();
+                        break;
+                    case 'End':
+                        if (images.length > 0) { currentIndex = images.length - 1;
+                            updateLightboxImage(); }
+                        e.preventDefault();
+                        break;
                 }
             });
 
@@ -2184,118 +2360,233 @@
                 if (e.target === lightbox) closeLightbox();
             });
 
-            // 触摸滑动
-            let touchStartX = 0;
+            // 触摸滑动（区分水平/垂直）
             lightbox.addEventListener('touchstart', function(e) {
                 touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
             }, { passive: true });
 
             lightbox.addEventListener('touchend', function(e) {
                 const touchEndX = e.changedTouches[0].screenX;
-                const diff = touchStartX - touchEndX;
-                if (Math.abs(diff) > 40) {
-                    if (diff > 0) showNext();
+                const touchEndY = e.changedTouches[0].screenY;
+                const diffX = touchStartX - touchEndX;
+                const diffY = touchStartY - touchEndY;
+                // 仅当水平滑动明显大于垂直滑动时触发
+                if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY) * 1.5) {
+                    if (diffX > 0) showNext();
                     else showPrev();
                 }
             }, { passive: true });
-        })();
 
-        // ============================================================
-        // 3. 步骤滚动高亮导航 (IntersectionObserver)
-        // ============================================================
-        (function() {
-            const steps = document.querySelectorAll('.step-desc');
-            if (steps.length === 0) return;
+            // ============================================================
+            // 3. 步骤滚动高亮导航（优化：IntersectionObserver + 移动端导航同步）
+            // ============================================================
+            const steps = Array.from(document.querySelectorAll('.step-desc'));
+            let navDots = [];
+            let observer = null;
 
-            const nav = document.createElement('div');
-            nav.className = 'step-nav';
-            nav.id = 'stepNav';
-            nav.setAttribute('role', 'navigation');
-            nav.setAttribute('aria-label', '步骤导航');
-
-            steps.forEach(function(step, index) {
-                const btn = document.createElement('button');
-                btn.className = 'nav-dot';
-                btn.setAttribute('aria-label', '跳转到第 ' + (index + 1) + ' 步：' + (step.dataset
-                .stepLabel || ''));
-                const tooltip = document.createElement('span');
-                tooltip.className = 'tooltip';
-                tooltip.textContent = step.dataset.stepLabel || '步骤 ' + (index + 1);
-                btn.appendChild(tooltip);
-
-                btn.addEventListener('click', function() {
-                    step.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                });
-
-                nav.appendChild(btn);
-            });
-
-            document.body.appendChild(nav);
-            const navDots = nav.querySelectorAll('.nav-dot');
-
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        const index = Array.from(steps).indexOf(entry.target);
-                        if (index !== -1) {
-                            setActiveStep(index);
-                        }
-                    }
-                });
-            }, {
-                root: null,
-                rootMargin: '-20% 0px -60% 0px',
-                threshold: 0
-            });
-
-            steps.forEach(function(step) { observer.observe(step); });
+            const mobileNav = document.getElementById('mobileNav');
+            const mnPrev = document.getElementById('mnPrev');
+            const mnNext = document.getElementById('mnNext');
+            const mnProgress = document.getElementById('mnProgress');
+            let currentStepIndex = 0;
 
             function setActiveStep(index) {
-                navDots.forEach(function(dot, i) {
-                    dot.classList.toggle('active', i === index);
-                    if (i === index) {
+                if (index < 0 || index >= steps.length) return;
+                currentStepIndex = index;
+
+                // 更新桌面端侧边导航
+                navDots.forEach((dot, i) => {
+                    const isActive = i === index;
+                    dot.classList.toggle('active', isActive);
+                    if (isActive) {
                         dot.setAttribute('aria-current', 'step');
                     } else {
                         dot.removeAttribute('aria-current');
                     }
                 });
-                steps.forEach(function(step, i) {
+
+                // 更新步骤高亮
+                steps.forEach((step, i) => {
                     step.classList.toggle('highlight', i === index);
+                });
+
+                // 更新移动端导航
+                if (mnProgress) {
+                    mnProgress.textContent = (index + 1) + ' / ' + steps.length;
+                }
+                if (mnPrev) {
+                    mnPrev.disabled = index === 0;
+                }
+                if (mnNext) {
+                    mnNext.disabled = index === steps.length - 1;
+                }
+            }
+
+            function goToStep(index) {
+                if (index < 0 || index >= steps.length) return;
+                steps[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            // 创建桌面端侧边导航
+            if (steps.length > 0 && window.matchMedia('(min-width: 1024px)').matches) {
+                const nav = document.createElement('div');
+                nav.className = 'step-nav';
+                nav.id = 'stepNav';
+                nav.setAttribute('role', 'navigation');
+                nav.setAttribute('aria-label', '步骤快速导航');
+
+                steps.forEach((step, index) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'nav-dot';
+                    btn.setAttribute('aria-label', '跳转到第 ' + (index + 1) + ' 步：' + (step.dataset
+                        .stepLabel || '步骤 ' + (index + 1)));
+                    btn.setAttribute('data-index', index);
+                    const tooltip = document.createElement('span');
+                    tooltip.className = 'tooltip';
+                    tooltip.textContent = step.dataset.stepLabel || '步骤 ' + (index + 1);
+                    tooltip.setAttribute('aria-hidden', 'true');
+                    btn.appendChild(tooltip);
+
+                    btn.addEventListener('click', function() {
+                        goToStep(index);
+                    });
+
+                    nav.appendChild(btn);
+                });
+
+                document.body.appendChild(nav);
+                navDots = Array.from(nav.querySelectorAll('.nav-dot'));
+            }
+
+            // IntersectionObserver 用于监听步骤进入视口
+            if ('IntersectionObserver' in window && steps.length > 0) {
+                observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            const index = steps.indexOf(entry.target);
+                            if (index !== -1) {
+                                setActiveStep(index);
+                            }
+                        }
+                    });
+                }, {
+                    root: null,
+                    rootMargin: '-15% 0px -55% 0px',
+                    threshold: 0.05
+                });
+                steps.forEach(step => observer.observe(step));
+                // 初始设置
+                setActiveStep(0);
+            }
+
+            // 移动端导航按钮
+            if (mnPrev && mnNext) {
+                mnPrev.addEventListener('click', function() {
+                    if (currentStepIndex > 0) goToStep(currentStepIndex - 1);
+                });
+                mnNext.addEventListener('click', function() {
+                    if (currentStepIndex < steps.length - 1) goToStep(currentStepIndex + 1);
                 });
             }
 
-            if (steps.length > 0) setActiveStep(0);
-        })();
-
-        // ============================================================
-        // 4. 阅读进度条
-        // ============================================================
-        (function() {
+            // ============================================================
+            // 4. 阅读进度条（优化：使用 requestAnimationFrame）
+            // ============================================================
             const progressBar = document.getElementById('readingProgress');
-            window.addEventListener('scroll', function() {
+            let progressTicking = false;
+
+            function updateProgress() {
                 const scrollTop = window.scrollY;
                 const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-                progressBar.style.width = progress + '%';
-            }, { passive: true });
-        })();
+                const progress = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) :
+                    0;
+                if (progressBar) {
+                    progressBar.style.width = progress + '%';
+                }
+                progressTicking = false;
+            }
 
-        // ============================================================
-        // 5. 返回顶部按钮
-        // ============================================================
-        (function() {
+            function requestProgressUpdate() {
+                if (!progressTicking) {
+                    progressTicking = true;
+                    window.requestAnimationFrame(updateProgress);
+                }
+            }
+
+            window.addEventListener('scroll', requestProgressUpdate, { passive: true });
+            window.addEventListener('resize', requestProgressUpdate, { passive: true });
+            // 初始更新
+            updateProgress();
+
+            // ============================================================
+            // 5. 返回顶部按钮
+            // ============================================================
             const backToTop = document.getElementById('backToTop');
-            window.addEventListener('scroll', function() {
+            let backToTopTicking = false;
+
+            function updateBackToTop() {
                 if (window.scrollY > 300) {
                     backToTop.classList.add('visible');
                 } else {
                     backToTop.classList.remove('visible');
                 }
-            }, { passive: true });
+                backToTopTicking = false;
+            }
 
+            function requestBackToTopUpdate() {
+                if (!backToTopTicking) {
+                    backToTopTicking = true;
+                    window.requestAnimationFrame(updateBackToTop);
+                }
+            }
+
+            window.addEventListener('scroll', requestBackToTopUpdate, { passive: true });
             backToTop.addEventListener('click', function() {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
+            // 初始更新
+            updateBackToTop();
+
+            // ============================================================
+            // 6. 键盘快捷键（优化：添加键盘导航快捷键）
+            // ============================================================
+            document.addEventListener('keydown', function(e) {
+                // 仅在非输入框且lightbox未打开时响应
+                const tag = document.activeElement?.tagName?.toLowerCase();
+                const isInput = tag === 'input' || tag === 'textarea' || tag === 'select';
+                if (isInput || lightbox.classList.contains('active')) return;
+
+                // Alt+左右方向键切换步骤
+                if (e.altKey && e.key === 'ArrowRight' && steps.length > 0) {
+                    if (currentStepIndex < steps.length - 1) goToStep(currentStepIndex + 1);
+                    e.preventDefault();
+                } else if (e.altKey && e.key === 'ArrowLeft' && steps.length > 0) {
+                    if (currentStepIndex > 0) goToStep(currentStepIndex - 1);
+                    e.preventDefault();
+                }
+                // Home键返回顶部
+                else if (e.key === 'Home' && !e.ctrlKey && !e.metaKey) {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    e.preventDefault();
+                }
+            });
+
+            // ============================================================
+            // 7. 打印前优化（确保所有图片在打印时可见）
+            // ============================================================
+            window.addEventListener('beforeprint', function() {
+                images.forEach(img => {
+                    img.classList.add('loaded');
+                });
+            });
+
+            // ============================================================
+            // 8. 控制台友好提示
+            // ============================================================
+            console.log('%c📘 TOPT 培训教材 v1.1', 'font-size:16px;font-weight:700;color:#1f4b6e;');
+            console.log('%c提示：按 Alt+←/→ 快速切换步骤，按 Home 返回顶部', 'font-size:12px;color:#4a6a85;');
+
         })();
     </script>
 
