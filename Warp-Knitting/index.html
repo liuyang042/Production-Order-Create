@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
-    <title>TOPT · 经编常规工单开单流程 · 培训教材 v1.1</title>
+    <title>TOPT · 经编常规工单开单流程 · 培训教材 v1.2</title>
     <meta name="description" content="TOPT 经编常规工单开单流程培训教材，涵盖7个核心步骤，适配电脑、手机与打印。" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
         /* ============================================================
-           CSS 变量 — 浅色 / 深色自适应（融合盖黑版本精细变量）
+           CSS 变量 — 浅色 / 深色自适应（与盖黑版本保持统一）
            ============================================================ */
         :root {
             --bg-body: #eef3f8;
@@ -59,14 +59,14 @@
             --radius-lg: 32px;
             --radius-xl: 56px;
             --radius-full: 999px;
-            --img-max-width: 100%;
-            --img-max-height-desktop: clamp(420px, 60vh, 760px);
-            --img-max-height-tablet: clamp(320px, 50vh, 540px);
-            --img-max-height-mobile: clamp(240px, 45vh, 420px);
-            --img-max-height-print: 280px;
-            --grid-col-min-desktop: 320px;
-            --grid-col-min-tablet: 280px;
-            --grid-col-min-large: 420px;
+            /* ===== 图片尺寸变量 — 与盖黑版本保持一致 ===== */
+            --img-max-height-desktop: clamp(480px, 65vh, 820px);
+            --img-max-height-tablet: clamp(380px, 55vh, 620px);
+            --img-max-height-mobile: clamp(300px, 50vh, 480px);
+            --img-max-height-print: 320px;
+            --grid-col-min-desktop: 340px;
+            --grid-col-min-tablet: 300px;
+            --grid-col-min-large: 460px;
             --fs-h1: clamp(1.4rem, 4vw, 2rem);
             --fs-section: clamp(1.1rem, 3vw, 1.8rem);
             --fs-h3: clamp(0.95rem, 2.5vw, 1.35rem);
@@ -500,7 +500,7 @@
             font-size: 1.1rem;
         }
 
-        /* ========== 图片网格 ========== */
+        /* ========== 图片网格 — 与盖黑版本一致 ========== */
         .img-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(var(--grid-col-min-desktop), 1fr));
@@ -524,7 +524,7 @@
             gap: 2rem;
         }
 
-        /* ========== 图片卡片（增强版） ========== */
+        /* ========== 图片卡片 — 与盖黑版本保持一致 ========== */
         .img-card {
             background: var(--bg-img-card);
             backdrop-filter: blur(8px);
@@ -597,7 +597,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 120px;
+            min-height: 140px;
             transition: background 0.3s ease;
         }
         .img-wrapper .img-placeholder {
@@ -676,6 +676,7 @@
             outline-offset: 2px;
         }
 
+        /* ===== 关键修复：图片本身尺寸 ===== */
         .img-card img {
             width: 100%;
             height: auto;
@@ -1629,7 +1630,7 @@
                 </div>
                 <div class="header-left">
                     <h1>🧶 经编常规工单开单流程</h1>
-                    <div class="subhead">操作指引 · 培训教材 v1.1</div>
+                    <div class="subhead">操作指引 · 培训教材 v1.2</div>
                 </div>
             </div>
             <div class="header-right">
@@ -2077,7 +2078,7 @@
         <!-- 页脚 -->
         <footer class="footer-note" role="contentinfo">
             <span><i class="fas fa-check-circle" style="color:#1f6b4a;" aria-hidden="true"></i> TOPT 培训教材 · 内部使用</span>
-            <span class="doc-badge"><i class="fas fa-file-alt" aria-hidden="true"></i> 版本 v1.1</span>
+            <span class="doc-badge"><i class="fas fa-file-alt" aria-hidden="true"></i> 版本 v1.2</span>
             <span><i class="far fa-copyright" aria-hidden="true"></i> 刘洋 · liu-yang@top-textiles.vn</span>
         </footer>
 
@@ -2105,14 +2106,6 @@
     <script>
         (function() {
             'use strict';
-
-            function debounce(fn, delay) {
-                let timer = null;
-                return function(...args) {
-                    if (timer) clearTimeout(timer);
-                    timer = setTimeout(() => fn.apply(this, args), delay);
-                };
-            }
 
             // ============================================================
             // 1. 图片加载管理（含重试）
@@ -2426,7 +2419,7 @@
                 images.forEach(img => img.classList.add('loaded'));
             });
 
-            console.log('%c🧶 TOPT 培训教材 v1.0', 'font-size:16px;font-weight:700;color:#1f4b6e;');
+            console.log('%c🧶 TOPT 培训教材 v1.2 (经编·图片尺寸修复版)', 'font-size:16px;font-weight:700;color:#1f4b6e;');
             console.log('%c提示：按 Alt+←/→ 快速切换步骤，按 Home 返回顶部', 'font-size:12px;color:#4a6a85;');
 
         })();
