@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
-    <title>TOPT · 胚布抽用工单开单流程 · 培训教材 v1.1</title>
+    <title>TOPT · 胚布抽用工单开单流程 · 培训教材 v1.2</title>
     <meta name="description" content="TOPT 胚布抽用工单开单流程培训教材，涵盖6个核心步骤，含APO/ECC双方法，适配电脑、手机与打印。" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -55,13 +55,13 @@
             --fs-body: clamp(0.85rem, 1.8vw, 1rem);
             --fs-small: clamp(0.75rem, 1.5vw, 0.9rem);
             --fs-tiny: clamp(0.65rem, 1.2vw, 0.8rem);
-            --img-max-height-desktop: clamp(420px, 60vh, 760px);
-            --img-max-height-tablet: clamp(320px, 50vh, 540px);
-            --img-max-height-mobile: clamp(240px, 45vh, 420px);
+            --img-max-height-desktop: clamp(480px, 70vh, 820px);
+            --img-max-height-tablet: clamp(360px, 55vh, 580px);
+            --img-max-height-mobile: clamp(280px, 50vh, 460px);
             --img-max-height-print: 280px;
-            --grid-col-min-desktop: 240px;
-            --grid-col-min-tablet: 220px;
-            --grid-col-min-large: 400px;
+            --grid-col-min-desktop: 260px;
+            --grid-col-min-tablet: 240px;
+            --grid-col-min-large: 420px;
         }
 
         /* 深色模式 */
@@ -645,30 +645,39 @@
             margin-bottom: 0.1rem;
         }
 
-        /* 图片网格 — 优化 */
+        /* ============================================================
+           图片网格 — 优化关键：双图/四图强制双列，提升显示大小
+           ============================================================ */
         .img-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(var(--grid-col-min-desktop), 1fr));
             gap: 1.5rem 1.8rem;
             margin: 1.6rem 0 1.4rem 0;
         }
+        /* 单张图片居中 */
         .img-grid:has(> .img-card:only-child) {
             grid-template-columns: 1fr;
             max-width: 75%;
             margin-left: auto;
             margin-right: auto;
         }
+        /* 强制两列（适合双图及四图，四图自动形成2x2） */
+        .img-grid.two-col,
+        .img-grid.four-col {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        /* 四图额外优化：在大屏幕上保持2x2且间距稍大 */
+        .img-grid.four-col {
+            gap: 1.8rem 2rem;
+        }
+        /* 堆叠单列（用于特定情况） */
         .img-grid.stacked {
             grid-template-columns: 1fr !important;
             max-width: 80% !important;
             margin-left: auto !important;
             margin-right: auto !important;
         }
-        /* 大图网格用于分缸等多图场景 */
-        .img-grid.large-grid {
-            grid-template-columns: repeat(auto-fill, minmax(var(--grid-col-min-large), 1fr));
-            gap: 1.8rem 2rem;
-        }
+
         .img-card {
             background: var(--bg-img-card);
             backdrop-filter: blur(8px);
@@ -683,7 +692,7 @@
             align-items: center;
             justify-content: flex-start;
             content-visibility: auto;
-            contain-intrinsic-size: 250px;
+            contain-intrinsic-size: 300px;
         }
         .img-card:hover {
             transform: translateY(-6px) scale(1.005);
@@ -1196,10 +1205,13 @@
                 padding: 1.2rem 1.2rem;
                 border-radius: 28px;
             }
-            .img-grid,
-            .img-grid.large-grid {
+            .img-grid {
                 grid-template-columns: repeat(auto-fill, minmax(var(--grid-col-min-tablet), 1fr));
                 gap: 1.2rem;
+            }
+            .img-grid.two-col,
+            .img-grid.four-col {
+                grid-template-columns: repeat(2, 1fr);
             }
             .img-grid:has(> .img-card:only-child),
             .img-grid.stacked {
@@ -1259,9 +1271,12 @@
                 align-items: flex-start;
                 gap: 0.3rem;
             }
+            /* 移动端：所有图片网格强制单列，保证清晰 */
             .img-grid,
+            .img-grid.two-col,
+            .img-grid.four-col,
             .img-grid.large-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr !important;
                 gap: 1rem;
             }
             .img-grid:has(> .img-card:only-child),
@@ -1307,7 +1322,7 @@
                 grid-template-columns: 1fr;
             }
             .img-card img {
-                max-height: 260px;
+                max-height: 280px;
             }
         }
 
@@ -1511,7 +1526,10 @@
                 padding-left: 1.4rem !important;
                 background-size: 14px !important;
             }
+            /* 打印图片：双图/四图也强制两列，保持清晰 */
             .img-grid,
+            .img-grid.two-col,
+            .img-grid.four-col,
             .img-grid.large-grid {
                 display: grid !important;
                 grid-template-columns: repeat(2, 1fr) !important;
@@ -1620,7 +1638,7 @@
                 </div>
                 <div class="header-left">
                     <h1>🏷️ 胚布抽用工单开单流程</h1>
-                    <div class="subhead" role="doc-subtitle">操作指引 · 培训教材 v1.1</div>
+                    <div class="subhead" role="doc-subtitle">操作指引 · 培训教材 v1.2</div>
                 </div>
             </div>
             <div class="header-right">
@@ -1707,7 +1725,8 @@
                     操作 TF 儲存地點至銷售訂單（413 E 移动类型）
                     <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作功能代码：<span class="code-inline">ZSOHWM002</span></span>
                 </div>
-                <div class="img-grid">
+                <!-- 使用 two-col 类强制双图并排，且每个图片占一半宽度，显示更大 -->
+                <div class="img-grid two-col">
                     <div class="img-card">
                         <div class="img-wrapper">
                             <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
@@ -1788,7 +1807,8 @@
                             <i class="fas fa-edit" aria-hidden="true"></i> ① 删除 SF0251（補布原因）特性值；② 更改 PG0886（分紗ID）特性值为“F”开头；③ 更改 PF0621（是否已鎖胚）特性值为“Z”
                         </div>
                     </div>
-                    <div class="img-grid">
+                    <!-- ZSOH_SE17 特性值修改两张图，使用 two-col 并排 -->
+                    <div class="img-grid two-col">
                         <div class="img-card">
                             <div class="img-wrapper">
                                 <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
@@ -1820,7 +1840,8 @@
                         <strong>4-1-3：</strong>操作功能代码：<span class="code-inline">ZTRIM_XS___START</span>
                         <span class="remark"><i class="far fa-comment-dots" aria-hidden="true"></i> 操作：分缸</span>
                     </div>
-                    <div class="img-grid large-grid">
+                    <!-- 分缸四图，使用 four-col 强制2x2排列，每张图占一半宽度 -->
+                    <div class="img-grid four-col">
                         <div class="img-card">
                             <div class="img-wrapper">
                                 <div class="img-placeholder" aria-hidden="true"><div class="spinner"></div></div>
@@ -2080,7 +2101,7 @@
         <!-- 页脚 -->
         <footer class="footer-note" role="contentinfo">
             <span><i class="fas fa-check-circle" style="color:#1f6b4a;" aria-hidden="true"></i> TOPT 培训教材 · 内部使用</span>
-            <span class="doc-badge"><i class="fas fa-file-alt" aria-hidden="true"></i> 版本 v1.1</span>
+            <span class="doc-badge"><i class="fas fa-file-alt" aria-hidden="true"></i> 版本 v1.2</span>
             <span><i class="far fa-copyright" aria-hidden="true"></i> 刘洋 · liu-yang@top-textiles.vn</span>
         </footer>
     </div>
@@ -2462,7 +2483,7 @@
                 images.forEach(img => img.classList.add('loaded'));
             });
 
-            console.log('%c📘 TOPT 培训教材 v1.1', 'font-size:16px;font-weight:700;color:#1f4b6e;');
+            console.log('%c📘 TOPT 培训教材 v1.2', 'font-size:16px;font-weight:700;color:#1f4b6e;');
             console.log('%c提示：按 Alt+←/→ 快速切换步骤，按 Home 返回顶部', 'font-size:12px;color:#4a6a85;');
         })();
     </script>
