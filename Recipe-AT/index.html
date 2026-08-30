@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
         /* ============================================================
-           CSS 变量 — 浅色 / 深色 自适应
+           CSS 变量 — 浅色 / 深色 自适应（图片高度已优化）
            ============================================================ */
         :root {
             --bg-body: #f1f6fd;
@@ -50,9 +50,10 @@
             --img-radius: 14px;
             --gap-grid: 1.8rem;
             --max-img-width: 100%;
-            --img-max-height-desktop: 620px;
-            --img-max-height-tablet: 460px;
-            --img-max-height-mobile: 380px;
+            /* ---- 图片尺寸优化（增大高度限制） ---- */
+            --img-max-height-desktop: 760px;
+            --img-max-height-tablet: 540px;
+            --img-max-height-mobile: 420px;
             --img-max-height-print: 320px;
             --grid-col-min-desktop: 380px;
             --grid-col-min-tablet: 280px;
@@ -514,10 +515,10 @@
             margin: 1.6rem 0 1.4rem 0;
         }
 
-        /* 单张图片：居中并放大 */
+        /* 单张图片：居中并放大（宽度从 76% 提升到 88%） */
         .img-grid:has(> .img-card:only-child) {
             grid-template-columns: 1fr;
-            max-width: 76%;
+            max-width: 88%;
             margin-left: auto;
             margin-right: auto;
         }
@@ -1837,7 +1838,6 @@
                         placeholder?.classList.add('hidden');
                         errorDiv?.classList.add('visible');
                     });
-                    // 超时兜底（10秒）
                     setTimeout(() => {
                         if (!img.classList.contains('loaded') && !img.complete) {
                             placeholder?.classList.add('hidden');
